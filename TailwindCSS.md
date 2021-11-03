@@ -36,19 +36,19 @@ Lo mejor para aprender Tailwind es visitar su documentación
 
 1. Inicializar el proyecto con Node:
 
-```
+```bash
 npm init -y
 ```
 
 2. Instalar PostCss
 
-```
+```bash
 npm i -D postcss postcss-cli
 ```
 
 3. Crear archivo para configurar PostCss (postcss.config.js)
 
-```
+```js
 module.exports = {
   plugins: [require('tailwindcss'), require('autoprefixer')],
 };
@@ -56,7 +56,7 @@ module.exports = {
 
 4. Instalar Tailwind
 
-```
+```bash
 npm install -D tailwindcss@latest autoprefixer@latest
 
 O por separado:
@@ -67,7 +67,7 @@ npm i -D autoprefixer => Plugin de postcss. Sirve para transpilar css.
 
 5. Crear archivo de configuración de Tailwind
 
-```
+```bash
 npx tailwindcss init
 ```
 
@@ -75,7 +75,7 @@ npx tailwindcss init
 
 Crear una carpeta src y dentro ubicar el archivo css para tailwind y dentro ubicar lo siguiente:
 
-```
+```css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -83,7 +83,7 @@ Crear una carpeta src y dentro ubicar el archivo css para tailwind y dentro ubic
 
 7. Crear scripts en el documento PACKAGE.JSON
 
-```
+```json
 Build:
 
 "build": "postcss src/tailwind.css -o public/styles/style.css",
@@ -103,13 +103,13 @@ Watch:
 
 1. Primero creamos la applicación con React:
 
-```
+```bash
 npx create-react-app appTailwind
 ```
 
 2. Segundo vamos a ingresar dentro de la app y vamos a instalar Tailwind, postcss-cli y autoprefixer:
 
-```
+```bash
 npm install tailwindcss postcss-cli autoprefixer -D
 
 o
@@ -119,7 +119,7 @@ npm i tailwindcss postcss-cli autoprefixer -D
 
 3. Luego, creamos un archivo **postcss.config.js** y añadimos la siguiente config:
 
-```
+```js
 module.exports = {
   plugins: [
     // ...
@@ -132,7 +132,7 @@ module.exports = {
 
 4. Luego nos vamos a src y creamos un directorio llamado assets y creamos un archivo css: (tailwind.css) y dentro va esta config base:
 
-```
+```css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -141,7 +141,7 @@ module.exports = {
 
 Si queremos podemos añadir más configuraciones de estilos:
 
-```
+```css
 .btn {
     @apply py-2 px-4 rounded;
 }
@@ -162,7 +162,7 @@ Si queremos podemos añadir más configuraciones de estilos:
 
 5. Creamos los scripts que nos van a ayudar en el proyecto
 
-```
+```json
 "scripts": {
     "start": "npm run watch:css && react-scripts start",
     "build": "npm run build:css && react-scripts build",
