@@ -41,7 +41,7 @@ Sí podemos ejecutar nosotros la función, checa esto 👇
 
 Nosotros sí podemos hacer esto:
 
-```
+```js
 onClick={adentroTengoUnaFuncion()}
 
 Solamente sí nuestra función está así:
@@ -120,7 +120,7 @@ Nos va a permitir crear aplicaciones React con cero configuración, lo que nos p
 
 Para crear una aplicación utilizamos el comando npx create-react-app seguido del nombre que le quieras dar a tu aplicación.
 
-```
+```bash
 npx create-react-app my-app
 ```
 
