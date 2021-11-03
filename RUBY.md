@@ -26,11 +26,14 @@ P Muestra una versión más cruda de lo que se quiere imprimir.
 PUTS Retorna nil y P retorna el objeto que se le pasa
 La diferencia entre PUTS y PRINT es que PUTS añade una nueva línea al final de cada impresión, y PRINT no añade ninguna.
 Ejemplo:
+
+```rb
 puts [1,2]
 1
 2
 print [1,2]
 [1,2]
+```
 
 -   pp => Imprime hashes y arrays de una mejor manera
 -   p "Hola Mundo"
