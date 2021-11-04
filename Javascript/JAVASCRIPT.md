@@ -1,6 +1,4 @@
-# JAVASCRIPT
-
-NOTE: Ejemplos
+# Javascript
 
 - Spread Operator
 
