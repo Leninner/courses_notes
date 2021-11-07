@@ -766,8 +766,7 @@ Ejemplo:
   className='CreateTodoButton'
   onClick={() => {
     alert('Lenin, quieto');
-  }}
-></button>
+  }}></button>
 ```
 
 Es importante dejar a React el trabajo de ejecutar las funciones, así:
@@ -1085,6 +1084,123 @@ export default class CicloVida extends React.Component {
 
 ## Petición asíncronas: AJAX Y API´S
 
+## React Router DOM
+
+**React es de tipo SPA(single page application)**, no recarga la página cuando cambiamos de url. Sin embargo, router nos ayuda a crear otra página para poder navegar en nuestra aplicación.
+
+- Imagina twitter web, cuando das click en un tweet, se abre otra sección donde puedes ver el tweet. Sería un problema que al momento de darle click, no cambie la url, por lo que ese tweet no tiene dirección propia, no se guardaría en tu historial y sería un problema el SEO. Para ello, usamos router, que **se encargará de administrar esta situación, donde en el momento que abras el tweet, cambie la URL, pero todavía mantenga ese dinamismo y rapidez de una SPA.**
+
+¿Entonces qué es ReactRouterDOM?
+
+Para instalar y trabajar con **create-react-app**:
+
+```bash
+npm i react-router-dom
+
+o
+
+npm install react-router-dom
+```
+
+Import en App.jsx en Versión 6 o superior:
+
+```js
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+```
+
+Usaremos esas 3 herramientas: BrowserRouter, Routes, Route
+
+ReactRouterDOM **te permite implementar enrutado dinámico en la aplicación.** Nos facilita pues podemos enrutar nuestra app basada en componentes de la app:
+
+```js
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Layout>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='recovery-password' element={<Recoverypassword />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
+  );
+};
+```
+
+Para trabajar con configuración desde webpack es necesario añadir una configuración a output y añadir devServer:
+
+```js
+output: {
+  path: path.resolve(__dirname, 'dist'),
+  filename: 'bundle.js',
+  publicPath: '/',
+},
+devServer: {
+  historyApiFallback: true,
+}
+```
+
+**BrowserRoute** sirve para implementar router en el navegador.
+
+**Routes** _regresa la primera ruta que coincida_. En pocas palabras, si estamos en www.platzi.com/contacto , regresará el componente que coincida a este (es decir, el componente que contenga la lógica de contacto).
+En esta caso, estamos poniendo varios routes dentro de Routes, ¿para qué? para que solamente traiga esa misma ruta, y no tenga que buscar más. Como si fuese un condicional Routes de javascript efectivamente. Y por ello tenemos un route sin path, que será el valor por defecto.
+
+**Layout solamente renderizará el route que coincida efectivamente con la URL especificada.**
+
+## Metodología Atomic Design
+
+Se empieza a desarrollar desde lo más pequeño hacia lo más grande.
+
+Átomos
+
+Este es nuestro primer nivel de abstracción. Cuando diseñes un UI, mira los botones, textos, imágenes o entradas de texto. Son las partes más fundamentales y pequeñas que usamos.
+
+https://atomicdesign.bradfrost.com/images/content/html-periodic-table.png
+La imágen de arriba te ayudará a identificar que cosas pueden tomarse como átomos en tu próxima aplicación.
+
+https://atomicdesign.bradfrost.com/images/content/atoms-form-elements.png
+Moléculas
+
+Las moléculas son una unión de átomos. Todas estas moléculas, normalmente tienen una función específica para la cuál necesitan varios átomos. Por ejemplo, la glucosa C6H12O6, es la energía en carbohidratos del humanos. Ahora, pasemos al diseño. En interfaces, una parte como un comentario de twitter, una sección de youtube de ME GUSTA y NO ME GUSTA, o el menú en los videos de platzi para avanzar o retroceder en la clase, son todos moléculas. Estas estás compuestas de algunos componentes más pequeños (como por ejemplo, de botón y cuadro de texto). Este es nuestro segundo nivel. Crear moléculas es simple, y recuerda que deberán tener una función única en nuestra UI
+
+https://atomicdesign.bradfrost.com/images/content/molecule-search-form.png
+Organismos
+
+Los organismos, ya son un nivel mucho más complejo. Los organismo están compuesto de muchas moléculas. Pero lo más interesante, es que tienen vida propia, y pueden interactuar en una manera muy amplia con otros organismos. Imagina una abeja con una flor, ambos colaboran de una u otra manera a que el otro esté bien. En nuestro diseño, imagina al header. El header está compuesto de muchos elementos, y tienen un impacto muy grande en la app. O incluso, de una sección como una tienda de ropa en la paǵina web. Seguramente te das cuenta, que estos tienen muchos artículos, y todos constan de una imaǵen, precio, y un ordenamiento. Puedes verlo así:
+
+Átomo⇒ imágen, precio, descripción
+
+Molécula ⇒ el cuadro que contiene a la imágen, al precio y a la descripción.
+
+Organismo ⇒ todos los cuadros ordenados en forma de tabla.
+
+El organismo si te das cuenta, puede usar moléculas del mismo tipo o diferentes. El punto clave, es que no trates de abarcar tanto, y que pertenecen a una sección claramente definida en nuestra app.
+
+https://atomicdesign.bradfrost.com/images/content/organism-header.png
+Templates
+
+Los templates son prácticamente lo que vimos de Layouts. Es un poco más fácil de comprender. Es la plantilla en la cual siempre organizarás los organismos. Es decir, el esqueleto que indica donde irá por ejemplo, el Header, el footer, grid y sección de comentarios.
+
+https://atomicdesign.bradfrost.com/images/content/template.png
+Pages
+
+Finalmente tenemos a la constitución de nuestra app. Las pages son en sí, toda la página funcionando con contenido interactúando entre ellas.
+
+https://atomicdesign.bradfrost.com/images/content/page.png
+Una recomendación. No pienses en forma secuencial el atomic design. Es decir, no pienses ⇒ primero hago los átomos, después hago las moléculas, tercero los organismos… Según el mismo autor de atomic design, dependerá mucho de tu aplicación y de las necesidades que hay que cubrir. Más bien, es una manera mental de interpretar la UI
+
+No atribuyas atomic design como algo único de React o del desarrollo web ⇒ es un método de desarrollo de UI que se puede usar en cualquier interfaz.
+
+Te recomiendo profundamente leer el siguiente link, del cual usé toda la referencia. Además, es del autor del Atomic Design.
+
+**Components**: pieza más pequeño (átomo).
+**Containers**: Muestran la unión de uno o más componentes.
+**Pages**: Son las secciones / rutas que vamos a tener.
+
+NOTE: Es mejor añadir el nombre de las clases de manera similar al componente en el que estamos trabajando. También utilizar BEM.
+
 ## CSS en React
 
 Hay muchas formas de agregar estilos en CSS a React:
@@ -1101,7 +1217,7 @@ Es capaz de ser ejecutado cuando React ya realizó todos sus trabajos internos.
 
 > Al enviarle un arreglo también como parámetro, el Hook useEffect se va a ejecutar una sola vez. Sin importar si se renderiza miles de veces la página:
 
-```
+```js
 React.useEffect(() => {
   console.log('use effect');
 }, []);
@@ -1109,7 +1225,7 @@ React.useEffect(() => {
 
 > Al enviarle un parámetro dentro del arreglo, entonces el Hook se va a ejecutar siempre que haya cambios en ese parámetro:
 
-```
+```js
 React.useEffect(() => {
   console.log('use effect');
 }, [totalTodos]);
