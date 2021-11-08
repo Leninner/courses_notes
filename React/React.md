@@ -353,6 +353,25 @@ NOTE: ¿Cómo aprender React.js?
 
 Tener las bases fundamentales: HTML, CSS Y Javascript.
 
+### Componentes HOC (High Order Component)
+
+Reciben un componente, y los adaptan de otra manera para usarlos con “modificaciones”. **Es como el patrón decorator**.
+Suelen regresar un componente que modifica la lógica del componente anterior
+
+```js
+import React, { Component } from 'react';
+
+function ComponentWrapper(WrapperComponent) {
+  class Wrapper extends Component {
+    render() {
+      return <WrapperComponent {...this.props} />;
+    }
+  }
+
+  return Wrapper;
+}
+```
+
 ## Propiedades
 
 Son valores que recibe un componente hijo de uno padre. Se agrupan en un objeto llamado props, el cual puede recibir diferentes tipos de datos:
@@ -2040,26 +2059,23 @@ Esta estructura nos ayuda cuando nuestra aplicación no se divide solo por featu
       - ElasticTranscoder/
       - ElementalVideConnect/
 
-## Añadiendo imágenes con Webpack
+## Imágenes y alias en Webpack
 
 Al momento de compilar, Webpack guardará las imágenes en una nueva carpeta junto al código para producción y actualizará nuestros componentes (o donde sea que usemos las imágenes) con los nuevos nombres y rutas de los archivos.
 
-Para manejar imágenes con Webpack necesitamos un loader especial, el cuál lo vamos a instalar con:
+Para manejar imágenes con Webpack 5 no necesitamos ningún loader y directamento podemos editar el archivo webpack.config.js:
 
-> npm install --save-dev file-loader
-> npm i -D file-loader
-
-Después de haber instalado vamos a añadir una nueva regla en module de Webpack.config.js:
-
+```js
 {
-test: /\.(png|gif|jpg)$/,
-use: [
-{
-loader: 'file-loader',
-options: { name: 'assets/[hash].[ext]' },
-}
-],
+  test: /\.(png|gif|jpg)$/,
+  use: [
+    {
+      loader: 'file-loader',
+      options: { name: 'assets/[hash].[ext]' },
+    }
+  ],
 },
+```
 
 NOTE: Uso de File Loader con React:
 
@@ -2071,6 +2087,27 @@ const Component = () => (
 );
 
 export default Component;
+
+### Alias
+
+Sirve para tener las rutas guardadas en variables y no tener que escribir rutas tan largas. para configurarlo con Webpack 5:
+
+```js
+// Config en el apartado resolve:
+
+resolve: {
+    extensions: ['.js', '.jsx'],
+    alias: {
+      '@components': path.resolve(__dirname, 'src/components'),
+      '@container': path.resolve(__dirname, 'src/containers'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
+      '@routes': path.resolve(__dirname, 'src/routes'),
+      '@styles': path.resolve(__dirname, 'src/styles'),
+      '@icons': path.resolve(__dirname, 'src/assets/icons'),
+      '@logos': path.resolve(__dirname, 'src/assets/logos'),
+  },
+},
+```
 
 ## Imports, Variables y Fuentes de Google en Sass
 
