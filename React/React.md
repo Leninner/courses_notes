@@ -278,7 +278,7 @@ NOTE: La diferencia entre exportar de manera default es que la tecnología nos p
 
 ### Componentes Stateless
 
-No depende de un estado o un ciclo de vida. Solamente va a presentar la lógica. Son más usadas en la época actual. Solo sirve para mostrar la parte visual.
+**No depende de un estado o un ciclo de vida**. Solamente va a presentar la lógica. Son más usadas en la época actual. Solo sirve para mostrar la parte visual.
 
 También tenemos componentes Presentacionales. Los usamos creando funciones que devuelvan código en formato JSX.
 
@@ -289,6 +289,7 @@ import React from 'react';
 const Stateless = () => {
   return <h1>¡Hola!</h1>;
 };
+
 // Otra forma de crearlos:
 const Stateless = () => <h1>¡Hola!</h1>;
 export default Stateless;
@@ -1153,47 +1154,43 @@ En esta caso, estamos poniendo varios routes dentro de Routes, ¿para qué? para
 
 Se empieza a desarrollar desde lo más pequeño hacia lo más grande.
 
-Átomos
+> https://atomicdesign.bradfrost.com/images/content/html-periodic-table.png
 
-Este es nuestro primer nivel de abstracción. Cuando diseñes un UI, mira los botones, textos, imágenes o entradas de texto. Son las partes más fundamentales y pequeñas que usamos.
+1. Átomos
+   Este es nuestro primer nivel de abstracción. Cuando diseñes un UI,**mira los botones, textos, imágenes o entradas de texto**. Son las partes más fundamentales y pequeñas que usamos.
+   https://atomicdesign.bradfrost.com/images/content/atoms-form-elements.png
 
-https://atomicdesign.bradfrost.com/images/content/html-periodic-table.png
-La imágen de arriba te ayudará a identificar que cosas pueden tomarse como átomos en tu próxima aplicación.
+2. Moléculas
+   Las moléculas son una unión de átomos. Todas estas moléculas, normalmente tienen una función específica para la cuál necesitan varios átomos. Por ejemplo, la glucosa C6H12O6, es la energía en carbohidratos del humanos.
+   Ahora, pasemos al diseño.
+   En interfaces, una parte como un comentario de twitter, una sección de youtube de ME GUSTA y NO ME GUSTA, o el menú en los videos de platzi para avanzar o retroceder en la clase, son todos moléculas.
+   Estas están compuestas de algunos **componentes más pequeños** (como por ejemplo, de botón y cuadro de texto). Este es nuestro segundo nivel. Crear moléculas es simple, y recuerda que deberán tener una función única en nuestra UI
+   https://atomicdesign.bradfrost.com/images/content/molecule-search-form.png
 
-https://atomicdesign.bradfrost.com/images/content/atoms-form-elements.png
-Moléculas
+3. Organismos
+   Los organismo están compuesto de muchas moléculas. Tienen vida propia, y pueden interactuar en una manera muy amplia con otros organismos.
+   Imagina una abeja con una flor, ambos colaboran de una u otra manera a que el otro esté bien.
+   **En nuestro diseño, imagina al header.** El header está compuesto de muchos elementos, y tienen un impacto muy grande en la app. O incluso, de una sección como una tienda de ropa en la paǵina web. Seguramente te das cuenta, que estos tienen muchos artículos, y todos constan de una imaǵen, precio, y un ordenamiento. Puedes verlo así:
 
-Las moléculas son una unión de átomos. Todas estas moléculas, normalmente tienen una función específica para la cuál necesitan varios átomos. Por ejemplo, la glucosa C6H12O6, es la energía en carbohidratos del humanos. Ahora, pasemos al diseño. En interfaces, una parte como un comentario de twitter, una sección de youtube de ME GUSTA y NO ME GUSTA, o el menú en los videos de platzi para avanzar o retroceder en la clase, son todos moléculas. Estas estás compuestas de algunos componentes más pequeños (como por ejemplo, de botón y cuadro de texto). Este es nuestro segundo nivel. Crear moléculas es simple, y recuerda que deberán tener una función única en nuestra UI
+   - Átomo⇒ imágen, precio, descripción
+   - Molécula ⇒ el cuadro que contiene a la imágen, al precio y a la descripción.
+   - Organismo ⇒ todos los cuadros ordenados en forma de tabla.
 
-https://atomicdesign.bradfrost.com/images/content/molecule-search-form.png
-Organismos
+   - El organismo si te das cuenta, puede usar moléculas del mismo tipo o diferentes. El punto clave, es que no trates de abarcar tanto, y que pertenecen a una sección claramente definida en nuestra app.
+     https://atomicdesign.bradfrost.com/images/content/organism-header.png
 
-Los organismos, ya son un nivel mucho más complejo. Los organismo están compuesto de muchas moléculas. Pero lo más interesante, es que tienen vida propia, y pueden interactuar en una manera muy amplia con otros organismos. Imagina una abeja con una flor, ambos colaboran de una u otra manera a que el otro esté bien. En nuestro diseño, imagina al header. El header está compuesto de muchos elementos, y tienen un impacto muy grande en la app. O incluso, de una sección como una tienda de ropa en la paǵina web. Seguramente te das cuenta, que estos tienen muchos artículos, y todos constan de una imaǵen, precio, y un ordenamiento. Puedes verlo así:
+4. Templates
+   Es la plantilla en la cual siempre organizarás los organismos. Es decir, el esqueleto que indica donde irá por ejemplo, el Header, el footer, grid y sección de comentarios.
+   https://atomicdesign.bradfrost.com/images/content/template.png
 
-Átomo⇒ imágen, precio, descripción
+5. Pages
+   Las pages son en sí, toda la página funcionando con contenido interactúando entre ellas.
+   https://atomicdesign.bradfrost.com/images/content/page.png
 
-Molécula ⇒ el cuadro que contiene a la imágen, al precio y a la descripción.
+[NOTE]: Una recomendación. No pienses en forma secuencial el atomic design. Es decir, no pienses ⇒ primero hago los átomos, después hago las moléculas, tercero los organismos…
+**Según el mismo autor de atomic design**, dependerá mucho de tu aplicación y de las necesidades que hay que cubrir. Más bien, es una manera mental de interpretar la UI
 
-Organismo ⇒ todos los cuadros ordenados en forma de tabla.
-
-El organismo si te das cuenta, puede usar moléculas del mismo tipo o diferentes. El punto clave, es que no trates de abarcar tanto, y que pertenecen a una sección claramente definida en nuestra app.
-
-https://atomicdesign.bradfrost.com/images/content/organism-header.png
-Templates
-
-Los templates son prácticamente lo que vimos de Layouts. Es un poco más fácil de comprender. Es la plantilla en la cual siempre organizarás los organismos. Es decir, el esqueleto que indica donde irá por ejemplo, el Header, el footer, grid y sección de comentarios.
-
-https://atomicdesign.bradfrost.com/images/content/template.png
-Pages
-
-Finalmente tenemos a la constitución de nuestra app. Las pages son en sí, toda la página funcionando con contenido interactúando entre ellas.
-
-https://atomicdesign.bradfrost.com/images/content/page.png
-Una recomendación. No pienses en forma secuencial el atomic design. Es decir, no pienses ⇒ primero hago los átomos, después hago las moléculas, tercero los organismos… Según el mismo autor de atomic design, dependerá mucho de tu aplicación y de las necesidades que hay que cubrir. Más bien, es una manera mental de interpretar la UI
-
-No atribuyas atomic design como algo único de React o del desarrollo web ⇒ es un método de desarrollo de UI que se puede usar en cualquier interfaz.
-
-Te recomiendo profundamente leer el siguiente link, del cual usé toda la referencia. Además, es del autor del Atomic Design.
+Es un método de desarrollo de UI que se puede usar en cualquier interfaz.
 
 **Components**: pieza más pequeño (átomo).
 **Containers**: Muestran la unión de uno o más componentes.
