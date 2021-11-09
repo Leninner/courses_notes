@@ -1169,54 +1169,6 @@ En esta caso, estamos poniendo varios routes dentro de Routes, ¿para qué? para
 
 **Layout solamente renderizará el route que coincida efectivamente con la URL especificada.**
 
-## Metodología Atomic Design
-
-Se empieza a desarrollar desde lo más pequeño hacia lo más grande.
-
-> https://atomicdesign.bradfrost.com/images/content/html-periodic-table.png
-
-1. Átomos
-   Este es nuestro primer nivel de abstracción. Cuando diseñes un UI,**mira los botones, textos, imágenes o entradas de texto**. Son las partes más fundamentales y pequeñas que usamos.
-   https://atomicdesign.bradfrost.com/images/content/atoms-form-elements.png
-
-2. Moléculas
-   Las moléculas son una unión de átomos. Todas estas moléculas, normalmente tienen una función específica para la cuál necesitan varios átomos. Por ejemplo, la glucosa C6H12O6, es la energía en carbohidratos del humanos.
-   Ahora, pasemos al diseño.
-   En interfaces, una parte como un comentario de twitter, una sección de youtube de ME GUSTA y NO ME GUSTA, o el menú en los videos de platzi para avanzar o retroceder en la clase, son todos moléculas.
-   Estas están compuestas de algunos **componentes más pequeños** (como por ejemplo, de botón y cuadro de texto). Este es nuestro segundo nivel. Crear moléculas es simple, y recuerda que deberán tener una función única en nuestra UI
-   https://atomicdesign.bradfrost.com/images/content/molecule-search-form.png
-
-3. Organismos
-   Los organismo están compuesto de muchas moléculas. Tienen vida propia, y pueden interactuar en una manera muy amplia con otros organismos.
-   Imagina una abeja con una flor, ambos colaboran de una u otra manera a que el otro esté bien.
-   **En nuestro diseño, imagina al header.** El header está compuesto de muchos elementos, y tienen un impacto muy grande en la app. O incluso, de una sección como una tienda de ropa en la paǵina web. Seguramente te das cuenta, que estos tienen muchos artículos, y todos constan de una imaǵen, precio, y un ordenamiento. Puedes verlo así:
-
-   - Átomo⇒ imágen, precio, descripción
-   - Molécula ⇒ el cuadro que contiene a la imágen, al precio y a la descripción.
-   - Organismo ⇒ todos los cuadros ordenados en forma de tabla.
-
-   - El organismo si te das cuenta, puede usar moléculas del mismo tipo o diferentes. El punto clave, es que no trates de abarcar tanto, y que pertenecen a una sección claramente definida en nuestra app.
-     https://atomicdesign.bradfrost.com/images/content/organism-header.png
-
-4. Templates
-   Es la plantilla en la cual siempre organizarás los organismos. Es decir, el esqueleto que indica donde irá por ejemplo, el Header, el footer, grid y sección de comentarios.
-   https://atomicdesign.bradfrost.com/images/content/template.png
-
-5. Pages
-   Las pages son en sí, toda la página funcionando con contenido interactúando entre ellas.
-   https://atomicdesign.bradfrost.com/images/content/page.png
-
-[NOTE]: Una recomendación. No pienses en forma secuencial el atomic design. Es decir, no pienses ⇒ primero hago los átomos, después hago las moléculas, tercero los organismos…
-**Según el mismo autor de atomic design**, dependerá mucho de tu aplicación y de las necesidades que hay que cubrir. Más bien, es una manera mental de interpretar la UI
-
-Es un método de desarrollo de UI que se puede usar en cualquier interfaz.
-
-**Components**: pieza más pequeño (átomo).
-**Containers**: Muestran la unión de uno o más componentes.
-**Pages**: Son las secciones / rutas que vamos a tener.
-
-NOTE: Es mejor añadir el nombre de las clases de manera similar al componente en el que estamos trabajando. También utilizar BEM.
-
 ## CSS en React
 
 Hay muchas formas de agregar estilos en CSS a React:
@@ -1224,11 +1176,13 @@ Hay muchas formas de agregar estilos en CSS a React:
 1. Añadir a través de objetos => Se debe crear un objeto con llaves y añadirlo con "style = {estilos}" en la etiqueta de HTML que queremos que lleve ese estilo.
 2. También se puede crear archivos css por separado y luego añadirlos a cada componente.
 
-## Manejo de Efectos
+## Hooks
+
+### React.useEffect
 
 React.useEffect() => Sirve para ejecutar el código que le pasemos por dentro **junto antes de que el componente esté listo para ser mostrado.**
-Debemos enviarle una función para ser ejecutada.
 
+Debemos enviarle una función para ser ejecutada.
 Es capaz de ser ejecutado cuando React ya realizó todos sus trabajos internos.
 
 > Al enviarle un arreglo también como parámetro, el Hook useEffect se va a ejecutar una sola vez. Sin importar si se renderiza miles de veces la página:
@@ -1246,6 +1200,264 @@ React.useEffect(() => {
   console.log('use effect');
 }, [totalTodos]);
 ```
+
+#### Axios
+
+Nos va a servir para hacer las llamadas a API´s de una manera más óptima y fácil.
+
+```bash
+npm i axios
+```
+
+Para poder hacer llamadas a API´s dentro de React podemos hacer lo siguiente:
+
+```js
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const API = 'https://api.escuelajs.co/api/v1/products';
+
+const ComponenteMuestra = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(async () => {
+    const response = await axios(API);
+    setProducts(response.data);
+  }, []);
+};
+
+export { ComponenteMuestra };
+```
+
+### Custom Hook
+
+Crear un Custom Hook significa que vamos a pasar la información que teníamos a una función que podemos usar cuántos veces queramos.
+
+Podemos crear Hooks personalizados aparte de la lógica que tenemos, por convención debe empezar por la palabra **use**
+
+```js
+//Custom Hook para obtener productos desde una API
+
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const useGetProducts = (API) => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(async () => {
+    const response = await axios(API);
+    setProducts(response.data);
+  }, []);
+
+  return products;
+};
+
+export { useGetProducts };
+```
+
+### React.useRef y Formularios
+
+**useRef** es un hook utilizado para obtener una referencia a los datos de un objeto con información mutable.
+Es decir, es como una manera de siempre poder obtener los datos mas recientes mediante referencia de algún objeto de html.
+Un formulario es una gran ejemplo.
+Dos características importantes de useRef es que los datos son persistentes en caso de que se re-renderice el componente. Así como también, actualizar los datos de esta referencia no causan el re-render. Cabe recalcar la diferencia con useState, que la actualización de datos es síncrona, ya además como hemos mencionado, no se re-renderiza
+
+**useRef:**
+
+- Genera una referencia al elemento y podremos acceder a los valores por medio de ‘current’, y por este medio obtener lo que estamos typeando según sea el caso y poderlo transmitir a donde lo necesitemos.
+- El elemento que tendrá la referencia debe tener atributo: ref={NOMBRE_USEREF}
+- Podemos acceder a toda la data de la siguiente manera: new FormData(NOMBRE_USEREF.current);
+- El elemento también debe tener un atributo: name=“NOMBRE” y podremos acceder a la data que trae en current de la siguiente manera: formData.get(‘NOMBRE’);
+
+Ejemplo de uso de useRef con un formulario:
+
+```js
+import React, { useRef } from 'react';
+import '@styles/Login.scss';
+import logo from '@logos/logo_yard_sale.svg';
+
+const Login = () => {
+  const form = useRef(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(form.current); //https://developer.mozilla.org/es/docs/Web/API/FormData
+    const data = { username: formData.get('email'), password: formData.get('password') };
+    console.log(data);
+  };
+
+  return (
+    <div className='Login'>
+      <div className='Login-container'>
+        <img src={logo} alt='logo' className='logo' />
+        <form action='/' className='form' ref={form}>
+          <label htmlFor='email' className='label'>
+            Email address
+          </label>
+          <input type='text' name='email' placeholder='platzi@example.cm' className='input input-email' />
+          <label htmlFor='password' className='label'>
+            Password
+          </label>
+          <input type='password' name='password' placeholder='*********' className='input input-password' />
+          <button onClick={(e) => handleSubmit(e)} className='primary-button login-button'>
+            Log in
+          </button>
+          <a href='/'>Forgot my password</a>
+        </form>
+        <button className='secondary-button signup-button'>Sign up</button>
+      </div>
+    </div>
+  );
+};
+
+export { Login };
+```
+
+### React.useContext
+
+Nos provee una mejor manera de trabajar con props.
+Nos permite crear provaiders y consumers para que nuestro estado, ya no solo podamos compartirlo entre los diferentes elementos de nuestros componentes, sino también entre los diferentes componentes de la aplicación.
+
+NOTE: Nos permite comunicar **props** entre toda la aplicación evitando la comunicación de padre a hijo y tataranieto.
+
+TODO: Redux se enfoca en el flujo de la información de la app dependiendo de eventualidades que tienen que pasar.
+TODO: Provee información sin necesidades de tener que estar pasando las props por todos los componentes de la app.
+
+> Ya no vamos a pasar props y props por cada componente.
+
+Pasos para usar useContext:
+
+1. Crear una carpeta llamada context y dentro crear un archivo .js con la siguiente configuración:
+
+```js
+import React from 'react';
+
+const AppContext = React.createContext({});
+
+export { AppContext };
+```
+
+2. (Opcional pero muy recomendable) Crear un nuevo custom hook que puede ser llamado useInitialState.js y añadimos la configuración que necesitamos, manejando un useState:
+
+```js
+import { useState } from 'react';
+
+const initialState = {
+  cart: [],
+};
+
+const useInitialState = () => {
+  const [state, setState] = useState(initialState);
+
+  const addToCart = (payload) => {
+    setState({ ...state, cart: [...state.cart, payload] });
+  };
+
+  return { state, addToCart };
+};
+
+export { useInitialState };
+```
+
+3. Vamos al archivo padre que está presentando la App en HTML, importamos nuestro archivo de la carpeta context y lo que tenemos dentro de return lo encerramos con el <nombre_del_archivo_de_la_carpeta_context.Provider value={}>{Componentes y datos}<nombre_del_archivo_de_la_carpeta_context.Provider/>:
+
+```js
+import { AppContext } from '@context/AppContext';
+
+const App = () => {
+  const initialState = useInitialState();
+  return (
+    <AppContext.Provider value={}>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/recovery-password' element={<RecoveryPassword />} />
+            <Route path='/pay' element={<Checkout />} />
+            <Route path='/new-account' element={<CreateAccount />} />
+            <Route path='/account' element={<MyAccount />} />
+            <Route path='/new-password' element={<NewPassword />} />
+            <Route path='/carrito' element={<Orders />} />
+            <Route path='/send-email' element={<SendEmail />} />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </AppContext.Provider>
+  );
+};
+
+export { App };
+```
+
+4. Importamos nuestro Hook con useState, lo inicializamos en una constante para poder pasarle como parámetro de value en <nombre_archivo_context value={archivo_custom_hook}></nombre_archivo_context>:
+
+```js
+import { useInitialState } from '@hooks/useInitialState';
+import { AppContext } from '@context/AppContext';
+
+const App = () => {
+  const initialState = useInitialState();
+  return (
+    <AppContext.Provider value={initialState}>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/recovery-password' element={<RecoveryPassword />} />
+            <Route path='/pay' element={<Checkout />} />
+            <Route path='/new-account' element={<CreateAccount />} />
+            <Route path='/account' element={<MyAccount />} />
+            <Route path='/new-password' element={<NewPassword />} />
+            <Route path='/carrito' element={<Orders />} />
+            <Route path='/send-email' element={<SendEmail />} />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </AppContext.Provider>
+  );
+};
+
+export { App };
+```
+
+5. Nos vamos al componente en donde necesitamos usar useContext y añadimos la configuración:
+
+```js
+import React, { useContext } from 'react';
+import { AppContext } from '@context/AppContext';
+
+const ProductItem = ({ product }) => {
+  //Aquí estamos usando useContext para traer el stado inicial desde App.jsx
+  const { addToCart } = useContext(AppContext);
+
+  const handleClick = (item) => {
+    addToCart(item);
+  };
+
+  return (
+    <div className='ProductItem'>
+      <img src={product.images[2]} alt={product.title} />
+      <div className='product-info'>
+        <div>
+          <p>${product.price},00</p>
+          <p>{product.title}</p>
+        </div>
+        <figure onClick={() => handleClick(product)}>
+          <img src={addCart} alt='' />
+        </figure>
+      </div>
+    </div>
+  );
+};
+
+export { ProductItem };
+```
+
+NOTE: El archivo dentro de la carpeta context nos ayuda a conectar el contexto para que pueda ser usado por cualquier elemento que lo necesite
 
 ## Local Storage
 
@@ -1265,46 +1477,6 @@ Para persistir datos, hacemos uso de **setItem("versión", string)**, que recibe
 Para insertar el string, debemos hacer uso de **JSON.stringify("data").**
 Para obtener lo que está guardado en localStorage, hacemos uso de **getItem("versión")**, y solamente le debemos pasar la versión. **Y nos devolverá un string con los datos.**
 Para convertir estos datos de nuevo en Javascript puro, **utilizamos JSON.parse();**
-
-## Hooks
-
-### React Hook personalizado
-
-Podemos crear Hooks personalizados aparte de la lógica que tenemos:
-
-```
-function useLocalStorage(itemName, initialValue) {
-  //NOTE: Local Storage
-  const localStorageItem = localStorage.getItem(itemName);
-  let parsedItem;
-
-  //Lógica para comprobar si ya han usado la aplicación o no.
-  if (!localStorageItem) {
-    localStorage.setItem(itemName, JSON.stringify(initialValue));
-    parsedItem = initialValue;
-  } else {
-    parsedItem = JSON.parse(localStorageItem);
-  }
-
-  const [item, setItem] = React.useState(parsedItem);
-
-  //Función para controlar el flujo de la app
-  const saveItem = (newItem) => {
-    const stringifiedItem = JSON.stringify(newItem);
-    localStorage.setItem(itemName, stringifiedItem);
-    setItem(newItem);
-  };
-  return [item, saveItem];
-}
-```
-
-### React Context
-
-Nos permite crear provaiders y consumers para que nuestro estado, ya no solo podamos compartirlo entre los diferentes elementos de nuestros componentes, sino también entre los diferentes componentes de la aplicación.
-
-Ya no vamos a pasar props y props por cada componente.
-
-Se puede usar React.useContext y recibir los datos que necesito.
 
 ## Props: Comunicación entre Componentes
 
@@ -1707,6 +1879,7 @@ Instalar Eslint:
 
 Debemos crear un archivo llamado .eslintrc, en donde vamos a crear la configuración de nuestro proyecto:
 
+```json
 {
 "env": {
 "browser": true,
@@ -1950,6 +2123,7 @@ También podemos utilizar:
 },
 "parser": "babel-eslint"
 }
+```
 
 También tenemos un archivo .gitignore, que estará en el proyecto de react time app o platzi video.
 
@@ -2538,3 +2712,51 @@ Podemos utilizar solo npm deploy, sin haber hecho antes el predeploy, ya que la 
 Debemos añadir un archivo a el archivo JSON con el siguiente formato: "homepage": "https://leninner.github.io/react-platzi-video",
 
 NOTE: Este método sirve para hacer deploy de apps hechas con create-react-app
+
+# Metodología Atomic Design
+
+Se empieza a desarrollar desde lo más pequeño hacia lo más grande.
+
+> https://atomicdesign.bradfrost.com/images/content/html-periodic-table.png
+
+1. Átomos
+   Este es nuestro primer nivel de abstracción. Cuando diseñes un UI,**mira los botones, textos, imágenes o entradas de texto**. Son las partes más fundamentales y pequeñas que usamos.
+   https://atomicdesign.bradfrost.com/images/content/atoms-form-elements.png
+
+2. Moléculas
+   Las moléculas son una unión de átomos. Todas estas moléculas, normalmente tienen una función específica para la cuál necesitan varios átomos. Por ejemplo, la glucosa C6H12O6, es la energía en carbohidratos del humanos.
+   Ahora, pasemos al diseño.
+   En interfaces, una parte como un comentario de twitter, una sección de youtube de ME GUSTA y NO ME GUSTA, o el menú en los videos de platzi para avanzar o retroceder en la clase, son todos moléculas.
+   Estas están compuestas de algunos **componentes más pequeños** (como por ejemplo, de botón y cuadro de texto). Este es nuestro segundo nivel. Crear moléculas es simple, y recuerda que deberán tener una función única en nuestra UI
+   https://atomicdesign.bradfrost.com/images/content/molecule-search-form.png
+
+3. Organismos
+   Los organismo están compuesto de muchas moléculas. Tienen vida propia, y pueden interactuar en una manera muy amplia con otros organismos.
+   Imagina una abeja con una flor, ambos colaboran de una u otra manera a que el otro esté bien.
+   **En nuestro diseño, imagina al header.** El header está compuesto de muchos elementos, y tienen un impacto muy grande en la app. O incluso, de una sección como una tienda de ropa en la paǵina web. Seguramente te das cuenta, que estos tienen muchos artículos, y todos constan de una imaǵen, precio, y un ordenamiento. Puedes verlo así:
+
+   - Átomo⇒ imágen, precio, descripción
+   - Molécula ⇒ el cuadro que contiene a la imágen, al precio y a la descripción.
+   - Organismo ⇒ todos los cuadros ordenados en forma de tabla.
+
+   - El organismo si te das cuenta, puede usar moléculas del mismo tipo o diferentes. El punto clave, es que no trates de abarcar tanto, y que pertenecen a una sección claramente definida en nuestra app.
+     https://atomicdesign.bradfrost.com/images/content/organism-header.png
+
+4. Templates
+   Es la plantilla en la cual siempre organizarás los organismos. Es decir, el esqueleto que indica donde irá por ejemplo, el Header, el footer, grid y sección de comentarios.
+   https://atomicdesign.bradfrost.com/images/content/template.png
+
+5. Pages
+   Las pages son en sí, toda la página funcionando con contenido interactúando entre ellas.
+   https://atomicdesign.bradfrost.com/images/content/page.png
+
+[NOTE]: Una recomendación. No pienses en forma secuencial el atomic design. Es decir, no pienses ⇒ primero hago los átomos, después hago las moléculas, tercero los organismos…
+**Según el mismo autor de atomic design**, dependerá mucho de tu aplicación y de las necesidades que hay que cubrir. Más bien, es una manera mental de interpretar la UI
+
+Es un método de desarrollo de UI que se puede usar en cualquier interfaz.
+
+**Components**: pieza más pequeño (átomo).
+**Containers**: Muestran la unión de uno o más componentes.
+**Pages**: Son las secciones / rutas que vamos a tener.
+
+NOTE: Es mejor añadir el nombre de las clases de manera similar al componente en el que estamos trabajando. También utilizar BEM.
