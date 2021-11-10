@@ -16,8 +16,7 @@ Puede convertirse en un framework. Tiene un flujo de datos unidireccional.
 
 **React es una librería (biblioteca) desarrollada por Facebook que nos ayuda a construir interfaces de usuario interactivas para todo tipo de aplicaciones: web, móviles o de escritorio.**
 
-Tiene el modulo MCV => Modelo vista controlador.
-Resuleve el problemas de las vistas del sitio.
+Tiene el modulo MVC => Modelo Vista Controlador: **Resuelve el problemas de las vistas del sitio.**
 
 Cada pequeña parte de nuestra página web la conoceremos como **Componente**. Cada componente se encargará de una función en específico. Además, podremos reutilizar nuestros componentes siempre que lo necesitemos.
 Al unir todos nuestros componentes tendremos una página web que nos permite cambiar, actualizar o eliminar elementos de forma muy sencilla.
