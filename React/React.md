@@ -119,6 +119,7 @@ El DOM es el código HTML que se transforma en páginas web.
 Cada vez que cambiamos alguna parte del DOM, también estamos actualizando el HTML con el que interactúan nuestros usuarios. El problema es que todas las operaciones, comparaciones y actualizaciones en el DOM son muy costosas.
 
 **Virtual DOM** es una herramienta que usan tecnologías como React y Vue para mejorar el **rendimiento (performance) y velocidad de nuestras aplicaciones.**
+
 - **Es una copia exacta del DOM, pero mucho más ligera**, ya que los cambios no actualizan el verdadero HTML de nuestras páginas web. Gracias al Virtual DOM podemos hacer operaciones y comparaciones de forma sumamente rápida.
 - Recuerda que los cambios en el Virtual DOM no afectan el HTML que ven los usuarios, así que se deben estar sincronizando constantemente las copias con el DOM. PERO, **React DOM lo hace por nosotros.**
 
@@ -197,19 +198,19 @@ Algunas reglas importantes:
 4. Los atributos de un elemento JSX pueden aceptar valores de tipo String entrecomillados o expresiones JavaScript entre llaves, por ejemplo:
 
 ```js
-<img alt="Avatar" src={user.avatarURL} />
+<img alt='Avatar' src={user.avatarURL} />
 ```
 
 Las etiquetas "HTML" se convierten en Javascript Vanilla por acción de babel:
 
 ```js
-<div class="active">Hola Mundo</div>
+<div class='active'>Hola Mundo</div>
 ```
 
 se transforma en el siguiente código JavaScript:
 
 ```js
-React.createElement("div", { className: "active" }, "Hola mundo"); // => **tipo, atributos, contenido**
+React.createElement('div', { className: 'active' }, 'Hola mundo'); // => **tipo, atributos, contenido**
 ```
 
 NOTE: https://babeljs.io/repl => Sirve para ver en que se convierte nuetro código.
@@ -2698,3 +2699,59 @@ Es un método de desarrollo de UI que se puede usar en cualquier interfaz.
 **Pages**: Son las secciones / rutas que vamos a tener.
 
 NOTE: Es mejor añadir el nombre de las clases de manera similar al componente en el que estamos trabajando. También utilizar BEM.
+
+# Automatización y Despliegue con Github Actions
+
+1. Buscar en el Marketplace de Github:
+   - Deploy con Github Actions
+2. Copiar el código de "Get Started"
+
+```yml
+name: Build and Deploy
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+
+      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: build # The folder the action should deploy.
+```
+
+3. Crear una carpeta llamada github en la carpeta raíz del proyecto
+4. Crear otra carpeta llamada workflows dentro de la carpeta de github
+5. Crear un archivo llamado como queramos: deployToGp.yml y dentro pegamos:
+
+```yml
+name: Build and Deploy
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+
+      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: build # The folder the action should deploy.
+```
+
+<!-- Stand By -->
