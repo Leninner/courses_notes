@@ -1,12 +1,34 @@
 # Javascript
 
+## Notas Interesantes
+
+Existen retornos implícitos y explícitos con la función Map.
+
+Implícito (Ejemplo con React):
+
+```js
+{
+  state.cart.map((item) => <OrderItem product={item} key={`order-item-${item.id}`} />);
+}
+```
+
+Explícito (Ejemplo con React):
+
+```js
+{
+  state.cart.map((item) => {
+    return <OrderItem product={item} key={`order-item-${item.id}`} />;
+  });
+}
+```
+
 - Spread Operator
 
 ```js
 const obj = {
-  name: "Oscar",
+  name: 'Oscar',
   age: 32,
-  country: "MX",
+  country: 'MX',
 };
 
 let { name, ...addInfo } = obj;
@@ -20,27 +42,27 @@ console.log(`name and age: `, nameAndAge);
 Another example:
 
 ```js
-let teamOne = [1,2,3]
-let teamTwo = [4,5,6]
-let teamThree = [4, ...teamOne, ...teamTwo]
+let teamOne = [1, 2, 3];
+let teamTwo = [4, 5, 6];
+let teamThree = [4, ...teamOne, ...teamTwo];
 
-let name = "Oscar"
-let age = 12
+let name = 'Oscar';
+let age = 12;
 
-let objeto = {name, age}; // Funciona por las nuevas funcionalidades de ES6
+let objeto = { name, age }; // Funciona por las nuevas funcionalidades de ES6
 ```
 
 - Propiedades de Propagación
 
 ```js
 const person = {
-  name: "Oscar",
+  name: 'Oscar',
   age: 32,
 };
 
 const personInformation = {
   ...person,
-  country: "MX",
+  country: 'MX',
 };
 
 console.log(`personInformation: `, personInformation);
@@ -53,28 +75,28 @@ const helloWorld = () => {
   return new Promise((resolve, reject) => {
     true
       ? setTimeout(() => {
-          resolve("Hello World!");
+          resolve('Hello World!');
         }, 3000)
-      : reject(new Error("Test Error"));
+      : reject(new Error('Test Error'));
   });
 };
 
 helloWorld()
-  .then((result) => console.log("result -> ", result))
-  .catch((err) => console.log("err -> ", err))
-  .finally(() => console.log("finalizó"));
+  .then((result) => console.log('result -> ', result))
+  .catch((err) => console.log('err -> ', err))
+  .finally(() => console.log('finalizó'));
 ```
 
 - Regex
 
 ```js
 const regexData = /([0-9]{4})-([0-9]{2})-([0-9]{2})/;
-const match = regexData.exec("2018-04-28");
+const match = regexData.exec('2018-04-28');
 const year = match[1];
 const month = match[2];
 const day = match[3];
 
-console.log("Date -> ", year, month, day);
+console.log('Date -> ', year, month, day);
 ```
 
 NOTE: padEnd y padStart Sirven para añadir texto antes o después de un string. Hay que definir su length y después poner los caracteres que se quiere añadir.
@@ -83,9 +105,9 @@ NOTE: trimStart, trimEnd sirven para eliminar los espacios entre las palabras qu
 
 ```js
 const obj = {
-  name: "Oscar",
+  name: 'Oscar',
   age: 32,
-  country: "Ecuador",
+  country: 'Ecuador',
 };
 
 const array = Object.entrie(obj);
@@ -131,37 +153,37 @@ compareFunction (a, b) siempre debe devolver el mismo valor cuando se le da un p
 Ejemplo de comprobar cupones:
 
 ```js
-const coupons = ["JuanDC_es_Batman", "pero_no_le_digas_a_nadie", "es_un_secreto"];
+const coupons = ['JuanDC_es_Batman', 'pero_no_le_digas_a_nadie', 'es_un_secreto'];
 
 <label for='InputCoupon'>
   <input id='InputCoupon' type='text' />
 </label>;
 
-const inputCoupon = document.getElementById("InputCoupon");
+const inputCoupon = document.getElementById('InputCoupon');
 const couponValue = inputCoupon.value;
 function onClickButtonPriceDiscount() {
-  const inputPrice = document.getElementById("InputPrice");
+  const inputPrice = document.getElementById('InputPrice');
   const priceValue = inputPrice.value;
-  const inputCoupon = document.getElementById("InputCoupon");
+  const inputCoupon = document.getElementById('InputCoupon');
   const couponValue = inputCoupon.value;
 
   let descuento;
 
   switch (couponValue) {
-    case "JuanDC_es_Batman":
+    case 'JuanDC_es_Batman':
       descuento = 15;
       break;
-    case "pero_no_le_digas_a_nadie":
+    case 'pero_no_le_digas_a_nadie':
       descuento = 30;
       break;
-    case "es_un_secreto":
+    case 'es_un_secreto':
       descuento = 25;
       break;
   }
 
   const precioConDescuento = calcularPrecioConDescuento(priceValue, descuento);
-  const resultP = document.getElementById("ResultP");
-  resultP.innerText = "El precio con descuento son: $" + precioConDescuento;
+  const resultP = document.getElementById('ResultP');
+  resultP.innerText = 'El precio con descuento son: $' + precioConDescuento;
 }
 ```
 
@@ -169,7 +191,7 @@ NOTE: Encapsular datos en la consola.
 
 ```js
 //Abres
-console.group("nombre que desees");
+console.group('nombre que desees');
 //Cierras
 console.groupEnd();
 ```
@@ -222,7 +244,7 @@ function saludar(nombre) {
   console.log(`Hola ${nombre}`);
 }
 
-saludar("Diego");
+saludar('Diego');
 ```
 
 **Expresión de función:**
@@ -304,6 +326,27 @@ NOTE: Datos primitivos en Javascript
 
 **String, Number, Boolean, Null y Undefined**
 
+[note]: Booleanos
+
+```js
+//Ejemplos en los que Boolean devuelve Falso:
+Boolean(0); //false
+Boolean(null); //false
+Boolean(NaN); //false
+Boolean(undefined); //false
+Boolean(false); //false
+Boolean(''); //false
+
+//Ejemplos en los que Boolean devuelve verdadero:
+Boolean(1); //true para 1 o cualquier número diferente de cero (0)
+Boolean('a'); //true para cualquier caracter o espacio en blanco en el string
+Boolean([]); //true aunque el array esté vacío
+Boolean({}); //true aunque el objeto esté vacío
+Boolean(function () {}); //Cualquier función es verdadera también
+```
+
+[note]: "==" compara valores y "===" compara valores y tipo de dato
+
 ## Hoisting
 
 Es cuando las variables y las funciones se declaran antes de que se ejecute cualquier código. En ES6+ No existe Hoisting.
@@ -318,27 +361,6 @@ Coerción explicita = es cuando obligamos a que cambie el tipo de valor.
 4 + "2" = "42"
 4 * "2" = 8
 ```
-
-## Boolean
-
-```js
-//Ejemplos en los que Boolean devuelve Falso:
-Boolean(0); //false
-Boolean(null); //false
-Boolean(NaN); //false
-Boolean(undefined); //false
-Boolean(false); //false
-Boolean(""); //false
-
-//Ejemplos en los que Boolean devuelve verdadero:
-Boolean(1); //true para 1 o cualquier número diferente de cero (0)
-Boolean("a"); //true para cualquier caracter o espacio en blanco en el string
-Boolean([]); //true aunque el array esté vacío
-Boolean({}); //true aunque el objeto esté vacío
-Boolean(function () {}); //Cualquier función es verdadera también
-```
-
-"==" compara valores y "===" compara valores y tipo de dato
 
 ## Windows Subsystem for Linux
 
@@ -365,9 +387,9 @@ window.location.href = 'http://ejemplo.com';
 
 ```js
 const myObject = {
-  property: "Value!",
+  property: 'Value!',
   otherProperty: 77,
-  "obnoxious property": function () {
+  'obnoxious property': function () {
     // do stuff!
   },
 };
@@ -379,7 +401,7 @@ const myObject = {
 // dot notation
 myObject.property; // 'Value!'
 // bracket notation
-myObject["obnoxious property"]; // [Function] => Similar a RUBY
+myObject['obnoxious property']; // [Function] => Similar a RUBY
 ```
 
 # PATRONES DE DISEÑO
@@ -392,20 +414,20 @@ myObject["obnoxious property"]; // [Function] => Similar a RUBY
 // Ejemplo con TIC TAC TOE
 
 // example one => constantes \* No son objetos
-const playerOneName = "tim";
-const playerTwoName = "jenn";
-const playerOneMarker = "X";
-const playerTwoMarker = "O";
+const playerOneName = 'tim';
+const playerTwoName = 'jenn';
+const playerOneMarker = 'X';
+const playerTwoMarker = 'O';
 
 // example two => Hash con los atributos del jugador \* Si son objetos
 const playerOne = {
-  name: "tim",
-  marker: "X",
+  name: 'tim',
+  marker: 'X',
 };
 
 const playerTwo = {
-  name: "jenn",
-  marker: "O",
+  name: 'jenn',
+  marker: 'O',
 };
 
 function printName(player) {
@@ -452,7 +474,7 @@ var userAccount = new Account();
 Y se puede crear una instancia de ese objeto con:
 
 ```js
-const player = new Player("steve", "X");
+const player = new Player('steve', 'X');
 console.log(player.name); // 'steve'
 
 // Al método constructor, también se lo puede pasar varias operaciones:
@@ -465,8 +487,8 @@ function Player(name, marker) {
   };
 }
 
-const player1 = new Player("steve", "X");
-const player2 = new Player("also steve", "O");
+const player1 = new Player('steve', 'X');
+const player2 = new Player('also steve', 'O');
 player1.sayName(); // logs 'steve'
 player2.sayName(); // logs 'also steve'
 ```
@@ -505,7 +527,7 @@ PrintStuff.prototype.print = function () {
 };
 
 // Create a new object with the PrintStuff () constructor, thus allowing this new object to inherit PrintStuff's properties and methods.
-let newObj = new PrintStuff("I am a new Object and I can print.");
+let newObj = new PrintStuff('I am a new Object and I can print.');
 
 // newObj inherited all the properties and methods, including the print method, from the PrintStuff function. Now newObj can call print directly, even though we never created a print () method on it.
 newObj.print(); //I am a new Object and I can print.
@@ -1109,7 +1131,7 @@ Le permiten pasar un alcance a una función, **que vincula el this correcto**.
 Manipulemos la función para que nuestro "this" sea cada elemento del arreglo:
 
 ```js
-let links = document.querySelectorAll("nav li");
+let links = document.querySelectorAll('nav li');
 for (let i = 0; i < links.length; i++) {
   (function () {
     console.log(this);
@@ -1173,7 +1195,7 @@ NOTE: Para crear un alcance público podemos hacer uso de patrones de modulo:
 let Module = (function () {
   return {
     myMethod: function () {
-      console.log("myMethod has been called.");
+      console.log('myMethod has been called.');
     },
   };
 })();
@@ -2232,9 +2254,9 @@ d.speak(); // Mitzie makes a noise.
 
 El patrón de especies le permite anular los constructores predeterminados.
 
-Por ejemplo, al usar métodos como map () que devuelve el constructor predeterminado, desea que estos métodos devuelvan un objeto Array
-principal, en lugar del objeto MyArray. El símbolo Symbol.species le permite hacer esto:
+Por ejemplo, al usar métodos como map () que devuelve el constructor predeterminado, desea que estos métodos devuelvan un objeto Array principal, en lugar del objeto MyArray. El símbolo Symbol.species le permite hacer esto:
 
+```js
 class MyArray extends Array {
 
 // Sobrescribir especies en el constructor de matriz padre
@@ -2247,6 +2269,7 @@ let mapped = a.map(x => x \* x);
 
 console.log(mapped instanceof MyArray); // false
 console.log(mapped instanceof Array); // true
+```
 
 ### Llamadas de superclase con SUPER
 
