@@ -1,12 +1,8 @@
 # React
 
 **Índice**   
-1. [Desventajas de React](#id1)
-2. [Segundo apartado](#id2)
-## Primer apartado
-Texto del primer apartado
-## Segundo apartado<a name="id2"></a>
-Texto del segundo apartado
+1. [Desventajas de React](#desventajas-react)
+2. [DOM, Virtual DOM y React DOM](#react-dom)
 
 NOTE: Ruta de aprendizaje de React => https://roadmap.sh/roadmaps/react.png
 
@@ -101,14 +97,14 @@ Es extremadamente fácil organizar los componentes de una aplicación web y tamb
 > Si se está trabajando en una aplicación en la que no la vamos a ir actualizando, entonces solamente hacerlo con Javascript.
 > **Si necesitamos empezar rápido y vamos a necesitar actualizar la app en un futuro, es muy recomendable utilizar react.**
 
-## Desventajas de React <a name="id1"></a>
+## Desventajas de React <a name="desventajas-react"></a>
 
 1. Complejo si no se tiene buen entendimiento de Javascript.
 2. JSX es un preprocesador que agrega extensión de sintaxis XML a JavaScript.
 3. Necesidad de un ecosistema de muchas herramientas: React requiere una amplia gama de herramientas para funcionar correctamente y ser compatible con otras tecnologías.
 4. Problemas de SEO: se sabe que las SPAs (Single Page Applications) creadas con React se enfrentan a problemas de indexación por parte de los rastreadores y bots de motores de búsqueda.
 
-## DOM, Virtual DOM y ReactDOM
+## DOM, Virtual DOM y ReactDOM <a name="react-dom"></a>
 
 ReactDOM sirve para manejar el DOM desde React
 
