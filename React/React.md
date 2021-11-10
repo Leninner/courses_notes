@@ -1,9 +1,9 @@
 # React
 
 **Índice**   
-1. [Primer apartado](#id1)
+1. [Desventajas de React](#id1)
 2. [Segundo apartado](#id2)
-## Primer apartado<a name="id1"></a>
+## Primer apartado
 Texto del primer apartado
 ## Segundo apartado<a name="id2"></a>
 Texto del segundo apartado
@@ -101,7 +101,7 @@ Es extremadamente fácil organizar los componentes de una aplicación web y tamb
 > Si se está trabajando en una aplicación en la que no la vamos a ir actualizando, entonces solamente hacerlo con Javascript.
 > **Si necesitamos empezar rápido y vamos a necesitar actualizar la app en un futuro, es muy recomendable utilizar react.**
 
-## Desventajas de React
+## Desventajas de React <a name="id1"></a>
 
 1. Complejo si no se tiene buen entendimiento de Javascript.
 2. JSX es un preprocesador que agrega extensión de sintaxis XML a JavaScript.
