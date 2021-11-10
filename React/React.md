@@ -202,7 +202,9 @@ Algunas reglas importantes:
 
 Las etiquetas "HTML" se convierten en Javascript Vanilla por acción de babel:
 
+```js
 <div class="active">Hola Mundo</div>
+```
 
 se transforma en el siguiente código JavaScript:
 
