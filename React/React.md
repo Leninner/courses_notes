@@ -120,17 +120,20 @@ Cada vez que cambiamos alguna parte del DOM, también estamos actualizando el HT
 
 **Virtual DOM** es una herramienta que usan tecnologías como React y Vue para mejorar el **rendimiento (performance) y velocidad de nuestras aplicaciones.**
 - **Es una copia exacta del DOM, pero mucho más ligera**, ya que los cambios no actualizan el verdadero HTML de nuestras páginas web. Gracias al Virtual DOM podemos hacer operaciones y comparaciones de forma sumamente rápida.
-
-Recuerda que los cambios en el Virtual DOM no afectan el HTML que ven los usuarios, así que debemos estar sincronizando constantemente las copias con el DOM. **React DOM lo hace por nosotros.**
+- Recuerda que los cambios en el Virtual DOM no afectan el HTML que ven los usuarios, así que se deben estar sincronizando constantemente las copias con el DOM. PERO, **React DOM lo hace por nosotros.**
 
 ## Create React App <a name="react-app"></a>
 
-Nos va a permitir crear aplicaciones React con cero configuración, lo que nos permitirá centrarnos en los más importante.
+> Nos va a permitir crear aplicaciones React con cero configuración, lo que nos permitirá centrarnos en los más importante.
 
-Para crear una aplicación utilizamos el comando npx create-react-app seguido del nombre que le quieras dar a tu aplicación.
+Para crear una aplicación utilizamos el comando **npx create-react-app** seguido del nombre que le quieras dar a tu aplicación.
 
 ```bash
 npx create-react-app my-app
+
+o
+
+npx create-react-app ./
 ```
 
 Un proyecto creado con create-react-app, además de React, **incluye librerías como:**
