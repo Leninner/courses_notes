@@ -62,7 +62,7 @@ NOTE: ¿Cuándo Usar React.js?
 
 Muchas de las librerías están basadas en componentes.
 
-☝ Un componente es un pedacito de tu página web, es decir, puede ser una sección específica de tu página web, o puede ser algún elemento que se repita múltiples veces en la misma. **Lo importante a tener en cuenta es que, un componente es una parte específica de tu página, es algo que cumple una acción simple.**
+> ☝ Un componente es un pedacito de tu página web, es decir, puede ser una sección específica de tu página web, o puede ser algún elemento que se repita múltiples veces en la misma. **Lo importante a tener en cuenta es que, un componente es una parte específica de tu página, es algo que cumple una acción simple.**
 
 ¿El header de mi página puede ser un componente? ¡Sí!
 ¿El sidebar puede ser un componente? ¡Por supuesto!
