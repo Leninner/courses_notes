@@ -1,8 +1,14 @@
 # React
 
-**Índice**   
+**Índice**
+
 1. [Desventajas de React](#desventajas-react)
 2. [DOM, Virtual DOM y React DOM](#react-dom)
+3. [Create React App](#react-app)
+4. [Sintaxis JSX](#jsx)
+5. [Creación y Tipos de Componentes](#components-types)
+6. [Propiedades (Props)](#props)
+7. [Componentes Vs Elementos](#components-elements)
 
 NOTE: Ruta de aprendizaje de React => https://roadmap.sh/roadmaps/react.png
 
@@ -118,7 +124,7 @@ Cada vez que cambiamos alguna parte del DOM, también estamos actualizando el HT
 
 Recuerda que los cambios en el Virtual DOM no afectan el HTML que ven los usuarios, así que debemos estar sincronizando constantemente las copias con el DOM. Pero no te preocupes, **React DOM lo hace por nosotros.**
 
-## Create React App
+## Create React App <a name="react-app"></a>
 
 Nos va a permitir crear aplicaciones React con cero configuración, lo que nos permitirá centrarnos en los más importante.
 
@@ -150,7 +156,7 @@ NOTE: Es necesario tener instalada la última versión de Node
 
 Es necesario installar **sudo npm install -g serve** para lanzar un servidor con la aplicación ya lista para producción.
 
-## Sintaxis JSX
+## Sintaxis JSX <a name="jsx"></a>
 
 JSX: JavaScript + HTML
 
@@ -241,7 +247,7 @@ const isTrue = true;
 {isTrue ? <h4>Es verdadero</h4> : <h5>Es falso</h5>}
 ```
 
-## Creación y Tipos de Componentes
+## Creación y Tipos de Componentes <a name="components-types"><a/>
 
 Todas las librerías: Angular, Polimer, Vue se caracterizan por ser basados en componentes. **Divide y vencerás**. Crear componentes que hagan una sola cosa, cada componente tiene: Código de contenido (**HTML**), Código de presentación (**CSS**) y funcionalidad (**Javascript**)
 
@@ -376,7 +382,7 @@ function ComponentWrapper(WrapperComponent) {
 }
 ```
 
-## Propiedades
+## Propiedades <a name="props"><a/>
 
 Son valores que recibe un componente hijo de uno padre. Se agrupan en un objeto llamado props, el cual puede recibir diferentes tipos de datos:
 
@@ -486,7 +492,7 @@ Component.propTypes = {
 
 Por defecto, enviar todas nuestras props es opcional, pero **con los propTypes** podemos especificar cuáles props son obligatorias para que nuestro componente funcione correctamente con el atributo **isRequired.**
 
-## Componentes vs Elementos
+## Componentes vs Elementos <a name="components-elements"><a/>
 
 En React hay varias formas de crear un componente:
 
