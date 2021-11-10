@@ -156,7 +156,7 @@ NOTE: Es necesario tener instalada la última versión de Node
 
 - NPM RUN EJECT => Va a ejectar la configuración que tiene create-react-app por defecto
 
-Es necesario installar **sudo npm install -g serve** para lanzar un servidor con la aplicación ya lista para producción.
+Es necesario instalar **sudo npm install -g serve** para lanzar un servidor con la aplicación ya lista para producción.
 
 ## Sintaxis JSX <a name="jsx"></a>
 
@@ -195,7 +195,10 @@ Algunas reglas importantes:
 2. Los componentes deben devolver un sólo elemento padre.
 3. Algunos atributos HTML cambian como: class por className. for por htmlFor.
 4. Los atributos de un elemento JSX pueden aceptar valores de tipo String entrecomillados o expresiones JavaScript entre llaves, por ejemplo:
-   <img alt="Avatar" src={user.avatarURL} />
+
+```js
+<img alt="Avatar" src={user.avatarURL} />
+```
 
 Las etiquetas "HTML" se convierten en Javascript Vanilla por acción de babel:
 
@@ -203,7 +206,9 @@ Las etiquetas "HTML" se convierten en Javascript Vanilla por acción de babel:
 
 se transforma en el siguiente código JavaScript:
 
-React.createElement("div", { className: "active" }, "Hola mundo"); => **tipo, atributos, contenido**
+```js
+React.createElement("div", { className: "active" }, "Hola mundo"); // => **tipo, atributos, contenido**
+```
 
 NOTE: https://babeljs.io/repl => Sirve para ver en que se convierte nuetro código.
 <></> => Le dice a react que es un fragmento. Un contenedor. También se puede escribir <React.fragment></React.fragment>
