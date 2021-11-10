@@ -1,5 +1,13 @@
 # React
 
+**Índice**   
+1. [Primer apartado](#id1)
+2. [Segundo apartado](#id2)
+## Primer apartado<a name="id1"></a>
+Texto del primer apartado
+## Segundo apartado<a name="id2"></a>
+Texto del segundo apartado
+
 NOTE: Ruta de aprendizaje de React => https://roadmap.sh/roadmaps/react.png
 
 Puede convertirse en un framework. Tiene un flujo de datos unidireccional.
