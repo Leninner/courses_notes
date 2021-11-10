@@ -468,6 +468,20 @@ function App(props) {
 }
 ```
 
+Otro Ejemplo:
+
+```js
+Component.propTypes = {
+  // => Aquí hacemos el llamado con la primera letra de propsTypes en minúscula.
+  name: PropTypes.string.isRequired, // obligatorio
+  lastName: PropTypes.string.isRequired, // obligatorio
+  age: PropTypes.number, // opcional,
+  list: PropTypes.array, // opcional
+};
+```
+
+Por defecto, enviar todas nuestras props es opcional, pero **con los propTypes** podemos especificar cuáles props son obligatorias para que nuestro componente funcione correctamente con el atributo **isRequired.**
+
 ## Componentes vs Elementos
 
 En React hay varias formas de crear un componente:
@@ -520,7 +534,7 @@ function Componente = () => {
 
 Esto es un componente:
 
-```javascript
+```js
 //Componente
 const Componente = () => {
   return (
@@ -541,7 +555,7 @@ Cuando estamos trabajando con React, para definir el atributo class, **no usamos
 
 - Las propiedades las podemos recibir de los parametros de los **componentes**. Ejemplo:
 
-```javascript
+```js
 <App nombre="Dorime">
 
 const App = (props) => {
@@ -553,7 +567,7 @@ const App = (props) => {
 
 - Tambien podemos recibir children que vienen entre el contenido del Componente.
 
-```javascript
+```js
 <App>
 	<p>Dorime, Ameno</p>
 </App>
@@ -620,64 +634,6 @@ this.setState({
   title: this.state.title + 1,
 });
 ```
-
-### Manejo del Estado - Platzi
-
-El estado es dinámico y **puede cambiar en el futuro con manejo de eventos.**
-
-- Uso de Hooks para controlar el estado
-
-```js
-const [patito, setPatito] = React.useState('Juan');
-```
-
-Si quieres importar todo React para usar useState:
-
-```js
-import React from 'react';
-//Lo vas a usar de esta forma:
-const [searchValue, setSearchValue] = React.useState('');
-```
-
-Si quieres importar unicamente useState:
-
-```js
-import { useState } from 'react';
-//Lo vas a usar de esta forma:
-const [searchValue, setSearchValue] = useState('');
-```
-
-El hook **useState** tiene dos parametros:
-
-1. El valor (quien seria value)
-2. La funcion que cambia el valor (quien seria setValue)
-
-El **elemento 0 es el estado inicial** y el **elemento 1 del arreglo, es la función que nos va a permitir actualizar el estado** en el futuro.
-Para poder manejar los estados, vamos a necesitar el Hook **useState**.
-
-En useState es siempre necesario definir un valor como parametro. Puede ser un string, array, booleano o número.
-
-```js
-const [searchValue, setSearchValue] = useState('')
-const [searchValue, setSearchValue] = useState(false)
-const [searchValue, setSearchValue] = useState(['Dorime', 'Ameno'])
-const [searchValue, setSearchValue] = useState(0)
-//En la etiqueta donde vamos a manejar el evento, no debemos olvidar colocar el value que recibirá el valor de useState. Ejemplo:
-
-<input
-  className="TodoSearch"
-  placeholder="Ingresa un POYO Todo"
-  value={searchValue}
-	onChange={onSearchValueChange}
-/>
-```
-
-NOTE: Para renderizar varios elementos independientes, podemos hacer uso de arreglos.
-
-El estado tiene mucha relación con "cambio".
-
-! => Es falso
-!! => Es falso que eso es falso
 
 ## Renderizado Condicional
 
@@ -1178,9 +1134,87 @@ Hay muchas formas de agregar estilos en CSS a React:
 
 ## Hooks
 
+## React.useState
+
+Es una función que hay que declararse como un array con 2 posiciones: La posición 0 es la variable que puede ir cambiando y la posición 1 que es la función que va a hacer ese cambio:
+
+1. El valor (quien seria videos)
+2. La funcion que cambia el valor (quien seria setVideos)
+
+**const [videos, setVideos] = React.useState(0);**
+
+UseState recibe un solo argumento, el cuál será el primer elemento de nuestro arreglo. Este dato pues ser de cualquier tipo.
+En useState es siempre necesario definir un valor como parametro. Puede ser un string, array, booleano o número.
+
+```js
+const [searchValue, setSearchValue] = useState('')
+const [searchValue, setSearchValue] = useState(false)
+const [searchValue, setSearchValue] = useState(['Dorime', 'Ameno'])
+const [searchValue, setSearchValue] = useState(0)
+//En la etiqueta donde vamos a manejar el evento, no debemos olvidar colocar el value que recibirá el valor de useState. Ejemplo:
+
+<input
+  className="TodoSearch"
+  placeholder="Ingresa un POYO Todo"
+  value={searchValue}
+	onChange={onSearchValueChange}
+/>
+```
+
+React Hooks (2018): Es una característica de React disponible a partir de la versión 16.8 que nos permite agregar estado y ciclo de vida a nuestros componentes creados como funciones o componentes stateless o presentacionales.
+
+> El Hook useState nos devuelve un array con dos elementos: la primera posición es el valor de nuestro estado, la segunda es una función que nos permite actualizar ese valor.
+> El argumento que enviamos a esta función es el valor por defecto de nuestro estado (initial state).
+
+Ejemplo:
+
+```js
+import React, { useState } from 'react';
+
+const Component = () => {
+  const [name, setName] = useState('Nombre por defecto');
+
+  return <div>{name}</div>;
+};
+```
+
+El estado es dinámico y **puede cambiar en el futuro con manejo de eventos.**
+
+Si quieres importar todo React para usar useState:
+
+```js
+import React from 'react';
+//Lo vas a usar de esta forma:
+const [searchValue, setSearchValue] = React.useState('');
+```
+
+Si quieres importar unicamente useState:
+
+```js
+import { useState } from 'react';
+//Lo vas a usar de esta forma:
+const [searchValue, setSearchValue] = useState('');
+```
+
+NOTE: Para renderizar varios elementos independientes, podemos hacer uso de arreglos.
+
+El estado tiene mucha relación con "cambio".
+
+! => Es falso
+!! => Es falso que eso es falso
+
 ### React.useEffect
 
 React.useEffect() => Sirve para ejecutar el código que le pasemos por dentro **junto antes de que el componente esté listo para ser mostrado.**
+
+Va a permitir ir a APIs para consultar datos y luego pasarsela a algún estado que queramos hacer.
+
+1. Recibe un primer parámetro como una función anónima.
+2. Y un segundo parámetro como una condición para que sea llamada.
+
+Si no se le pasa el segundo argumento, entonces useEffect entra en un bucle infinito.
+
+NOTE: Fetch => Es un método que recibe una API y luego un método then que le ayuda a decidir: Si llamada a la API se hizo correctamente, entonces hago algo. También tiene un método Catch que sirve para encapsular algún error y reportarlo. Promesas.
 
 Debemos enviarle una función para ser ejecutada.
 Es capaz de ser ejecutado cuando React ya realizó todos sus trabajos internos.
@@ -1199,6 +1233,32 @@ React.useEffect(() => {
 React.useEffect(() => {
   console.log('use effect');
 }, [totalTodos]);
+```
+
+El Hook useEffect nos permite ejecutar código cuando se monta, desmonta o actualiza nuestro componente.
+
+- El primer argumento que le enviamos a useEffect es una función que se ejecutará cuando React monte o actualice el componente. Esta función puede devolver otra función que se ejecutará cuando el componente se desmonte.
+- **El segundo argumento es un array donde podemos especificar qué propiedades deben cambiar para que React vuelva a llamar nuestro código. Si el componente actualiza pero estas props no cambian, la función no se ejecutará.**
+
+> Por defecto, cuando no enviamos un segundo argumento, React ejecutará la función de useEffect cada vez que el componente o sus componentes padres actualicen. En cambio, si enviamos un array vacío, esta función solo se ejecutará al montar o desmontar el componente.
+
+Ejemplo:
+
+```js
+import React, { useState, useEffect } from 'react';
+
+const Component = () => {
+  const [name, setName] = useState('Nombre por defecto');
+
+  useEffect(() => {
+    document.title = name;
+    return () => {
+      document.title = 'el componente se desmontó';
+    };
+  }, [name]);
+
+  return <div>{name}</div>;
+};
 ```
 
 #### Axios
@@ -1374,13 +1434,6 @@ const App = () => {
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />
             <Route path='/recovery-password' element={<RecoveryPassword />} />
-            <Route path='/pay' element={<Checkout />} />
-            <Route path='/new-account' element={<CreateAccount />} />
-            <Route path='/account' element={<MyAccount />} />
-            <Route path='/new-password' element={<NewPassword />} />
-            <Route path='/carrito' element={<Orders />} />
-            <Route path='/send-email' element={<SendEmail />} />
-            <Route path='*' element={<NotFound />} />
           </Routes>
         </Layout>
       </BrowserRouter>
@@ -1407,13 +1460,6 @@ const App = () => {
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />
             <Route path='/recovery-password' element={<RecoveryPassword />} />
-            <Route path='/pay' element={<Checkout />} />
-            <Route path='/new-account' element={<CreateAccount />} />
-            <Route path='/account' element={<MyAccount />} />
-            <Route path='/new-password' element={<NewPassword />} />
-            <Route path='/carrito' element={<Orders />} />
-            <Route path='/send-email' element={<SendEmail />} />
-            <Route path='*' element={<NotFound />} />
           </Routes>
         </Layout>
       </BrowserRouter>
@@ -1520,32 +1566,33 @@ const children = this.props; // <-- Una prop se llama con this.props
 
 - Se puede tomar las props en constantes para ser utilizadas luego:
 
+```js
 import React from 'react';
-const Button = props => {
-const {text} = props.text;
-return (
-
-<div>
-<button type="button">{text}</button>
-</div>
-);
+const Button = (props) => {
+  const { text } = props.text;
+  return (
+    <div>
+      <button type='button'>{text}</button>
+    </div>
+  );
 };
+```
 
 - Se puede también solo llamar a ciertas props que necesitamos:
 
+```js
 import React from 'react';
 
 const Button = ({ value }) => {
-return (
-
-<div>
-<button type='button'>{value}</button>
-</div>
-
-);
+  return (
+    <div>
+      <button type='button'>{value}</button>
+    </div>
+  );
 };
 
 export { Button };
+```
 
 ## Métodos del Ciclo vida
 
@@ -1624,37 +1671,6 @@ componentDidCatch()
 > Este método es llamado después de lanzarse un error y pasa como argumento el error y la información representada sobre el error.
 
 Ahora que entendemos cada una de las fases que tiene el ciclo de vida de react, podemos utilizarlas según sea necesario en nuestra aplicación y de esta forma crear las interacciones que necesitemos.
-
-## State - Events
-
-React nos permite responder a las interacciones de los usuarios con propiedades como onClick, onChange, onKeyPress, onFocus, onScroll, onSubmit, entre otras.
-
-NOTE: El estado es un objeto al cual se puede definir variables de cualquier tipo. Y vamos a poder acceder a ese componente en el momento que se inicializa.
-
-Estas propiedades reciben el nombre de la función que ejecuta el código que responde a las interacciones de los usuarios. Seguramente, esta función usará la función this.setState para actualizar el estado de nuestro componente.
-
-class Button extends React.Component {
-state = { count: 0 }
-handleClick = () => (
-this.setState({ count: this.state.count + 1 })
-);
-
-render() {
-const { count } = this.state;
-return (
-
-<div>
-<h1>Manzanas: {count}</h1>
-<button onClick={this.handleClick}>Sumar</button>
-</div>
-
-);
-}
-}
-
-NOTE: Los React Hooks deben ser llamados en componentes stateless o creados con funciones. No pueden ser llamados en componentes stateful.
-
-Recuerda que los nombres de estos eventos deben seguir la nomenclatura camelCase: primera palabra en minúsculas, iniciales de las siguientes palabras en mayúsculas y el resto también en minúsculas."
 
 # Inicialización y Configuración de Entorno desde 0
 
@@ -2301,24 +2317,30 @@ Podemos guardar nuestras variables en un archivo especial e importarlo desde los
 
 Ejemplo:
 
-<!-- Vars.scss -->
+```scss
+//Vars.scss
 
-$theme-font: 'Muli, sans-serif;
+$theme-font: 'Muli', sans-serif;
 $main-color: #8f57fd;
 
-<!-- App.scss -->
+//App.scss
 
-@import ""./Vars.scss""
+@import './Vars.scss';
 
-`body {
-background: $main-color;
-font-family: $theme-font;
+body {
+  background: $main-color;
+  font-family: $theme-font;
 }
+```
 
 También podemos importar hojas de estilo externas a nuestra aplicación. Por ejemplo: las fuentes de Google.
 
-> @import url(https://fonts.googleapis.com/css?family=Muli&display-swap)
-> @import "./Media.scss"
+```scss
+@import url(https://fonts.googleapis.com/css?family=Muli&display-swap);
+body {
+  font-family: 'Muli', sans-serif;
+}
+```
 
 ## Crear una Fake API
 
@@ -2328,247 +2350,192 @@ Vamos a usar JSON Server para crear una Fake API: una API “falsa” construida
 
 Vamos a crear un archivo llamado initialState.Json y dentro ponemos:
 
+```json
 {
-"initalState": {
-"mylist": [],
-"trends": [
-{
-"id": 2,
-"slug": "tvshow-2",
-"title": "In the Dark",
-"type": "Scripted",
-"language": "English",
-"year": 2009,
-"contentRating": "16+",
-"duration": 164,
-"cover": "http://dummyimage.com/800x600.png/99118E/ffffff",
-"description": "Vestibulum ac est lacinia nisi venenatis tristique",
-"source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-},
-{
-"id": 3,
-"slug": "tvshow-3",
-"title": "Instinct",
-"type": "Adventure",
-"language": "English",
-"year": 2002,
-"contentRating": "16+",
-"duration": 137,
-"cover": "http://dummyimage.com/800x600.png/302140/ffffff",
-"description": "Vestibulum ac est lacinia nisi venenatis tristique",
-"source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-},
-{
-"id": 4,
-"slug": "tvshow-4",
-"title": "Grand Hotel",
-"type": "Comedy",
-"language": "English",
-"year": 2014,
-"contentRating": "16+",
-"duration": 163,
-"cover": "http://dummyimage.com/800x600.png/5472FF/ffffff",
-"description": "Vestibulum ac est lacinia nisi venenatis tristique",
-"source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-},
-{
-"id": 5,
-"slug": "tvshow-5",
-"title": "Stargate Atlantis",
-"type": "Scripted",
-"language": "English",
-"year": 2014,
-"contentRating": "16+",
-"duration": 194,
-"cover": "http://dummyimage.com/800x600.png/B36F20/ffffff",
-"description": "Vestibulum ac est lacinia nisi venenatis tristique",
-"source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-},
-{
-"id": 6,
-"slug": "tvshow-6",
-"title": "Final Space",
-"type": "Scripted",
-"language": "English",
-"year": 2017,
-"contentRating": "16+",
-"duration": 124,
-"cover": "http://dummyimage.com/800x600.png/CCC539/ffffff",
-"description": "Vestibulum ac est lacinia nisi venenatis tristique",
-"source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-},
-{
-"id": 7,
-"slug": "tvshow-7",
-"title": "The InBetween",
-"type": "Drama",
-"language": "English",
-"year": 2011,
-"contentRating": "16+",
-"duration": 179,
-"cover": "http://dummyimage.com/800x600.png/FF7A90/ffffff",
-"description": "Vestibulum ac est lacinia nisi venenatis tristique",
-"source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
+  "initalState": {
+    "mylist": [],
+    "trends": [
+      {
+        "id": 2,
+        "slug": "tvshow-2",
+        "title": "In the Dark",
+        "type": "Scripted",
+        "language": "English",
+        "year": 2009,
+        "contentRating": "16+",
+        "duration": 164,
+        "cover": "http://dummyimage.com/800x600.png/99118E/ffffff",
+        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
+        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
+      },
+      {
+        "id": 3,
+        "slug": "tvshow-3",
+        "title": "Instinct",
+        "type": "Adventure",
+        "language": "English",
+        "year": 2002,
+        "contentRating": "16+",
+        "duration": 137,
+        "cover": "http://dummyimage.com/800x600.png/302140/ffffff",
+        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
+        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
+      },
+      {
+        "id": 4,
+        "slug": "tvshow-4",
+        "title": "Grand Hotel",
+        "type": "Comedy",
+        "language": "English",
+        "year": 2014,
+        "contentRating": "16+",
+        "duration": 163,
+        "cover": "http://dummyimage.com/800x600.png/5472FF/ffffff",
+        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
+        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
+      },
+      {
+        "id": 5,
+        "slug": "tvshow-5",
+        "title": "Stargate Atlantis",
+        "type": "Scripted",
+        "language": "English",
+        "year": 2014,
+        "contentRating": "16+",
+        "duration": 194,
+        "cover": "http://dummyimage.com/800x600.png/B36F20/ffffff",
+        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
+        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
+      },
+      {
+        "id": 6,
+        "slug": "tvshow-6",
+        "title": "Final Space",
+        "type": "Scripted",
+        "language": "English",
+        "year": 2017,
+        "contentRating": "16+",
+        "duration": 124,
+        "cover": "http://dummyimage.com/800x600.png/CCC539/ffffff",
+        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
+        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
+      },
+      {
+        "id": 7,
+        "slug": "tvshow-7",
+        "title": "The InBetween",
+        "type": "Drama",
+        "language": "English",
+        "year": 2011,
+        "contentRating": "16+",
+        "duration": 179,
+        "cover": "http://dummyimage.com/800x600.png/FF7A90/ffffff",
+        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
+        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
+      }
+    ],
+    "originals": [
+      {
+        "id": 8,
+        "slug": "tvshow-8",
+        "title": "Stargate Atlantis",
+        "type": "Action",
+        "language": "English",
+        "year": 2012,
+        "contentRating": "16+",
+        "duration": 148,
+        "cover": "http://dummyimage.com/800x600.png/306880/ffffff",
+        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
+        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
+      },
+      {
+        "id": 9,
+        "slug": "tvshow-9",
+        "title": "Alien Highway",
+        "type": "Action",
+        "language": "English",
+        "year": 2019,
+        "contentRating": "16+",
+        "duration": 128,
+        "cover": "http://dummyimage.com/800x600.png/604180/ffffff",
+        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
+        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
+      },
+      {
+        "id": 10,
+        "slug": "tvshow-10",
+        "title": "Elementary",
+        "type": "Animation",
+        "language": "English",
+        "year": 2011,
+        "contentRating": "16+",
+        "duration": 346,
+        "cover": "http://dummyimage.com/800x600.png/FF91BA/ffffff",
+        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
+        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
+      },
+      {
+        "id": 11,
+        "slug": "tvshow-11",
+        "title": "Strange Angel",
+        "type": "War",
+        "language": "English",
+        "year": 2015,
+        "contentRating": "16+",
+        "duration": 226,
+        "cover": "http://dummyimage.com/800x600.png/45807C/ffffff",
+        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
+        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
+      },
+      {
+        "id": 12,
+        "slug": "tvshow-12",
+        "title": "Private Eyes",
+        "type": "Comedy",
+        "language": "English",
+        "year": 2018,
+        "contentRating": "16+",
+        "duration": 190,
+        "cover": "http://dummyimage.com/800x600.png/577380/ffffff",
+        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
+        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
+      },
+      {
+        "id": 13,
+        "slug": "tvshow-13",
+        "title": "NCIS: Los Angeles",
+        "type": "Drama",
+        "language": "English",
+        "year": 2010,
+        "contentRating": "16+",
+        "duration": 160,
+        "cover": "http://dummyimage.com/800x600.png/5472FF/ffffff",
+        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
+        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
+      }
+    ]
+  }
 }
-],
-"originals": [
-{
-"id": 8,
-"slug": "tvshow-8",
-"title": "Stargate Atlantis",
-"type": "Action",
-"language": "English",
-"year": 2012,
-"contentRating": "16+",
-"duration": 148,
-"cover": "http://dummyimage.com/800x600.png/306880/ffffff",
-"description": "Vestibulum ac est lacinia nisi venenatis tristique",
-"source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-},
-{
-"id": 9,
-"slug": "tvshow-9",
-"title": "Alien Highway",
-"type": "Action",
-"language": "English",
-"year": 2019,
-"contentRating": "16+",
-"duration": 128,
-"cover": "http://dummyimage.com/800x600.png/604180/ffffff",
-"description": "Vestibulum ac est lacinia nisi venenatis tristique",
-"source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-},
-{
-"id": 10,
-"slug": "tvshow-10",
-"title": "Elementary",
-"type": "Animation",
-"language": "English",
-"year": 2011,
-"contentRating": "16+",
-"duration": 346,
-"cover": "http://dummyimage.com/800x600.png/FF91BA/ffffff",
-"description": "Vestibulum ac est lacinia nisi venenatis tristique",
-"source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-},
-{
-"id": 11,
-"slug": "tvshow-11",
-"title": "Strange Angel",
-"type": "War",
-"language": "English",
-"year": 2015,
-"contentRating": "16+",
-"duration": 226,
-"cover": "http://dummyimage.com/800x600.png/45807C/ffffff",
-"description": "Vestibulum ac est lacinia nisi venenatis tristique",
-"source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-},
-{
-"id": 12,
-"slug": "tvshow-12",
-"title": "Private Eyes",
-"type": "Comedy",
-"language": "English",
-"year": 2018,
-"contentRating": "16+",
-"duration": 190,
-"cover": "http://dummyimage.com/800x600.png/577380/ffffff",
-"description": "Vestibulum ac est lacinia nisi venenatis tristique",
-"source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-},
-{
-"id": 13,
-"slug": "tvshow-13",
-"title": "NCIS: Los Angeles",
-"type": "Drama",
-"language": "English",
-"year": 2010,
-"contentRating": "16+",
-"duration": 160,
-"cover": "http://dummyimage.com/800x600.png/5472FF/ffffff",
-"description": "Vestibulum ac est lacinia nisi venenatis tristique",
-"source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-}
-]
-}
-}
+```
 
 Para instalar JSON Server:
 NOTE: Debemos instalar el servidor de json globalmente y con permisos de administrador, caso contrario resultaria error.
 
-> sudo npm install json-server -g
+```bash
+sudo npm install json-server -g
+```
 
 ### Para empezar con la Fake API
 
 Para empezar la FAKE API debemos tener 2 pestañas en nuestra terminal y en una ventana vamos a correr:
 
-> json-server "archivoParaTuAPI".json => json-server initialState.json
+```bash
+json-server "archivoParaTuAPI".json => json-server initialState.json
+```
 
 NOTE: Recuerda que en Windows debes correr tu terminal de comandos en modo administrador.
 
-Utilizar npx json-server --watch initialState.json para correr la fake API en windows 10.
-
-## React Hooks: useEffect y useState
-
-React Hooks (2018): Es una característica de React disponible a partir de la versión 16.8 que nos permite agregar estado y ciclo de vida a nuestros componentes creados como funciones o componentes stateless o presentacionales.
-
-FIXME: React es una librería desarrollada por Facebook que nos ayuda a construir interfaces de usuario interactivas para todo tipo de aplicaciones: páginas web, aplicaciones móviles o de escritorio, experiencias de realidad virtual, entre otras.
-
-NOTAS de "Lectura sobre React Hooks":
-
-> El Hook useState nos devuelve un array con dos elementos: la primera posición es el valor de nuestro estado, la segunda es una función que nos permite actualizar ese valor.
-> El argumento que enviamos a esta función es el valor por defecto de nuestro estado (initial state).
-
-Ejemplo:
-
-import React, { useState } from 'react';
-
-const Component = () => {
-const [name, setName] = useState('Nombre por defecto');
-
-return <div>{name}</div>;
-}
-
-> El Hook useEffect nos permite ejecutar código cuando se monta, desmonta o actualiza nuestro componente.
-> El primer argumento que le enviamos a useEffect es una función que se ejecutará cuando React monte o actualice el componente. Esta función puede devolver otra función que se ejecutará cuando el componente se desmonte.
-> **El segundo argumento es un array donde podemos especificar qué propiedades deben cambiar para que React vuelva a llamar nuestro código. Si el componente actualiza pero estas props no cambian, la función no se ejecutará.**
-> Por defecto, cuando no enviamos un segundo argumento, React ejecutará la función de useEffect cada vez que el componente o sus componentes padres actualicen. En cambio, si enviamos un array vacío, esta función solo se ejecutará al montar o desmontar el componente.
-
-Ejemplo:
-
-import React, { useState, useEffect } from 'react';
-
-const Component = () => {
-const [name, setName] = useState('Nombre por defecto');
-
-useEffect(() => {
-document.title = name;
-return () => {
-document.title = 'el componente se desmontó';
-};
-}, [name]);
-
-return <div>{name}</div>;
-}
-
-NOTE: No olvides importar las funciones de los hooks desde la librería de React. También puedes usarlos de esta forma: React.useNombreDelHook.
-
-### Use State
-
-Es una función que hay que declararse como un array con 2 posiciones: La posición 0 es la variable que puede ir cambiando y la posición 1 que es la función que va a hacer ese cambio:
-
-const [videos, setVideos] = React.useState(0);
-
-UseState recibe un solo argumento, el cuál será el primer elemento de nuestro arreglo. Este dato pues ser de cualquier tipo.
-
-### Use Effect
-
-Va a permitir ir a APIs para consultar datos y luego pasarsela a algún estado que queramos hacer.
-
-Recibe un primer parámetro como una función anónima. Y un segundo parámetro como una condición para que sea llamada. Si no se le pasa el segundo argumento, entonces useEffect entra en un bucle infinito.
-
-NOTE: Fetch => Es un método que recibe una API y luego un método then que le ayuda a decidir: Si llamada a la API se hizo correctamente, entonces hago algo. También tiene un método Catch que sirve para encapsular algún error y reportarlo. Promesas.
+> Utilizar npx json-server --watch initialState.json para correr la fake API en windows 10.
 
 ## Conectando la información de la API
 
@@ -2579,32 +2546,34 @@ Esto se debe a que los arrays en js hay que inicializarlos para poder acceder a 
 Cannot read property ‘length’ of undefined
 Una solución es añadiendo en la declaración de useState los valores de lso arrays que estamos esperando, por lo que el código quedaría:
 
+```js
 const [videos, setVideos] = useState({ mylist: [], trends: [], originals: [] });
+```
 
 Ejemplo de uso:
 
+```js
 const App = () => {
-// const [videos, setVideos] = useState({ mylist: [], trends: [], originals: [] });
-const [videos, setVideos] = useState([]);
+  // const [videos, setVideos] = useState({ mylist: [], trends: [], originals: [] });
+  const [videos, setVideos] = useState([]);
 
-useEffect(() => {
-fetch('http://localhost:3000/initalState')
-.then((response) => response.json())
-.then((data) => setVideos(data));
-}, []);
+  useEffect(() => {
+    fetch('http://localhost:3000/initalState')
+      .then((response) => response.json())
+      .then((data) => setVideos(data));
+  }, []);
 
-return (
-
-<div className='App'>
-<Header />
-<Search />
-{videos.mylist?.length > 0 && (
-<Categorias title='My list'>
-<Carousel>
-<CarouselItem />
-</Carousel>
-</Categorias>
-)}
+  return (
+    <div className='App'>
+      <Header />
+      <Search />
+      {videos.mylist?.length > 0 && (
+        <Categorias title='My list'>
+          <Carousel>
+            <CarouselItem />
+          </Carousel>
+        </Categorias>
+      )}
 
       <Categorias title='Tendencias'>
         <Carousel>
@@ -2623,53 +2592,9 @@ return (
       </Categorias>
       <Footer />
     </div>
-
-);
+  );
 };
-
-## Custom Hook
-
-Nos permite separar la lógica de los componentes a otro componente para poderlo utilizar en otros componentes donde los necesitemos.
-
-Debemos crear una carpeta en src llamada hooks y dentro un archivo con un nombre que tenga la palabra "use" al principio. Esto se hace por convención, lo del nombre.
-
-Ejemplo de uso:
-
-import { useState, useEffect } from 'react';
-
-const useInitialState = (API) => {
-// const [videos, setVideos] = useState({ mylist: [], trends: [], originals: [] });
-const [videos, setVideos] = useState([]);
-
-useEffect(() => {
-fetch(API)
-.then((response) => response.json())
-.then((data) => setVideos(data));
-}, []);
-
-return videos;
-};
-
-export { useInitialState };
-
-## PropsTypes
-
-Los PropTypes son una propiedad de nuestros componentes que nos permiten especificar qué tipo de elementos son nuestras props: arrays, strings, números, etc. => Al puro estilo de typescript.
-
-Para instalar propstypes ejecutamos:
-
-> npm install --save prop-types
-
-Ejemplo de uso:
-
-Por defecto, enviar todas nuestras props es opcional, pero con los propTypes podemos especificar cuáles props son obligatorias para que nuestro componente funcione correctamente con el atributo isRequired.
-
-Component.propTypes = { => Aquí hacemos el llamado con la primera letra de propsTypes en minúscula.
-name: PropTypes.string.isRequired, // obligatorio
-lastName: PropTypes.string.isRequired, // obligatorio
-age: PropTypes.number, // opcional,
-list: PropTypes.array, // opcional
-};
+```
 
 ## Debuggeando React con React DevTools
 
@@ -2681,19 +2606,13 @@ Descargar desde: https://reactjs.org/blog/2015/09/02/new-react-developer-tools.h
 
 Analizar bien el las tools que entrega chrome para encontrar este nuevo feature.
 
-# Configuración de entorno para trabajar con Create react app
-
-## Sass
+# Sass con Create-React-App
 
 Para instalar sass con create-react-app vamos a hacer:
 
 > npm install node-sass
 
-Luego de instalar, simplemente podemos añadir un archivo con extensión scss y listo.
-
-```
-
-```
+Luego de instalar, simplemente podemos añadir un archivo con extensión scss y listo, podemos empezar a trabajar
 
 # Hacer deploy en Github Pages
 
