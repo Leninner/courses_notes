@@ -43,7 +43,7 @@ Luego podemos trabajar como si estuvieramos con React.
 
 ## Javascript Moderno
 
-1. Variables y Constantes
+1. **Variables y Constantes**
 
 > No usar Var
 
@@ -54,7 +54,7 @@ Let => Variables que si se pueden cambiar
 
 Para cambiar el valor de una variable let, no hace falta declararla de nuevo.
 
-2. Template Strings
+2. **Template Strings**
 
 Son formas más fáciles de utilizar la concatenación de strings.
 
