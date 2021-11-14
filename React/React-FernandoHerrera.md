@@ -39,7 +39,7 @@ Luego podemos trabajar como si estuvieramos con React.
 
 - React trabaja con babel
 
-Utilizar babel => https://babeljs.io/
+> Probar babel: https://babeljs.io/
 
 ## Javascript Moderno
 
