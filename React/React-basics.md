@@ -31,7 +31,7 @@
   - [React Router DOM](#react-router-dom)
   - [CSS en React](#css-en-react)
   - [Hooks](#hooks)
-  - [React.useState](#reactusestate)
+    - [React.useState](#reactusestate)
     - [React.useEffect](#reactuseeffect)
       - [Axios](#axios)
     - [Custom Hook](#custom-hook)
@@ -1205,7 +1205,7 @@ Hay muchas formas de agregar estilos en CSS a React:
 
 ## Hooks
 
-## React.useState
+### React.useState
 
 Es una función que hay que declararse como un array con 2 posiciones: La posición 0 es la variable que puede ir cambiando y la posición 1 que es la función que va a hacer ese cambio:
 
