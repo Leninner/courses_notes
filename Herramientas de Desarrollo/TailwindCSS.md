@@ -1,3 +1,11 @@
+**Índice**:
+
+- [Diferencias entre Bootstrap y Tailwind](#diferencias-entre-bootstrap-y-tailwind)
+- [Instalación con CDN](#instalación-con-cdn)
+- [Puntos de Quiebre](#puntos-de-quiebre)
+- [Instalación con NPM](#instalación-con-npm)
+- [TailwindCSS con ReactJS](#tailwindcss-con-reactjs)
+
 # Diferencias entre Bootstrap y Tailwind
 
 En Bootstrap ya tenemos los estilos realizados en tarjetas dentro de su web. Perdemos el control sobre la personalización.
@@ -126,8 +134,8 @@ module.exports = {
     require('tailwindcss'),
     require('autoprefixer'),
     // ...
-  ]
-}
+  ],
+};
 ```
 
 4. Luego nos vamos a src y creamos un directorio llamado assets y creamos un archivo css: (tailwind.css) y dentro va esta config base:
@@ -136,28 +144,26 @@ module.exports = {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 ```
 
 Si queremos podemos añadir más configuraciones de estilos:
 
 ```css
 .btn {
-    @apply py-2 px-4 rounded;
+  @apply py-2 px-4 rounded;
 }
 
 .btn-blue {
-    @apply bg-blue-500 text-white;
+  @apply bg-blue-500 text-white;
 }
 
 .btn-blue:hover {
-    @apply bg-blue-700;
+  @apply bg-blue-700;
 }
 
 .card {
-    @apply rounded overflow-hidden shadow-lg;
+  @apply rounded overflow-hidden shadow-lg;
 }
-
 ```
 
 5. Creamos los scripts que nos van a ayudar en el proyecto

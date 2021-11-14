@@ -1,4 +1,14 @@
+**Índice**:
+
+- [Curso de Ract de Cero a Experto por Fernando Herrera](#curso-de-ract-de-cero-a-experto-por-fernando-herrera)
+  - [¿Qué es React?](#qué-es-react)
+  - [Introducción a Babel](#introducción-a-babel)
+  - [Javascript Moderno](#javascript-moderno)
+- [Notas Interesantes](#notas-interesantes)
+
 # Curso de Ract de Cero a Experto por Fernando Herrera
+
+Estas son notas del curso de Udemy dictado por Fernando Herrera.
 
 ## ¿Qué es React?
 
@@ -45,6 +55,28 @@ Let => Variables que si se pueden cambiar
 Para cambiar el valor de una variable let, no hace falta declararla de nuevo.
 
 2. Template Strings
+
+Son formas más fáciles de utilizar la concatenación de strings.
+
+Podemos pasar de esto:
+
+```js
+const nombre = 'Lenin';
+const apellido = 'Mazabanda';
+
+const nombreCompleto = nombre + ' ' + apellido;
+```
+
+a esto:
+
+```js
+const nombre = 'Lenin';
+const apellido = 'Mazabanda';
+
+const nombreCompleto = `${nombre} ${apellido}`;
+```
+
+> Para sacar este símbolo (`) se utiliza en Windows: **Alt + 96**
 
 # Notas Interesantes
 
