@@ -5,6 +5,7 @@
   - [Introducción a Babel](#introducción-a-babel)
   - [Javascript Moderno](#javascript-moderno)
 - [Notas Interesantes](#notas-interesantes)
+  - [Para React](#para-react)
 
 # Curso de Ract de Cero a Experto por Fernando Herrera
 
