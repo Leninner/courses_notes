@@ -4,8 +4,13 @@
   - [¿Qué es React?](#qué-es-react)
   - [Introducción a Babel](#introducción-a-babel)
   - [Javascript Moderno](#javascript-moderno)
+    - [Variables y Constantes](#variables-y-constantes)
+    - [Template Strings](#template-strings)
+    - [Objetos Literales](#objetos-literales)
+    - [Spread Operator (ES6)](#spread-operator-es6)
 - [Notas Interesantes](#notas-interesantes)
   - [Para React](#para-react)
+  - [Para Javascript](#para-javascript)
 
 # Curso de Ract de Cero a Experto por Fernando Herrera
 
@@ -44,7 +49,7 @@ Luego podemos trabajar como si estuvieramos con React.
 
 ## Javascript Moderno
 
-1. **Variables y Constantes**
+### Variables y Constantes
 
 > No usar Var
 
@@ -55,7 +60,7 @@ Let => Variables que si se pueden cambiar
 
 Para cambiar el valor de una variable let, no hace falta declararla de nuevo.
 
-2. **Template Strings**
+### Template Strings
 
 Son formas más fáciles de utilizar la concatenación de strings.
 
@@ -79,8 +84,127 @@ const nombreCompleto = `${nombre} ${apellido}`;
 
 > Para sacar este símbolo (`) se utiliza en Windows: **Alt + 96**
 
+### Objetos Literales
+
+> Cualquier cosa en Javascript tiene un prototype que tiene propiedades implícitas de todos los objetos.
+
+Un objeto es: {}. Trabaja con pares de valores: _key_ y _value_
+
+- Dependiendo el lenguaje de programación puede ser llamado de otras formas diferentes, como por ejemplo diccionario.
+
+Ejemplo:
+
+```js
+const people = {
+  nombre: 'Lenin',
+  edad: '18',
+  novias: [1, 2, 3],
+};
+```
+
+**Maneras de imprimir y acceder a sus elementos:**
+
+- Para imprimir TODO el objeto se puede utilizar:
+
+```js
+console.log(people);
+```
+
+- Para imprimir el nombre:
+
+```js
+console.log(people.nombre);
+console.log(people[nombre]);
+```
+
+**Consideraciones**:
+
+1. Cuando tenemos una llave de frases con espacios, no podemos hacer esto:
+
+```js
+const eg = {
+  'una prop': 'Lenin',
+};
+
+console.log(eg.una prop)
+console.log(eg."una prop")
+```
+
+En lugar de lo anterior deberíamos hacer:
+
+```js
+console.log(eg['una prop']);
+```
+
+2. Es una mala práctica utilizar carácteres especiales al poner nombre a las _keys_
+
+```js
+const people = {
+  dirección: 121323,
+};
+```
+
+### Spread Operator (ES6)
+
+Nos permite clonar todos los elementos de dentro de un array o de una objeto:
+
+- Arrays:
+
+```js
+const numbers = [1, 2, 3, 4, 5, 6];
+
+const numbersAndVowels = [...numbers, 'a', 'e', 'i', 'o', 'u'];
+
+console.log(numbersAndVowels); //[1, 2, 3, 4, 5, 6, 'a', 'e', 'i', 'o', 'u']
+```
+
+- Objetos:
+
+1. Con uso de Spread Operator
+
+```js
+const person = { name: 'Lenin', apellido: 'Mazabanda', edad: 18, gustos: 'React' };
+
+const person2 = { ...person };
+
+person2.name = 'Mathias';
+
+console.log(person); // {name: 'Lenin', apellido: 'Mazabanda', edad: 18, gustos: 'React'}
+console.log(person2); // {name: 'Mathias', apellido: 'Mazabanda', edad: 18, gustos: 'React'}
+```
+
+2. Sin Spread Operator
+
+```js
+const person = { name: 'Lenin', apellido: 'Mazabanda', edad: 18, gustos: 'React' };
+
+const person2 = person;
+
+person2.name = 'Mathias';
+
+console.log(person); // {name: 'Mathias', apellido: 'Mazabanda', edad: 18, gustos: 'React'}
+console.log(person2); // {name: 'Mathias', apellido: 'Mazabanda', edad: 18, gustos: 'React'}
+```
+
+o
+
+```js
+const person = { name: 'Lenin', apellido: 'Mazabanda', edad: 18, gustos: 'React' };
+
+const person2 = { person };
+
+person2.name = 'Mathias';
+
+console.log(person); // {name: 'Lenin', apellido: 'Mazabanda', edad: 18, gustos: 'React'}
+console.log(person2); // {person: {name: 'Lenin', apellido: 'Mazabanda', edad: 18, gustos: 'React'}, name: 'Mathias'}
+```
+
 # Notas Interesantes
 
 ## Para React
 
 1. Para no hacer cambios al instante que se esté actualizando el código y más bien hacerlo cuando se de a CTRL + S, podemos crear un archivo en la raíz del proyecto llamando _.env_ y dentro escribir **FAST_REFRESH=false**
+
+## Para Javascript
+
+1. Javascript empieza a ejecutar el código línea a línea
