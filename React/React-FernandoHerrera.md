@@ -44,6 +44,8 @@ Let => Variables que si se pueden cambiar
 
 Para cambiar el valor de una variable let, no hace falta declararla de nuevo.
 
+2. Template Strings
+
 # Notas Interesantes
 
 Para no hacer cambios al instante que se esté actualizando el código y más bien hacerlo cuando se de a CTRL + S, podemos crear un archivo en la raíz del proyecto llamando _.env_ y dentro escribir **FAST_REFRESH=false**
