@@ -4,11 +4,11 @@
 
 1.  Números
 
-- Todos los números que pertenecen al conjunto de los Reales.
+    - Todos los números que pertenecen al conjunto de los Reales.
 
 2.  Strings
 
-- Texto de todo tipo, y son encerrados regularmente por ("comillas dobles"), (`acento grave`), ('comillas simples'):
+    - Texto de todo tipo, y son encerrados regularmente por ("comillas dobles"), (`acento grave`), ('comillas simples'):
 
 ```bash
 # comillas dobles
@@ -19,13 +19,13 @@
 `Lenin`;
 ```
 
-- Para sacar comillas dobles con el teclado: Alt +  
-- Para sacar comillas simples con el teclado: Alt + 39
-- Para sacar acento grave con el teclado: Alt + 96
+    - Para sacar comillas dobles con el teclado: Alt +
+    - Para sacar comillas simples con el teclado: Alt + 39
+    - Para sacar acento grave con el teclado: Alt + 96
 
 3.  Booleanos
 
-- De tipo _true_ y _false_:
+    - De tipo _true_ y _false_:
 
 ```js
 const isOdd = true;
@@ -34,7 +34,7 @@ const isEven = false;
 
 4.  Arrays o Arreglos
 
-- Conjuntos denotados por [ ]. Los elementos de estos conjuntos pueden ser de **cualquier tipo** de dato conocido:
+    - Conjuntos denotados por [ ]. Los elementos de estos conjuntos pueden ser de **cualquier tipo** de dato conocido:
 
 ```js
 // Los arreglos pueden tener elementos de cualquier tipo
@@ -45,7 +45,7 @@ const arrayOfNumbers = [1, 2, 3, 4, 5, 6];
 
 5.  Objetos
 
-- Conjuntos de pares: key, valor. Son denotados por {}:
+    - Conjuntos de pares: key, valor. Son denotados por {}:
 
 ```js
 const lenin = {
