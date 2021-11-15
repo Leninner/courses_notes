@@ -45,7 +45,7 @@ const arrayOfNumbers = [1, 2, 3, 4, 5, 6];
 
 5.  Objetos
 
-    - Conjuntos de pares: key, valor. Son denotados por {}:
+    - Conjuntos de pares: key, valor. Son denotados por { }:
 
 ```js
 const lenin = {
