@@ -1,3 +1,7 @@
+# Javascript Basics
+
+> Para abrir la consola del navegador Chrome: ctrl + shift + j `o` ctrl + shift + c
+
 ## Tipos de datos
 
 1.  Números
@@ -90,4 +94,98 @@ var name = [1, 2, 3, 4, 5, 6];
 var name = 'Lenin'; // Es totalmente posible
 ```
 
-> Hablamos de `scope` al trabajar con variables
+> Hablamos de `scope` al trabajar con variables, más adelante en el archivo se podrá encontrar información sobre el Scope
+
+## Condicionales
+
+Son métodos que nos permiten realizar acciones o ejecutar código dependiendo si una condición se cumple o no:
+
+### Condicional If
+
+### Condicional Switch
+
+## Loops o Bucles
+
+### While loop
+
+### Do While Loop
+
+### For Loop
+
+## Funciones
+
+Son "**fábricas**" que se encargan de hacer algún trabajo determinado, por ejemplo, saludar, restar un número, divir un número, etc...
+
+Ejemplo:
+
+```js
+// Definición de función
+function sayHello() {
+  console.log('Hello');
+}
+```
+
+Para ejecutar la función anterior la llamamos así:
+
+```js
+sayHello(); // Va a mostrar en la consola Hello
+```
+
+### Parámetros y Argumentos
+
+Parámetros:
+
+- Son aquellas variables que se declaran en un método o en una función:
+
+```js
+function doSome(parametro) {
+  // lo que está dentro de los paréntesis son los parámetros
+  return parametro;
+}
+```
+
+Argumentos:
+
+- Son los datos que se pasan al método o a la función al ser llamados:
+
+```js
+doSome('Lenin'); //  lo que está dentro del paréntesis son los argumentos
+```
+
+> En general no hay ningún problema con llamarle argumento a un parámetro o viceversa, pero es importante remarcar la diferencia.
+
+### Function Expression o Expresión de Función
+
+**Expresión de función:**
+En la expresión de función, la declaración se inicia con la palabra reservada var, donde se generará una variable que guardará una función anónima.
+
+```js
+var nombre = function(nombre){
+console.log(`Hola ${nombre}`)
+}
+
+nombre(‘Diego’);
+```
+
+### Function Statement/Function Declaration o Declaración de Función
+
+**Funciones Declarativas:**
+En las funciones declarativas, utilizamos la palabra reservada function al inicio para poder declarar la función:
+
+```js
+function saludar(nombre) {
+  console.log(`Hola ${nombre}`);
+}
+
+saludar('Diego');
+```
+
+### Arrow Functions
+
+### Retorno Explícito vs Retorno Implícito
+
+Toda función nos va a retornar algo, ya sea explícitamente o implícitamente.
+
+#### Retorno Explícito
+
+#### Retorno Implícito
