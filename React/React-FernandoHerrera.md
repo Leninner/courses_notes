@@ -204,6 +204,67 @@ console.log(person2); // {person: {name: 'Lenin', apellido: 'Mazabanda', edad: 1
 ## Para React
 
 1. Para no hacer cambios al instante que se esté actualizando el código y más bien hacerlo cuando se de a CTRL + S, podemos crear un archivo en la raíz del proyecto llamando _.env_ y dentro escribir **FAST_REFRESH=false**
+2. Existen dos formas para exportar un componente presentacional en React: explícitamente con la keyword return y {} e implícitamente sin la keyword return y con ():
+
+- Explícitamente
+
+```js
+const Registro = () => {
+  return (
+    <section class='register'>
+      <section class='register__container'>
+        <h2>Regístrate</h2>
+        <form class='register__container--form'>
+          <input class='input' type='text' placeholder='Nombre' />
+          <input class='input' type='text' placeholder='Correo' />
+          <input class='input' type='password' placeholder='Contraseña' />
+          <button class='button'>Registrarme</button>
+        </form>
+        <a href=''>Iniciar sesión</a>
+      </section>
+    </section>
+  );
+};
+```
+
+- Implícitamente
+
+```js
+const Registro = () => (
+  <section class='register'>
+    <section class='register__container'>
+      <h2>Regístrate</h2>
+      <form class='register__container--form'>
+        <input class='input' type='text' placeholder='Nombre' />
+        <input class='input' type='text' placeholder='Correo' />
+        <input class='input' type='password' placeholder='Contraseña' />
+        <button class='button'>Registrarme</button>
+      </form>
+      <a href=''>Iniciar sesión</a>
+    </section>
+  </section>
+);
+```
+
+3. Para no añadir elementos div demás al DOM con los retornos de React, podemos utilizar React.Fragment:
+
+```js
+const Component = () => (
+  <React.Fragment>
+    <div>Leninner</div>
+  </React.Fragment>
+);
+```
+
+O también:
+
+```js
+const Component = () => (
+  <>
+    <div>Leninner</div>
+  </>
+);
+```
 
 ## Para Javascript
 
