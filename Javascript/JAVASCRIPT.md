@@ -19,9 +19,7 @@
 `Lenin`;
 ```
 
-> Para sacar comillas dobles con el teclado: Alt +
-> Para sacar comillas simples con el teclado: Alt + 39
-> Para sacar acento grave con el teclado: Alt + 96
+> Para sacar comillas dobles con el teclado: Alt + \n Para sacar comillas simples con el teclado: Alt + 39 \n Para sacar acento grave con el teclado: Alt + 96
 
 3.  Booleanos
 
