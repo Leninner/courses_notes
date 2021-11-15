@@ -34,7 +34,7 @@ const isEven = false;
 
 4.  Arrays o Arreglos
 
-- Conjuntos denotados por []. Los elementos de estos conjuntos pueden ser de **cualquier tipo** de dato conocido:
+- Conjuntos denotados por [ ]. Los elementos de estos conjuntos pueden ser de **cualquier tipo** de dato conocido:
 
 ```js
 // Los arreglos pueden tener elementos de cualquier tipo
