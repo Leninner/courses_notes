@@ -1,4 +1,61 @@
-# Javascript
+# Lenguaje Javascript
+
+## Tipos de datos
+
+1.  Números
+
+- Todos los números que pertenecen al conjunto de los Reales.
+
+2.  Strings
+
+- Texto de todo tipo, y son encerrados regularmente por ("comillas dobles"), (`acento grave`), ('comillas simples'):
+
+```bash
+# comillas dobles
+"Lenin";
+# comillas simples
+'Lenin';
+# acento grave
+`Lenin`;
+```
+
+> Para sacar comillas dobles con el teclado: Alt +
+> Para sacar comillas simples con el teclado: Alt + 39
+> Para sacar acento grave con el teclado: Alt + 96
+
+3.  Booleanos
+
+- De tipo _true_ y _false_:
+
+```js
+const isOdd = true;
+const isEven = false;
+```
+
+4.  Arrays o Arreglos
+
+- Conjuntos denotados por []. Los elementos de estos conjuntos pueden ser de **cualquier tipo** de dato conocido:
+
+```js
+// Los arreglos pueden tener elementos de cualquier tipo
+const anyElement = ['a', 1, true, false, 'b'];
+const anotherArray = [];
+const arrayOfNumbers = [1, 2, 3, 4, 5, 6];
+```
+
+5.  Objetos
+
+- Conjuntos de pares: key, valor. Son denotados por {}:
+
+```js
+const lenin = {
+  name: 'Lenin', // name es la key y Lenin es el valor
+  lastName: 'Mazabanda', // lastName es la key y Mazabanda es el valor
+  age: 18, // age es la key y 18 es el valor
+  gustos: ['Fútbol', 'Javascript', 'React', 'Loquear'], // gustos es la key y el arreglo es el valor
+  mayorDeEdad: true, // mayorDeEdad es la key y true es el valor
+};
+```
 
 ## Notas Interesantes
 
