@@ -1,5 +1,7 @@
 # Redux
 
+> Flux: https://carlosazaustre.es/como-funciona-flux
+
 Redux es una librería escrita en JavaScript, basada en la arquitectura Flux, creada con Facebook y creada por Dan Abramov, se basa en 3 principios fundamentales:
 
 1. Solamente hay una fuente de la verdad.
