@@ -23,6 +23,10 @@ Luego podemos empezar a trabajar de la siguiente manera:
 ```js
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Home } from 'path-to-home';
+import { Login } from 'path-to-login';
+import { RecoveryPassword } from 'path-to-password';
+import { Layout } from 'path-to-Layout';
 
 const App = () => {
   return (
@@ -70,3 +74,79 @@ Para controlar cuando no exista alguna URL podemos añadir a nuestras rutas lo s
 ```js
 <Route path='*' element={<h1>No encontrado</h1>} />
 ```
+
+## Para mantener componentes en todas las páginas del sitio
+
+Podemos crear un archivo llamado Layout y darle el siguiente formato con todos los componentes que queremos mantener:
+
+- Layout.jsx
+
+```js
+import React from 'react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+
+const Layout = ({ children }) => (
+  <div className='App'>
+    <Header />
+    {children}
+    <Footer />
+  </div>
+);
+
+export { Layout };
+```
+
+De esta manera, en el archivo de rutas, podemos controlar la lógica así:
+
+```js
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from '../containers/Home';
+import { Login } from '../containers/Login';
+import { Registro } from '../containers/Registro';
+import { Layout } from '../containers/Layout';
+
+const App = () => (
+  <BrowserRouter>
+    <Layout>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/registro' element={<Registro />} />
+        <Route path='*' element={<h1>No encontrado</h1>} />
+      </Routes>
+    </Layout>
+  </BrowserRouter>
+);
+
+export default App;
+```
+
+## Manejando Enlaces y configuraciones
+
+Debemos identificar los elementos dinámicos que nos pueden llevar a otras páginas, como el logo de la App, la sección de registro, la sección de login, etc...
+
+Debemos importar un elemento de `react-router-dom`:
+
+```js
+import { Link } from 'react-router-dom';
+```
+
+Luego al elemento o a la palabra que queremos que nos lleve a otra página debemos envolverlo con `<Link to="path"></Link>`
+
+```js
+<Link to='/'>
+  <img className='header__img' src={logo} alt='Platzi Video' />
+</Link>
+```
+
+Otro ejemplo:
+
+```js
+<Link to='/login'>Login</Link>
+```
+
+- Al atributo `to` del componente importado `Link` le dice a React que nos debemos mover a ese path. En el ejemplo anterior, al darle click a la imagen vamos a irnos al home, porque el atributo `to` tiene ese path.
+
+> Debemos evitar hacer uso de la etiqueta HTML a, ya que puede recargar la página y nosotros no queremos eso.
