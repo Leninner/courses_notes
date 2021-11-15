@@ -1,27 +1,23 @@
 # HTML Y CSS
 
-Internet: Interconnected y Network
-Red de computadoras conectadas en todo el mundo.
+> Internet: Interconnected y Network => Red de computadoras conectadas en todo el mundo.
 
-Tim Berners-Lee Invento World Wide Web.
+Tim Berners-Lee Inventó World Wide Web.
 Fundo el consorcio W3C para estandarizar el desarrollo de las tecnologías base Internet
 
-HTTP Hyper Text Transfer Protocol 😕/ (Permite la comunicación de datos entre dispositivos)
-URL Uniform Resource Locator: (Dirección de un sitio web)
-
-HTML Hyper Text Markup Language (Lenguaje para describir la estructura de una sitio web)
+- HTTP (Hyper Text Transfer Protocol): Permite la comunicación de datos entre dispositivos
+- URL (Uniform Resource Locator): Dirección de un sitio web
+- HTML (Hyper Text Markup Language): Lenguaje para describir la estructura de una sitio web
 
 En 1994 apareció CSS Cascade Style Sheets.
 
 > https://htmlreference.io/ > https://cssreference.io/
 
-# DOM, CSSOM, Render Tree y el proceso de renderizado de la Web
+## DOM, CSSOM, Render Tree y el proceso de renderizado de la Web
 
-DOM: Document Object Model. Es una transformación del código HTML escrito por nosotros a objetos entendibles para el navegador.
-
-CSSOM: así como el DOM para el HTML, EL CSSOM es una representación de objetos de nuestros estilos en CSS.
-
-Render Tree: es la unión entre el DOM y el CSSOM para renderizar todo el código de nuestra página web.
+- **DOM (Document Object Model)**: Es una transformación del código HTML escrito por nosotros a objetos entendibles para el navegador.
+- **CSSOM**: así como el DOM para el HTML, EL CSSOM es una representación de objetos de nuestros estilos en CSS.
+- **Render Tree**: es la unión entre el DOM y el CSSOM para renderizar todo el código de nuestra página web.
 
 Pasos que sigue el navegador para construir las páginas web:
 
@@ -29,165 +25,438 @@ Pasos que sigue el navegador para construir las páginas web:
 2. Procesa el CSS para construir el CSSOM.
 3. El DOM se une con el CSSOM para crear el Render Tree.
 4. Se aplican los estilos CSS en el Render Tree.
-5. Se ““pintan”” los nodos en la pantalla para que los usuarios vean el contenido de la página web.
+5. Se **pintan** los nodos en la pantalla para que los usuarios vean el contenido de la página web.
 
-# Anatomía de un Elemento HTML: Atributos, Anidamiento y Elementos vacíos
+## Anatomía de un Elemento HTML: Atributos, Anidamiento y Elementos vacíos
 
 Nuestros elementos HTML se componen de:
 
-Etiqueta de apertura: el nombre de nuestra etiqueta encerrado entre símbolos de mayor o menor. Por ejemplo: <h1>.
-Contenido: dentro de nuestras etiquetas podemos añadir texto u otros elementos HTML, lo que conocemos como anidamiento.
-Etiqueta de cierre: son casi iguales que las etiquetas de apertura, pero también necesitan un slash (/) antes del nombre de la etiqueta. Por ejemplo: </h1>.
-Las etiquetas de apertura también pueden tener atributos. Los atributos nos permiten definir características especiales para nuestros elementos: <etiqueta atributo=""valor del atributo"">. Por ejemplo: <h1 class=""saludo"">.
+1. **Etiqueta de apertura:** el nombre de nuestra etiqueta encerrado entre símbolos de mayor o menor
 
-También existen elementos vacíos. Estos elementos no tienen contenido ni etiqueta de cierre, solo etiqueta de apertura y atributos. Por ejemplo: <img src=""puppy.png"" alt=""mi mascota"">.
+```html
+<h1></h1>
+<!-- <h1> es nuestra etiqueta de apertura -->
+```
 
-NOTE: Meta con el atributo viewport sirve para definir la escala visual del sitio.
+2. **Contenido:** dentro de nuestras etiquetas podemos añadir texto u otros elementos HTML, lo que conocemos como anidamiento:
 
-En pocas palabras si defines también el atributo content después del atributo viewport en la misma etiqueta meta con el valor: "width=device-width, initial-scale=1" le estamos diciendo a nuestro sitio web que ancho máximo de nuestra página web será el ancho del dispositivo desde donde se esté aperturando el sitio web (móvil, tablet, pc).
+```html
+<div>
+  <h1>Esto es un texto</h1>
+</div>
+<!-- Dentro de la etiqueta div podemos añadir otra etiqueta h1 y dentro de esta podemos añadir texto u otras etiquetas de ser el caso -->
+```
 
-Les dejo una pequeña imagen de un sitio web donde se compara el uso de la etiqueta meta con el atributo viewport definido.
+3. **Etiqueta de cierre**: son casi iguales que las etiquetas de apertura, pero también necesitan un slash (/) antes del nombre de la etiqueta. Por ejemplo: </h1>:
 
-# La importancia del código semántico
+```html
+<h1></h1>
+<!-- </h1> es nuestra etiqueta de cierre -->
+```
 
-Es importante que como desarrolladores tengamos claro el significado de escribir código. Debes ser consciente de que la manera en la que codeas tenga sentido.
-La semántica HTML no es más que darle sentido y estructura a lo que estas escribiendo. Muy importante para el navegador. No todos los elementos deberían ser un div.
-Es muy importante darle un sentido coherente.
+- Las etiquetas de apertura también pueden tener atributos. Los atributos nos permiten definir características especiales para nuestros elementos: <etiqueta atributo=""valor del atributo="">:
 
-# Tipos de errores en HTML, debugging y servicio de validación de etiquetas
+```html
+<etiqueta atributo="" valor del atributo="">
+  <img src="path/to/image" alt="alternative_text" />
+</etiqueta>
+```
 
-Errores sintácticos: Son errores de escritura en el código y evitan que el programa funcione. Pueden ser errores de tipado.
+También existen elementos vacíos. Estos elementos no tienen contenido ni etiqueta de cierre, solo etiqueta de apertura y atributos:
 
-Errores lógicos: En estos la sintaxis es correcta, pero el código no hace lo que debería. El programa funciona, pero de forma incorrecta.
+```html
+<input type="text" placeholder="Name" />
+```
 
-# Anatomía de una declaración CSS: Selectores, Propiedades y Valores
+o
+
+```html
+<img src="puppy.png" alt="puppy" />
+```
+
+### La importancia del código semántico
+
+Es importante que como desarrolladores tengamos claro el significado de escribir código.
+Debes ser consciente de que la manera en la que codeas tenga sentido.
+
+La semántica HTML no es más que darle sentido y estructura a lo que estas escribiendo. Muy importante para el navegador.
+Es muy importante darle un sentido coherente:
+
+- No es lo mismo:
+
+```html
+<header>
+  <section>
+    <img src="path/to/image" alt="alternative_text" />
+    <h1>Title Site</h1>
+  </section>
+  <section>
+    <nav>
+      <ul>
+        <li>Some link</li>
+        <li>Some link</li>
+      </ul>
+    </nav>
+  </section>
+</header>
+```
+
+- A esto:
+
+```html
+<div>
+  <div>
+    <img src="path/to/image" alt="alternative_text" />
+    <h1>Title Site</h1>
+  </div>
+  <div>
+    <div>
+      <ul>
+        <li>Some link</li>
+        <li>Some link</li>
+      </ul>
+    </div>
+  </div>
+</div>
+```
+
+### Tipos de errores en HTML, debugging y servicio de validación de etiquetas
+
+1. **Errores sintácticos:** Son errores de escritura en el código y evitan que el programa funcione. Pueden ser errores de tipado.
+
+2. **Errores lógicos:** En estos la sintaxis es correcta, pero el código no hace lo que debería. El programa funciona, pero de forma incorrecta.
+
+## Anatomía de una declaración CSS: Selectores, Propiedades y Valores
 
 Nuestros estilos con CSS se componen de:
 
-Selector: son la referencia a los elementos HTML que queremos estilizar. Los nombres de estas etiquetas van seguidas de una llave de apertura y otra de cierre ({}). Por ejemplo: h1 {}.
-Propiedades: son el tipo de estilo que queremos darle a nuestros elementos. Van seguidas de dos puntos (:). Las propiedades deben estar dentro de las llaves del selector que definimos anteriormente. Podemos escribir diferentes propiedades en un mismo selector. Por ejemplo: h1 { color: }.
-Valores: son el estilo que queremos que tomen nuestros elementos HTML con respecto a una propiedad. Van seguidas de un punto y coma (;). Por ejemplo: h1 { color: red; }.
+- **Selector**: son la referencia a los elementos HTML que queremos estilizar. Los nombres de estas etiquetas van seguidas de una llave de apertura y otra de cierre ({}):
 
-# Tipos de selectores, pseudo-clases y pseudo-elementos
-
-\*(asterisco): Es el selector universal. Las propiedades se aplicaran a todos los elementos de nuestro HTML.
-
-Tipo: Son selectores que se aplican a cierto elemento HTML en específico. Las propiedades se aplicaran a la etiqueta que queremos, por ejemplo p, body, html, div, etc.
-
-Clase: Si nuestras etiqueta de HTML tienen un atributo de class podemos usar ese valor o identificador para que los cambios en el CSS afecten únicamente a ese elemento.
-
-ID: Es similar al anterior, si la etiqueta HTML tiene un ID podemos afectar solo ese elemento.
-
-Las Pseudo-clases y Pseudo-elementos nos permiten ser aún más específicos con qué elemento o partes de nuestros elementos deben recibir los estilos.
-
-Para usarlas debemos definir el selector base (por ejemplo, p) seguido de dos puntos y la pseudo-clase que queremos estilizar (por ejemplo: p:first-child). En el caso de los pseudo-elementos debemos usar el dos puntos 2 veces (p::first-letter).
-NOTE: Sirve para el primer hijo de todos, el segundo, el último, etc.
-
-/_ Asterisco (universal) _/
-
--   {
-    margin: 0;
-    }
-
-/_ Tipo _/
+```css
 h1 {
-color: red;
 }
+```
 
-/_ Clase _/
-.saludo {
-font-size: 2em;
+- **Propiedades**: son el tipo de estilo que queremos darle a nuestros elementos. Van seguidas de dos puntos (:). Las propiedades deben estar dentro de las llaves del selector que definimos anteriormente. Podemos escribir diferentes propiedades en un mismo selector:
+
+```css
+h1 {
+  color: white;
+  background-color: black;
+  font-weight: bold;
 }
+```
 
-/_ ID _/
-#id {
-border-radius: 20px;
+- **Valores**: son el estilo que queremos que tomen nuestros elementos HTML con respecto a una propiedad. Van seguidas de un punto y coma (;). Son los valores después de la propiedad:
+
+```css
+h1 {
+  color: white;
+  background-color: black;
+  font-weight: bold;
 }
+```
 
-/_ Pseudo-clases _/
+### Tipos de selectores, pseudo-clases y pseudo-elementos
+
+#### **\*(asterisco)**
+
+Es el selector universal. Las propiedades se aplicaran a todos los elementos de nuestro HTML:
+
+```css
+* {
+  background-color: red;
+  box-sizing: border-box;
+}
+```
+
+#### **Tipo**
+
+Son selectores que se aplican a cierto elemento HTML en específico. Las propiedades se aplicaran a la etiqueta que queremos, por ejemplo p, body, html, div, etc:
+
+```css
+div {
+  color: white;
+}
+h2 {
+  font-size: 25px;
+}
+```
+
+#### **Clase**
+
+Si nuestras etiqueta de HTML tienen un atributo de class podemos usar ese valor o identificador para que los cambios en el CSS afecten únicamente a ese elemento:
+
+> Las clases se identifican, tanto en Javascript como en CSS con un (.) punto.
+
+- Elemento HTML
+
+```html
+<div class="contenedor"></div>
+```
+
+- Estilos en CSS
+
+```css
+/* div con la clase contenedor */
+.contenedor {
+  width: 100%;
+  height: 100vh;
+  background-color: red;
+}
+```
+
+#### **ID**
+
+Es similar al anterior, si la etiqueta HTML tiene un ID podemos afectar solo ese elemento:
+
+> A los IDs tanto en Javascript como en CSS se los identifica con un # (hashtag).
+
+- Elemento HTML
+
+```html
+<div id="contenedor"></div>
+```
+
+- Estilos en CSS
+
+```css
+/* div con el ID contenedor */
+#contenedor {
+  width: 100%;
+  height: 100vh;
+  background-color: red;
+}
+```
+
+#### Pseudo-clases y Pseudo-elementos
+
+Nos permiten ser aún más específicos con qué elemento o partes de nuestros elementos deben recibir los estilos.
+Para usarlas debemos definir el selector base (por ejemplo, p) seguido de dos puntos y la pseudo-clase que queremos estilizar (por ejemplo: p:first-child):
+
+```css
+/* estilos al primer hijo de la etiqueta HTML p que hace referencia a un párrafo */
 p:first-child {
-color: white;
+  color: white;
 }
-
 p:last-child {
-color: purple;
+  color: purple;
 }
+```
 
-NOTE: Sirve para poner varios hijos con una fórmula
+En el caso de los pseudo-elementos debemos usar el dos puntos 2 veces (p::first-letter):
+
+```css
+/* estilos a la primera letra de la etiqueta HTML p que hace referencia a un párrafo */
+p::first-letter {
+  color: white;
+}
+```
+
+Para darle estilos a varios hijos, podemos hacer uso de la fórmula:
+
+```css
 p:nth-child(2n) {
-color: red;
+  color: red;
 }
+```
 
-# Modelos de Caja
+### Modelos de Caja
 
-Todos los elementos de HTML tienen un modelo de caja y esta compuesto por cuatro elementos: contenido, padding, border, margin.
+Todos los elementos de HTML tienen un modelo de caja y esta compuesto por cuatro elementos:
 
-# Valores relativos y absolutos
+1. Contenido
+2. Padding
+3. Border
+4. Margin
 
-Los valores absolutos son, por ejemplo, centímetros, milímetros, pixeles y pulgadas. Se llaman de esta forma porque no tienen en cuenta a nadie más, no depende de la medida de otra unidad.
+### Valores relativos y absolutos
 
-Los valores relativas, llevan este nombre porque depende de otra unidad de medida o elemento. Por ejemplo, porcentajes, vmx, em, entre otros.
+Los valores absolutos son:
 
-Recuerda que podemos darle estilos a etiquetas HTML muy específicas indicando dónde se van a encontrar. Por ejemplo: si queremos darle estilos únicamente a la imagen que está dentro del header, podemos usar el selector css header img { ... }.
+- centímetros
+- milímetros
+- pixeles
+- pulgadas
 
-# Display CSS
+**Se llaman de esta forma porque no tienen en cuenta a nadie más, no depende de la medida de otra unidad**.
 
-width: Define el ancho de un elemento. Por ejemplo: width: 20px;.
+Los valores relativos:
 
-height: Define el alto de un elemento. Por ejemplo: height: 20px;.
+- vmx
+- em
+- poverntajes(%)
 
-background: Puede definir el color de fondo o la url de fondo de un elemento. Por ejemplo: background: url(';puppy.png';);.
+**Llevan este nombre porque depende de otra unidad de medida o elemento.**
 
-background-color: Define el color de fondo de un elemento. Por ejemplo: background-color: red;.
+Si queremos darle estilos a la imagen que está dentro de la etiqueta Header, podemos hacer esto:
 
-color: Define el color de nuestros textos. Estos colores los podemos escribir de 3 formas en CSS:
+```css
+header img {
+  width: 50%;
+}
+```
 
-Con los nombres de los colores. Por ejemplo: black, red, green.
-Sistema hexadecimal: Donde blanco se define como #FFFFFF y negro como #000000. Una página que me gusta mucho para sacar colores en hexadecimal es colorhunt.co.
-RGB: Donde la R significa Red, G significa Green y B significa Blue; por lo que escribimos rgb(red, green, blue) y cada uno de ellos es un valor de 0 a 255 que describe la intensidad de ese color. Por ejemplo, para denotar el color verde, escribimos: rgb(0, 255, 0). También a estos valores se les puede agregar una opacidad (transparencia) que va de 0 a 1, por ejemplo: rgba(0, 255, 0, 0.5) lo que quiere decir que el color verde lo queremos con una transparencia del 50%.
-border: Define el tamaño, estilo y color del borde de un elemento. Por ejemplo: border: 2px solid yellow;.
+### Display CSS
 
-border-radius: Define qué tan redondeado quiero mi elemento. Por ejemplo: border-radius: 20px;.
+1. **Width**: Define el ancho de un elemento:
 
-margin: Define la margen de un elemento. Por ejemplo: margin: 2px (lo que quiere decir que mi elemento tendrá márgenes en todos sus lados de 2px).
+   ```css
+   img {
+     width: 20px;
+   }
+   ```
 
-Si quiero que mi elemento tenga margen superior de 2px, margen inferior de 4px, margen derecha de 3px y margen izquierda de 5px, lo escribiría de la siguiente forma: margin: 2px 3px 4px 5px. El primer valor es la margen superior y siempre va en sentido de las manecillas del reloj.
+2. **Height**: Define el alto de un elemento:
 
-Si solo quiero que mi elemento tenga una margen a la derecha de 10px, escribiría margin-right: 10px;. Y para los demás valores sería margin-top: 10px; para la margen superior, margin-bottom: 10px; para la margen inferior y margin-left: 10px; para la margen izquierda.
+   ```css
+   div {
+     height: 20px;
+   }
+   ```
 
-padding: Define la distancia del borde de un elemento hasta su contenido. Por ejemplo: padding: 2px (lo que quiere decir que mi elemento tendrá un “margen interno” en todos sus lados de 2px).
+3. **Background**: Puede definir el color de fondo o la url de fondo de un elemento:
 
-Si quiero que mi elemento tenga padding superior de 2px, padding inferior de 4px, padding a la derecha de 3px y un padding a la izquierda de 5px, lo escribiría de la siguiente forma: padding: 2px 3px 4px 5px. El primer valor es la padding superior y siempre va en sentido de las manecillas del reloj al igual que con las márgenes.
+   ```css
+   * {
+     background: url('puppy.png';);
+   }
+   ```
 
-Si solo quiero que mi elemento tenga un padding a la derecha de 10px, escribiría: padding-right: 10px;. Y para los demás valores sería padding-top: 10px; para la margen superior, padding-bottom: 10px; para la margen inferior y padding-left: 10px; para la margen izquierda.
+4. **Background-color**: Define el color de fondo de un elemento:
 
-font-size: Define el tamaño de la fuente. Por ejemplo: font-size: 20px;.
+   ```css
+   section {
+    background-color: red;.
+   }
+   ```
 
-font-family: Define la familia tipográfica de la fuente. Por ejemplo: font-family: 'Roboto', sans-serif;.
+5. **Color**: Define el color de nuestros textos.
 
-Una página de fuentes que me gusta mucho es fonts.google.com.
+   - Estos colores los podemos escribir de 3 formas en CSS:
 
-opacity: Determina la transparencia del elemento. Tiene valores entre 0 y 1, que pueden verse como un porcentaje. Por ejemplo, si quiero que mi elemento se vea con una transparencia del 50%, escribiría: opacity: 0.5;.
+   1. Con los nombres de los colores:
 
-outline: Un término algo desconocido es el esquema de los elementos HTML. Un esquema es una línea (por defecto, de color azúl) que se dibuja alrededor de los elementos que hace que se “destaquen”.
+      ```css
+      div {
+        color: green;
+        background-color: red;
+      }
+      ```
+
+   2. Sistema hexadecimal: Donde blanco se define como #FFFFFF y negro como #000000:
+
+      ```css
+      div {
+        color: #ffffff;
+        background-color: #000000;
+      }
+      ```
+
+   3. RGB: Donde la R significa Red, G significa Green y B significa Blue:
+
+      ```css
+      div {
+        color: rgb(red, green, blue);
+      }
+      ```
+
+      - Cada uno de ellos es un valor de 0 a 255 que describe la intensidad de ese color. Por ejemplo, para denotar el color verde:
+
+        ```css
+        div {
+          color: rgb(0, 255, 0);
+        }
+        ```
+
+      - También a estos valores se les puede agregar una opacidad (transparencia) que va de 0 a 1, por ejemplo: rgba(0, 255, 0, 0.5) lo que quiere decir que el color verde lo queremos con una transparencia del 50%:
+
+        ```css
+        div {
+          color: rgba(0, 255, 0, 0.5);
+        }
+        ```
+
+6. **Border**: Define el tamaño, estilo y color del borde de un elemento:
+
+   ```css
+   div {
+     border: 2px solid yellow;
+   }
+   ```
+
+7. **Border-radius**: Define qué tan redondeado quiero mi elemento:
+
+   ```css
+   div {
+     border-radius: 20px;
+   }
+   ```
+
+8. **Margin**: Define la margen de un elemento:
+
+   ```css
+   div {
+     margin: 2px;
+   }
+   ```
+
+   - Si quiero que mi elemento tenga margen superior de 2px, margen inferior de 4px, margen derecha de 3px y margen izquierda de 5px, lo escribiría de la siguiente forma:
+
+   ```css
+   div {
+     margin: 2px 3px 4px 5px;
+   }
+   ```
+
+> El primer valor es la margen superior y siempre va en sentido de las manecillas del reloj.
+
+> Si solo quiero que mi elemento tenga una margen a la derecha de 10px, escribiría _margin-right: 10px;_ Y para los demás valores sería _margin-top: 10px;_ para la margen superior, _margin-bottom: 10px;_ para la margen inferior y _margin-left: 10px;_ para la margen izquierda.
+
+9.  **Padding**: Define la distancia del borde de un elemento hasta su contenido, _margen interno_:
+
+    ```css
+    div {
+      padding: 2px 3px 4px 5px;
+    }
+    ```
+
+    - Los valores del padding a cada lado funciona similar a los margenes, empieza en TOP y se mueve en sentido de las manecillas del reloj.
+
+10. **Opacity**: Determina la transparencia del elemento. Tiene valores entre 0 y 1, que pueden verse como un porcentaje:
+
+    ```css
+    div {
+      /*Opacidad del 50%*/
+      opacity: 0.5;
+    }
+    ```
+
+11. **Outline**: Un término algo desconocido es el esquema de los elementos HTML. Un esquema es una línea (por defecto, de color azúl) que se dibuja alrededor de los elementos que hace que se “destaquen”
 
 Lo anterior sucede mucho en elementos como los <input>s y los <button>s. Si no queremos ver esa línea, lo que hacemos es outline: none;. Aunque también podemos decirle que tenga determinado estilo, color, tamaño, entre otras. Por ejemplo:
 
-outline-style: solid;
-outline-color: red;
-outline-width: 5px;
-box-sizing: Cuando trabajamos con paddings, por ejemplo, veremos que el tamaño de nuestro elemento crece. Es decir, si tengo:
-
+```css
 div {
-background: pink;
-width: 20px;
-height: 20px;
+  outline-style: solid;
+  outline-color: red;
+  outline-width: 5px;
 }
+```
+
+12. **Box-sizing**: Cuando trabajamos con paddings, por ejemplo, veremos que el tamaño de nuestro elemento crece. Es decir, si tengo:
+
+```css
+div {
+  background: pink;
+  width: 20px;
+  height: 20px;
+}
+```
+
 Y luego le agrego un padding de 20px, veré en el navegador que mi div ya no tiene un ancho y un alto de 20px, sino de 40px cada uno. Lo que quiere decir que el padding hizo que creciera mi elemento. Sin embargo, si yo no quiero que el padding afecte los 20px originales, le agrego la propiedad box-sizing para que el tamaño total del elemento incluya el padding también y no se vea afectado por él.
 
-transition: Las transiciones CSS le permiten cambiar los valores de las propiedades sin problemas durante una duración determinada. Debemos tener presente que una transición NO es una animación. Una transición va de un punto A, a un punto B sin interrupciones o saltos en medio.
-
-# ¿Qué son y para qué nos sirven las arquitecturas CSS?
+### ¿Qué son y para qué nos sirven las arquitecturas CSS?
 
 UTILIZAR: DIVIDE Y VENCERÁS
 
@@ -312,3 +581,24 @@ Debemos pensar en esas personas con una discapacidad visual que no tienen la pos
 Un Lector de Pantalla se encarga de leer toda la aplicación elemento por elemento. Que los lectores de pantalla funcionen es responsabilidad de las y los desarrolladores: debemos tener muy buena semántica, usar las etiquetas y atributos adecuados entre otras.
 
 https://developer.mozilla.org/es/docs/Web/HTML/Global_attributes/tabindex
+
+# Notas Interesantes
+
+## Para HTML
+
+<!-- TODO: Cambiar texto -->
+
+1. El atributo **Meta** con el atributo viewport en el head de la estructura básica HTML sirve para escalar el sitio a responsive. Si defines también el atributo content después del atributo viewport en la misma etiqueta meta con el valor:
+
+```html
+<meta width="device-width," initial-scale="1" />
+```
+
+le estamos diciendo a nuestro sitio web con el atributo **width** que el ancho máximo de nuestra
+página web será el ancho del dispositivo desde donde se esté aperturando el sitio web (móvil, tablet, pc).
+
+## Para CSS
+
+```
+
+```

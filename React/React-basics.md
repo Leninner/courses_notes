@@ -29,7 +29,6 @@
   - [Ciclo de Vida de los Componentes](#ciclo-de-vida-de-los-componentes)
   - [Petición asíncronas: AJAX Y API´S](#petición-asíncronas-ajax-y-apis)
   - [React Router DOM](#react-router-dom)
-  - [CSS en React](#css-en-react)
   - [Hooks](#hooks)
     - [React.useState](#reactusestate)
     - [React.useEffect](#reactuseeffect)
@@ -1195,13 +1194,6 @@ devServer: {
 En esta caso, estamos poniendo varios routes dentro de Routes, ¿para qué? para que solamente traiga esa misma ruta, y no tenga que buscar más. Como si fuese un condicional Routes de javascript efectivamente. Y por ello tenemos un route sin path, que será el valor por defecto.
 
 **Layout solamente renderizará el route que coincida efectivamente con la URL especificada.**
-
-## CSS en React
-
-Hay muchas formas de agregar estilos en CSS a React:
-
-1. Añadir a través de objetos => Se debe crear un objeto con llaves y añadirlo con "style = {estilos}" en la etiqueta de HTML que queremos que lleve ese estilo.
-2. También se puede crear archivos css por separado y luego añadirlos a cada componente.
 
 ## Hooks
 
