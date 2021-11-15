@@ -19,9 +19,9 @@
 `Lenin`;
 ```
 
-    - Para sacar comillas dobles con el teclado: Alt +
-    - Para sacar comillas simples con el teclado: Alt + 39
-    - Para sacar acento grave con el teclado: Alt + 96
+- Para sacar comillas dobles con el teclado: Alt +
+- Para sacar comillas simples con el teclado: Alt + 39
+- Para sacar acento grave con el teclado: Alt + 96
 
 3.  Booleanos
 
@@ -56,6 +56,8 @@ const lenin = {
   mayorDeEdad: true, // mayorDeEdad es la key y true es el valor
 };
 ```
+
+      - Estos datos existen en la mayoría de lenguajes de programación. Quizás algunos tipos de datos en Javascript tengan un nombre diferente en otros lenguajes, pero su anatomía es muy similar.
 
 ## Notas Interesantes
 
