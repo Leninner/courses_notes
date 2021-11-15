@@ -57,7 +57,7 @@ const lenin = {
 };
 ```
 
-      - Estos datos existen en la mayoría de lenguajes de programación.
+      Estos datos existen en la mayoría de lenguajes de programación.
       Quizás algunos tipos de datos en Javascript tengan un nombre 
       diferente en otros lenguajes, pero su anatomía es muy similar.
 
