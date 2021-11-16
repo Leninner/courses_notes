@@ -125,7 +125,7 @@ o
 npm i tailwindcss postcss-cli autoprefixer -D
 ```
 
-3. Luego, creamos un archivo **postcss.config.js** y añadimos la siguiente config:
+3. Luego, creamos un archivo **postcss.config.js** en la raíz del proyecto y añadimos la siguiente config:
 
 ```js
 module.exports = {
@@ -178,3 +178,5 @@ Si queremos podemos añadir más configuraciones de estilos:
     "watch:css": "postcss src/assets/tailwind.css -o src/assets/main.css"
   },
 ```
+
+> Para empezar a utilizarlo, debemos importar el archivo generado, en el caso anterior es main.css, en el archivo general, antes de que pase a ser pintado en el DOM. En el caso general, sería en App.jsx
