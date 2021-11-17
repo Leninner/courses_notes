@@ -177,7 +177,7 @@ Al momento de exportar debemos hacerlo con `connect` va a aceptar dos parámetro
 export default connect(mapStateToProps, null)(Home); // componente conectado al provider para utilizar el estado
 ```
 
-- Si alguna acción para `dispatcher` no existe, entonces enviamos un valor nulo
+> Si no existe ningún elemento a pasar, se debe enviar un valor nulo
 
 - En el ejemplo como SI añadimos una función `mapStateToProps`, la creamos para traer únicamente las props que necesitamos del estado general:
 
@@ -197,4 +197,121 @@ Y luego podemos llamarlos en las props del componente:
 const Home = ({ myList, trends, originals }) => {
   //code
 };
+```
+
+## Creación de Reducers y Actions
+
+Primero que nada, vamos a identificar nuestros archivos de las carpetas `reducers` y `actions`.
+
+- Vamos a crear nuestro primer action en `/src/actions/index.js`
+
+  - Vamos a crear el primero el cuál se encarga de describir la información que vamos a hacer y pasar un objeto que vamos a tener disponible **dentro del reducer**, el cuál después va a tomar la acción que vamos a estar ejecutando para evaluar como lo va a guardar dentro del estado.
+
+```js
+export const setFavorite = (payload) => {
+  return {
+    type: 'SET_FAVORITE',
+    payload,
+  };
+};
+
+export const deleteFavorite = (payload) => {
+  return {
+    type: 'DELETE_FAVORITE',
+    payload,
+  };
+};
+```
+
+> Type => Es el encargado de describir el nombre de la acción que estamos haciendo. Utilizamos SNAKE_CASE para nombrar estos tipos
+
+- En el archivo de `/src/reducers/index.js` vamos a trabajar nuestros reducers:
+
+  - Vamos a crear dentro de nuestra función `reducer` un switch que nos va a ayudar a ejecutar código cuando el type de nuestra acción coincida con algo:
+
+  - Primero debemos crear el caso `default` que retorne el estado para que en el caso de que ninguna acción coincida en los criterios, se retorne por defecto el estado. Ya luego, puedo añadir cualquier otro tipo de lógica para actualizar el estado general.
+
+```js
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_FAVORITE':
+      return {
+        ...state,
+        myList: [...state.myList, action.payload],
+      };
+    case: "DELETE_FAVORITE":
+      return {
+        ...state, myList: state.myList.filter(item => item.id !== action.payload)
+      }
+    default:
+      return state;
+  }
+};
+
+export { reducer };
+```
+
+Para utilizar estas funciones en nuestros objetos tenemos que conectarlos a través de `connect` y crear la función que va solicitar al Provider la info que necesitamos para poder ejecutarlas, también debemos importar esas funciones:
+
+- Ejemplo de uso:
+
+```js
+import React from 'react';
+import PropTypes from 'prop-types';
+import '../assets/styles/components/CarouselItem.scss';
+import playIcon from '../assets/static/play-icon.png';
+import plusIcon from '../assets/static/plus-icon.png';
+import { connect } from 'react-redux';
+import removeIcon from '../assets/static/remove-icon.png';
+import { setFavorite, deleteFavorite } from '../actions';
+
+const CarouselItem = (props) => {
+  const { id, cover, title, year, contentRating, duration } = props;
+
+  const handleSetFavorite = () => {
+    props.setFavorite({ id, cover, title, year, contentRating, duration });
+  };
+
+  const handleDeleteFavorite = (itemId) => {
+    props.deleteFavorite(itemId);
+  };
+
+  return (
+    <div className='carousel-item'>
+      <img className='carousel-item__img' src={cover} alt={title} />
+      <div className='carousel-item__details'>
+        <div>
+          <img className='carousel-item__details--img' src={playIcon} alt='Play Icon' />
+          <img className='carousel-item__details--img' src={plusIcon} alt='Plus Icon' onClick={handleSetFavorite} />
+          <img
+            className='carousel-item__details--img'
+            src={removeIcon}
+            alt='Remove Icon'
+            onClick={() => handleDeleteFavorite(id)}
+          />
+        </div>
+        <p className='carousel-item__details--title'>{title}</p>
+        <p className='carousel-item__details--subtitle'>{`${year} ${contentRating} ${duration}`}</p>
+      </div>
+    </div>
+  );
+};
+
+CarouselItem.propTypes = {
+  cover: PropTypes.string,
+  title: PropTypes.string,
+  year: PropTypes.number,
+  contentRating: PropTypes.string,
+  duration: PropTypes.number,
+};
+
+// Función para controlar el dispatch que al ejecutar una acción por parte del user
+// se actualice el estado
+
+const mapDispatchToProps = {
+  setFavorite,
+  deleteFavorite,
+};
+
+export default connect(null, mapDispatchToProps)(CarouselItem);
 ```

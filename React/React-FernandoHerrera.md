@@ -266,6 +266,27 @@ const Component = () => (
 );
 ```
 
+4. Para destructurar props podemos hacerlas de distintas formas:
+
+- Destructuración directa en los parámetros:
+
+  ```js
+  const Home = ({ name }) => {
+    return <h1>{name}</h1>;
+  };
+  ```
+
+- Destructuración en la lógica al ahcer retornos explícitos:
+
+  ```js
+  const Home = (props) => {
+    const { name, lastName, age, hoobies } = props;
+    return <div>{(name, lastName, age, hoobies)}</div>;
+  };
+  ```
+
+5. En los retornos explícitos se hace la lógica justo arriba de la keyword return. En retornos implícitos, no se puede añadir lógica.\*\*
+
 ## Para Javascript
 
 1. Javascript empieza a ejecutar el código línea a línea
