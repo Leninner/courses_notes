@@ -2673,25 +2673,41 @@ Analizar bien el las tools que entrega chrome para encontrar este nuevo feature.
 
 Para instalar sass con create-react-app vamos a hacer:
 
-> npm install node-sass
+```bash
+npm install node-sass
+```
 
-Luego de instalar, simplemente podemos añadir un archivo con extensión scss y listo, podemos empezar a trabajar
+Luego de instalar, simplemente podemos añadir un archivo con extensión scss y listo, podemos empezar a trabajar.
 
 # Hacer deploy en Github Pages
 
-Instalar un paquete de NPM para Github pages => npm i -D gh-pages
+Instalamos un paquete para `github-pages`:
 
-Añadimos 2 scripts más:
+```bash
+npm i -D gh-pages
+```
 
-- "predeploy":"npm run build",
-- "deploy":"gh-pages -d build"
+Añadimos 2 scripts más al archivo `package.json`:
+
+```json
+{
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
+}
+```
 
 Predeploy nos sirve para preparar el entorno y pasar el código a estático, ya que github pages solo soporta ese tipo de apps webs.
 Deploy nos sirve para hacer el deploy en github pages, para completar el paso debemos hacer un commit y listo.
 
 Podemos utilizar solo npm deploy, sin haber hecho antes el predeploy, ya que la palabra pre le dice al npm que ejecute primero ese comando y luego el comando que estoy llamando.
 
-Debemos añadir un archivo a el archivo JSON con el siguiente formato: "homepage": "https://leninner.github.io/react-platzi-video",
+Debemos añadir un archivo a el archivo JSON con el siguiente formato:
+
+```json
+{
+  "homepage": "https://leninner.github.io/react-platzi-video"
+}
+```
 
 NOTE: Este método sirve para hacer deploy de apps hechas con create-react-app
 
