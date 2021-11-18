@@ -150,3 +150,29 @@ Otro ejemplo:
 - Al atributo `to` del componente importado `Link` le dice a React que nos debemos mover a ese path. En el ejemplo anterior, al darle click a la imagen vamos a irnos al home, porque el atributo `to` tiene ese path.
 
 > Debemos evitar hacer uso de la etiqueta HTML a, ya que puede recargar la página y nosotros no queremos eso.
+
+## History V5 | useNavigate() V6
+
+En versiones actuales de React Router Dom tenemos que usar `useNavigate()` para movernos a alguna ruta después de hacer click en algún tipo de interacción con el usuario, como añadir datos a una DB, o iniciar sesión, antaño en la V5 se usaba `useHistory` que era un prop presente dentro de `BrowserRouter` para hacer lo mismo:
+
+- V5
+
+```js
+props.history.push('path');
+```
+
+- V6
+
+```js
+import { useNavigate } from 'react-router-dom';
+
+const App = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    props.loginRequest(form);
+    navigate('/'); // aquí hacemos uso de useNavigate
+  };
+};
+```
