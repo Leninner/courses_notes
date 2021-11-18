@@ -160,7 +160,7 @@ doSome('Lenin'); //  lo que está dentro del paréntesis son los argumentos
 En la expresión de función, la declaración se inicia con la palabra reservada var, donde se generará una variable que guardará una función anónima.
 
 ```js
-var nombre = function(nombre){
+const nombre = function(nombre){
 console.log(`Hola ${nombre}`)
 }
 

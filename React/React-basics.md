@@ -59,6 +59,7 @@
 - [Sass con Create-React-App](#sass-con-create-react-app)
 - [Hacer deploy en Github Pages](#hacer-deploy-en-github-pages)
 - [Metodología Atomic Design](#metodología-atomic-design)
+  - [Creación de Servicio de Gravatar](#creación-de-servicio-de-gravatar)
 - [Automatización y Despliegue con Github Actions](#automatización-y-despliegue-con-github-actions)
 
 NOTE: Ruta de aprendizaje de React => https://roadmap.sh/roadmaps/react.png
@@ -2758,6 +2759,31 @@ Es un método de desarrollo de UI que se puede usar en cualquier interfaz.
 **Pages**: Son las secciones / rutas que vamos a tener.
 
 NOTE: Es mejor añadir el nombre de las clases de manera similar al componente en el que estamos trabajando. También utilizar BEM.
+
+## Creación de Servicio de Gravatar
+
+1. En la carpeta **src** del proyecto vamos a crear una carpeta llamada utils y dentro añadimos un archivo llamado `gravatar.js`
+
+2. Vamos a instalar md5, que es una dependencia que vamos a utilizar para crear este servicio:
+
+```bash
+npm install md5 --save
+```
+
+> MD5 es un algoritmo criptográfico que permite crear un hash a partir de un correo electrónico y de esta forma no se guarda el correo electrónico, si no solo el hash que hace referencia a una imagen
+
+3. Para crear la función se hace de la siguiente manera:
+
+```js
+import md5 from 'md5';
+
+const gravatar = (email) => {
+  const base = 'https://gravatar.com/avatar/';
+  const formateEmail = email.trim().toLowerCase();
+  const hash = md5(formateEmail, { encoding: 'binary' });
+  return `${base}${hash}`;
+};
+```
 
 # Automatización y Despliegue con Github Actions
 
