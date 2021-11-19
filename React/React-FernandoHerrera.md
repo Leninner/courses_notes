@@ -310,6 +310,16 @@ const handleSubmit = (event) => {
 </form>;
 ```
 
+7. JSX no maneja espacios en blanco como lo hace HTML, para solucionar esto y añadir espacios en blanco en la UI podemos utilizar:
+
+```js
+{
+  `  `;
+}
+```
+
+> Las llaves, seguido de comillas y dentro 2 espacios en blanco. Los 2 espacios se van a convertir en un espacio en la UI
+
 ## Para Javascript
 
 1. Javascript empieza a ejecutar el código línea a línea

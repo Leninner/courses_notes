@@ -319,3 +319,34 @@ const mapDispatchToProps = {
 
 export default connect(null, mapDispatchToProps)(CarouselItem);
 ```
+
+## Debug con Redux Devtools
+
+Herramienta para conocer el flujo de información de nuestra aplicación. Para conectarlo con la extensión de Chrome debemos importar `compose` y crear un función de la siguiente manera:
+
+- Esto se hace en `index.js` de la raíz de la carpeta `src`:
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './routes/App';
+import { Provider } from 'react-redux';
+import { createStore, compose } from 'redux';
+import { reducer } from './reducers';
+
+const initialState = {
+  user: {},
+  playing: {},
+};
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(reducer, initialState, composeEnhancers());
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('app')
+);
+```

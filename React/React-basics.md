@@ -60,6 +60,7 @@
 - [Hacer deploy en Github Pages](#hacer-deploy-en-github-pages)
 - [Metodología Atomic Design](#metodología-atomic-design)
   - [Creación de Servicio de Gravatar](#creación-de-servicio-de-gravatar)
+  - [Validaciones](#validaciones)
 - [Automatización y Despliegue con Github Actions](#automatización-y-despliegue-con-github-actions)
 
 NOTE: Ruta de aprendizaje de React => https://roadmap.sh/roadmaps/react.png
@@ -2784,6 +2785,37 @@ const gravatar = (email) => {
   return `${base}${hash}`;
 };
 ```
+
+## Validaciones
+
+Las validaciones nos va a servir de mucho para poder crear estados distintos, según el componente y el comportamiento con el que estemos involucrando este elemento.
+
+Instalamos el paquete `classnames`:
+
+```bash
+npm install classnames --save
+```
+
+Para importarlo desde cualquier componente debemos hacerlo así:
+
+```js
+import classNames from 'classnames';
+```
+
+Para usarlo debemos hacerlo así:
+
+```js
+const headerClass = classNames('header', {
+  isLogin,
+  isRegister,
+});
+```
+
+- Es primer parámetro de la función le dice a React que use esa clase en todos los componentes a los que se aplique esa lógica, sin importar el lugar donde se esté mostrando.
+- El segundo parámetro, que es un objeto, nos va a servir para controlar la lógica del componente, se puede controlar la lógica de estilos, dependiendo el lugar en donde se presente el componente, ya sea login, register, etc...
+
+> Es importante controlar la lógica de los estilos porque su posición pueden afectar a la presentación final.
+> Es CSS los estilos de aplican en cascada o línea a línea.
 
 # Automatización y Despliegue con Github Actions
 
