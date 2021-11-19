@@ -147,6 +147,15 @@ Otro ejemplo:
 <Link to='/login'>Login</Link>
 ```
 
+Otro ejemplo, al crear una estructura personalizada de link:
+
+```js
+<Link to={`/player/${id}`}>Play</Link>
+
+// Para usar lo anterior usamos una ruta similar a esta:
+<Route path='/player/:id' element={<Player />} />
+```
+
 - Al atributo `to` del componente importado `Link` le dice a React que nos debemos mover a ese path. En el ejemplo anterior, al darle click a la imagen vamos a irnos al home, porque el atributo `to` tiene ese path.
 
 > Debemos evitar hacer uso de la etiqueta HTML a, ya que puede recargar la página y nosotros no queremos eso.
