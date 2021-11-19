@@ -40,7 +40,7 @@
 `Lenin`;
 ```
 
-- Para sacar comillas dobles con el teclado: Alt +
+- Para sacar comillas dobles con el teclado: Alt + 34
 - Para sacar comillas simples con el teclado: Alt + 39
 - Para sacar acento grave con el teclado: Alt + 96
 
