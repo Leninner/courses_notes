@@ -1,5 +1,7 @@
 # ¿Qué es React Router y cómo instalarlo?
 
+> Documentación React Router V6: https://reactrouter.com/
+
 React Router nos permite manejar las rutas de la aplicación en la que estamos trabajando:
 
 - www.prueba.com/home
