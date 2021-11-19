@@ -40,7 +40,7 @@
 `Lenin`;
 ```
 
-- Para sacar comillas dobles con el teclado: Alt +
+- Para sacar comillas dobles con el teclado: Alt + 34
 - Para sacar comillas simples con el teclado: Alt + 39
 - Para sacar acento grave con el teclado: Alt + 96
 
@@ -56,6 +56,7 @@ const isEven = false;
 4.  Arrays o Arreglos
 
     - Conjuntos denotados por [ ]. Los elementos de estos conjuntos pueden ser de **cualquier tipo** de dato conocido:
+    - Los corchetes se pueden sacar con: Alt + 91
 
 ```js
 // Los arreglos pueden tener elementos de cualquier tipo
