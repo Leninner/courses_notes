@@ -172,7 +172,7 @@ Al momento de exportar debemos hacerlo con `connect` va a aceptar dos parámetro
 
 2. **mapDispatchToProps (actions):** es un objeto con las distintas funciones para ejecutar una action en Redux.
 
-   > Envía información para el estado. Debemos importar al componente el action que nos va a ayudar a ejecutar el reducer y actualizar la vista. De esta manera se consigue la arquitectura flux.
+   > Envía información para el reducer que se encargará de actualizar el estado. Debemos importar al componente el action que nos va a ayudar a ejecutar el reducer y actualizar la vista. De esta manera se consigue la arquitectura flux.
 
 - Así exportamos un elemento con `connect`:
 

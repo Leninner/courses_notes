@@ -285,7 +285,30 @@ const Component = () => (
   };
   ```
 
-5. En los retornos explícitos se hace la lógica justo arriba de la keyword return. En retornos implícitos, no se puede añadir lógica.\*\*
+5. En los retornos explícitos se hace la lógica justo arriba de la keyword return. En retornos implícitos, no se puede añadir lógica.
+
+6. Cuando creamos una función que recibe un evento en React, al momento de ser llamada, ya sea por onClick, onChange, etc... No se debe pasar el argumento del evento, porque React ya sobreentiende que la función debe capturar el evento:
+
+```js
+const handleInput = (event) => {
+  setValues({ ...form, [event.target.name]: event.target.value });
+};
+
+const handleSubmit = (event) => {
+  event.preventDefault();
+  console.log(form);
+};
+
+<form class='register__container--form' onSubmit={handleSubmit}>
+  <input class='input' type='text' placeholder='Nombre' name='name' onChange={handleInput} />
+  <input class='input' type='text' placeholder='Correo' name='email' onChange={handleInput} />
+  <input class='input' type='password' placeholder='Contraseña' name='password' onChange={handleInput} />
+
+  <button class='button' type='submit'>
+    Registrarme
+  </button>
+</form>;
+```
 
 ## Para Javascript
 
