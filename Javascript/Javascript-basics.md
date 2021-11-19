@@ -1,3 +1,22 @@
+- [Javascript Basics](#javascript-basics)
+  - [Tipos de datos](#tipos-de-datos)
+  - [Variables en Javascript](#variables-en-javascript)
+  - [Condicionales](#condicionales)
+    - [Condicional If](#condicional-if)
+    - [Condicional Switch](#condicional-switch)
+  - [Loops o Bucles](#loops-o-bucles)
+    - [While loop](#while-loop)
+    - [Do While Loop](#do-while-loop)
+    - [For Loop](#for-loop)
+  - [Funciones](#funciones)
+    - [Parámetros y Argumentos](#parámetros-y-argumentos)
+    - [Function Expression o Expresión de Función](#function-expression-o-expresión-de-función)
+    - [Function Statement/Function Declaration o Declaración de Función](#function-statementfunction-declaration-o-declaración-de-función)
+    - [Arrow Functions](#arrow-functions)
+    - [Retorno Explícito vs Retorno Implícito](#retorno-explícito-vs-retorno-implícito)
+      - [Retorno Explícito](#retorno-explícito)
+      - [Retorno Implícito](#retorno-implícito)
+
 # Javascript Basics
 
 > Para abrir la consola del navegador Chrome: ctrl + shift + j `o` ctrl + shift + c
