@@ -1345,6 +1345,7 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 const ComponenteMuestra = () => {
   const [products, setProducts] = useState([]);
 
+  // Debemos utilizar funciones asíncronas para utilizar axios
   useEffect(async () => {
     const response = await axios(API);
     setProducts(response.data);
