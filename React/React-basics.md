@@ -1355,6 +1355,30 @@ const ComponenteMuestra = () => {
 export { ComponenteMuestra };
 ```
 
+O si lo anterior empieza a tirar warnings por ESLint, podemos usar:
+
+```js
+useEffect(() => {
+  async function fetchData() {
+    const response = await axios.get(URL);
+    console.log(response);
+  }
+  fetchData();
+}, []);
+```
+
+O
+
+```js
+useEffect(() => {
+  async function fetchData() {
+    const response = await axios(URL);
+    console.log(response);
+  }
+  fetchData();
+}, []);
+```
+
 ### Custom Hook
 
 Crear un Custom Hook significa que vamos a pasar la información que teníamos a una función que podemos usar cuántos veces queramos.
