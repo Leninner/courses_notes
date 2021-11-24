@@ -318,6 +318,8 @@ const handleSubmit = (event) => {
 }
 ```
 
+8. El Hook `useEffect` es similar a `componentDidUpdate()`
+
 > Las llaves, seguido de comillas y dentro 2 espacios en blanco. Los 2 espacios se van a convertir en un espacio en la UI
 
 ## Para Javascript

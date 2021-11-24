@@ -25,6 +25,14 @@ Redux propone una forma de manejar el estado donde podamos controlar cómo vamos
 ![Alt text](../utils/images/redux-img-three.png)
 ![Alt text](../utils/images/redux-img-two.png)
 
+## Responsabilidades del Store
+
+- Contiene el estado de la aplicación
+- Permite el acceso al estado vía getState()
+- Permite que el estado sea actualizado vía dispatch(action)
+- Registra los listeners vía subscribe(listener)
+- Maneja la anuliación del registro de los listeners via el retorno de la función de subscribe(listener)
+
 ## Instalación de Redux
 
 Para instalar en nuestro proyecto:
@@ -34,7 +42,7 @@ npm install redux react-redux --save
 ```
 
 - **redux** => Trae todos los elementos necesarios de la librería de `Redux`
-- **react-redux** => Nos permité implementar `redux` de una manera más fácil
+- **react-redux** => Nos permité implementar `redux` de una manera más fácil en react.
 
 ## Implementación de Redux en React
 
@@ -136,14 +144,24 @@ ReactDOM.render(
 
 Luego de haber hecho esto, creamos otra constante en donde vamos a crear la `referencia a la store`, esto lo lgoramos con `createStore` que importamos anteriormente de Redux la cuál recibe 2 parámetros:
 
-1. Reducer => Se trae de la carpeta `reducers` que creamos anteriormente
+1. Recibe todos los reducers de la Aplicación
 2. Estado Inicial
 
 ```js
 const store = createStore(reducer, initialState);
 ```
 
-Luego vamos a pasarle un parámetro `store` con la variable que creamos anteriormente, al Provider de `/src/index.jsx`:
+o
+
+```js
+const store = createStore(
+  {}, // todos los reducers
+  {} // estado inicial);
+```
+
+Luego vamos a pasarle un parámetro `store` con la variable que creamos anteriormente al Provider de `/src/index.jsx`:
+
+- Este store va a estar disponible para el componente general `App`
 
 ```js
 const store = createStore(reducer, initialState);
@@ -207,9 +225,11 @@ const Home = ({ myList, trends, originals }) => {
 
 Primero que nada, vamos a identificar nuestros archivos de las carpetas `reducers` y `actions`.
 
-- Vamos a crear nuestro primer action en `/src/actions/index.js`
+### Actions
 
-  - Vamos a crear el primero el cuál se encarga de describir la información que vamos a hacer y pasar un objeto que vamos a tener disponible **dentro del reducer**, el cuál después va a tomar la acción que vamos a estar ejecutando para evaluar como lo va a guardar dentro del estado.
+Vamos a crear nuestro primer action en `/src/actions/index.js`
+
+- Vamos a crear el primero el cuál se encarga de describir la información que vamos a hacer y pasar un objeto que vamos a tener disponible **dentro del reducer**, el cuál después va a tomar la acción que vamos a estar ejecutando para evaluar como lo va a guardar dentro del estado.
 
 ```js
 export const setFavorite = (payload) => {
@@ -229,11 +249,13 @@ export const deleteFavorite = (payload) => {
 
 > Type => Es el encargado de describir el nombre de la acción que estamos haciendo. Utilizamos SNAKE_CASE para nombrar estos tipos
 
-- En el archivo de `/src/reducers/index.js` vamos a trabajar nuestros reducers:
+### Reducers
 
-  - Vamos a crear dentro de nuestra función `reducer` un switch que nos va a ayudar a ejecutar código cuando el type de nuestra acción coincida con algo:
+En el archivo de `/src/reducers/index.js` vamos a trabajar nuestros reducers:
 
-  - Primero debemos crear el caso `default` que retorne el estado para que en el caso de que ninguna acción coincida en los criterios, se retorne por defecto el estado. Ya luego, puedo añadir cualquier otro tipo de lógica para actualizar el estado general.
+- Vamos a crear dentro de nuestra función `reducer` un switch que nos va a ayudar a ejecutar código cuando el type de nuestra acción coincida con algo:
+
+- Primero debemos crear el caso `default` que retorne el estado para que en el caso de que ninguna acción coincida en los criterios, se retorne por defecto el estado. Ya luego, puedo añadir cualquier otro tipo de lógica para actualizar el estado general.
 
 ```js
 const reducer = (state, action) => {
@@ -255,18 +277,27 @@ const reducer = (state, action) => {
 export { reducer };
 ```
 
+#### Otra manera para crear el archivo de reducers:
+
+- Importar `combineReducers` que nos va a servir para combinar todos los reducers que tengamos y que se haga un solo reducer válido que pueda ser consumido por la función `createStore` en `src/index.jsx`
+
+```js
+import { combineReducers } from 'redux';
+
+export default combineReducers({});
+
+// Para importar en src/index.jsx
+
+import reducers from './reducers';
+```
+
 Para utilizar estas funciones en nuestros objetos tenemos que conectarlos a través de `connect` y crear la función que va solicitar al Provider la info que necesitamos para poder ejecutarlas, también debemos importar esas funciones:
 
 - Ejemplo de uso:
 
 ```js
 import React from 'react';
-import PropTypes from 'prop-types';
-import '../assets/styles/components/CarouselItem.scss';
-import playIcon from '../assets/static/play-icon.png';
-import plusIcon from '../assets/static/plus-icon.png';
 import { connect } from 'react-redux';
-import removeIcon from '../assets/static/remove-icon.png';
 import { setFavorite, deleteFavorite } from '../actions';
 
 const CarouselItem = (props) => {
@@ -300,17 +331,6 @@ const CarouselItem = (props) => {
     </div>
   );
 };
-
-CarouselItem.propTypes = {
-  cover: PropTypes.string,
-  title: PropTypes.string,
-  year: PropTypes.number,
-  contentRating: PropTypes.string,
-  duration: PropTypes.number,
-};
-
-// Función para controlar el dispatch que al ejecutar una acción por parte del user
-// se actualice el estado
 
 const mapDispatchToProps = {
   setFavorite,
@@ -350,3 +370,75 @@ ReactDOM.render(
   document.getElementById('app')
 );
 ```
+
+## Redux Thunk
+
+Redux-thunk te permite escribir creadores de acciones que retornan una función en vez de un objeto de acción típico, para instalar en nuestro proyecto:
+
+```js
+npm install redux-thunk
+```
+
+- Para implementarlo en el proyecto:
+  En el archivo index.jsx de la raíz de la carpeta src vamos a hacer un importe:
+
+```js
+import reduxThunk from 'redux-thunk';
+```
+
+Luego, desde redux vamos a importar `apllyMiddleware`:
+
+```js
+import { applyMiddleware } from 'redux';
+```
+
+Y para usarlo, lo debemos pasar a la función `createStore` como un parámetro:
+
+```js
+const AppStore = createStore(reducer, initialState, applyMiddleware(reduxThunk)); // Es importante pasar el applyMiddleWare como tercer parámetro y ninguno más.
+```
+
+Lo que hicimos anteriormente nos va a servir para poder ejecutar algún tipo de action que está llamando a otra función asíncrona:
+
+```js
+import axios from 'axios';
+
+export const usuariosFetched = () => async (dispatch) => {
+  const URL = 'https://jsonplaceholder.typicode.com/users';
+  const response = await axios(URL);
+  dispatch({
+    type: 'USUARIOS_FETCHED',
+    payload: response.data,
+  });
+};
+```
+
+> El thunk puede ser usado para retrasar el envío de una acción hasta que se cumpla una línea de código asíncrona.
+
+> En palabras simples, el redux thunk sirve para tener funciones asincronicas dentro de los actions.
+
+```js
+() => (dispatch) => {};
+//esto es un Callback (asincronismo)
+```
+
+### Paso a paso de un proceso de React-Thunk
+
+1. Verificar la acción entrante
+   Si es una acción regular, redux-thunk no hace nada y la acción es procesada por el reducer del Store.
+
+2. Si la acción es una función
+   Redux-thunk la invoca y usa los métodos dispatch y getState y cualquier argumento adicional.
+
+3. Después que la función se ejecute
+   El thunk envía la acción, la cual actualizará el estado como corresponde.
+
+Redux-thunk está compuesto de un “creador thunk” (creador de acciones asincrónicas) y “el mismo thunk” el cual es la función que devuelve el “creador Thunk” y acepta el dispatch y setState como argumentos.
+
+### Middleware
+
+Actua como un puente entre Sistemas Operativos, Bases de Datos.
+
+### Thunk
+
+Un thunk es una función que actúa como un wrapper, ya que envuelve una expresión para retrasar su evaluación.

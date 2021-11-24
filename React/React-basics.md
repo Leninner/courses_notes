@@ -60,7 +60,7 @@
 - [Hacer deploy en Github Pages](#hacer-deploy-en-github-pages)
 - [Metodología Atomic Design](#metodología-atomic-design)
   - [Creación de Servicio de Gravatar](#creación-de-servicio-de-gravatar)
-  - [Validaciones](#validaciones)
+- [Validaciones](#validaciones)
 - [Automatización y Despliegue con Github Actions](#automatización-y-despliegue-con-github-actions)
 
 NOTE: Ruta de aprendizaje de React => https://roadmap.sh/roadmaps/react.png
@@ -2811,7 +2811,7 @@ const gravatar = (email) => {
 };
 ```
 
-## Validaciones
+# Validaciones
 
 Las validaciones nos va a servir de mucho para poder crear estados distintos, según el componente y el comportamiento con el que estemos involucrando este elemento.
 
