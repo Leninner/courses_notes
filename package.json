@@ -1,0 +1,21 @@
+{
+  "name": "cursos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "presend": "git commit -a -m 'Update'",
+    "send": "git push"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Leninner/notes_leninner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Leninner/notes_leninner/issues"
+  },
+  "homepage": "https://github.com/Leninner/notes_leninner#readme"
+}
