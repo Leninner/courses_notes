@@ -807,6 +807,37 @@ export default class RenderizadoElements extends React.Component {
 
 Todo lo que empiece con "on" nos va a ayudar a reaccionar ante las interacciones del usuario.
 
+> Recuerde siempre: debe utilizar `bind` para `this` para todos los métodos en los componentes de la clase al pasarlos a otros componentes:
+
+```jsx
+// App.js
+
+import React, { Component } from 'react';
+import MyComponent from './MyComponent';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onClickBtn = this.onClickBtn.bind(this); // aquí estamos bindiando la propiedad
+  }
+
+  onClickBtn() {
+    console.log('Button has been clicked!');
+  }
+
+  render() {
+    return (
+      <div>
+        <MyComponent title='React' onButtonClicked={this.onClickBtn} />
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
 Ejemplo:
 
 ```js
