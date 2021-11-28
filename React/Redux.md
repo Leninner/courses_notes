@@ -495,3 +495,22 @@ export default reducer;
 ```
 
 ### Try - Catch para manejar errores
+
+- `try` permite definir un bloque de código para que se analice en busca de errores mientras se ejecuta.
+
+- `catch` permite definir un bloque de código para ejecutarse, si se produce un error en el bloque try.
+
+Se puede usar de la siguiente manera:
+
+```js
+try {
+  const URL = 'https://jsonplaceholder.typicode.com/users';
+  const response = await axios(URL);
+  dispatch({
+    type: USUARIOS_FETCHED,
+    payload: response.data,
+  });
+} catch (error) {
+  console.log(`Error: ${error.message}`); // Es una buena práctica saber del error
+}
+```
