@@ -571,3 +571,21 @@ const reducer = (state, action) => {
 
 export default reducer;
 ```
+
+### Componente Spinner
+
+Nos va a servir para decirle al usuario que estamos cargando la información al momento de hacer llamadas asíncronas. Se puede usar el componente de un `spinner` o un componente `skeleton`.
+
+Recurso para obtener un spinner: https://loading.io/css/
+
+- Para controlar mientras se está cargando:
+
+```js
+const putContent = () => {
+  if (cargando) return <div class='lds-ripple'>{/*spinner*/}</div>;
+
+  return <>{/*content*/}</>;
+};
+```
+
+### Componente Fatal
