@@ -373,7 +373,7 @@ ReactDOM.render(
 
 ## Redux Thunk
 
-Redux-thunk te permite escribir creadores de acciones que retornan una función en vez de un objeto de acción típico, para instalar en nuestro proyecto:
+Redux-thunk te permite escribir creadores de acciones que retornan una función en vez de un objeto de acción típico, sirve para hacer peticiones asíncronas. Para instalar en nuestro proyecto:
 
 ```js
 npm install redux-thunk
@@ -437,8 +437,61 @@ Redux-thunk está compuesto de un “creador thunk” (creador de acciones asinc
 
 ### Middleware
 
-Actua como un puente entre Sistemas Operativos, Bases de Datos.
+Un middleware actúa como un puente entre un sistema operativo o base de datos y aplicaciones. En el caso de funciones asíncronas, un `thunk` es una función que actúa como un wrapper ya que envuelve una expresión para retrasar su evaluación.
 
-### Thunk
+Redux-thunk te permite escribir creadores de acciones que retornan una función en vez de un objeto de acción típico. Entonces, el thunk puede ser usado para retrasar el envío de una acción hasta que se cumpla una línea de código asíncrona.
 
-Un thunk es una función que actúa como un wrapper, ya que envuelve una expresión para retrasar su evaluación.
+## Características extra
+
+No son obligatorias pero son altamente recomendadas para manejar ciertas cosas.
+
+### Archivos Types
+
+- Sirve para evitar errores de dedo en el `type` del action y el caso del reducer.
+
+Crear una nueva carpeta `types` en el raiz de `src` y luego crear un archivo llamado `usuariosTypes.js`.
+
+> Todo lo que se manda del action al reducer y del reducer al componente lo vamos a estar manejando desde este archivo.
+
+1. Vamos a exportar una constante con el nombre del action que queremos utilizar:
+
+```js
+export const USUARIOS_FETCHED = 'USUARIOS_FETCHED';
+```
+
+2. Lo podemos utilizar en los actions o en los reducers:
+
+- Action
+
+```js
+import axios from 'axios';
+import { USUARIOS_FETCHED } from '../types';
+
+export const usuariosFetched = () => async (dispatch) => {
+  const URL = 'https://jsonplaceholder.typicode.com/users';
+  const response = await axios(URL);
+  dispatch({
+    type: USUARIOS_FETCHED,
+    payload: response.data,
+  });
+};
+```
+
+- Reducer
+
+```js
+import { USUARIOS_FETCHED } from '../types';
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case USUARIOS_FETCHED:
+      return { ...state, usuarios: action.payload };
+    default:
+      return state;
+  }
+};
+
+export default reducer;
+```
+
+### Try - Catch para manejar errores
