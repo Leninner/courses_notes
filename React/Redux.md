@@ -514,3 +514,60 @@ try {
   console.log(`Error: ${error.message}`); // Es una buena práctica saber del error
 }
 ```
+
+### Escenarios asíncronos
+
+Hay 3 casos que hay que manejar en llamadas asíncronas:
+
+1. Cuando está cargando
+2. Cuando terminó de cargar y fue exitoso
+3. Cuando terminó de cargar y la llamada fracasó
+
+- Forma de hacerlo con actions y reducers:
+
+- Actions
+
+```js
+import axios from 'axios';
+import { USUARIOS_FETCHED, CARGANDO, ERROR } from '../types';
+
+export const usuariosFetched = () => async (dispatch) => {
+  dispatch({
+    type: CARGANDO,
+  });
+  try {
+    const URL = 'https://jsonplaceholder.typicode.com/userss';
+    const response = await axios(URL);
+    dispatch({
+      type: USUARIOS_FETCHED,
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: error.message,
+    });
+  }
+};
+```
+
+- Reducers
+
+```js
+import { USUARIOS_FETCHED, CARGANDO, ERROR } from '../types';
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case USUARIOS_FETCHED:
+      return { ...state, usuarios: action.payload, cargando: false }; // Carga y es exitoso
+    case CARGANDO:
+      return { ...state, cargando: true }; // para controlar si está cargando o no
+    case ERROR:
+      return { ...state, error: action.payload, cargando: false }; // para controlar que ya cargó pero dió un error
+    default:
+      return state;
+  }
+};
+
+export default reducer;
+```

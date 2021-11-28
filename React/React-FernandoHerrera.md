@@ -322,6 +322,8 @@ const handleSubmit = (event) => {
 
 > Las llaves, seguido de comillas y dentro 2 espacios en blanco. Los 2 espacios se van a convertir en un espacio en la UI
 
+9. Dispatch en redux son creadores de acciones que crean y envían una acción para que el reducer lo ejecute y se pueda actualizar el estado y posteriormente la UI.
+
 ## Para Javascript
 
 1. Javascript empieza a ejecutar el código línea a línea
