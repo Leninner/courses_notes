@@ -1,4 +1,4 @@
-# Redux
+# Redux Básico
 
 Flux: https://carlosazaustre.es/como-funciona-flux
 
@@ -589,3 +589,9 @@ const putContent = () => {
 ```
 
 ### Componente Fatal
+
+Es un componente que se mostrará en caso de que ocurra un error a la llamada de una API. Una página 404 también es importante para controlar las rutas no encontradas
+
+- Si encuentra un error, entonces vamos a retornar un componente que falló la petición a la API
+
+# Redux Avanzado
