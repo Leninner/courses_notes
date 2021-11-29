@@ -595,3 +595,60 @@ Es un componente que se mostrará en caso de que ocurra un error a la llamada de
 - Si encuentra un error, entonces vamos a retornar un componente que falló la petición a la API
 
 # Redux Avanzado
+
+Técnicas avanzadas de Redux
+
+## Parámetros por URL
+
+Podemos pasar parámetros por URL con React router, por ejemplo al ir a las publicaciones de cada usuario al dar click en una view, podemos hacer uso de `react router` para manejar esa lógica:
+
+- Archivo de rutas:
+
+```js
+import React from 'react';
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Layout>
+        <Routes>
+          <Route path='/publications/:key' element={<Publications />} />{' '}
+          {/*los 2 puntos nos dice que tiene que obtener los valores que le siguen a través del componente Link*/}
+        </Routes>
+      </Layout>
+    </BrowserRouter>
+  );
+};
+
+export default App;
+```
+
+- Archivo del componente Link:
+
+```js
+<Link to={`/publications/${key}`}>
+  <div className='eye-solid icon'></div>
+</Link>
+```
+
+> Para obtener esos parámetros enviados a través del componente Link, podemos utilizar un Hook que nos proporciona React Router llamado `useParams`
+
+```js
+import React from 'react';
+import { useParams } from 'react-router-dom';
+
+const Publications = () => {
+  const { key } = useParams();
+  {
+    /*Utilizamos el hook para obtener la info que me hace falta para entrar a la ruta correcta*/
+  }
+
+  return (
+    <div>
+      <h1>{key}</h1>
+    </div>
+  );
+};
+
+export default Publications;
+```
