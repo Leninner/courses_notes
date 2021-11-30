@@ -1,3 +1,32 @@
+Índice:
+
+- [Redux Básico](#redux-básico)
+  - [Responsabilidades del Store](#responsabilidades-del-store)
+  - [Instalación de Redux](#instalación-de-redux)
+  - [Implementación de Redux en React](#implementación-de-redux-en-react)
+  - [Creación de la Store para manejar el estado](#creación-de-la-store-para-manejar-el-estado)
+  - [Conectar componentes con Redux](#conectar-componentes-con-redux)
+  - [Creación de Reducers y Actions](#creación-de-reducers-y-actions)
+    - [Actions](#actions)
+    - [Reducers](#reducers)
+      - [Otra manera para crear el archivo de reducers:](#otra-manera-para-crear-el-archivo-de-reducers)
+  - [Debug con Redux Devtools](#debug-con-redux-devtools)
+  - [Redux Thunk](#redux-thunk)
+    - [Paso a paso de un proceso de React-Thunk](#paso-a-paso-de-un-proceso-de-react-thunk)
+    - [Middleware](#middleware)
+  - [Características extra](#características-extra)
+    - [Archivos Types](#archivos-types)
+    - [Try - Catch para manejar errores](#try---catch-para-manejar-errores)
+    - [Escenarios asíncronos](#escenarios-asíncronos)
+    - [Componente Spinner](#componente-spinner)
+    - [Componente Fatal](#componente-fatal)
+- [Redux Avanzado](#redux-avanzado)
+  - [Parámetros por URL](#parámetros-por-url)
+  - [Compartir Reducer](#compartir-reducer)
+  - [Múltiples Reducers](#múltiples-reducers)
+  - [Llamando a múltiples reducers en un solo action](#llamando-a-múltiples-reducers-en-un-solo-action)
+  - [Uso del estado en el action](#uso-del-estado-en-el-action)
+
 # Redux Básico
 
 Flux: https://carlosazaustre.es/como-funciona-flux
@@ -720,3 +749,31 @@ const mapDispatchToProps = {
 ```
 
 ## Llamando a múltiples reducers en un solo action
+
+- Cada `action` y cada tipo de `reducer` debe hacer una sola cosa específica y tener un nombre específico también para evitar errores de lógica.
+
+## Uso del estado en el action
+
+Para obtener el estado de un reducer en específico en React, podemos hacer mediante el parámetro `getState`:
+
+```js
+export const getPublicacion = (id) => async (dispatch, getState) => {
+  const { usuarios } = getState().usuariosReducer; // uso de getState
+  const usuario_id = usuarios[id - 1].id;
+  dispatch({ type: CARGANDO_PUBLICATIONS });
+
+  try {
+    const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${usuario_id}`);
+
+    dispatch({
+      type: PUBLICACIONES_FETCHED,
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ERROR_PUBLICATIONS,
+      payload: error.message,
+    });
+  }
+};
+```
