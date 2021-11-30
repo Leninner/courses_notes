@@ -8,6 +8,7 @@
     - [Template Strings](#template-strings)
     - [Objetos Literales](#objetos-literales)
     - [Spread Operator (ES6)](#spread-operator-es6)
+    - [Funciones](#funciones)
 - [Notas Interesantes](#notas-interesantes)
   - [Para React](#para-react)
   - [Para Javascript](#para-javascript)
@@ -197,6 +198,43 @@ person2.name = 'Mathias';
 
 console.log(person); // {name: 'Lenin', apellido: 'Mazabanda', edad: 18, gustos: 'React'}
 console.log(person2); // {person: {name: 'Lenin', apellido: 'Mazabanda', edad: 18, gustos: 'React'}, name: 'Mathias'}
+```
+
+### Funciones
+
+- Los nombres de las Declaraciones de función, pero es una mala práctica:
+
+```js
+function doSome() {
+  return;
+}
+
+doSome = 12;
+```
+
+Debemos utilizar arrow functions para poder hacer retornos implícitos:
+
+- Retorno explícito con arrow functions:
+
+```js
+const doSome = () => {
+  return 'Retorno explícito';
+};
+```
+
+- Retorno implícito con arrow functions:
+
+```js
+const doSome = () => 'Retorno Implícito';
+```
+
+- Para retornar un objeto de manera implícita, debemos hacer:
+
+```js
+const getPersonInfo = () => ({
+  name: 'Lenin',
+  lastName: 'Mazabanda',
+});
 ```
 
 # Notas Interesantes
