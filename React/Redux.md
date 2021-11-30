@@ -652,3 +652,43 @@ const Publications = () => {
 
 export default Publications;
 ```
+
+## Compartir Reducer
+
+A medida que nuestra app crece vamos a querer tener control sobre lo que estamos haciendo y dividir los reducers y así evitar confusiones.
+Al compartir un reducer, también estamos compartiendo TODO el estado a cualquier componente que querramos.
+
+- Por ejemplo, al momento de tratar de controlar una llamada de usuarios, es válido que tengamos toda la store disponible, para lograr eso debemos hacer uso de `combineReducers` que es una función que retorna un reducer padre que es un objeto con todos los reducers que se le pasen como parámetros.
+- Después, este reducer padre llama a cada reducer hijo y crea un `único objeto de estado`
+
+> Referencia: https://es.redux.js.org/docs/api/combine-reducers.html
+
+Caso de uso de `combineReducers`:
+
+```js
+import usuariosReducer from './usuariosReducer';
+import publicacionesReducer from './publicacionesReducer';
+import { combineReducers } from 'redux';
+
+export default combineReducers({
+  usuariosReducer,
+  publicacionesReducer,
+});
+```
+
+- Para conectar cada reducer con algún componente, debemos retornar un reducer específico con la función `mapStateToProps`:
+
+```js
+const mapStateToProps = (reducers) => {
+  return reducers.usuariosReducer;
+};
+```
+
+Y podríamos controlar las variables del estado general así:
+
+```js
+props.cargando;
+const { usuarios, error } = props;
+```
+
+> NOTA IMPORTANTE: En cada reducer debe haber un estado inicial por defecto para que la función `combineReducers` haga su trabajo y retorne un único objeto de estado.\*(puede variar)
