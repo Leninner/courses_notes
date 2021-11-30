@@ -692,3 +692,30 @@ const { usuarios, error } = props;
 ```
 
 > NOTA IMPORTANTE: En cada reducer debe haber un estado inicial por defecto para que la función `combineReducers` haga su trabajo y retorne un único objeto de estado.\*(puede variar)
+
+## Múltiples Reducers
+
+Utilizamos `combineReducers` para hacerlo. Al momento de compartir los reducers a diferentes componentes, debemos hacer lo siguiente en `mapStateToProps`:
+
+```js
+const mapStateToProps = ({ usuariosReducer, publicacionesReducer }) => {
+  return { usuariosReducer, publicacionesReducer };
+};
+```
+
+- Para definir a qué estado de reducer voy a consultar la información, debemos especificarlo de la siguiente manera:
+
+```js
+const { usuarios } = props.usuariosReducer;
+```
+
+> Al compartir reducers, también, en algún momento haremos uso de actions, en ese caso vamos a tener que utlizar un método:
+
+```js
+const mapDispatchToProps = {
+  ...usuariosFetched,
+  ...getPublicaciones,
+};
+```
+
+## Llamando a múltiples reducers en un solo action
