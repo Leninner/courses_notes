@@ -1,6 +1,7 @@
 # Redux Básico
 
 Flux: https://carlosazaustre.es/como-funciona-flux
+Redux: https://redux.js.org/
 
 > **Arquitectura Flux**: Es aquella que soluciona los problemas del patrón MVC que tenía flujo de datos bidireccional y lo reemplaza por una arquitectura unidereccional donde la vista genera una acción y esta acción a su vez provoca un reducer que a su vez actualiza el estado general y finalmente se actualiza la vista. Todo es un paso unidireccional de datos
 
