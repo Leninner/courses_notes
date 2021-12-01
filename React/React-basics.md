@@ -3,8 +3,8 @@
 **Índice**
 
 - [React](#react)
-  - [Desventajas de React <a name="desventajas-react"></a>](#desventajas-de-react-)
-  - [DOM, Virtual DOM y ReactDOM <a name="react-dom"></a>](#dom-virtual-dom-y-reactdom-)
+  - [Desventajas de React](#desventajas-de-react)
+  - [DOM, Virtual DOM y ReactDOM](#dom-virtual-dom-y-reactdom)
   - [Create React App <a name="react-app"></a>](#create-react-app-)
   - [Sintaxis JSX <a name="jsx"></a>](#sintaxis-jsx-)
     - [Validaciones con true o false](#validaciones-con-true-o-false)
@@ -13,7 +13,7 @@
     - [Componentes Stateless](#componentes-stateless)
     - [Stateless vs Stateful](#stateless-vs-stateful)
     - [Componentes HOC (High Order Component)](#componentes-hoc-high-order-component)
-  - [Propiedades <a name="props"><a/>](#propiedades-a-namepropsa)
+  - [Propiedades](#propiedades)
     - [Proptypes](#proptypes)
   - [Componentes vs Elementos <a name="components-elements"><a/>](#componentes-vs-elementos-a-namecomponents-elementsa)
   - [Propiedades vs Atributos](#propiedades-vs-atributos)
@@ -155,14 +155,14 @@ Es extremadamente fácil organizar los componentes de una aplicación web y tamb
 > Si se está trabajando en una aplicación en la que no la vamos a ir actualizando, entonces solamente hacerlo con Javascript.
 > **Si necesitamos empezar rápido y vamos a necesitar actualizar la app en un futuro, es muy recomendable utilizar react.**
 
-## Desventajas de React <a name="desventajas-react"></a>
+## Desventajas de React
 
 1. Complejo si no se tiene buen entendimiento de Javascript.
 2. JSX es un preprocesador que agrega extensión de sintaxis XML a JavaScript.
 3. Necesidad de un ecosistema de muchas herramientas: React requiere una amplia gama de herramientas para funcionar correctamente y ser compatible con otras tecnologías.
 4. Problemas de SEO: se sabe que las SPAs (Single Page Applications) creadas con React se enfrentan a problemas de indexación por parte de los rastreadores y bots de motores de búsqueda.
 
-## DOM, Virtual DOM y ReactDOM <a name="react-dom"></a>
+## DOM, Virtual DOM y ReactDOM
 
 ReactDOM sirve para manejar el DOM desde React
 
@@ -444,7 +444,7 @@ function ComponentWrapper(WrapperComponent) {
 }
 ```
 
-## Propiedades <a name="props"><a/>
+## Propiedades
 
 Son valores que recibe un componente hijo de uno padre. Se agrupan en un objeto llamado props, el cual puede recibir diferentes tipos de datos:
 
@@ -1957,14 +1957,17 @@ Este plugin sirve para reportar errores y mostar cambios en tiempo real en el ca
 
 Instalación de Webpack Dev Server:
 
-NOTE: Hay que tener instalado y actualizado node.
+> Hay que tener instalado y actualizado node.
 
-- npm install --save-dev webpack-dev-server
-- npm i -D webpack-dev-server
+```bash
+npm install --save-dev webpack-dev-server
+```
 
 Script para ejecutar el servidor de Webpack y visualizar los cambios en tiempo real (package.json):
 
-"start": "webpack-dev-server --open --mode development"
+```json
+"start": "webpack serve --open --mode development"
+```
 
 ## Trabajando con Sass
 
@@ -1972,304 +1975,299 @@ Los preprocesadores como Sass son herramientas que nos permiten escribir CSS con
 
 Para instalar y trabajar con SASS vamos a instalar:
 
-> npm install --save-dev mini-css-extract-plugin css-loader node-sass sass-loader
-> npm i -D mini-css-extract-plugin css-loader node-sass sass-loader
+```bash
+npm install --save-dev mini-css-extract-plugin css-loader node-sass sass-loader
+npm i -D mini-css-extract-plugin css-loader node-sass sass-loader
+```
 
-- mini-css-extract-plugin => Va a servir para extraer el css del bundle resultante y crear un archivo aparte como css.
-- css-loader => Sirve para trabajar con css
-- node-sass => Sirve para trabajar con sass
+- **mini-css-extract-plugin** => Va a servir para extraer el css del bundle resultante y crear un archivo aparte como css.
+- **css-loader** => Sirve para trabajar con css
+- **node-sass** => Sirve para trabajar con sass
 
 Configuración (webpack.config.js):
 
 - Crear una nueva regla:
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin'); => Requerimos el plugin instalado
+```js
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // Requerimos el plugin instalado
 
-> Module
+// Module
 
 {
-test: /\.(s\*)css$/, => ojo aquí
-use: [
-{ loader: MiniCssExtractPlugin.loader },
-'css-loader',
-'sass-loader',
-],
+  test: /\.(s\*)css$/, // ojo aquí
+  use: [
+    { loader: MiniCssExtractPlugin.loader },
+    'css-loader',
+    'sass-loader',
+  ],
 },
 
-- Plugins
+// Plugins
 
 new MiniCssExtractPlugin({
-filename: 'assets/[name].css',
+  filename: 'assets/[name].css',
 })
+```
 
 ## Eslint y .gitignore
 
-El **Git Ignore** es un archivo que nos permite definir qué archivos NO queremos publicar en nuestros repositorios. Solo debemos crear el archivo .gitignore y escribir los nombres de los archivos y/o carpetas que no queremos publicar.
+**Git Ignore** es un archivo que nos permite definir qué archivos NO queremos publicar en nuestros repositorios.
+
+- Debemos crear el archivo .gitignore y escribir los nombres de los archivos y/o carpetas que no queremos publicar.
 
 Los linters como ESLint son herramientas que nos ayudan a seguir buenas prácticas o guías de estilo de nuestro código.
+
 Se encargan de revisar el código que escribimos para indicarnos dónde tenemos errores o posibles errores. En algunos casos también pueden solucionar los errores automáticamente. De esta manera podemos solucionar los errores incluso antes de que sucedan.
 
 Instalar Eslint:
 
-> npm install --save-dev eslint babel-eslint eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y
-> npm i -D eslint babel-eslint eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y
+```bash
+npm install --save-dev eslint babel-eslint eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y
+```
 
 Debemos crear un archivo llamado .eslintrc, en donde vamos a crear la configuración de nuestro proyecto:
 
 ```json
 {
-"env": {
-"browser": true,
-"es6": true,
-"node": true
-},
-"extends": ["airbnb"],
-"globals": {
-"document": false,
-"escape": false,
-"navigator": false,
-"unescape": false,
-"window": false,
-"describe": true,
-"before": true,
-"it": true,
-"expect": true,
-"sinon": true
-},
-"parser": "babel-eslint",
-"plugins": ["react", "jsx-a11y", "import"],
-"rules": {
-"react/jsx-filename-extension": 0,
-"array-bracket-spacing": 2,
-"arrow-body-style": 0,
-"block-scoped-var": 2,
-"brace-style": [2, "1tbs", { "allowSingleLine": true }],
-"comma-spacing": [2, { "before": false, "after": true }],
-"comma-style": [2, "last"],
-"complexity": 0,
-"consistent-return": 1,
-"consistent-this": 0,
-"curly": [2, "multi-line"],
-"default-case": 0,
-"dot-location": [2, "property"],
-"dot-notation": 0,
-"eol-last": 2,
-"eqeqeq": [2, "allow-null"],
-"func-names": 0,
-"func-style": 0,
-"generator-star-spacing": [2, "both"],
-"guard-for-in": 0,
-"handle-callback-err": [2, "^(err|error|anySpecificError)$"],
-"indent": [2, 2, { "SwitchCase": 1 }],
-"key-spacing": [2, { "beforeColon": false, "afterColon": true }],
-"linebreak-style": 0,
-"max-depth": 0,
-"max-len": [2, 1550, 4],
-"max-nested-callbacks": 0,
-"max-params": 0,
-"max-statements": 0,
-"new-cap": [2, { "newIsCap": true, "capIsNew": false }],
-"newline-after-var": [0, "never"],
-"new-parens": 2,
-"no-alert": 0,
-"no-array-constructor": 2,
-"no-bitwise": 0,
-"no-caller": 2,
-"no-catch-shadow": 0,
-"no-cond-assign": 2,
-"no-console": 0,
-"no-constant-condition": 0,
-"no-continue": 0,
-"no-control-regex": 2,
-"no-debugger": 0,
-"no-delete-var": 2,
-"no-div-regex": 0,
-"no-dupe-args": 2,
-"no-dupe-keys": 2,
-"no-duplicate-case": 2,
-"no-else-return": 2,
-"no-empty": 0,
-"no-empty-character-class": 2,
-"no-labels": 2,
-"no-eq-null": 0,
-"no-eval": 2,
-"no-ex-assign": 2,
-"no-extend-native": 2,
-"no-extra-bind": 2,
-"no-extra-boolean-cast": 2,
-"no-extra-parens": 0,
-"no-extra-semi": 0,
-"no-extra-strict": 0,
-"no-fallthrough": 2,
-"no-floating-decimal": 2,
-"no-func-assign": 2,
-"no-implied-eval": 2,
-"no-inline-comments": 0,
-"no-inner-declarations": [2, "functions"],
-"no-invalid-regexp": 2,
-"no-irregular-whitespace": 2,
-"no-iterator": 2,
-"no-label-var": 2,
-"no-lone-blocks": 0,
-"no-lonely-if": 0,
-"no-loop-func": 0,
-"no-mixed-requires": 0,
-"no-mixed-spaces-and-tabs": [2, false],
-"no-multi-spaces": 2,
-"no-multi-str": 0,
-"no-multiple-empty-lines": [2, { "max": 1 }],
-"no-native-reassign": 2,
-"no-negated-in-lhs": 2,
-"no-nested-ternary": 0,
-"no-new": 2,
-"no-new-func": 2,
-"no-new-object": 2,
-"no-new-require": 2,
-"no-new-wrappers": 2,
-"no-obj-calls": 2,
-"no-octal": 2,
-"no-octal-escape": 2,
-"no-path-concat": 0,
-"no-plusplus": 0,
-"no-process-env": 0,
-"no-process-exit": 0,
-"no-proto": 2,
-"no-redeclare": 2,
-"no-regex-spaces": 2,
-"no-reserved-keys": 0,
-"no-restricted-modules": 0,
-"no-script-url": 0,
-"no-self-compare": 2,
-"no-sequences": 2,
-"no-shadow": 0,
-"no-shadow-restricted-names": 2,
-"no-spaced-func": 2,
-"no-sparse-arrays": 2,
-"no-sync": 0,
-"no-ternary": 0,
-"no-throw-literal": 2,
-"no-trailing-spaces": 2,
-"no-undef": 0,
-"no-undef-init": 2,
-"no-undefined": 0,
-"no-underscore-dangle": 0,
-"no-unneeded-ternary": 2,
-"no-unreachable": 2,
-"no-unused-expressions": 0,
-"no-unused-vars": [2, { "vars": "all", "args": "none" }],
-"no-var": 2,
-"no-void": 0,
-"no-warning-comments": 0,
-"no-with": 2,
-"object-curly-newline": 0,
-"object-curly-spacing": [2, "always"],
-"one-var": 0,
-"operator-assignment": 0,
-"operator-linebreak": [2, "after"],
-"padded-blocks": 0,
-"prefer-const": 2,
-"quote-props": 0,
-"quotes": [2, "single", "avoid-escape"],
-"radix": 2,
-"jsx-quotes": [2, "prefer-single"],
-"jsx-a11y/click-events-have-key-events": 0,
-"jsx-a11y/no-noninteractive-element-interactions": 0,
-"jsx-a11y/media-has-caption": 0,
-"react/display-name": 0,
-"react/jsx-boolean-value": 0,
-"react/jsx-closing-bracket-location": 2,
-"react/jsx-curly-spacing": [2, "never"],
-"react/jsx-equals-spacing": [2, "never"],
-"react/jsx-indent-props": [2, 2],
-"react/jsx-no-bind": [2, { "allowArrowFunctions": true }],
-"react/jsx-no-undef": 2,
-"react/jsx-pascal-case": 2,
-"react/jsx-sort-prop-types": 0,
-"react/jsx-sort-props": 0,
-"react/jsx-uses-react": 2,
-"react/jsx-uses-vars": 2,
-"react/no-did-mount-set-state": 2,
-"react/no-did-update-set-state": 2,
-"react/no-multi-comp": 0,
-"react/no-unknown-property": 2,
-"react/prop-types": 0,
-"react/forbid-prop-types": 0,
-"react/prefer-stateless-function": 0,
-"react/require-default-props": 0,
-"react/react-in-jsx-scope": 2,
-"react/self-closing-comp": 2,
-"react/sort-comp": 0,
-"react/jsx-wrap-multilines": 2,
-"semi-spacing": 0,
-"sort-vars": 0,
-"space-before-blocks": [2, "always"],
-"space-before-function-paren": [2, { "anonymous": "always", "named": "never" }],
-"space-in-parens": [2, "never"],
-"space-infix-ops": 2,
-"keyword-spacing": 2,
-"space-unary-ops": [2, { "words": true, "nonwords": false }],
-"spaced-comment": [0, "always"],
-"strict": 0,
-"use-isnan": 2,
-"valid-jsdoc": 0,
-"valid-typeof": 2,
-"vars-on-top": 2,
-"wrap-iife": [2, "any"],
-"wrap-regex": 0,
-"yoda": [2, "never"]
-}
-}
-
-La anterior es una configuración recomendada por el equipo de Platzi.
-También podemos utilizar:
-
-{
-"extends": [
-"airbnb",
-"prettier"
-],
-"plugins": [
-"prettier"
-],
-"rules": {
-"react/jsx-filename-extension": [
-1,
-{
-"extensions": [
-".js",
-".jsx"
-]
-}
-],
-"react/prop-types": 0,
-"no-underscore-dangle": 0,
-"import/imports-first": [
-"error",
-"absolute-first"
-],
-"import/newline-after-import": "error"
-},
-"globals": {
-"window": true,
-"document": true,
-"localStorage": true,
-"FormData": true,
-"FileReader": true,
-"Blob": true,
-"navigator": true
-},
-"parser": "babel-eslint"
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": ["airbnb"],
+  "globals": {
+    "document": false,
+    "escape": false,
+    "navigator": false,
+    "unescape": false,
+    "window": false,
+    "describe": true,
+    "before": true,
+    "it": true,
+    "expect": true,
+    "sinon": true
+  },
+  "parser": "babel-eslint",
+  "plugins": ["react", "jsx-a11y", "import"],
+  "rules": {
+    "react/jsx-filename-extension": 0,
+    "array-bracket-spacing": 2,
+    "arrow-body-style": 0,
+    "block-scoped-var": 2,
+    "brace-style": [2, "1tbs", { "allowSingleLine": true }],
+    "comma-spacing": [2, { "before": false, "after": true }],
+    "comma-style": [2, "last"],
+    "complexity": 0,
+    "consistent-return": 1,
+    "consistent-this": 0,
+    "curly": [2, "multi-line"],
+    "default-case": 0,
+    "dot-location": [2, "property"],
+    "dot-notation": 0,
+    "eol-last": 2,
+    "eqeqeq": [2, "allow-null"],
+    "func-names": 0,
+    "func-style": 0,
+    "generator-star-spacing": [2, "both"],
+    "guard-for-in": 0,
+    "handle-callback-err": [2, "^(err|error|anySpecificError)$"],
+    "indent": [2, 2, { "SwitchCase": 1 }],
+    "key-spacing": [2, { "beforeColon": false, "afterColon": true }],
+    "linebreak-style": 0,
+    "max-depth": 0,
+    "max-len": [2, 1550, 4],
+    "max-nested-callbacks": 0,
+    "max-params": 0,
+    "max-statements": 0,
+    "new-cap": [2, { "newIsCap": true, "capIsNew": false }],
+    "newline-after-var": [0, "never"],
+    "new-parens": 2,
+    "no-alert": 0,
+    "no-array-constructor": 2,
+    "no-bitwise": 0,
+    "no-caller": 2,
+    "no-catch-shadow": 0,
+    "no-cond-assign": 2,
+    "no-console": 0,
+    "no-constant-condition": 0,
+    "no-continue": 0,
+    "no-control-regex": 2,
+    "no-debugger": 0,
+    "no-delete-var": 2,
+    "no-div-regex": 0,
+    "no-dupe-args": 2,
+    "no-dupe-keys": 2,
+    "no-duplicate-case": 2,
+    "no-else-return": 2,
+    "no-empty": 0,
+    "no-empty-character-class": 2,
+    "no-labels": 2,
+    "no-eq-null": 0,
+    "no-eval": 2,
+    "no-ex-assign": 2,
+    "no-extend-native": 2,
+    "no-extra-bind": 2,
+    "no-extra-boolean-cast": 2,
+    "no-extra-parens": 0,
+    "no-extra-semi": 0,
+    "no-extra-strict": 0,
+    "no-fallthrough": 2,
+    "no-floating-decimal": 2,
+    "no-func-assign": 2,
+    "no-implied-eval": 2,
+    "no-inline-comments": 0,
+    "no-inner-declarations": [2, "functions"],
+    "no-invalid-regexp": 2,
+    "no-irregular-whitespace": 2,
+    "no-iterator": 2,
+    "no-label-var": 2,
+    "no-lone-blocks": 0,
+    "no-lonely-if": 0,
+    "no-loop-func": 0,
+    "no-mixed-requires": 0,
+    "no-mixed-spaces-and-tabs": [2, false],
+    "no-multi-spaces": 2,
+    "no-multi-str": 0,
+    "no-multiple-empty-lines": [2, { "max": 1 }],
+    "no-native-reassign": 2,
+    "no-negated-in-lhs": 2,
+    "no-nested-ternary": 0,
+    "no-new": 2,
+    "no-new-func": 2,
+    "no-new-object": 2,
+    "no-new-require": 2,
+    "no-new-wrappers": 2,
+    "no-obj-calls": 2,
+    "no-octal": 2,
+    "no-octal-escape": 2,
+    "no-path-concat": 0,
+    "no-plusplus": 0,
+    "no-process-env": 0,
+    "no-process-exit": 0,
+    "no-proto": 2,
+    "no-redeclare": 2,
+    "no-regex-spaces": 2,
+    "no-reserved-keys": 0,
+    "no-restricted-modules": 0,
+    "no-script-url": 0,
+    "no-self-compare": 2,
+    "no-sequences": 2,
+    "no-shadow": 0,
+    "no-shadow-restricted-names": 2,
+    "no-spaced-func": 2,
+    "no-sparse-arrays": 2,
+    "no-sync": 0,
+    "no-ternary": 0,
+    "no-throw-literal": 2,
+    "no-trailing-spaces": 2,
+    "no-undef": 0,
+    "no-undef-init": 2,
+    "no-undefined": 0,
+    "no-underscore-dangle": 0,
+    "no-unneeded-ternary": 2,
+    "no-unreachable": 2,
+    "no-unused-expressions": 0,
+    "no-unused-vars": [2, { "vars": "all", "args": "none" }],
+    "no-var": 2,
+    "no-void": 0,
+    "no-warning-comments": 0,
+    "no-with": 2,
+    "object-curly-newline": 0,
+    "object-curly-spacing": [2, "always"],
+    "one-var": 0,
+    "operator-assignment": 0,
+    "operator-linebreak": [2, "after"],
+    "padded-blocks": 0,
+    "prefer-const": 2,
+    "quote-props": 0,
+    "quotes": [2, "single", "avoid-escape"],
+    "radix": 2,
+    "jsx-quotes": [2, "prefer-single"],
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "jsx-a11y/media-has-caption": 0,
+    "react/display-name": 0,
+    "react/jsx-boolean-value": 0,
+    "react/jsx-closing-bracket-location": 2,
+    "react/jsx-curly-spacing": [2, "never"],
+    "react/jsx-equals-spacing": [2, "never"],
+    "react/jsx-indent-props": [2, 2],
+    "react/jsx-no-bind": [2, { "allowArrowFunctions": true }],
+    "react/jsx-no-undef": 2,
+    "react/jsx-pascal-case": 2,
+    "react/jsx-sort-prop-types": 0,
+    "react/jsx-sort-props": 0,
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/no-did-mount-set-state": 2,
+    "react/no-did-update-set-state": 2,
+    "react/no-multi-comp": 0,
+    "react/no-unknown-property": 2,
+    "react/prop-types": 0,
+    "react/forbid-prop-types": 0,
+    "react/prefer-stateless-function": 0,
+    "react/require-default-props": 0,
+    "react/react-in-jsx-scope": 2,
+    "react/self-closing-comp": 2,
+    "react/sort-comp": 0,
+    "react/jsx-wrap-multilines": 2,
+    "semi-spacing": 0,
+    "sort-vars": 0,
+    "space-before-blocks": [2, "always"],
+    "space-before-function-paren": [2, { "anonymous": "always", "named": "never" }],
+    "space-in-parens": [2, "never"],
+    "space-infix-ops": 2,
+    "keyword-spacing": 2,
+    "space-unary-ops": [2, { "words": true, "nonwords": false }],
+    "spaced-comment": [0, "always"],
+    "strict": 0,
+    "use-isnan": 2,
+    "valid-jsdoc": 0,
+    "valid-typeof": 2,
+    "vars-on-top": 2,
+    "wrap-iife": [2, "any"],
+    "wrap-regex": 0,
+    "yoda": [2, "never"]
+  }
 }
 ```
 
-También tenemos un archivo .gitignore, que estará en el proyecto de react time app o platzi video.
+// La anterior es una configuración recomendada por el equipo de Platzi.
+// También podemos utilizar:
 
-NOTE: Gist es una herramienta que nos proporciona github para compartir archivos.
+```json
+{
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "react/prop-types": 0,
+    "no-underscore-dangle": 0,
+    "import/imports-first": ["error", "absolute-first"],
+    "import/newline-after-import": "error"
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "localStorage": true,
+    "FormData": true,
+    "FileReader": true,
+    "Blob": true,
+    "navigator": true
+  },
+  "parser": "babel-eslint"
+}
+```
 
 ## Forma de organizar carpetas
 
-File Type First
-Creamos una carpeta por cada tipo de componentes o elementos de nuestra aplicación.
+1. File Type First
+   Creamos una carpeta por cada tipo de componentes o elementos de nuestra aplicación.
 
 Tendremos una carpeta para los contenedores. Otra para los componentes presentacionales. Otra para la lógica de conexión a la API. Otra para los custom hooks. Otra para los reducers. Otra para los estilos. Una carpeta para cada todo.
 
@@ -2390,14 +2388,14 @@ Para manejar imágenes con Webpack 5 no necesitamos ningún loader y directament
 
 NOTE: Uso de File Loader con React:
 
+```js
 import React from 'react';
 import nombreDeLaImagen from '../assets/static/nombre-del-archivo';
 
-const Component = () => (
-<img src={nombreDeLaImagen} />
-);
+const Component = () => <img src={nombreDeLaImagen} />;
 
 export default Component;
+```
 
 ### Alias
 
@@ -2426,13 +2424,15 @@ Así como JavaScript, Sass nos permite almacenar valores en variables que podemo
 
 Ejemplo:
 
-$theme-font: 'Muli, sans-serif;
+```scss
+$theme-font: 'Muli', sans-serif;
 $main-color: #8f57fd;
 
 body {
-background: $main-color;
-font-family: $theme-font;
+  background: $main-color;
+  font-family: $theme-font;
 }
+```
 
 Podemos guardar nuestras variables en un archivo especial e importarlo desde los archivos de estilo donde queremos usar estas variables.
 
@@ -2465,30 +2465,15 @@ body {
 
 ## Crear una Fake API
 
-Simular que tenemos una API.
+Vamos a usar `JSON Server` para crear una Fake API: una API “falsa” construida a partir de un archivo JSON que nos permite preparar nuestro código para consumir una API de verdad en el futuro.
 
-Vamos a usar JSON Server para crear una Fake API: una API “falsa” construida a partir de un archivo JSON que nos permite preparar nuestro código para consumir una API de verdad en el futuro.
-
-Vamos a crear un archivo llamado initialState.Json y dentro ponemos:
+Vamos a crear un archivo llamado initialState.Json y dentro ponemos una API que queramos:
 
 ```json
 {
   "initalState": {
     "mylist": [],
     "trends": [
-      {
-        "id": 2,
-        "slug": "tvshow-2",
-        "title": "In the Dark",
-        "type": "Scripted",
-        "language": "English",
-        "year": 2009,
-        "contentRating": "16+",
-        "duration": 164,
-        "cover": "http://dummyimage.com/800x600.png/99118E/ffffff",
-        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
-        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-      },
       {
         "id": 3,
         "slug": "tvshow-3",
@@ -2501,126 +2486,9 @@ Vamos a crear un archivo llamado initialState.Json y dentro ponemos:
         "cover": "http://dummyimage.com/800x600.png/302140/ffffff",
         "description": "Vestibulum ac est lacinia nisi venenatis tristique",
         "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-      },
-      {
-        "id": 4,
-        "slug": "tvshow-4",
-        "title": "Grand Hotel",
-        "type": "Comedy",
-        "language": "English",
-        "year": 2014,
-        "contentRating": "16+",
-        "duration": 163,
-        "cover": "http://dummyimage.com/800x600.png/5472FF/ffffff",
-        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
-        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-      },
-      {
-        "id": 5,
-        "slug": "tvshow-5",
-        "title": "Stargate Atlantis",
-        "type": "Scripted",
-        "language": "English",
-        "year": 2014,
-        "contentRating": "16+",
-        "duration": 194,
-        "cover": "http://dummyimage.com/800x600.png/B36F20/ffffff",
-        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
-        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-      },
-      {
-        "id": 6,
-        "slug": "tvshow-6",
-        "title": "Final Space",
-        "type": "Scripted",
-        "language": "English",
-        "year": 2017,
-        "contentRating": "16+",
-        "duration": 124,
-        "cover": "http://dummyimage.com/800x600.png/CCC539/ffffff",
-        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
-        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-      },
-      {
-        "id": 7,
-        "slug": "tvshow-7",
-        "title": "The InBetween",
-        "type": "Drama",
-        "language": "English",
-        "year": 2011,
-        "contentRating": "16+",
-        "duration": 179,
-        "cover": "http://dummyimage.com/800x600.png/FF7A90/ffffff",
-        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
-        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
       }
     ],
     "originals": [
-      {
-        "id": 8,
-        "slug": "tvshow-8",
-        "title": "Stargate Atlantis",
-        "type": "Action",
-        "language": "English",
-        "year": 2012,
-        "contentRating": "16+",
-        "duration": 148,
-        "cover": "http://dummyimage.com/800x600.png/306880/ffffff",
-        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
-        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-      },
-      {
-        "id": 9,
-        "slug": "tvshow-9",
-        "title": "Alien Highway",
-        "type": "Action",
-        "language": "English",
-        "year": 2019,
-        "contentRating": "16+",
-        "duration": 128,
-        "cover": "http://dummyimage.com/800x600.png/604180/ffffff",
-        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
-        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-      },
-      {
-        "id": 10,
-        "slug": "tvshow-10",
-        "title": "Elementary",
-        "type": "Animation",
-        "language": "English",
-        "year": 2011,
-        "contentRating": "16+",
-        "duration": 346,
-        "cover": "http://dummyimage.com/800x600.png/FF91BA/ffffff",
-        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
-        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-      },
-      {
-        "id": 11,
-        "slug": "tvshow-11",
-        "title": "Strange Angel",
-        "type": "War",
-        "language": "English",
-        "year": 2015,
-        "contentRating": "16+",
-        "duration": 226,
-        "cover": "http://dummyimage.com/800x600.png/45807C/ffffff",
-        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
-        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-      },
-      {
-        "id": 12,
-        "slug": "tvshow-12",
-        "title": "Private Eyes",
-        "type": "Comedy",
-        "language": "English",
-        "year": 2018,
-        "contentRating": "16+",
-        "duration": 190,
-        "cover": "http://dummyimage.com/800x600.png/577380/ffffff",
-        "description": "Vestibulum ac est lacinia nisi venenatis tristique",
-        "source": "https://mdstrm.com/video/58333e214ad055d208427db5.mp4"
-      },
       {
         "id": 13,
         "slug": "tvshow-13",
@@ -2640,32 +2508,27 @@ Vamos a crear un archivo llamado initialState.Json y dentro ponemos:
 ```
 
 Para instalar JSON Server:
-NOTE: Debemos instalar el servidor de json globalmente y con permisos de administrador, caso contrario resultaria error.
 
 ```bash
 sudo npm install json-server -g
 ```
+
+> Debemos instalar el servidor de json globalmente y con permisos de administrador, caso contrario resultaria error.
 
 ### Para empezar con la Fake API
 
 Para empezar la FAKE API debemos tener 2 pestañas en nuestra terminal y en una ventana vamos a correr:
 
 ```bash
-json-server "archivoParaTuAPI".json => json-server initialState.json
+json-server initialState.json
 ```
 
-NOTE: Recuerda que en Windows debes correr tu terminal de comandos en modo administrador.
-
+> Recuerda que en Windows debes correr tu terminal de comandos en modo administrador.
 > Utilizar npx json-server --watch initialState.json para correr la fake API en windows 10.
 
 ## Conectando la información de la API
 
-Cuando no existen elementos en una parte de la API para comprobarlo y que no nos tire error, podemos utilizar "?".
-
-Esto se debe a que los arrays en js hay que inicializarlos para poder acceder a ellos, cuando intentas leer mylist para js es una variable sin más, sin tipar ni nada y dentro de su prototype no tiene la función length pero al inicializarlo como [] ya tiene un valor desde el cual partir.
-
-Cannot read property ‘length’ of undefined
-Una solución es añadiendo en la declaración de useState los valores de lso arrays que estamos esperando, por lo que el código quedaría:
+> Cuando no existen elementos en una parte de la API para comprobarlo y que no nos tire error, podemos utilizar "?".
 
 ```js
 const [videos, setVideos] = useState({ mylist: [], trends: [], originals: [] });
@@ -2719,13 +2582,13 @@ const App = () => {
 
 ## Debuggeando React con React DevTools
 
-React DevTools es una herramienta muy parecida al Inspector de Elementos. Nos permite visualizar, analizar e interactuar con nuestros componentes de React desde el navegador.
+React DevTools es una herramienta muy parecida al Inspector de Elementos. Nos permite:
 
-NOTE: Siempre tener cuidado con la palabra reservada clase en react. En vez de clase, en react para apuntar a un selector de tipo clase se utiliza className.
+- Visualizar
+- Analizar
+- Interactuar con nuestros componentes de React desde el navegador.
 
 Descargar desde: https://reactjs.org/blog/2015/09/02/new-react-developer-tools.html#installation
-
-Analizar bien el las tools que entrega chrome para encontrar este nuevo feature.
 
 # Sass con Create-React-App
 
@@ -2928,3 +2791,7 @@ jobs:
 ```
 
 <!-- Stand By -->
+
+```
+
+```
