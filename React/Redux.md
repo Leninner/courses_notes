@@ -806,7 +806,7 @@ console.log(string); // "Leninner"
 console.log(arrayOfTheString); // ["L", "e","n","i","n","n","e","r"]
 ```
 
-## Evitar sobre escritura
+## Evitar sobreescritura
 
 Revisar el siguiente código:
 
