@@ -26,6 +26,8 @@
   - [Múltiples Reducers](#múltiples-reducers)
   - [Llamando a múltiples reducers en un solo action](#llamando-a-múltiples-reducers-en-un-solo-action)
   - [Uso del estado en el action](#uso-del-estado-en-el-action)
+  - [Inmutabilidad](#inmutabilidad)
+  - [Evitar sobre escritura](#evitar-sobre-escritura)
 
 # Redux Básico
 
@@ -790,3 +792,18 @@ export const getPublicacion = (id) => async (dispatch, getState) => {
   }
 };
 ```
+
+## Inmutabilidad
+
+Que algo sea `inmutable` significa que no se puede cambiar su valor. Un ejemplo son los strings, que con sus métodos, crean unos nuevos valores y no sobreescriben el string existente:
+
+```js
+let string = 'Leninner';
+
+let arrayOfTheString = string.split('');
+
+console.log(string); // "Leninner"
+console.log(arrayOfTheString); // ["L", "e","n","i","n","n","e","r"]
+```
+
+## Evitar sobre escritura

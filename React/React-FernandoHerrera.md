@@ -365,3 +365,25 @@ const handleSubmit = (event) => {
 ## Para Javascript
 
 1. Javascript empieza a ejecutar el código línea a línea
+2. El operador `in` nos sirve para comprobar si una llave está en un objeto o no. Devuelve `true` si la propiedad especificada está en el objeto especificado o su prototipo:
+
+```js
+// Reference: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/in
+
+// Arrays
+let arboles = new Array('secoya', 'pino', 'cedro', 'roble', 'arce');
+0 in arboles; // devuelve true
+3 in arboles; // devuelve true
+6 in arboles; // devuelve false
+'pino' in arboles; // devuelve false (debe especificar el número de índice,
+// no el valor del índice)
+'length' in arboles; // devuelve true (length es una propiedad de Array)
+
+// Objetos predefinidos
+'PI' in Math; // devuelve true
+
+// Objetos personalizados
+let micoche = { marca: 'Honda', modelo: 'Accord', año: 1998 };
+'marca' in micoche; // devuelve true
+'modelo' in micoche; // devuelve true
+```
