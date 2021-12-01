@@ -2638,18 +2638,18 @@ Se empieza a desarrollar desde lo más pequeño hacia lo más grande.
 
 > https://atomicdesign.bradfrost.com/images/content/html-periodic-table.png
 
-1. Átomos
+1. **Átomos**
    Este es nuestro primer nivel de abstracción. Cuando diseñes un UI,**mira los botones, textos, imágenes o entradas de texto**. Son las partes más fundamentales y pequeñas que usamos.
    https://atomicdesign.bradfrost.com/images/content/atoms-form-elements.png
 
-2. Moléculas
+2. **Moléculas**
    Las moléculas son una unión de átomos. Todas estas moléculas, normalmente tienen una función específica para la cuál necesitan varios átomos. Por ejemplo, la glucosa C6H12O6, es la energía en carbohidratos del humanos.
    Ahora, pasemos al diseño.
    En interfaces, una parte como un comentario de twitter, una sección de youtube de ME GUSTA y NO ME GUSTA, o el menú en los videos de platzi para avanzar o retroceder en la clase, son todos moléculas.
    Estas están compuestas de algunos **componentes más pequeños** (como por ejemplo, de botón y cuadro de texto). Este es nuestro segundo nivel. Crear moléculas es simple, y recuerda que deberán tener una función única en nuestra UI
    https://atomicdesign.bradfrost.com/images/content/molecule-search-form.png
 
-3. Organismos
+3. **Organismos**
    Los organismo están compuesto de muchas moléculas. Tienen vida propia, y pueden interactuar en una manera muy amplia con otros organismos.
    Imagina una abeja con una flor, ambos colaboran de una u otra manera a que el otro esté bien.
    **En nuestro diseño, imagina al header.** El header está compuesto de muchos elementos, y tienen un impacto muy grande en la app. O incluso, de una sección como una tienda de ropa en la paǵina web. Seguramente te das cuenta, que estos tienen muchos artículos, y todos constan de una imaǵen, precio, y un ordenamiento. Puedes verlo así:
@@ -2661,11 +2661,11 @@ Se empieza a desarrollar desde lo más pequeño hacia lo más grande.
    - El organismo si te das cuenta, puede usar moléculas del mismo tipo o diferentes. El punto clave, es que no trates de abarcar tanto, y que pertenecen a una sección claramente definida en nuestra app.
      https://atomicdesign.bradfrost.com/images/content/organism-header.png
 
-4. Templates
+4. **Templates**
    Es la plantilla en la cual siempre organizarás los organismos. Es decir, el esqueleto que indica donde irá por ejemplo, el Header, el footer, grid y sección de comentarios.
    https://atomicdesign.bradfrost.com/images/content/template.png
 
-5. Pages
+5. **Pages**
    Las pages son en sí, toda la página funcionando con contenido interactúando entre ellas.
    https://atomicdesign.bradfrost.com/images/content/page.png
 
