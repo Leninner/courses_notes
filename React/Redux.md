@@ -807,3 +807,11 @@ console.log(arrayOfTheString); // ["L", "e","n","i","n","n","e","r"]
 ```
 
 ## Evitar sobre escritura
+
+Revisar el siguiente código:
+
+```js
+if (!('publicaciones_key' in usuarios[key])) {
+  return props.getPublicacionesAction(key);
+}
+```
