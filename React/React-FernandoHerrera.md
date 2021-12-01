@@ -9,6 +9,9 @@
     - [Objetos Literales](#objetos-literales)
     - [Spread Operator (ES6)](#spread-operator-es6)
     - [Funciones](#funciones)
+    - [Destructuración o Asignación Destructurante de Objetos](#destructuración-o-asignación-destructurante-de-objetos)
+    - [Destructuración de Arreglos](#destructuración-de-arreglos)
+    - [Import, Export y funciones comunes de arreglos](#import-export-y-funciones-comunes-de-arreglos)
 - [Notas Interesantes](#notas-interesantes)
   - [Para React](#para-react)
   - [Para Javascript](#para-javascript)
@@ -236,6 +239,73 @@ const getPersonInfo = () => ({
   lastName: 'Mazabanda',
 });
 ```
+
+### Destructuración o Asignación Destructurante de Objetos
+
+```js
+const persona = {
+  name: 'Lenin',
+  lastName: 'Mazabanda',
+  edad: 15,
+};
+
+const { edad } = persona; // 15, no importa el orden de la destructuración
+
+const useContext = ({ name, rango = 25 }) => {
+  return {
+    name,
+    rango,
+    latLng: {
+      lat: 1.4564,
+      lng: 4564,
+    },
+  };
+};
+
+const { name, rango, latLng } = useContext(persona);
+
+const { lat, lng } = latLng;
+
+console.log(name, rango, lat, lng);
+```
+
+### Destructuración de Arreglos
+
+```js
+const personajes = ['Vegeta', 'Goku', 'Trunks'];
+
+const [, , character3] = personajes; // Trunks
+const [character1] = personajes; // Vegeta
+const [, character2] = personajes; // Goku
+
+const retornaArreglo = () => {
+  return ['ABC', 123];
+};
+
+const [letras, numbers] = retornaArreglo(); // ABC, 123
+```
+
+- Cómo funciona use State:
+
+```js
+const useState = (valor) => {
+  return [
+    valor,
+    () => {
+      console.log('Hola Mundo');
+    },
+  ];
+};
+
+const [state, setState] = useState('Leninner');
+
+console.log(state); // "Leninner"
+setState(); // "Hola mundo"
+```
+
+> Se manejan por índices al momento de hacer su destructuración
+
+### Import, Export y funciones comunes de arreglos
 
 # Notas Interesantes
 
