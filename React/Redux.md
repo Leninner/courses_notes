@@ -750,7 +750,20 @@ const mapDispatchToProps = {
 
 ## Llamando a múltiples reducers en un solo action
 
-- Cada `action` y cada tipo de `reducer` debe hacer una sola cosa específica y tener un nombre específico también para evitar errores de lógica.
+- Cada `action` y cada tipo de `reducer` debe hacer una sola cosa específica y tener un nombre específico también para evitar errores de lógica:
+
+```js
+import * as usuariosFetched from '../../actions/usuariosAction';
+import * as getPublicaciones from '../../actions/publicacionesAction';
+
+const { usuariosFetched: usuariosFetchedAction } = usuariosFetched; // la key es el nombre de la función dentro de los actions
+const { getPublicacion: getPublicacionesAction } = getPublicaciones; // la key es el nombre de la función dentro de los actions
+
+const mapDispatchToProps = {
+  usuariosFetchedAction,
+  getPublicacionesAction,
+};
+```
 
 ## Uso del estado en el action
 
