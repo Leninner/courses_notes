@@ -118,3 +118,84 @@ Para añadir archivos a excluir:
 ## Deploy con Vercel
 
 > Seguir los pasos oficiales de Vercel: https://vercel.com/docs/concepts/git/vercel-for-github
+
+## CSS in JS
+
+Nos permite crear CSS directamente en JS y evitar los problemas de clases que puede provocar utilizar CSS separado.
+
+- Styled Components
+  Nos permite escribir CSS más limpio y evitar los problemas con las clases.
+
+  Es una biblioteca para React que permite estilar los elementos del marcado de HTML directamente en JS.
+
+Para instalar `Styled Components`:
+
+```bash
+npm i styled-components
+```
+
+Para usar `Styled Components`:
+
+1. Crear otro archivo llamado `styles.js` en la misma carpeta que el componente
+2. Empezar a estilar con la sintáxis propuesta:
+
+```js
+import styled from 'styled-components';
+
+export const Anchor = styled.a`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  text-decoration: none;
+  width: 75px;
+`;
+
+export const Image = styled.img`
+  border: 1px solid #e6e6e6;
+  box-shadow: 0px 10px 14px rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  height: auto;
+  object-fit: cover;
+  overflow: hidden;
+  height: 75px;
+  width: 75px;
+`;
+```
+
+3. Para aplicar los estilos, debemos cambiar cada elemento HTML por el nombre de los estilos para esa etiqueta:
+
+- Antes de aplicar `styled-components`
+
+```js
+import React from 'react';
+
+const DEFAULT_IMAGE = 'https://i.imgur.com/dJa0Hpl.jpg';
+
+export const Category = ({ cover = DEFAULT_IMAGE, path, emoji = '?' }) => (
+  <a href={path}>
+    <img src={cover} alt={emoji} />
+    {emoji}
+  </a>
+);
+```
+
+- Aplicando `styled-components`
+
+```js
+import React from 'react';
+import { Anchor } from './styles';
+import { Image } from './styles';
+
+const DEFAULT_IMAGE = 'https://i.imgur.com/dJa0Hpl.jpg';
+
+export const Category = ({ cover = DEFAULT_IMAGE, path, emoji = '?' }) => (
+  <Anchor href={path}>
+    <Image src={cover} alt={emoji} />
+    {emoji}
+  </Anchor>
+);
+```
+
+> Es una buena práctica definir estilos globales. Para leer la documentación, entrar aquí: https://scalablecss.com/styled-components-global-styles/
+
+- Estilos Globales
