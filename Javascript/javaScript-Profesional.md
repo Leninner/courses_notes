@@ -2,48 +2,48 @@
 
 El camino para llegar a ser profesional es largo y duro, no es fácil. Todos necesitamos que nos guíen para saber qué hacer y qué no. Este camino es conocido como la ruta de pasar de Junior a Senior, este es un duro camino lleno de experiencia.
 
-# ¿Qué forma a un profesional?
+## ¿Qué forma a un profesional?
 
 Te presento una lista de estas cosas que lo forman:
 
--   Conocimiento del lenguaje.
-    Conocimiento de entornos de programación.
-    Mejores prácticas.
-    Versado en código.
-    Herramientas.
-    Ética / Profesionalismo.
-    Experiencia
+- Conocimiento del lenguaje.
+  Conocimiento de entornos de programación.
+  Mejores prácticas.
+  Versado en código.
+  Herramientas.
+  Ética / Profesionalismo.
+  Experiencia
 
-# El lenguaje: JavaScript
+## El lenguaje: JavaScript
 
 Debemos tener muy claro cuales son los fundamentos de JavaScript antes de comenzar con esto. Existen features muy raros y hay que estudiarlos. Tenemos que saber cómo funcionan las cosas en JavaScript.
 
-# No fundamentos
+## No fundamentos
 
-Los no fundamentos" representan las siguientes características del lenguaje:
+Los `no fundamentos` representan las siguientes características del lenguaje:
 
 Promesas (nivel pro).
 Getters, setters: son formas de obtener valor de una variable sin tener que poner this.name.
 Proxies: es un feature muy raro, pero que más adelante veremos a profundidad. Sirve para interceptar a una función antes de que se ejecute.
 Generadores: esto es raro, pero vamos a ver que sí es eficiente.
 
-# ¿Cómo funciona?
+## ¿Cómo funciona?
 
 Este lenguaje corre sobre un motor. JavaScript no contiene clases como otros lenguajes de programación, esto es algo que vuela mucho la cabeza, es muy difícil de entender. Otro feature muy cool que vamos a aprender es event loop, es lo que permite que pueda correr muchos procesos a la vez.
 
-# Entornos de programación
+## Entornos de programación
 
 Cuando estamos desarrollando lo hacemos para la WEB, para un celular, para seguidores. Existen diferentes entornos que nos ofrecen APIS, tenemos que conocer todo esto. V
 
-# Versado en código
+## Versado en código
 
 Esto quiere decir que tenemos que leer mucho código, un lugar hermoso para ponernos a leer código es GitHub. Debemos leer mucho y hacerlo de forma muy constante.
 
-# Mejores prácticas
+## Mejores prácticas
 
 No vamos a reinventar la rueda, hay muchas personas que ya han solucionado los problemas más comunes, tenemos que usar estas soluciones, a estas soluciones se les llama: patrones de diseño.
 
-# Ética
+## Ética
 
 Esta es la parte más importante de ser un profesional. Un buen profesional cumple con los siguientes valores:
 
@@ -52,7 +52,7 @@ Esta es la parte más importante de ser un profesional. Un buen profesional cump
 3. Sabe decir que no.
 4. No hace daño.
 
-# Experiencia
+## Experiencia
 
 La experiencia no es algo que se pueda enseñar, tenemos que encontrarla nosotros mismos en el camino a ser profesionales. Todo está en nosotros, tenemos que estudiar y practicar mucho.
 
@@ -87,7 +87,7 @@ Hay que tener en cuenta que cuando carga una página y se encuentra un script a 
 
 NOTE: Un script ubicado arriba, al inicio de body, primera va a ejecutarse y después va a ejecutar el resto de estructura HTML.
 
--   Siempre es una buena práctica llevar los scripts al final del body y llevarlos a su propio archivo y llamarlo con la etiqueta SRC.
+- Siempre es una buena práctica llevar los scripts al final del body y llevarlos a su propio archivo y llamarlo con la etiqueta SRC.
 
 # Scope o Ámbito
 
@@ -95,49 +95,74 @@ Es el alcance que tiene una variable dentro de un archivo.
 
 ## Scope Global
 
-Toda variable declarada fuera de una función, método, etc. Estará en ámbito global
-Global Scope
-// var message = 'Hello, Platzi!';
-// var $ = function(message) {
-// console.log('Say: ' + message);
-// };
+Toda variable declarada fuera de una función, método, etc. Estará en ámbito global, disponible para todo.
+
+- Global Scope
+
+```js
+let message = 'Hello, Platzi!';
+
+let $ = function (message) {
+  console.log('Say: ' + message);
+};
+```
 
 ## Function Scope
 
-Function Scope
-function printNumbers() {
-var i;
-for (i = 0; i < 10; i++) {
-function eventuallyPrintNumber(n) {
-setTimeout(function() {
-console.log(n);
-}, 100);
-}
+Las `variables o métodos` definidos en bloques de `funciones` solo estarán disponibles para ese scope, no se puede acceder a esos métodos o variables desde fuera de esta `función padre`
 
-eventuallyPrintNumber(i);
-}
+```js
+function printNumbers() {
+  let i;
+
+  for (i = 0; i < 10; i++) {
+    function eventuallyPrintNumber(n) {
+      setTimeout(function () {
+        console.log(n);
+      }, 100);
+    }
+
+    eventuallyPrintNumber(i);
+  }
 }
 
 printNumbers();
+```
 
 ## Block Scope
 
-let opera en cada bloque. Tiene reglas más fuertas que var.
+Las variables definidas dentro de un bloque de métodos o funciones, solo estará disponible para ese `alcance`. No se puede acceder a ellas desde fuera:
 
-Block Scope
+- Block Scope
+
+```js
 function printNumbers2() {
-for (let i = 0; i < 10; i++) {
-setTimeout(function() {
-console.log(i);
-}, 100);
-}
+  for (let i = 0; i < 10; i++) {
+    setTimeout(function () {
+      console.log(i);
+    }, 100);
+  }
 }
 
 printNumbers2();
+```
 
-## Module Scope
+## Lexic Scope
 
-El código se queda en ámbito de su propio módulo y no puede ser accedido desde otro módulo o archivo. Sin embargo si puede cumplir con la función para lo cuál fue escrito.
+Una variable global, estará disponible para el bloque más oculto de código:
+
+```js
+let number = 12;
+
+const doSome = () => {
+  let number2 = 123;
+
+  if (number2 > number) {
+    let name = 'Lenin';
+    return `${name} es el número ${number} que es menor a ${number2}`;
+  }
+};
+```
 
 # Closures
 
@@ -145,52 +170,63 @@ Son funciones que regresan una función o un objeto con funciones que mantienen 
 
 Los closures nos sirven para tener algo parecido a variables privadas, característica que no tiene JavaScript por default. Es decir encapsulan variables que no pueden ser modificadas directamente por otros objetos, sólo por funciones pertenecientes al mismo.
 
-NOTE: IIFE (Inmediate Invocation Function Expression)
+## IIFE (Inmediate Invocation Function Expression)
 
-// IIFE
-(function() {
-let color = 'green';
+```js
+(function () {
+  let color = 'green';
 
-function printColor() {
-console.log(color);
-}
-printColor();
+  function printColor() {
+    console.log(color);
+  }
+  printColor();
 })();
+```
 
+- Funciones que regresan funciones:
+
+```js
 // Funciones que regresan funciones
 function makeColorPrinter(color) {
-let colorMessage = `The color is ${color}`;
+  let colorMessage = `The color is ${color}`;
 
-return function() {
-console.log(colorMessage);
-};
+  return function () {
+    console.log(colorMessage);
+  };
 }
 
 let greenColorPrinter = makeColorPrinter('green');
 console.log(greenColorPrinter());
+```
 
+- Variables privadas
+
+```js
 // variables "privadas"
 const counter = {
-count: 3,
+  count: 3,
 };
+
 console.log(counter.count);
+
 counter.count = 99;
+
 console.log(counter.count);
 
 function makeCounter(n) {
-let count = n;
+  let count = n;
 
-return {
-increase: function() {
-count = count + 1;
-},
-decrease: function() {
-count = count - 1;
-},
-getCount: function() {
-return count;
-},
-};
+  return {
+    increase: function () {
+      count = count + 1;
+    },
+    decrease: function () {
+      count = count - 1;
+    },
+    getCount: function () {
+      return count;
+    },
+  };
 }
 
 let counter = makeCounter(7);
@@ -206,6 +242,7 @@ console.log('The count is:', counter.getCount());
 
 counter.count = 0;
 console.log('The count is:', counter.getCount());
+```
 
 NOTE: Actualidad en Javascript
 
@@ -215,38 +252,40 @@ actualmente javascript ha realizado mejoras en la implementación de la Programa
 
 quedando el ejercicio indicado por el profesor de la siguiente forma:
 
-      class makeCounter {
-        #count;
+```js
+class makeCounter {
+  #count;
 
-        constructor(n) {
-          this.#count = n;
-        }
+  constructor(n) {
+    this.#count = n;
+  }
 
-        get count() {
-          return this.#count;
-        }
+  get count() {
+    return this.#count;
+  }
 
-        increase() {
-          this.#count += 1;
-        }
+  increase() {
+    this.#count += 1;
+  }
 
-        decrease() {
-          this.#count -= 1;
-        }
-      }
+  decrease() {
+    this.#count -= 1;
+  }
+}
 
-      let counter = new makeCounter(7);
+let counter = new makeCounter(7);
 
-      console.log("The Count is:", counter.count);
-      counter.increase();
-      console.log("The Count is:", counter.count);
-      counter.decrease();
-      counter.decrease();
-      counter.decrease();
-      counter.decrease();
-      console.log("The Count is:", counter.count);
+console.log('The Count is:', counter.count);
+counter.increase();
+console.log('The Count is:', counter.count);
+counter.decrease();
+counter.decrease();
+counter.decrease();
+counter.decrease();
+console.log('The Count is:', counter.count);
 
-      counter.#count = 0; // ERROR
+counter.#count = 0; // ERROR
+```
 
 NOTE: Al manejar sonidos o videos mirar la documentación de: https://developer.mozilla.org/es/docs/Web/API/HTMLMediaElement
 
@@ -394,15 +433,15 @@ https://esprima.org/
 
 1. Eager Parsing (análisis ansioso)
 
--   Encuentra errores de Sintaxis
--   Crea el AST
--   Construye Scopes
+- Encuentra errores de Sintaxis
+- Crea el AST
+- Construye Scopes
 
 2. Lazy Parsing (análisis perezoso)
 
--   Es dos veces más rápido que el anterior
--   No crea el AST
--   Construye los scopes parcialmente.
+- Es dos veces más rápido que el anterior
+- No crea el AST
+- Construye los scopes parcialmente.
 
 ## Abstract Sintax Tree (AST)
 
@@ -410,12 +449,12 @@ Es un grafo que se representa en un programa.
 
 Se usa en:
 
--   Javascript Engine
--   Bundlers: Webpack, Rollup, Parcel
--   Transpilers: Babel
--   Linters: EsLint, Prettify
--   Type Chekers: Typescript, Flow
--   Sintax Highlighters
+- Javascript Engine
+- Bundlers: Webpack, Rollup, Parcel
+- Transpilers: Babel
+- Linters: EsLint, Prettify
+- Type Chekers: Typescript, Flow
+- Sintax Highlighters
 
 https://astexplorer.net/
 
@@ -429,10 +468,10 @@ Cada máquina virtual tiene sus particularidades, por ejemplo V8 tiene algo llam
 Cuando una sentencia función es ejecutada muy frecuentemente, V8 la denomina como una hot function y hace una optimización que consiste en convertirla a machine code para no tener que interpretarla de nuevo y agilizar su ejecución.
 Cada navegador tiene su implementación de JavaScript Engine:
 
--   SpiderMonkey - Firefox
--   Chackra - Edge
--   JavaScriptCore - Safari
--   V8 - Chrome
+- SpiderMonkey - Firefox
+- Chackra - Edge
+- JavaScriptCore - Safari
+- V8 - Chrome
 
 ### Bytecode vs Machine Code
 
@@ -445,11 +484,11 @@ El Event Loop hace que Javascript parezca ser multihilo a pesar de que corre en 
 
 Javascript se organiza usando las siguientes estructuras de datos: Principalmente (Stack y Memory Heap)
 
--   Stack (Primero que entra, último que sale). Va apilando de forma organizada las diferentes instrucciones que se llaman. Lleva así un rastro de dónde está el programa, en que punto de ejecución nos encontramos.
--   Memory Heap. De forma desorganizada se guarda información de las variables y del scope.
--   Schedule Tasks. Aquí se agregan a la cola, las tareas programadas para su ejecución.
--   Task Queue (Primero que entra, primero que sale). Aquí se agregan las tares que ya están listas para pasar al stack y ser ejecutadas. El stack debe estar vacío para que esto suceda.
--   MicroTask Queue. Aquí se agregan las promesas. Esta Queue es la que tiene mayor prioridad.
+- Stack (Primero que entra, último que sale). Va apilando de forma organizada las diferentes instrucciones que se llaman. Lleva así un rastro de dónde está el programa, en que punto de ejecución nos encontramos.
+- Memory Heap. De forma desorganizada se guarda información de las variables y del scope.
+- Schedule Tasks. Aquí se agregan a la cola, las tareas programadas para su ejecución.
+- Task Queue (Primero que entra, primero que sale). Aquí se agregan las tares que ya están listas para pasar al stack y ser ejecutadas. El stack debe estar vacío para que esto suceda.
+- MicroTask Queue. Aquí se agregan las promesas. Esta Queue es la que tiene mayor prioridad.
 
 El Event Loop es un loop que está ejecutando todo el tiempo y pasa periódicamente revisando las queues y el stack moviendo tareas entre estas dos estructuras.
 
@@ -633,10 +672,10 @@ Los generadores son funciones especiales, pueden pausar su ejecución y luego vo
 
 Algunas de sus características:
 
--   Los generadores regresan una función.
--   Empiezan suspendidos y se tiene que llamar next para que ejecuten.
--   Regresan un value y un boolean done que define si ya terminaron.
--   yield es la instrucción que regresa un valor cada vez que llamamos a next y detiene la ejecución del generador.
+- Los generadores regresan una función.
+- Empiezan suspendidos y se tiene que llamar next para que ejecuten.
+- Regresan un value y un boolean done que define si ya terminaron.
+- yield es la instrucción que regresa un valor cada vez que llamamos a next y detiene la ejecución del generador.
 
 # Fetch - Cómo cancelar peticiones
 
