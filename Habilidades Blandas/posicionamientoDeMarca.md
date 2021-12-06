@@ -1,21 +1,40 @@
+**ÍNDICE**
+
+- [Estado Actual del Artes ¿Cuál es mi estado de Marca?](#estado-actual-del-artes-cuál-es-mi-estado-de-marca)
+- [Google Trends](#google-trends)
+  - [Cómo incorporar Google Trends en tu estrategia de marketing](#cómo-incorporar-google-trends-en-tu-estrategia-de-marketing)
+- [¿A quién le habla tu marca?](#a-quién-le-habla-tu-marca)
+- [¿Cómo defines tus objetivos de Marca?](#cómo-defines-tus-objetivos-de-marca)
+- [En busca del WHY: Herramientas de validación y Metodología del Golden Circle](#en-busca-del-why-herramientas-de-validación-y-metodología-del-golden-circle)
+- [Visión de otros mercados y categorías](#visión-de-otros-mercados-y-categorías)
+- [ABSA: Toolkit de posicionamiento de marca en medios digitales](#absa-toolkit-de-posicionamiento-de-marca-en-medios-digitales)
+- [Regulaciones importantes en medios digitales](#regulaciones-importantes-en-medios-digitales)
+- [El funnel de marca](#el-funnel-de-marca)
+- [¿De qué color es el éxito? Elige el color adecuado para el éxito de tu estrategia](#de-qué-color-es-el-éxito-elige-el-color-adecuado-para-el-éxito-de-tu-estrategia)
+- [4C´s del Marketing](#4cs-del-marketing)
+- [La diferencia entre intereses y acciones](#la-diferencia-entre-intereses-y-acciones)
+- [Herramientas, diseños e ideas de conocimiento del consumidor](#herramientas-diseños-e-ideas-de-conocimiento-del-consumidor)
+- [El estado de madurez de las marcas: ¿Dónde está la tuya?](#el-estado-de-madurez-de-las-marcas-dónde-está-la-tuya)
+- [Herramientas, diseños e ideas de conocimiento del consumidor](#herramientas-diseños-e-ideas-de-conocimiento-del-consumidor-1)
+
 # Estado Actual del Artes ¿Cuál es mi estado de Marca?
 
 > Preguntas para identificar el estado de la marca
 
--   ¿Propósito?
+- ¿Propósito?
 
 > Obtener beneficio de la venta de pantalones
 
--   ¿De qué trata tu compañia?
+- ¿De qué trata tu compañia?
 
 > De venta de pantalones de varios tipos
 
--   ¿Entorno (competencia directa, indirecta)?
+- ¿Entorno (competencia directa, indirecta)?
 
 > Entorno muy competitivo: Jomars, Darkano, etc...
 > Competencia indirecta: Venta de otras prendas alejadasa a los pantalones
 
--   ¿Categoría?
+- ¿Categoría?
 
 > Industria Textil
 
@@ -172,20 +191,20 @@ Rosa: 2%
 
 Contenido: Es la forma de conectar con el consumidor y generar interés en nuestras audiencias. Las estrategias deben garantizar una parte de contenido propio y algo de pago para mejorar los resultados. Recuerda que podemos generar contenidos transmedia, contenidos reutilizables que al ajustar algunas cosas pueden funcionar sin importar el lugar en el que las utilicemos.
 
--   Transmedia => No importa donde los vamos a utilizar, funcionan
--   Diversidad de Contenidos => Audios, videos, gifs, fotos, etc...
+- Transmedia => No importa donde los vamos a utilizar, funcionan
+- Diversidad de Contenidos => Audios, videos, gifs, fotos, etc...
 
 Conversación: Los contenidos de la marca deben ser de interés y llevar a la interacción para generar una mayor cobertura. Debemos buscar todas las ocasiones posibles para estar en contacto con nuestros usuarios, vamos a enfocarnos en la conversión o los call to actions.
 
--   Generar oportunidades para interactuar con el usuario
+- Generar oportunidades para interactuar con el usuario
 
 Comunidad: Buscamos crecer. Cuando una marca genera comunidad gana un activo muy relevante llamado BBDD (crecimiento de la base de datos de activos digitales) y audiencias fijas de usuarios comprometidos. Vamos a conocer a nuestros usuarios, podemos investigar sus hábitos de compra para enfocarlos dependiendo de sus gustos, hábitos, frecuencia de compra y muchos otros factores importantes.
 
--   Crecer la base de datos para la marca, producto o servicio
+- Crecer la base de datos para la marca, producto o servicio
 
 Currency (valor): ¿Qué le otorgamos a los usuarios para que vuelvan? Todas las acciones de marketing deben entregar un valor adicional al usuario para asegurar su continuidad y lealtad con la marca.
 
--   Aportar valor
+- Aportar valor
 
 # La diferencia entre intereses y acciones
 

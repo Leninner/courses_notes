@@ -1,3 +1,9 @@
+**ÍNDICE**
+
+- [Linux](#linux)
+  - [Textos](#textos)
+  - [Comandos básicos en la terminal:](#comandos-básicos-en-la-terminal)
+
 # Linux
 
 > Línea de Comandos

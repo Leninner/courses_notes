@@ -1,3 +1,13 @@
+**ÍNDICE**
+
+- [Typescript](#typescript)
+  - [Tipos Básicos](#tipos-básicos)
+  - [Funciones](#funciones)
+  - [Interfaces](#interfaces)
+  - [Enum](#enum)
+- [Clases](#clases)
+- [Refactorización](#refactorización)
+
 # Typescript
 
 TypeScript es un superset de JavaScript que añade tipos a nuestras variables ayudando así a la detección de errores de forma temprana y mejorando el autocompletado.

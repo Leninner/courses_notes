@@ -1,3 +1,9 @@
+**ÍNDICE**
+
+- [Problemas del desarrollo de software profesional](#problemas-del-desarrollo-de-software-profesional)
+- [Virtualización](#virtualización)
+  - [Contenedores de Docker](#contenedores-de-docker)
+
 # Problemas del desarrollo de software profesional
 
 ¿Qué es Docker?

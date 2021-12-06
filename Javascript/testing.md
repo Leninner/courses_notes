@@ -1,3 +1,22 @@
+**ÍNDICE**
+
+- [Testing Basics](#testing-basics)
+  - [¿Por qué los desarrolladores deberían preocuparse por las pruebas unitarias automatizadas?](#por-qué-los-desarrolladores-deberían-preocuparse-por-las-pruebas-unitarias-automatizadas)
+  - [¿Cómo lleva TDD el desarrollo al siguiente nivel?](#cómo-lleva-tdd-el-desarrollo-al-siguiente-nivel)
+- [Instalación de Jest](#instalación-de-jest)
+  - [Usando Matchers](#usando-matchers)
+    - [Comparadores Comunes](#comparadores-comunes)
+    - [Veracidad](#veracidad)
+    - [Números](#números)
+    - [Strings](#strings)
+    - [Arrays and iterables](#arrays-and-iterables)
+    - [Excepciones](#excepciones)
+  - [Instalación de Babel para Jest](#instalación-de-babel-para-jest)
+  - [Aislamiento](#aislamiento)
+    - [¿Qué son funciones puras?](#qué-son-funciones-puras)
+      - [¿Qué son los efectos secundarios observables?](#qué-son-los-efectos-secundarios-observables)
+  - [Mocking](#mocking)
+
 # Testing Basics
 
 > ¿Cuál es la importancia de Test Driven Development? TDD

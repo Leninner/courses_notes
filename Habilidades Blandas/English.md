@@ -1,3 +1,12 @@
+**ÍNDICE**
+
+- [Prepositions of time](#prepositions-of-time)
+  - [in](#in)
+  - [on](#on)
+  - [at](#at)
+- [Greetings (saludos) and Farewalls (despedidas)](#greetings-saludos-and-farewalls-despedidas)
+- [Introducing yourself](#introducing-yourself)
+
 # Prepositions of time
 
 Examples:

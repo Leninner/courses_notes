@@ -1,3 +1,14 @@
+**ÍNDICE**
+
+- [Vim](#vim)
+  - [Salir de Vim o de Neovim](#salir-de-vim-o-de-neovim)
+  - [Para añadir texto](#para-añadir-texto)
+  - [Modos](#modos)
+  - [Atajos de teclado](#atajos-de-teclado)
+  - [Moverse entre archivos](#moverse-entre-archivos)
+  - [Eliminar palabras y deshacer la eliminación](#eliminar-palabras-y-deshacer-la-eliminación)
+  - [Combinar operadores y eliminación](#combinar-operadores-y-eliminación)
+
 # Vim
 
 ## Salir de Vim o de Neovim
@@ -43,11 +54,11 @@ NOTE: => Mientras vamos navegando se va creando una pila de ruta.
 
 En modo normal:
 
--   Para eliminar palabras debemos situarnos al inicio de la linea e ir presionando d + w repetidas veces hasta borrar toda la línea.
--   Para deshacer los cambios, simplemente utilizamos: U (undo)
--   Para volver a hacer los cambios hechos anteriormente, podemos utilizar: ctrl + r
+- Para eliminar palabras debemos situarnos al inicio de la linea e ir presionando d + w repetidas veces hasta borrar toda la línea.
+- Para deshacer los cambios, simplemente utilizamos: U (undo)
+- Para volver a hacer los cambios hechos anteriormente, podemos utilizar: ctrl + r
 
--   Para eliminar una línea completa debemos situarnos al inicio de la linea y presionar: d + shift + 4 (d + $)
+- Para eliminar una línea completa debemos situarnos al inicio de la linea y presionar: d + shift + 4 (d + $)
 
 ## Combinar operadores y eliminación
 

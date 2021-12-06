@@ -1,3 +1,14 @@
+**ÍNDICE**
+
+- [Figma](#figma)
+  - [Diferencias entre los planes de figma](#diferencias-entre-los-planes-de-figma)
+- [Importar archivos desde otras apps](#importar-archivos-desde-otras-apps)
+  - [Restricciones](#restricciones)
+- [Box Model](#box-model)
+  - [Auto Layout](#auto-layout)
+- [Componentes](#componentes)
+- [Librerías de estilos y componentes](#librerías-de-estilos-y-componentes)
+
 # Figma
 
 Figma es una herramienta de edición de vectores online, enfocado en el diseño de interfaces, pero en si lo puedes usar hasta para hacer diapositivas, infografías y hasta ilustraciones.

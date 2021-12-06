@@ -1,3 +1,16 @@
+**ÍNDICE**
+
+- [Patrón de diseño](#patrón-de-diseño)
+  - [Objetivos de los patrones](#objetivos-de-los-patrones)
+  - [Categorías de Patrones de Diseño](#categorías-de-patrones-de-diseño)
+    - [Creacionales. Proveen diferentes mecanismos para crear objetos.](#creacionales-proveen-diferentes-mecanismos-para-crear-objetos)
+    - [Estructurales. Describen formas de componer objetos para formar nuevas estructuras flexibles y eficientes.](#estructurales-describen-formas-de-componer-objetos-para-formar-nuevas-estructuras-flexibles-y-eficientes)
+    - [De Comportamiento. Gestionan algoritmos y responsabilidades entre objetos.](#de-comportamiento-gestionan-algoritmos-y-responsabilidades-entre-objetos)
+  - [Singleton (Creacional)](#singleton-creacional)
+  - [Observer](#observer)
+  - [Casos de Uso del patrón Observer: Redux](#casos-de-uso-del-patrón-observer-redux)
+  - [Patrón Decorator](#patrón-decorator)
+
 # Patrón de diseño
 
 Los patrones de diseño son unas técnicas para resolver problemas comunes en el desarrollo de software y otros ámbitos referentes al diseño de interacción o interfaces.
@@ -156,9 +169,9 @@ Espero que les haya gustado la publicación y hayan aprendido algo nuevo. El pat
 El patrón observer se compone de un sujeto que ofrece mecanismos de suscripción y desuscripción a múltiples observadores que quieren ser notificados de los cambios en dicho sujeto. Cada observador expone un método de update que es usado por el sujeto para notificar cualquier cambio a todos los suscritos.
 Es uno de los patrones más utilizados, algunos ejemplos típicos son:
 
--   Newsletter
--   Sockets
--   Listeners en páginas web
+- Newsletter
+- Sockets
+- Listeners en páginas web
 
 Observer (patrón de diseño)
 Observador (en inglés: Observer) es un patrón de diseño de software que define una dependencia del tipo uno a muchos entre objetos, de manera que cuando uno de los objetos cambia su estado, notifica este cambio a todos los dependientes. Se trata de un patrón de comportamiento (existen de tres tipos: creación, estructurales y de comportamiento), por lo que está relacionado con algoritmos de funcionamiento y asignación de responsabilidades a clases y objetos.
@@ -206,10 +219,10 @@ Mantiene una referencia al sujeto concreto e implementa la interfaz de actualiza
 
 Redux:
 
--   Una librería de manejo de estado
--   Inicializas un store con un estado y un reducer
--   Despachas acciones que modifican el estado
--   El estore notifica que el estado cambió.
+- Una librería de manejo de estado
+- Inicializas un store con un estado y un reducer
+- Despachas acciones que modifican el estado
+- El estore notifica que el estado cambió.
 
 Redux es un contenedor predecible del estado de aplicaciones JavaScript.
 

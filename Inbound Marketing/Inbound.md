@@ -1,3 +1,43 @@
+**ÍNDICE**
+
+- [Inbound](#inbound)
+- [¿Qué es Inbound?](#qué-es-inbound)
+- [¿Qué es la metodología Inbound?](#qué-es-la-metodología-inbound)
+  - [Atraer](#atraer)
+    - [Equipos de Marketing](#equipos-de-marketing)
+    - [Equipos de Servicios](#equipos-de-servicios)
+    - [Equipos de Ventas](#equipos-de-ventas)
+  - [Interacción](#interacción)
+  - [Deleite](#deleite)
+- [¿Cuáles son los aspectos básicos de una empresa Inbound?](#cuáles-son-los-aspectos-básicos-de-una-empresa-inbound)
+  - [Aspectos básicos del Inbound](#aspectos-básicos-del-inbound)
+    - [Principios Inbound](#principios-inbound)
+    - [Propósito de la empresa](#propósito-de-la-empresa)
+    - [Objetivos de la empresa](#objetivos-de-la-empresa)
+    - [Buyer Personas](#buyer-personas)
+    - [Recorrido del Comprador](#recorrido-del-comprador)
+  - [¿Cómo puede imaginarse un ciclo basado en el cliente?](#cómo-puede-imaginarse-un-ciclo-basado-en-el-cliente)
+  - [¿Cómo combinar el embudo y el ciclo?](#cómo-combinar-el-embudo-y-el-ciclo)
+    - [¿Cuál es el proceso necesario para que los leads satisfechos te recomienden?](#cuál-es-el-proceso-necesario-para-que-los-leads-satisfechos-te-recomienden)
+  - [La importancia de definir el propósito de la empresa](#la-importancia-de-definir-el-propósito-de-la-empresa)
+  - [¿Cómo identificar el proósito de tu empresa?](#cómo-identificar-el-proósito-de-tu-empresa)
+    - [¿Cómo hacer que todos trabajen de acuerdo a un mismo proposito?](#cómo-hacer-que-todos-trabajen-de-acuerdo-a-un-mismo-proposito)
+    - [Dimensiones de Tareas](#dimensiones-de-tareas)
+  - [¿Por qué es necesario establecer objetivos comerciales?](#por-qué-es-necesario-establecer-objetivos-comerciales)
+  - [¿Cómo establecer un objetivo que esté alineado con el propósito de la empresa?](#cómo-establecer-un-objetivo-que-esté-alineado-con-el-propósito-de-la-empresa)
+    - [¿Cómo funcionan?](#cómo-funcionan)
+  - [¿Cómo priorizar los objetivos de la empresa a corto y a largo plazo?](#cómo-priorizar-los-objetivos-de-la-empresa-a-corto-y-a-largo-plazo)
+    - [3 horizontes](#3-horizontes)
+  - [MSPOT](#mspot)
+  - [¿Por qué los buyer personas son tan importantes para las estrategias Inbound?](#por-qué-los-buyer-personas-son-tan-importantes-para-las-estrategias-inbound)
+  - [¿Cómo crear un Buyer Persona?](#cómo-crear-un-buyer-persona)
+    - [¿De qué manera sepuede crear el perfil todos tus equipos?](#de-qué-manera-sepuede-crear-el-perfil-todos-tus-equipos)
+  - [¿Qué es el recorrido del comprador?](#qué-es-el-recorrido-del-comprador)
+    - [Reconocimiento](#reconocimiento)
+    - [Consideración](#consideración)
+    - [Decisión](#decisión)
+  - [¿Cómo crear el recorrido del comprador para su empresa?](#cómo-crear-el-recorrido-del-comprador-para-su-empresa)
+
 # Inbound
 
 Creada por Hubspot
@@ -30,9 +70,9 @@ Todas las personas son únicas y quiéren sentirse especiales.
 
 Etapas: (Todos los miembros de la empresa)
 
--   Atraer
--   Deleitar
--   Interactuar
+- Atraer
+- Deleitar
+- Interactuar
 
 Todos los equipos deben esforzarse por atraer, interactuar y deleitar y seguir generando confianza.
 
@@ -94,11 +134,11 @@ Tener mentalidad Inbound.
 
 ## Aspectos básicos del Inbound
 
--   Principios Inbound (Todas las normas que los equipos deben seguir al interactuar con el cliente)
--   Propósito de la empresa
--   Objetivo de la empresa
--   Buyer personas
--   Recorrido del comprador
+- Principios Inbound (Todas las normas que los equipos deben seguir al interactuar con el cliente)
+- Propósito de la empresa
+- Objetivo de la empresa
+- Buyer personas
+- Recorrido del comprador
 
 Se necesitan las herramientas adecuadas o una plataforma de crecimiento para poder ejecutar sin problemas las iniciativas que se tienen.
 
@@ -223,9 +263,9 @@ Círculo Dorado
 
 La palabra PORQUÉ se encuentra en el centro del círculo, CÓMO en el anillo del medio y QUÉ, en el exterior.
 
--   ¿Qué hace tu empresa?
--   ¿Cómo lo haces? (Diferenciador)
--   ¿Por qué de tu empresa?
+- ¿Qué hace tu empresa?
+- ¿Cómo lo haces? (Diferenciador)
+- ¿Por qué de tu empresa?
 
 El Why es importante, ya que se puede dar el cómo y el qué de manera natural. Influye directamente con las trabajadores.
 
@@ -262,28 +302,28 @@ Hacer a 10 o 12 y crear una historia para reflejar el camino de los clientes.
 
 Historias con tareas de las personas:
 
--   ¿Cómo? Persona saludable
--   ¿Cuándo? ingiero verduras
--   ¿Quiero? hacerlo en forma de bebida
--   Así puedo obtener los beneficios de las verduras sin cortar zanahorias, hervir espinacas, etc.
+- ¿Cómo? Persona saludable
+- ¿Cuándo? ingiero verduras
+- ¿Quiero? hacerlo en forma de bebida
+- Así puedo obtener los beneficios de las verduras sin cortar zanahorias, hervir espinacas, etc.
 
 ### Dimensiones de Tareas
 
 1. Requisitos Funcionales
 
--   ¿Cuál es la funcionalidad mínima necesaria para completar esa tarea?
+- ¿Cuál es la funcionalidad mínima necesaria para completar esa tarea?
 
 2. Requisitos Económicos
 
--   ¿Cuál es el rango económico que debo respetar para que la compra del producto sea posible? (Comparar con productos similares)
+- ¿Cuál es el rango económico que debo respetar para que la compra del producto sea posible? (Comparar con productos similares)
 
 3. Identidad Personal
 
--   ¿De qué forma este producto o servicio funciona como un símbolo de lo que cree sobre el mundo?
+- ¿De qué forma este producto o servicio funciona como un símbolo de lo que cree sobre el mundo?
 
 4. Imagen Social
 
--   ¿Cómo ve el resto de las personas a los clientes que consumen tu producto o servicio? (Cuidar su reputación)
+- ¿Cómo ve el resto de las personas a los clientes que consumen tu producto o servicio? (Cuidar su reputación)
 
 > Habla con los clientes más exitosos para saber por qué consumen su producto
 
@@ -316,8 +356,8 @@ Las metas son significativas, concretas, orientadas a la acción y aspiracionale
 
 Las metas:
 
--   ¿A dónde quiéres llegar?
--   ¿Qué quiéres lograr?
+- ¿A dónde quiéres llegar?
+- ¿Qué quiéres lograr?
 
 > Representan tu destino
 
@@ -334,7 +374,7 @@ Resultado Clave 2 => Lograr un Net Promoter Score de 15 puntos de los clientes d
 
 ¿Cómo calificar?
 
--   Resultados numéricos: Calcular el porcentaje completado de una actividad en una escala del 0 al 1.0
+- Resultados numéricos: Calcular el porcentaje completado de una actividad en una escala del 0 al 1.0
 
 Ejemplo: Maximizar los esfuerzos de ventas en todas las regiones
 
@@ -344,7 +384,7 @@ Si se consiguen 70 clientes, se obtuvo el 70% del objetivo.
 
 NOTE: Desafiarse asimismo antes que alguien más lo haga. Si no innovamos, podemos perder mucho.
 
--   Resultado Binarios => O cumples o no.
+- Resultado Binarios => O cumples o no.
 
 Ejemplo: Aumentar el reconocimiento de marca como minorista.
 
@@ -419,43 +459,43 @@ Debes actualizar tus buyer personas con frecuencia para asegurarte de que sean l
 
 1. ¿Quiénes deben crearlos?
 
--   Equipo de marketing, no solamente su responsabilidad. Es importante tener a todos alineados. TODOS deben hacer contribuciones.
+- Equipo de marketing, no solamente su responsabilidad. Es importante tener a todos alineados. TODOS deben hacer contribuciones.
 
 2. ¿Cómo se crean?
 
--   Definir la información que se quiere incluir => Propósito de la empresa, los problemas de los clientes.
+- Definir la información que se quiere incluir => Propósito de la empresa, los problemas de los clientes.
 
 Para el BUYER PERSONA Preguntar:
 
 > Marketing
 
--   ¿Cómo un buyer persona específico escribe su problemaen una búsqueda de Google?
--   ¿Dónde busca ayuda para resolver su problema?
--   ¿Qué canales de comunicación prefiere para interactuar?
--   Info demográfica
+- ¿Cómo un buyer persona específico escribe su problemaen una búsqueda de Google?
+- ¿Dónde busca ayuda para resolver su problema?
+- ¿Qué canales de comunicación prefiere para interactuar?
+- Info demográfica
 
 > Ventas
 
--   ¿Qué nivel de importancia tiene para el prospecto superar este problema?
--   ¿Cuáles son los objetivos que este problema no le permite alcanzar?
--   ¿Este buyer persona es el único responsable de tomar la decisión de compra?
--   ¿Cuánto esperan que dure el producto de ventas?
--   Generalmente, ¿consideran el precio de tu producto alto, bajo o normal?
+- ¿Qué nivel de importancia tiene para el prospecto superar este problema?
+- ¿Cuáles son los objetivos que este problema no le permite alcanzar?
+- ¿Este buyer persona es el único responsable de tomar la decisión de compra?
+- ¿Cuánto esperan que dure el producto de ventas?
+- Generalmente, ¿consideran el precio de tu producto alto, bajo o normal?
 
 > Servicios
 
--   ¿Qué debería ocurrir para que este buyer persona se sienta satisfecho tras comprar el producto?
--   ¿Qué ascpetos de tu producto considera más confusos?
--   ¿Cuáles son sus características favoritas de tu producto?
--   ¿Qué le cause tanta insatisfacción como para que recomiende tu producto a otras personas?
--   ¿Qué le decpciona como para que no recomiende el producto?
+- ¿Qué debería ocurrir para que este buyer persona se sienta satisfecho tras comprar el producto?
+- ¿Qué ascpetos de tu producto considera más confusos?
+- ¿Cuáles son sus características favoritas de tu producto?
+- ¿Qué le cause tanta insatisfacción como para que recomiende tu producto a otras personas?
+- ¿Qué le decpciona como para que no recomiende el producto?
 
--   Identifica las mejores fuentes para obtener la info
+- Identifica las mejores fuentes para obtener la info
 
 Usar datos históricos => Encontrar patrones, más y menos posibilidades de venta. Lealtad
 Entrevistas con clientes => Hablar con los clientes para comprobar que la info es real. Se recomienda hablar a 15 personas por cada buyer persona.
 
--   Preguntas:
+- Preguntas:
 
 1. ¿Cómo descubriste la emprea?
 2. ¿Por qué tomaste la decisión de comprar nuestro producto?
@@ -482,9 +522,9 @@ Proceso activo de investigación que atraviesa un cliente potencial antes de com
 
 Etapas:
 
--   Identificando su problema
--   Evalúan las opciones disponibles que podrían ayudar a solucionarlo.
--   Comparan las opciones principales cuando ya están listos para comprar.
+- Identificando su problema
+- Evalúan las opciones disponibles que podrían ayudar a solucionarlo.
+- Comparan las opciones principales cuando ya están listos para comprar.
 
 Todos los esfuerzo se deben adaptar a la etapa del recorrido en el que se encuentra el comprador.
 
@@ -535,18 +575,18 @@ Etapas del recorrido:
 
 1. Reconocimiento
 
--   Experimenta y expresa síntomas de un problema u oportunidad. Hace una investigación para conocer con más claridad su problema, identificarlo y ponerle un nombre. Solo reconoce que tiene un problema.
--   Crea contenido en relación al problema de tu buyer persona.
+- Experimenta y expresa síntomas de un problema u oportunidad. Hace una investigación para conocer con más claridad su problema, identificarlo y ponerle un nombre. Solo reconoce que tiene un problema.
+- Crea contenido en relación al problema de tu buyer persona.
 
 2. Consideración
 
--   El prospecto ya definió claramente su problema u oportunidad y le puso un nombre. Considera todos los métodos posibles para darle solución a su problema. Todavía no conoce a la empresa. La interacción es clave para conseguir la decisión.
--   Contenido sobre la solución a ese problema.
+- El prospecto ya definió claramente su problema u oportunidad y le puso un nombre. Considera todos los métodos posibles para darle solución a su problema. Todavía no conoce a la empresa. La interacción es clave para conseguir la decisión.
+- Contenido sobre la solución a ese problema.
 
 3. Decisión
 
--   El prospecto la definió una estrategia, método o forma de abordar un problema. Podría hacer una lista de proveedores y productos que encajan con su necesidad. Atención al cliente, puede ser determinante.
--   Contenido para solucionar dudas del cliente.
+- El prospecto la definió una estrategia, método o forma de abordar un problema. Podría hacer una lista de proveedores y productos que encajan con su necesidad. Atención al cliente, puede ser determinante.
+- Contenido para solucionar dudas del cliente.
 
 Usar el formato que vaya más de acuerdo a la empresa.
 

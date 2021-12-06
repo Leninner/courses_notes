@@ -1,3 +1,12 @@
+**ÍNDICE**
+
+- [¿Qué es React Router y cómo instalarlo?](#qué-es-react-router-y-cómo-instalarlo)
+  - [Atributos de React Router DOM](#atributos-de-react-router-dom)
+  - [Para controlar páginas no encontradas](#para-controlar-páginas-no-encontradas)
+  - [Para mantener componentes en todas las páginas del sitio](#para-mantener-componentes-en-todas-las-páginas-del-sitio)
+  - [Manejando Enlaces y configuraciones](#manejando-enlaces-y-configuraciones)
+  - [History V5 | useNavigate() V6](#history-v5--usenavigate-v6)
+
 # ¿Qué es React Router y cómo instalarlo?
 
 > Documentación React Router V6: https://reactrouter.com/
@@ -35,10 +44,10 @@ const App = () => {
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='recovery-password' element={<Recoverypassword />} />
-          <Route path='*' element={<NotFound />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="recovery-password" element={<Recoverypassword />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
     </BrowserRouter>
@@ -74,7 +83,7 @@ Si estamos trabajando sin Create-react-app debemos añadir una configuración pa
 Para controlar cuando no exista alguna URL podemos añadir a nuestras rutas lo siguiente:
 
 ```js
-<Route path='*' element={<h1>No encontrado</h1>} />
+<Route path="*" element={<h1>No encontrado</h1>} />
 ```
 
 ## Para mantener componentes en todas las páginas del sitio
@@ -89,7 +98,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const Layout = ({ children }) => (
-  <div className='App'>
+  <div className="App">
     <Header />
     {children}
     <Footer />
@@ -113,10 +122,10 @@ const App = () => (
   <BrowserRouter>
     <Layout>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/registro' element={<Registro />} />
-        <Route path='*' element={<h1>No encontrado</h1>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/registro" element={<Registro />} />
+        <Route path="*" element={<h1>No encontrado</h1>} />
       </Routes>
     </Layout>
   </BrowserRouter>
@@ -138,15 +147,15 @@ import { Link } from 'react-router-dom';
 Luego al elemento o a la palabra que queremos que nos lleve a otra página debemos envolverlo con `<Link to="path"></Link>`
 
 ```js
-<Link to='/'>
-  <img className='header__img' src={logo} alt='Platzi Video' />
+<Link to="/">
+  <img className="header__img" src={logo} alt="Platzi Video" />
 </Link>
 ```
 
 Otro ejemplo:
 
 ```js
-<Link to='/login'>Login</Link>
+<Link to="/login">Login</Link>
 ```
 
 Otro ejemplo, al crear una estructura personalizada de link:

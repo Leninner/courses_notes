@@ -1,3 +1,8 @@
+**ÍNDICE**
+
+- [Flujo de trabajo y principio Shift Left](#flujo-de-trabajo-y-principio-shift-left)
+- [El editor de texto moderno](#el-editor-de-texto-moderno)
+
 # Flujo de trabajo y principio Shift Left
 
 Definición de flujo: Es cuando estas trabajando y no sientes el paso del tiempo. Es estar tan concentrado que todo lo demás no importa.
