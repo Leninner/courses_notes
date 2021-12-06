@@ -1,3 +1,15 @@
+_Índice:_
+
+- [React JS](#react-js)
+  - [Configuración del entorno de desarrollo desde cero](#configuración-del-entorno-de-desarrollo-desde-cero)
+  - [Configuración de Linters](#configuración-de-linters)
+  - [Deploy con Vercel](#deploy-con-vercel)
+  - [CSS in JS](#css-in-js)
+    - [React Icons](#react-icons)
+    - [Pasar de SVG a Componente](#pasar-de-svg-a-componente)
+    - [Animaciones con Keyframes](#animaciones-con-keyframes)
+  - [Hooks](#hooks)
+
 # React JS
 
 Está basado en componentes y es `declarativo`.
@@ -261,3 +273,118 @@ export const App = () => (
   </>
 );
 ```
+
+### React Icons
+
+Nos sirve para utilizar iconos bonitos en los proyectos de React. https://react-icons.github.io/react-icons/icons?name=md
+
+Para instalar:
+
+```bash
+npm i react-icons
+```
+
+Para usar los iconos:
+
+```js
+import { IconName } from 'react-icons/ruta';
+```
+
+Para usar los iconos, se lo debe hacer como si fueran componentes, los cuáles aceptan una propiedad llamada `size`:
+
+- Ejemplo de uso
+
+```js
+import { MdFavoriteBorder } from 'react-icons/md';
+
+<Button>
+  <MdFavoriteBorder size="32px" />
+  {likes} likes!
+</Button>;
+```
+
+### Pasar de SVG a Componente
+
+1. Utilizar el sitio web https://maketext.io/ para crear iconos de la nada y descargar el resultado como SVG
+
+2. Irse a https://jakearchibald.github.io/svgomg/ para optimizar los SVGs que tenemos, quitándole comentarios, etiquetas y otras cosas que no nos sirven y copiamos el código que se nos generó.
+
+3. Irse a https://react-svgr.com/playground/ y crear el componente para React y en el proyecto vamos a crear nuestro componente
+
+### Animaciones con Keyframes
+
+Para crear animaciones se debe importar lo siguiente:
+
+```js
+import styled, { keyframes } from 'styled-components';
+```
+
+Para crear las animaciones:
+
+```js
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    filter: blur(5px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+`;
+```
+
+Para usar las animaciones podemos hacer lo siguiente:
+
+```css
+animation: 1s ${fadeIn} ease-in-out;
+```
+
+> Se pueden crear funciones que retorner animaciones, y así separar las animaciones en una carpeta y que se tengan disponibles para cualquier componente
+
+- Para crear funciones que retornan animaciones
+
+```js
+import styled, { css, keyframes } from 'styled-components';
+
+const fadeInKeyframes = keyframes`
+  from {
+    filter: blur(5px);
+    opacity: 0;
+  }
+
+  to {
+    filter: blur(0);
+    opacity: 1;
+  }
+`;
+
+// Función que retorna animaciones
+
+const fadeIn = ({ time = '1s', type = 'ease' } = {}) =>
+  css`
+    animation: ${time} ${fadeInKeyframes} ${type};
+  `;
+```
+
+Y para usar la función, basta con hacer algo como esto:
+
+```js
+const Img = styled.img`
+  box-shadow: 0 10px 14px rgba(0, 0, 0, 0.2);
+  height: 100%;
+   {
+    /*Aquí estamos ejecutando la función que nos devuelve una animación*/
+  }
+  ${fadeIn()}
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 100%;
+`;
+```
+
+> Es una muy buena práctica separar el código en sus respectivas carpetas
+
+## Hooks
