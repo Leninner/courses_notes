@@ -1,3 +1,18 @@
+**ÍNDICE**
+
+- [Creación de CV y Curriculum](#creación-de-cv-y-curriculum)
+- [¿Quién debe tener un portafolio?](#quién-debe-tener-un-portafolio)
+- [Habilidades para el CV y portafolio](#habilidades-para-el-cv-y-portafolio)
+- [Objetivo, estructura y contenido del portafolio](#objetivo-estructura-y-contenido-del-portafolio)
+- [Plataformas para Crear Portafolios](#plataformas-para-crear-portafolios)
+- [Estructura de un CV](#estructura-de-un-cv)
+- [Redacción del CV](#redacción-del-cv)
+- [Consideraciones en el CV](#consideraciones-en-el-cv)
+- [¿Quiénes son los reclutadores y cómo piensan?](#quiénes-son-los-reclutadores-y-cómo-piensan)
+- [¿Dónde buscan talento los reclutadores?](#dónde-buscan-talento-los-reclutadores)
+- [Prepárate para las preguntas que te harán los reclutadores](#prepárate-para-las-preguntas-que-te-harán-los-reclutadores)
+- [¿Qué es un demo reel y cuál es su objetivo?](#qué-es-un-demo-reel-y-cuál-es-su-objetivo)
+
 # Creación de CV y Curriculum
 
 Un portafolio y un CV comunican tu capacidad de ofrecer talento y tus habilidades de aportar a tu lugar de trabajo. Recuerda enviar tu portafolio y CV al mismo tiempo. Esto facilita el trabajo del reclutador.
