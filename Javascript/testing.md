@@ -44,11 +44,15 @@ Mejora la productividad al:
 
 Para instalas Jest ejecutamos lo siguiente en la terminal:
 
-- npm install --save-dev jest
+```bash
+npm i -D jest
+```
 
 Para instalar de manera global, utilizamos:
 
-- sudo npm install jest --global
+```bash
+sudo npm install jest --global
+```
 
 ## Usando Matchers
 
@@ -58,7 +62,7 @@ Jest usa "comparadores" para permitirle probar valores de diferentes maneras.
 
 Similitud exacta:
 
-```
+```js
 test('two plus two is four', () => {
   expect(2 + 2).toBe(4);
 });
@@ -67,18 +71,18 @@ test('two plus two is four', () => {
 En el ejemplo anterior, .toBe(4) es el Matcher
 Si desea verificar el valor de un objeto, use toEqual en su lugar:
 
-```
+```js
 test('object assignment', () => {
-  const data = {one: 1};
+  const data = { one: 1 };
   data['two'] = 2;
-  expect(data).toEqual({one: 1, two: 2});
+  expect(data).toEqual({ one: 1, two: 2 });
 });
 ```
 
 toEqual comprueba de forma recursiva todos los campos de un objeto o matriz.
 También puede probar lo opuesto a un comparador:
 
-```
+```js
 test('adding positive numbers is not zero', () => {
   for (let a = 1; a < 10; a++) {
     for (let b = 1; b < 10; b++) {
@@ -100,7 +104,7 @@ A veces necesitamos ver si algo es null, undefined o false. Jest nos ayuda con e
 
 Ejemplo:
 
-```
+```js
 test('null', () => {
   const n = null;
   expect(n).toBeNull();
@@ -124,7 +128,7 @@ test('zero', () => {
 
 Feature muy conveniente:
 
-```
+```js
 test('two plus two', () => {
   const value = 2 + 2;
   expect(value).toBeGreaterThan(3);
@@ -140,7 +144,7 @@ test('two plus two', () => {
 
 Para la igualdad de punto flotante, use toBeCloseTo en lugar de toEqual, porque no desea que una prueba dependa de un pequeño error de redondeo.
 
-```
+```js
 test('adding floating point numbers', () => {
   const value = 0.1 + 0.2;
   //expect(value).toBe(0.3);           This won't work because of rounding error
@@ -153,12 +157,12 @@ test('adding floating point numbers', () => {
 Puede comparar cadenas con expresiones regulares con toMatch:
 
 ```js
-test("there is no I in team", () => {
-  expect("team").not.toMatch(/I/);
+test('there is no I in team', () => {
+  expect('team').not.toMatch(/I/);
 });
 
 test('but there is a "stop" in Christoph', () => {
-  expect("Christoph").toMatch(/stop/);
+  expect('Christoph').toMatch(/stop/);
 });
 ```
 
@@ -167,11 +171,11 @@ test('but there is a "stop" in Christoph', () => {
 Puede verificar si una matriz o iterable contiene un elemento en particular usando toContain:
 
 ```js
-const shoppingList = ["diapers", "kleenex", "trash bags", "paper towels", "milk"];
+const shoppingList = ['diapers', 'kleenex', 'trash bags', 'paper towels', 'milk'];
 
-test("the shopping list has milk on it", () => {
-  expect(shoppingList).toContain("milk");
-  expect(new Set(shoppingList)).toContain("milk");
+test('the shopping list has milk on it', () => {
+  expect(shoppingList).toContain('milk');
+  expect(new Set(shoppingList)).toContain('milk');
 });
 ```
 
@@ -181,15 +185,15 @@ Si desea probar si una función en particular arroja un error cuando se llama, u
 
 ```js
 function compileAndroidCode() {
-  throw new Error("you are using the wrong JDK");
+  throw new Error('you are using the wrong JDK');
 }
 
-test("compiling android goes as expected", () => {
+test('compiling android goes as expected', () => {
   expect(() => compileAndroidCode()).toThrow();
   expect(() => compileAndroidCode()).toThrow(Error);
 
   // You can also use the exact error message or a regexp
-  expect(() => compileAndroidCode()).toThrow("you are using the wrong JDK");
+  expect(() => compileAndroidCode()).toThrow('you are using the wrong JDK');
   expect(() => compileAndroidCode()).toThrow(/JDK/);
 });
 ```
@@ -198,11 +202,15 @@ test("compiling android goes as expected", () => {
 
 Jest no reconoce la manera de importar de ES6, por esa razón debemos instalar Babel:
 
-- npm i -D @babel/preset-env
+```bash
+npm i -D @babel/preset-env
+```
 
 Archivo .babelrc para configuración:
 
-- { "presets": ["@babel/preset-env"] }
+```js
+{ "presets": ["@babel/preset-env"] }
+```
 
 ## Aislamiento
 

@@ -199,3 +199,65 @@ export const Category = ({ cover = DEFAULT_IMAGE, path, emoji = '?' }) => (
 > Es una buena práctica definir estilos globales. Para leer la documentación, entrar aquí: https://scalablecss.com/styled-components-global-styles/
 
 - Estilos Globales
+
+Vamos a crear un archivo llamado `GlobalStyles.js` y dentro vamos a dar estilos globales de la siguiente manera:
+
+```js
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyles = createGlobalStyle`
+html {
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+*, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+ul, li, h1, h2, h3, p, button {
+    margin: 0;
+    padding: 0;
+  }
+
+ul {
+    list-style: none;
+  }
+
+  button: {
+    background: transparent;
+    border: 0;
+    outline: 0;
+  }
+
+  body {
+    background: #fefefe;
+    height: 100vh;
+    margin: 0 auto;
+    max-width: 500px;
+    overscroll-behavior: none;
+    width: 100%;
+  }
+
+#root {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    overflow-x: hidden;
+    min-height: 100vh;
+    padding-bottom: 10px;
+  }
+`;
+```
+
+Para utilizarlos, en el archivo `App.jsx` vamos a hacer lo siguiente:
+
+```js
+import React from 'react';
+import { GlobalStyles } from './GlobalStyles';
+
+export const App = () => (
+  <>
+    <GlobalStyles />
+    {/*Otros componentes o rutas*/}
+  </>
+);
+```
