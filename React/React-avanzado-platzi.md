@@ -9,6 +9,8 @@ _Índice:_
     - [Pasar de SVG a Componente](#pasar-de-svg-a-componente)
     - [Animaciones con Keyframes](#animaciones-con-keyframes)
   - [Hooks](#hooks)
+    - [React.useState](#reactusestate)
+    - [React.useEffect](#reactuseeffect)
 
 # React JS
 
@@ -388,3 +390,27 @@ const Img = styled.img`
 > Es una muy buena práctica separar el código en sus respectivas carpetas
 
 ## Hooks
+
+### React.useState
+
+Nos srive para controlar el estado:
+
+- La primera posición es el estado en si, y la segunda posición es la función para actualizar el estado.
+
+```js
+const [state, setState] = React.useState([]); // el parámetro enviado a useState es el estado que tendrá la variable de estado por defecto
+```
+
+### React.useEffect
+
+Sirve para ejecutar acciones justo después de que toda la UI se haya ejecutado, para usarlo:
+
+- Acepta una función como primer parámetro y en el segundo parámetro acepta un arreglo de todas las dependencias que le van a decir al efecto que se renderice
+
+> Si pasamos un arreglo vacío, entonces el efecto se va a ejecutar una sola vez. Si no pasamos nada como segundo parámetro, el efecto caerá en un bucle infinito de ejecuciones
+
+```js
+useEffect(() => {
+  console.log('Yes');
+}, []);
+```
