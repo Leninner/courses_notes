@@ -8,9 +8,11 @@ _Índice:_
     - [React Icons](#react-icons)
     - [Pasar de SVG a Componente](#pasar-de-svg-a-componente)
     - [Animaciones con Keyframes](#animaciones-con-keyframes)
+    - [Props en Styled Components](#props-en-styled-components)
   - [Hooks](#hooks)
     - [React.useState](#reactusestate)
     - [React.useEffect](#reactuseeffect)
+    - [Custom Hooks](#custom-hooks)
 
 # React JS
 
@@ -389,6 +391,56 @@ const Img = styled.img`
 
 > Es una muy buena práctica separar el código en sus respectivas carpetas
 
+### Props en Styled Components
+
+A veces vamos a querer renderizar diferentes estilos dependiendo de distintos parámetros. Para poder constrolar esto con `styled components` podemos hacer esto:
+
+- En el archivo de estilos:
+
+```js
+import styled, { css } from 'styled-components';
+
+export const List = styled.ul`
+  display: flex;
+  overflow: scroll;
+  width: 100%;
+  ${(props) =>
+    props.fixed &&
+    css`
+       {
+        background-color: white;
+        border-radius: 60px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        margin: 0 auto;
+        left: 0;
+        max-width: 400px;
+        padding: 5px;
+        position: fixed;
+        right: 0;
+        top: -20px;
+        transform: scale(0.5);
+        z-index: 1;
+      }
+    `}
+`;
+```
+
+- En el componente a usar props:
+
+```js
+const renderList = (fixed) => {
+  return (
+    <List fixed={fixed}>
+      {categories.map((category) => (
+        <Item key={category.id}>
+          <Category {...category} />
+        </Item>
+      ))}
+    </List>
+  );
+};
+```
+
 ## Hooks
 
 ### React.useState
@@ -413,4 +465,31 @@ Sirve para ejecutar acciones justo después de que toda la UI se haya ejecutado,
 useEffect(() => {
   console.log('Yes');
 }, []);
+```
+
+### Custom Hooks
+
+Son métodos que nos sirven para crear Hooks propios que nos retornen información para utilizarla en cualquier componente, se pueden crear así:
+
+```js
+const useCategoriesData = () => {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    axios('https://petgram-server-leninner.vercel.app/categories').then((response) => {
+      setCategories(response.data);
+      setLoading(false);
+    });
+  }, []);
+
+  return { categories, loading };
+};
+```
+
+- Para poder utilizar los datos que nos retorna el custom hook:
+
+```js
+const { categories, loading } = useCategoriesData();
 ```
