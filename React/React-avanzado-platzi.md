@@ -13,6 +13,8 @@ _Índice:_
     - [React.useState](#reactusestate)
     - [React.useEffect](#reactuseeffect)
     - [Custom Hooks](#custom-hooks)
+    - [Use Ref](#use-ref)
+  - [Intersection Observer](#intersection-observer)
 
 # React JS
 
@@ -492,4 +494,64 @@ const useCategoriesData = () => {
 
 ```js
 const { categories, loading } = useCategoriesData();
+```
+
+### Use Ref
+
+Sirve para tomar la referencia de un elemento en el DOM.
+
+Para poder usarlo:
+
+```js
+import React, { useEffect, useRef } from 'react';
+
+export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
+  const imgRef = useRef(null);
+
+  // Método para ver en consola la referencia de la imagen
+  useEffect(() => {
+    console.log(imgRef);
+  }, [imgRef]);
+
+  return (
+    <article ref={imgRef}>
+      <a href={`/detail/${id}`}>
+        <ImgWrapper>
+          <Img src={src} alt={id} />
+        </ImgWrapper>
+      </a>
+
+      <Button>
+        <MdFavoriteBorder size="32px" />
+        {likes} likes!
+      </Button>
+    </article>
+  );
+};
+```
+
+## Intersection Observer
+
+Este constructor permite analizar si un elemento está siendo observado por el usuario o no. Para usarlo en `React`, podemos hacer uso de `useRef` y un `useEffect`, así:
+
+```js
+import React, { useEffect, useRef } from 'react';
+
+export const PhotoCard = () => {
+  const imgRef = useRef(null);
+
+  useEffect(() => {
+    // Constructor para crear un IntersectionObserver
+
+    const observer = new window.IntersectionObserver((entries) => {
+      const { isIntersecting } = entries[0];
+      console.log(isIntersecting);
+    });
+
+    // Método para ejecutar el observer
+    observer.observe(imgRef.current);
+  }, [imgRef]);
+
+  return <article ref={imgRef}></article>;
+};
 ```
