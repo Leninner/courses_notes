@@ -15,6 +15,8 @@ _Índice:_
     - [Custom Hooks](#custom-hooks)
     - [Use Ref](#use-ref)
   - [Intersection Observer](#intersection-observer)
+    - [Uso de polyfill de Intersection Observer e imports dinámicos](#uso-de-polyfill-de-intersection-observer-e-imports-dinámicos)
+    - [Imports Dinámicos](#imports-dinámicos)
 
 # React JS
 
@@ -555,3 +557,56 @@ export const PhotoCard = () => {
   return <article ref={imgRef}></article>;
 };
 ```
+
+### Uso de polyfill de Intersection Observer e imports dinámicos
+
+Intersection Observer no está soportado por todos los `navegadores` y por esa razón tenemos que agregar soporte, instalando un `polypill`: https://github.com/w3c/IntersectionObserver/tree/main/polyfill
+
+Para instalar:
+
+```bash
+npm install intersection-observer
+```
+
+### Imports Dinámicos
+
+Para hacer un import dinámico con intersection observer, el cuál devuelve una promesa, podemos utilizar esta sintaxis:
+
+```js
+useEffect(() => {
+  // uso del import dinámico
+  import('intersection-observer').then(() => {
+    const observer = new window.IntersectionObserver((entries) => {
+      const { isIntersecting } = entries[0];
+      if (isIntersecting) {
+        console.log('Si');
+        setShow(true);
+        observer.disconnect();
+      }
+    });
+    observer.observe(imgRef.current);
+  });
+}, [imgRef]);
+```
+
+- Si el navegador ya soporta Intersection Observer, podemos utilizar un operador ternario:
+
+```js
+useEffect(() => {
+  // Aquí comprobamos si el está disponible o no en el navegador
+  Promise.resolve(
+    typeof window.IntersectionObserver !== 'undefined' ? window.IntersectionObserver : import('intersection-observer')
+  ).then(() => {
+    const observer = new window.IntersectionObserver((entries) => {
+      const { isIntersecting } = entries[0];
+      if (isIntersecting) {
+        setShow(true);
+        observer.disconnect();
+      }
+    });
+    observer.observe(imgRef.current);
+  });
+}, [imgRef]);
+```
+
+> Para comprobar si alguna característica está soportada por los navegadores, podemos hacer uso de: https://caniuse.com/?search=intersection%20observer
