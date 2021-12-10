@@ -319,16 +319,16 @@ setState(); // "Hola mundo"
 ```js
 const Registro = () => {
   return (
-    <section class='register'>
-      <section class='register__container'>
+    <section class="register">
+      <section class="register__container">
         <h2>Regístrate</h2>
-        <form class='register__container--form'>
-          <input class='input' type='text' placeholder='Nombre' />
-          <input class='input' type='text' placeholder='Correo' />
-          <input class='input' type='password' placeholder='Contraseña' />
-          <button class='button'>Registrarme</button>
+        <form class="register__container--form">
+          <input class="input" type="text" placeholder="Nombre" />
+          <input class="input" type="text" placeholder="Correo" />
+          <input class="input" type="password" placeholder="Contraseña" />
+          <button class="button">Registrarme</button>
         </form>
-        <a href=''>Iniciar sesión</a>
+        <a href="">Iniciar sesión</a>
       </section>
     </section>
   );
@@ -339,16 +339,16 @@ const Registro = () => {
 
 ```js
 const Registro = () => (
-  <section class='register'>
-    <section class='register__container'>
+  <section class="register">
+    <section class="register__container">
       <h2>Regístrate</h2>
-      <form class='register__container--form'>
-        <input class='input' type='text' placeholder='Nombre' />
-        <input class='input' type='text' placeholder='Correo' />
-        <input class='input' type='password' placeholder='Contraseña' />
-        <button class='button'>Registrarme</button>
+      <form class="register__container--form">
+        <input class="input" type="text" placeholder="Nombre" />
+        <input class="input" type="text" placeholder="Correo" />
+        <input class="input" type="password" placeholder="Contraseña" />
+        <button class="button">Registrarme</button>
       </form>
-      <a href=''>Iniciar sesión</a>
+      <a href="">Iniciar sesión</a>
     </section>
   </section>
 );
@@ -407,12 +407,12 @@ const handleSubmit = (event) => {
   console.log(form);
 };
 
-<form class='register__container--form' onSubmit={handleSubmit}>
-  <input class='input' type='text' placeholder='Nombre' name='name' onChange={handleInput} />
-  <input class='input' type='text' placeholder='Correo' name='email' onChange={handleInput} />
-  <input class='input' type='password' placeholder='Contraseña' name='password' onChange={handleInput} />
+<form class="register__container--form" onSubmit={handleSubmit}>
+  <input class="input" type="text" placeholder="Nombre" name="name" onChange={handleInput} />
+  <input class="input" type="text" placeholder="Correo" name="email" onChange={handleInput} />
+  <input class="input" type="password" placeholder="Contraseña" name="password" onChange={handleInput} />
 
-  <button class='button' type='submit'>
+  <button class="button" type="submit">
     Registrarme
   </button>
 </form>;
@@ -431,6 +431,8 @@ const handleSubmit = (event) => {
 > Las llaves, seguido de comillas y dentro 2 espacios en blanco. Los 2 espacios se van a convertir en un espacio en la UI
 
 9. Dispatch en redux son creadores de acciones que crean y envían una acción para que el reducer lo ejecute y se pueda actualizar el estado y posteriormente la UI.
+
+10. En React, los componentes tienen que ser escritos con la primera letra en mayúscula
 
 ## Para Javascript
 

@@ -17,6 +17,7 @@ _Índice:_
   - [Intersection Observer](#intersection-observer)
     - [Uso de polyfill de Intersection Observer e imports dinámicos](#uso-de-polyfill-de-intersection-observer-e-imports-dinámicos)
     - [Imports Dinámicos](#imports-dinámicos)
+  - [Local Storage](#local-storage)
 
 # React JS
 
@@ -498,6 +499,36 @@ const useCategoriesData = () => {
 const { categories, loading } = useCategoriesData();
 ```
 
+- Podemos retornar objetos o también arreglos, dependiendo nuestras necesidades
+
+```js
+import { useState } from 'react';
+
+export const useLocalStorage = (key, initialValue) => {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = JSON.parse(window.localStorage.getItem(key));
+      return item ? JSON.parse(item) : initialValue;
+    } catch (e) {
+      return initialValue;
+    }
+  });
+
+  const setLocalStorage = (value) => {
+    try {
+      window.localStorage.setItem(key, JSON.stringify(value));
+      setStoredValue(value);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  return [storedValue, setLocalStorage];
+};
+```
+
+> Es una buena práctica separar los custom hooks en componentes diferentes
+
 ### Use Ref
 
 Sirve para tomar la referencia de un elemento en el DOM.
@@ -610,3 +641,36 @@ useEffect(() => {
 ```
 
 > Para comprobar si alguna característica está soportada por los navegadores, podemos hacer uso de: https://caniuse.com/?search=intersection%20observer
+
+## Local Storage
+
+Simple, sirve para persistir los datos al recargar la página.
+
+- Es un objeto que va guardando información y solo acepta estado de solo lectura. Para guardar info, podemos hacerlo así:
+
+```js
+window.localStorage.setItem(key, JSON.stringify(value));
+```
+
+> setItem recibe 2 parámetros. El primero es el valor de la `key` que va a tener el objeto de local storage y el segundo parámetro es el valor de esa llave. TODOS SIENDO STRINGS.
+
+- Para obtener los valores de Local Storage, podemos utilizar:
+
+```js
+const hasLiked = JSON.parse(window.localStorage.getItem(key));
+```
+
+> Como en el estado tenemos valores JSON, entonces conviene convertir esos valores a Javascript con `JSON.parse`. El método `getItem` recibe un solo parámetro, que sería la `key` del objeto que está guardado en localStorage.
+
+- Un `useState` puede recibir una función que va a retornar el valor que queremos que sea el estado inicial. Aquí un ejemplo sencillo:
+
+```js
+const [liked, setLiked] = useState(() => {
+  try {
+    const hasLiked = JSON.parse(window.localStorage.getItem(key));
+    return hasLiked;
+  } catch (e) {
+    return false;
+  }
+});
+```
