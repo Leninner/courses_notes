@@ -12,7 +12,9 @@
     - [Destructuración o Asignación Destructurante de Objetos](#destructuración-o-asignación-destructurante-de-objetos)
     - [Destructuración de Arreglos](#destructuración-de-arreglos)
     - [Import, Export y funciones comunes de arreglos](#import-export-y-funciones-comunes-de-arreglos)
-- [Notas Interesantes](#notas-interesantes)
+    - [Múltiples exportaciones y exportaciones por defecto](#múltiples-exportaciones-y-exportaciones-por-defecto)
+    - [Promesas](#promesas)
+    - [Fetch API](#fetch-api)
   - [Para React](#para-react)
   - [Para Javascript](#para-javascript)
 
@@ -307,7 +309,101 @@ setState(); // "Hola mundo"
 
 ### Import, Export y funciones comunes de arreglos
 
-# Notas Interesantes
+Existen imports nombrados y por default:
+
+- Nombrados
+
+```js
+export { some };
+import { some } from 'path/to/some';
+```
+
+- Default
+
+```js
+export default some;
+import some from 'path/to/some';
+```
+
+Existen funciones comunes con arreglos:
+
+- **Find**: Retorna el primer valor que coincida con la condición dada
+
+```js
+const getHeroeById = (id) => {
+  return heroes.find((heroe) => heroe.id === id);
+};
+
+// O también
+
+const getHeroeById = (id) => heroes.find((heroe) => heroe.id === id);
+
+console.log(getHeroeById(2));
+```
+
+- **Filter**: Retorna un nuevo arreglo con todos los elementos que cumplan con una condición dada
+
+```js
+const getHeroesByOwner = (owner) => heroes.filter((heroe) => heroe.owner === owner);
+
+console.log(getHeroesByOwner('DC'));
+```
+
+### Múltiples exportaciones y exportaciones por defecto
+
+- En el ejemplo estamos haciendo un import nombre y otro import por default
+
+```js
+import some, { otherSome } from 'path/to/file';
+```
+
+- En este ejemplo tenemos exports nombrados y por default personalizados
+
+```js
+export { some as default, otherSome };
+```
+
+### Promesas
+
+Una promesa funciona asincrónicamente y se ejecuta cuando todo lo síncrono se ejecuta:
+
+```js
+import { heroes } from './data';
+
+const getHeroeById = (id) => heroes.find((heroe) => heroe.id === id);
+
+const getHeroeByIdAsync = (id) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const heroe = getHeroeById(id);
+      heroe ? resolve(heroe) : reject('No se  pudo encontrar el heroe');
+    }, 1000);
+  });
+};
+
+getHeroeByIdAsync(4).then(console.log).catch(console.error);
+```
+
+- Se puede crear una función que retorne una promesa e ir haciendo cualquier tipo de validaciones para controlar `resolve` y `reject`
+- Fuera de la función podemos hace uso de `then` y `catch` para poder controlar el qué hacer cuando la promesa retorne su valor de resolve o de reject
+
+> En la siguiente línea de código podemos encontrar un forma fácil de ahorrarnos líneas de código:
+
+- Pasarnos de esto:
+
+```js
+getHeroeByIdAsync(4)
+  .then((value) => console.log(value))
+  .catch((values) => console.error(value));
+```
+
+- A esto:
+
+```js
+getHeroeByIdAsync(4).then(console.log).catch(console.error);
+```
+
+### Fetch API
 
 ## Para React
 
