@@ -672,7 +672,7 @@ En React, debemos tener un solo Componente para renderizarlo, no podemos renderi
 
 ## Estado (Variables con datos del sitio web)
 
-El estado es un objeto. Son los **valores internos que manejan la lógica** y los datos de un componente, permite que éste reaccione a cualquier cambio lo que hará que se vuelva a renderizar en la interfaz.
+El estado es un objeto. Son los **valores internos que manejan la lógica**, permite que los componentes reaccionen a cualquier cambio lo que hará que se vuelva a renderizar en la interfaz.
 
 1. Es inmutable
 2. No se puede modificar directamente
