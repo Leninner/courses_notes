@@ -109,36 +109,37 @@ Watch:
 
 # TailwindCSS con ReactJS
 
-1. Primero creamos la applicación con React:
+1. Primero creamos la applicación con React, con un template que nos ayude leyendo `postCss`:
 
 ```bash
-npx create-react-app appTailwind
+npx create-react-app@next --scripts-version=@next --template=cra-template@next my-js-app
 ```
 
-2. Segundo vamos a ingresar dentro de la app y vamos a instalar Tailwind, postcss-cli y autoprefixer:
+2. Instalamos `Tailwind` y todas sus demás dependencias:
 
 ```bash
-npm install tailwindcss postcss-cli autoprefixer -D
-
-o
-
-npm i tailwindcss postcss-cli autoprefixer -D
+npm install -D tailwindcss postcss autoprefixer
 ```
 
-3. Luego, creamos un archivo **postcss.config.js** en la raíz del proyecto y añadimos la siguiente config:
+3. Creamos los archivos de configuración:
+
+```bash
+npx tailwindcss init -p
+```
+
+4. Configuramos las rutas de los templates en `tailwind.config.js`:
 
 ```js
 module.exports = {
-  plugins: [
-    // ...
-    require('tailwindcss'),
-    require('autoprefixer'),
-    // ...
-  ],
+  content: ['./src/**/*.{js,jsx}'],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
 };
 ```
 
-4. Luego nos vamos a src y creamos un directorio llamado assets y creamos un archivo css: (tailwind.css) y dentro va esta config base:
+5. Añadimos las directivas de Tailwind en nuestro punto de entrada, `index.css`:
 
 ```css
 @tailwind base;
@@ -166,17 +167,16 @@ Si queremos podemos añadir más configuraciones de estilos:
 }
 ```
 
-5. Creamos los scripts que nos van a ayudar en el proyecto
+6. Ejecutamos el entorno de desarrollo:
 
-```json
-"scripts": {
-    "start": "npm run watch:css && react-scripts start",
-    "build": "npm run build:css && react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "build:css": "postcss src/assets/tailwind.css -o src/assets/main.css",
-    "watch:css": "postcss src/assets/tailwind.css -o src/assets/main.css"
-  },
+```js
+npm run start
 ```
 
-> Para empezar a utilizarlo, debemos importar el archivo generado, en el caso anterior es main.css, en el archivo general, antes de que pase a ser pintado en el DOM. En el caso general, sería en App.jsx
+> Podemos empezar a utilizar tailwind en el proyecto:
+
+```js
+export default function App() {
+  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+}
+```
