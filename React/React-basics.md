@@ -3,12 +3,13 @@
 **Índice**
 
 - [React](#react)
+  - [Formas de trabajo para hacer aplicaciones web](#formas-de-trabajo-para-hacer-aplicaciones-web)
   - [Desventajas de React](#desventajas-de-react)
   - [DOM, Virtual DOM y ReactDOM](#dom-virtual-dom-y-reactdom)
   - [Create React App <a name="react-app"></a>](#create-react-app-)
   - [Sintaxis JSX <a name="jsx"></a>](#sintaxis-jsx-)
     - [Validaciones con true o false](#validaciones-con-true-o-false)
-  - [Creación y Tipos de Componentes <a name="components-types"><a/>](#creación-y-tipos-de-componentes-a-namecomponents-typesa)
+  - [Creación y Tipos de Componentes](#creación-y-tipos-de-componentes)
     - [Componentes Stateful/Container/Smart](#componentes-statefulcontainersmart)
     - [Componentes Stateless](#componentes-stateless)
     - [Stateless vs Stateful](#stateless-vs-stateful)
@@ -65,9 +66,9 @@
 
 NOTE: Ruta de aprendizaje de React => https://roadmap.sh/roadmaps/react.png
 
-Puede convertirse en un framework. Tiene un flujo de datos unidireccional.
+> Tiene un flujo de datos unidireccional.
 
-**React es una librería (biblioteca) desarrollada por Facebook que nos ayuda a construir interfaces de usuario interactivas para todo tipo de aplicaciones: web, móviles o de escritorio.**
+**React es una librería (biblioteca) desarrollada por Facebook que nos ayuda a construir interfaces de usuario interactivas para todo tipo de aplicaciones: web, móviles o de escritorio. Se encarga de la View del sitio**
 
 Tiene el modulo MVC => Modelo Vista Controlador: **Resuelve el problemas de las vistas del sitio.**
 
@@ -134,7 +135,7 @@ Recuerda que todo puede ser un componente, y esto nos permite modularizar nuestr
 
 Otra ventaja de los componentes es que son reutilizables, es decir, puedes usarlos cuantas veces quieras. Por ejemplo, si tuvieras un sitio web sobre blogs, ya sabes que muchos blogs suelen tener una imagen, un título y una descripción. Entonces podríamos crear un componente con la estructura de nuestro blogpost y únicamente mandarle la información que necesitemos por cada blogpost y cada uno se crearía automáticamente!!
 
-> Formas de trabajo para hacer aplicaciones web
+## Formas de trabajo para hacer aplicaciones web
 
 1. Estilo en cascada
 
@@ -142,7 +143,7 @@ Otra ventaja de los componentes es que son reutilizables, es decir, puedes usarl
 - Desarrollo
 - Test
 
-2. Ciclo MVP (Mínimos productos viables) iperativos
+2. Ciclo MVP (Mínimos productos viables) iterativos
 
 Cada equipo se ocupa de resolver y diseñar una parte pequeñisima de la aplicación web. Se puede obtener feedback rápido del cliente. Cada ciclo debe tener un propósito. **Desarrollar funcionalidades completas.**
 
@@ -195,7 +196,6 @@ Un proyecto creado con create-react-app, además de React, **incluye librerías 
 - **Babel:** que nos permite usar nuevas características de ECMAScript.
 - **PostCSS** que es una librería para el procesamiento de CSS.
 - **Jest** que es una librería para testing.
-  etc.
 
 Uno podría configurar un proyecto de React manualmente e incluir cada una de estas librerías, pero es bastante engorroso, create-react-app nos hace la vida más fácil
 
@@ -221,19 +221,24 @@ Es una extensión de la sintaxis de JavaScript que produce elementos de React.
 Se puede usar:
 
 - Dentro de estructuras de control como if y for.
-- Asignarlo a variables => const el = <p>Hola</p>;
+- Asignarlo a variables
+
+  ```js
+  const el = <p>Hola</p>;
+  ```
+
 - Aceptarlo como argumento o retorno en funciones.
 - Expresiones JavaScript.
 
 NOTE: Para añadir lógica dentro de etiquetas HTML se debe utilizar llaves.
 
-```javascript
-<div className='App'>
-  <header className='App-header'>
-    <img src='{logo}' className='App-logo' alt='logo' />
-    <h1 className='App-title'>Welcome to React</h1>
+```js
+<div className="App">
+  <header className="App-header">
+    <img src={logo} className="App-logo" alt="logo" />
+    <h1 className="App-title">Welcome to React</h1>
   </header>
-  <p className='App-intro'>
+  <p className="App-intro">
     To get started, edit <code>src/App.js</code> and save to reload.
   </p>
 </div>
@@ -244,29 +249,30 @@ React usa JSX: **una sintaxis que nos permite escribir la estructura HTML y la l
 
 Algunas reglas importantes:
 
-1. Toda etiqueta debe cerrarse por ejemplo <br> debera cerrarse a <br />.
+1. Toda etiqueta debe cerrarse, ya sea `img`, `br` o alguna otra que conozcamos.
 2. Los componentes deben devolver un sólo elemento padre.
 3. Algunos atributos HTML cambian como: class por className. for por htmlFor.
 4. Los atributos de un elemento JSX pueden aceptar valores de tipo String entrecomillados o expresiones JavaScript entre llaves, por ejemplo:
 
 ```js
-<img alt='Avatar' src={user.avatarURL} />
+<img alt="Avatar" src={user.avatarURL} />
 ```
 
 Las etiquetas "HTML" se convierten en Javascript Vanilla por acción de babel:
 
+- Esto:
+
 ```js
-<div class='active'>Hola Mundo</div>
+<div class="active">Hola Mundo</div>
 ```
 
-se transforma en el siguiente código JavaScript:
+- Se transforma en el siguiente código JavaScript:
 
 ```js
 React.createElement('div', { className: 'active' }, 'Hola mundo'); // => **tipo, atributos, contenido**
 ```
 
-NOTE: https://babeljs.io/repl => Sirve para ver en que se convierte nuetro código.
-<></> => Le dice a react que es un fragmento. Un contenedor. También se puede escribir <React.fragment></React.fragment>
+> https://babeljs.io/repl => Sirve para ver en que se convierte nuetro código.
 
 Es la forma en la que React hace que todo esté dentro del mismo componente (No tener una parte aislada para manejar la parte visual y otra la parte lógica. Sino más bien, el mismo componente hace ambas cosas)
 
@@ -274,7 +280,7 @@ Estamos acostumbrados a escribir código HTML en archivos .html y la lógica de 
 
 > Ejemplo:
 
-```javascript
+```js
 import React from 'react';
 
 const HolaMundo = () => {
@@ -294,9 +300,7 @@ const HolaMundo = () => {
 export default HolaMundo;
 ```
 
-Se puede hacer validaciones para retornar un valor u otro.
-
-Los **componentes** en React tienen que ser escritos en CamelCase
+Los **componentes** en React tienen que ser escritos en **PascallCase**
 
 ### Validaciones con true o false
 
@@ -309,9 +313,15 @@ const isTrue = true;
 {isTrue ? <h4>Es verdadero</h4> : <h5>Es falso</h5>}
 ```
 
-## Creación y Tipos de Componentes <a name="components-types"><a/>
+## Creación y Tipos de Componentes
 
-Todas las librerías: Angular, Polimer, Vue se caracterizan por ser basados en componentes. **Divide y vencerás**. Crear componentes que hagan una sola cosa, cada componente tiene: Código de contenido (**HTML**), Código de presentación (**CSS**) y funcionalidad (**Javascript**)
+Todas las librerías: Angular, Polimer, Vue se caracterizan por ser basados en componentes.
+
+**Divide y vencerás**. Crear componentes que hagan una sola cosa, cada componente tiene:
+
+- Código de contenido (**HTML**)
+- Código de presentación (**CSS**)
+- Funcionalidad (**Javascript**)
 
 Los nombres de nuestros componentes deben empezar con **una letra mayúscula**, al igual que cada nueva palabra del componente. Esto lo conocemos como Pascal Case o Upper Camel Case.
 
@@ -319,7 +329,13 @@ En REACT los componentes **pueden o no** tener estado. El estado son las variabl
 
 Se puede definir componentes como clases o como funciones. Las clases tienen estado en si mismas, las funciones tienen estado con la ayuda de Hooks.
 
-NOTE: Desde la versión 17 de REACT, no es necesario importar react: <import React from "react">, sin embargo puede ser una mala práctica no ponerlo.
+NOTE: Desde la versión 17 de REACT, no es necesario importar react:
+
+```js
+<import React from "react">
+```
+
+Sin embargo puede ser una mala práctica no ponerlo.
 
 ### Componentes Stateful/Container/Smart
 
@@ -517,7 +533,7 @@ NOTE: Las propiedades se las pasan por argumento a los componentes y se les pued
 - index.js:
 
 ```javascript
-ReactDOM.render(<App saludo='Hi Lenin' />, document.getElementById('root'));
+ReactDOM.render(<App saludo="Hi Lenin" />, document.getElementById('root'));
 ```
 
 - App.js =>
@@ -525,13 +541,13 @@ ReactDOM.render(<App saludo='Hi Lenin' />, document.getElementById('root'));
 ```javascript
 function App(props) {
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edita <code>src/App.js</code>, guarda y recarga
         </p>
-        <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
+        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
           {props.saludo}
         </a>
       </header>
@@ -764,7 +780,7 @@ import Data from '../helpers/data.json';
 function ListItem({ framework, link }) {
   return (
     <li>
-      <a href={link} target='_blank' rel='noreferrer'>
+      <a href={link} target="_blank" rel="noreferrer">
         {framework}
       </a>
     </li>
@@ -829,7 +845,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <MyComponent title='React' onButtonClicked={this.onClickBtn} />
+        <MyComponent title="React" onButtonClicked={this.onClickBtn} />
       </div>
     );
   }
@@ -842,7 +858,7 @@ Ejemplo:
 
 ```js
 <button
-  className='CreateTodoButton'
+  className="CreateTodoButton"
   onClick={() => {
     alert('Lenin, quieto');
   }}></button>
@@ -857,7 +873,7 @@ function CreateTodoButton(props) {
   };
 
   return (
-    <button className='CreateTodoButton' onClick={() => onClickButton(props.msg)}>
+    <button className="CreateTodoButton" onClick={() => onClickButton(props.msg)}>
       {' '}
       +
     </button>
@@ -971,7 +987,7 @@ En React los Eventos sin sintéticos, sin embargo podemos crear eventos personal
 ```js
 // Componente creado
 const Boton = ({ myOnClick }) => (
-  <button onClick={myOnClick} className='p-2 font-bold text-white bg-black rounded-full'>
+  <button onClick={myOnClick} className="p-2 font-bold text-white bg-black rounded-full">
     Leninner
   </button>
 );
@@ -1002,9 +1018,9 @@ export default class Padre extends React.Component {
   render() {
     return (
       <>
-        <h3 className='titles'>Comunicación Entre Components</h3>
-        <Hijo msg='Mensaje para el hijo 1' />
-        <Hijo msg='Mensaje para el hijo 2' />
+        <h3 className="titles">Comunicación Entre Components</h3>
+        <Hijo msg="Mensaje para el hijo 1" />
+        <Hijo msg="Mensaje para el hijo 2" />
       </>
     );
   }
@@ -1036,9 +1052,9 @@ export default class Padre extends React.Component {
   render() {
     return (
       <>
-        <h3 className='titles'>Comunicación Entre Components</h3>
-        <Hijo msg='Mensaje para el hijo 1' />
-        <Hijo incrementarContador={this.incrementarContador} msg='Mensaje para el hijo 2' />
+        <h3 className="titles">Comunicación Entre Components</h3>
+        <Hijo msg="Mensaje para el hijo 1" />
+        <Hijo incrementarContador={this.incrementarContador} msg="Mensaje para el hijo 2" />
       </>
     );
   }
@@ -1147,12 +1163,12 @@ export default class CicloVida extends React.Component {
     console.log(4, 'El componente se renderiza');
     return (
       <>
-        <h2 className='titles'>Ciclo de Vida de los componentes de clase</h2>
+        <h2 className="titles">Ciclo de Vida de los componentes de clase</h2>
         <h3>{this.state.hora}</h3>
-        <button className='btn btn-blue' onClick={this.iniciar}>
+        <button className="btn btn-blue" onClick={this.iniciar}>
           Iniciar
         </button>
-        <button className='btn btn-blue' onClick={this.detener}>
+        <button className="btn btn-blue" onClick={this.detener}>
           Parar
         </button>
       </>
@@ -1197,10 +1213,10 @@ const App = () => {
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='recovery-password' element={<Recoverypassword />} />
-          <Route path='*' element={<NotFound />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="recovery-password" element={<Recoverypassword />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
     </BrowserRouter>
@@ -1468,24 +1484,24 @@ const Login = () => {
   };
 
   return (
-    <div className='Login'>
-      <div className='Login-container'>
-        <img src={logo} alt='logo' className='logo' />
-        <form action='/' className='form' ref={form}>
-          <label htmlFor='email' className='label'>
+    <div className="Login">
+      <div className="Login-container">
+        <img src={logo} alt="logo" className="logo" />
+        <form action="/" className="form" ref={form}>
+          <label htmlFor="email" className="label">
             Email address
           </label>
-          <input type='text' name='email' placeholder='platzi@example.cm' className='input input-email' />
-          <label htmlFor='password' className='label'>
+          <input type="text" name="email" placeholder="platzi@example.cm" className="input input-email" />
+          <label htmlFor="password" className="label">
             Password
           </label>
-          <input type='password' name='password' placeholder='*********' className='input input-password' />
-          <button onClick={(e) => handleSubmit(e)} className='primary-button login-button'>
+          <input type="password" name="password" placeholder="*********" className="input input-password" />
+          <button onClick={(e) => handleSubmit(e)} className="primary-button login-button">
             Log in
           </button>
-          <a href='/'>Forgot my password</a>
+          <a href="/">Forgot my password</a>
         </form>
-        <button className='secondary-button signup-button'>Sign up</button>
+        <button className="secondary-button signup-button">Sign up</button>
       </div>
     </div>
   );
@@ -1578,9 +1594,9 @@ const App = () => {
       <BrowserRouter>
         <Layout>
           <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/recovery-password' element={<RecoveryPassword />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/recovery-password" element={<RecoveryPassword />} />
           </Routes>
         </Layout>
       </BrowserRouter>
@@ -1606,15 +1622,15 @@ const ProductItem = ({ product }) => {
   };
 
   return (
-    <div className='ProductItem'>
+    <div className="ProductItem">
       <img src={product.images[2]} alt={product.title} />
-      <div className='product-info'>
+      <div className="product-info">
         <div>
           <p>${product.price},00</p>
           <p>{product.title}</p>
         </div>
         <figure onClick={() => handleClick(product)}>
-          <img src={addCart} alt='' />
+          <img src={addCart} alt="" />
         </figure>
       </div>
     </div>
@@ -1693,7 +1709,7 @@ const Button = (props) => {
   const { text } = props.text;
   return (
     <div>
-      <button type='button'>{text}</button>
+      <button type="button">{text}</button>
     </div>
   );
 };
@@ -1707,7 +1723,7 @@ import React from 'react';
 const Button = ({ value }) => {
   return (
     <div>
-      <button type='button'>{value}</button>
+      <button type="button">{value}</button>
     </div>
   );
 };
@@ -2548,18 +2564,18 @@ const App = () => {
   }, []);
 
   return (
-    <div className='App'>
+    <div className="App">
       <Header />
       <Search />
       {videos.mylist?.length > 0 && (
-        <Categorias title='My list'>
+        <Categorias title="My list">
           <Carousel>
             <CarouselItem />
           </Carousel>
         </Categorias>
       )}
 
-      <Categorias title='Tendencias'>
+      <Categorias title="Tendencias">
         <Carousel>
           {videos.trends?.map((item) => (
             <CarouselItem key={item.id} {...item} />
@@ -2567,7 +2583,7 @@ const App = () => {
         </Carousel>
       </Categorias>
 
-      <Categorias title='Últimos Éxitos'>
+      <Categorias title="Últimos Éxitos">
         <Carousel>
           {videos.originals?.map((item) => (
             <CarouselItem key={item.id} {...item} />
