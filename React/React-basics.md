@@ -16,7 +16,7 @@
     - [Componentes HOC (High Order Component)](#componentes-hoc-high-order-component)
   - [Propiedades](#propiedades)
     - [Proptypes](#proptypes)
-  - [Componentes vs Elementos <a name="components-elements"><a/>](#componentes-vs-elementos-a-namecomponents-elementsa)
+  - [Componentes vs Elementos](#componentes-vs-elementos)
   - [Propiedades vs Atributos](#propiedades-vs-atributos)
   - [Estado (Variables con datos del sitio web)](#estado-variables-con-datos-del-sitio-web)
   - [Renderizado Condicional](#renderizado-condicional)
@@ -570,7 +570,7 @@ Component.propTypes = {
 
 Por defecto, enviar todas nuestras props es opcional, pero **con los propTypes** podemos especificar cuáles props son obligatorias para que nuestro componente funcione correctamente con el atributo **isRequired.**
 
-## Componentes vs Elementos <a name="components-elements"><a/>
+## Componentes vs Elementos
 
 En React hay varias formas de crear un componente:
 
@@ -768,8 +768,6 @@ export default RenderizadoCondicional;
 ```
 
 ## Renderizado de Elementos
-
-NOTE: **Solamente los componentes necesitan un atributo KEY** al estar dentro de un loop, ya sea MAP, FOREACH, etc...
 
 Para renderizar elementos dinámicamente:
 
@@ -1099,7 +1097,7 @@ Métodos:
 
 2. **Actualización.**
 
-- Son ejecutados por _cambios en el estado_ o las propiedades de los componentes.
+- Son ejecutados por **cambios en el estado** o las propiedades de los componentes.
 
 Métodos:
 
