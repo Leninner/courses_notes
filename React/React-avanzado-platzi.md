@@ -18,6 +18,8 @@ _Índice:_
     - [Uso de polyfill de Intersection Observer e imports dinámicos](#uso-de-polyfill-de-intersection-observer-e-imports-dinámicos)
     - [Imports Dinámicos](#imports-dinámicos)
   - [Local Storage](#local-storage)
+  - [Parámetros para un query con GraphQL](#parámetros-para-un-query-con-graphql)
+  - [Usar render Props para recuperar datos](#usar-render-props-para-recuperar-datos)
 
 # React JS
 
@@ -673,4 +675,24 @@ const [liked, setLiked] = useState(() => {
     return false;
   }
 });
+```
+
+## Parámetros para un query con GraphQL
+
+## Usar render Props para recuperar datos
+
+Pasar recuperar datos desde una URL, podemos empezar viendo que consulta tengo en el URL así:
+
+```js
+const urlParams = new window.URLSearchParams(window.location.search);
+
+const detailId = urlParams.get('detail');
+
+console.log(detailId);
+```
+
+Y el enrutado del componente antes de ir a esta URL debería verse así:
+
+```js
+<a href={`/?detail=${id}`}></a>
 ```
