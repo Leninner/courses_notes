@@ -15,6 +15,17 @@
     - [Múltiples exportaciones y exportaciones por defecto](#múltiples-exportaciones-y-exportaciones-por-defecto)
     - [Promesas](#promesas)
     - [Fetch API](#fetch-api)
+    - [Async y Await](#async-y-await)
+    - [Operador Condicional Ternario](#operador-condicional-ternario)
+  - [Primeros Pasos en React](#primeros-pasos-en-react)
+    - [¿Qué son los componentes?](#qué-son-los-componentes)
+    - [Props](#props)
+    - [PropTypes](#proptypes)
+    - [DefaultProps](#defaultprops)
+    - [Eventos Sintéticos](#eventos-sintéticos)
+  - [Hooks](#hooks)
+    - [Use State](#use-state)
+  - [Pruebas Unitarias y de Integración](#pruebas-unitarias-y-de-integración)
   - [Para React](#para-react)
   - [Para Javascript](#para-javascript)
 
@@ -54,6 +65,8 @@ Luego podemos trabajar como si estuvieramos con React.
 > Probar babel: https://babeljs.io/
 
 ## Javascript Moderno
+
+Documentación: https://developer.mozilla.org/es/
 
 ### Variables y Constantes
 
@@ -404,6 +417,248 @@ getHeroeByIdAsync(4).then(console.log).catch(console.error);
 ```
 
 ### Fetch API
+
+> Documentación: https://developer.mozilla.org/es/docs/Web/API/Fetch_API
+
+- La función fetch retorna una promesa y por lo tanto podemos hacer uso de `then` y `catch`.
+- La función `json()` también retorna una promesa
+
+Vamos a hacer uso de **encadenamiento de promesas:**
+
+```js
+const API_KEY = 'rBG5BvFXhLMG52cgwa3KX8dQyqtgEg5e';
+
+const fetchingData = fetch(`https://api.giphy.com/v1/gifs/random?api_key=${API_KEY}`);
+
+fetchingData
+  .then((response) => response.json())
+  .then(({ data }) => {
+    const { url } = data.images.original;
+    console.log(url);
+    const img = document.createElement('img');
+    img.src = url;
+    document.body.appendChild(img);
+  })
+  .catch(console.error);
+```
+
+Así se crea un código mucho más limpio.
+
+### Async y Await
+
+Son un suggar sintax de las promesas para escribir un código más limpio. Nos permite escribir código como si fuera síncrono, así:
+
+```js
+const fetchData = async () => {
+  const response = await fetch(`https://api.giphy.com/v1/gifs/random?api_key=${API_KEY}`);
+  const { data } = await response.json();
+  const { url } = data.images.original;
+
+  const img = document.createElement('img');
+  img.src = url;
+  document.body.appendChild(img);
+};
+
+fetchData();
+```
+
+Para controlar errores debemos hacer uso de un bloque `try` y `catch`:
+
+```js
+const fetchData = async () => {
+  try {
+    const response = await fetch(`https://api.giphy.com/v1/gifs/random?api_key=${API_KEY}`);
+    const { data } = await response.json();
+    const { url } = data.images.original;
+
+    const img = document.createElement('img');
+    img.src = url;
+    document.body.appendChild(img);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+fetchData();
+```
+
+### Operador Condicional Ternario
+
+Es una manera corta de tomar una decisión:
+
+- Pasamos de esto:
+
+```js
+const activo = true;
+
+let mensaje = '';
+
+if (activo) {
+  mensaje = 'Activo';
+} else {
+  mensaje = 'Inactivo';
+}
+
+console.log(mensaje);
+```
+
+- A esto:
+
+```js
+const activo = true;
+
+let mensaje = active ? 'Activo' : 'Inactivo';
+```
+
+- O también:
+
+```js
+const activo = true;
+
+let mensaje = active && 'Activo';
+```
+
+> El código anterior sirve para mostrar algo siempre y cuando se ejecute una condición como verdadera
+
+## Primeros Pasos en React
+
+### ¿Qué son los componentes?
+
+Es una pieza de código que está encapsulada y realiza un cuadro específico, puede tener estado o no.
+
+> **Estado:** Valores internos que nos van a permitir la lógica de la aplicación y permite a los componentes reaccionar ante estos cambios
+
+### Props
+
+Son los datos que se le pasan a un componente para empezar con su funcionamiento, así:
+
+```js
+import React from 'react';
+
+const MyCounter = ({ saludo = 'Hola Mundo!' }) => {
+  return (
+    <div>
+      <h1>{saludo}</h1>
+      <p>This is my counter</p>
+    </div>
+  );
+};
+
+export default MyCounter;
+```
+
+### PropTypes
+
+Con PropTypes, vamos a obligar al desarrollador a pasar las props correctas a nuestro componente, así:
+
+- Para usar propTypes:
+
+```js
+import PropTypes from 'prop-types';
+
+const ComponentName = ({ saludo }) => {
+  /*Do Some*/
+};
+
+ComponentName.propTypes = {
+  saludo: PropTypes.string.isRquired,
+};
+```
+
+### DefaultProps
+
+Nos sirven para enviar datos por defecto a props de un componente, se pueden manejar de varias formas, así:
+
+- Forma tradicional
+
+```js
+const MyCounter = ({ saludo, subtitulo = 'Leninner' }) => {
+  return (
+    <div>
+      <h1>{saludo}</h1>
+      <p>{subtitulo}</p>
+    </div>
+  );
+};
+```
+
+- Forma Cool
+
+```js
+import PropTypes from 'prop-types';
+
+const MyCounter = ({ saludo, subtitulo }) => {
+  return (
+    <div>
+      <h1>{saludo}</h1>
+      <p>{subtitulo}</p>
+    </div>
+  );
+};
+
+MyCounter.propTypes = {
+  saludo: PropTypes.string.isRequired,
+};
+
+MyCounter.defaultProps = {
+  saludo: 'Hola Mundo',
+  subtitulo: 'Leninner',
+};
+```
+
+### Eventos Sintéticos
+
+Son similares a los eventos nativos de javascript, pero con la diferencia de que aquí se llaman de una manera diferente:
+
+- De ser así nativamente:
+
+```js
+let div = document.querySelector('div');
+
+div.addEventListener('click', () => {
+  alert('Si, soy yo');
+});
+```
+
+- A ser así:
+
+```js
+<button
+  onClick={() => {
+    alert('Si soy yo');
+  }}>
+  Do Some{' '}
+</button>
+```
+
+> Cuando una función recibe argumentos debemos hacer esto
+
+```js
+<button
+  onClick={(name) => {
+    alert(name);
+  }}>
+  Do Some{' '}
+</button>
+```
+
+> Cuando una función no recibe argumentos, o solo recibe el argumento de un evento, entonces podemos hacer esto
+
+```js
+const handleAdd = (e) => {
+  console.log(e);
+};
+
+<button onClick={handleAdd}>Do Some </button>;
+```
+
+## Hooks
+
+Son funciones que nos va a ayudar a crear mejores aplicaciones más facilmente
+
+### Use State
+
+## Pruebas Unitarias y de Integración
 
 ## Para React
 
