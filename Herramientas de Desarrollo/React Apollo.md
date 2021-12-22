@@ -6,6 +6,7 @@
   - [Conectar el cliente Apollo con la aplicación de React](#conectar-el-cliente-apollo-con-la-aplicación-de-react)
   - [Fetching Data con useQuery](#fetching-data-con-usequery)
   - [¿Cómo utilizar el hook React Apollo?](#cómo-utilizar-el-hook-react-apollo)
+  - [¿Cómo utilizar el hook useMutation de @apollo/client?](#cómo-utilizar-el-hook-usemutation-de-apolloclient)
 
 # React Apollo
 
@@ -193,4 +194,14 @@ export const PhotoCardWithQuery = ({ id }) => {
 
   return <PhotoCard {...data.photo} />;
 };
+```
+
+## ¿Cómo utilizar el hook useMutation de @apollo/client?
+
+Para utilizarlo, debemos hacer lo siguiente:
+
+```js
+import { gql, useMutation } from '@apollo/client';
+
+// Consulta
 ```
