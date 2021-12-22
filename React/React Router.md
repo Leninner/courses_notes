@@ -20,6 +20,12 @@ React Router nos permite manejar las rutas de la aplicación en la que estamos t
 Para instalar dentro del proyecto de React:
 
 ```bash
+npm install react-router-dom@6
+```
+
+O
+
+```bash
 npm i react-router-dom
 ```
 
@@ -170,6 +176,23 @@ Otro ejemplo, al crear una estructura personalizada de link:
 - Al atributo `to` del componente importado `Link` le dice a React que nos debemos mover a ese path. En el ejemplo anterior, al darle click a la imagen vamos a irnos al home, porque el atributo `to` tiene ese path.
 
 > Debemos evitar hacer uso de la etiqueta HTML a, ya que puede recargar la página y nosotros no queremos eso.
+
+Para obtener las propiedad como el id en `/player/:id` o en algún otro ejemplo, podemos hacer uso de `useParams()`, así:
+
+```js
+import { useParams } from 'react-router-dom';
+
+export const Home = () => {
+  const { id } = useParams();
+
+  return (
+    <>
+      <ListOfCategories />
+      <ListOfPhotoCards categoryId={id} />
+    </>
+  );
+};
+```
 
 ## History V5 | useNavigate() V6
 

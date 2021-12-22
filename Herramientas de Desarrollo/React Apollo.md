@@ -203,5 +203,57 @@ Para utilizarlo, debemos hacer lo siguiente:
 ```js
 import { gql, useMutation } from '@apollo/client';
 
-// Consulta
+const LIKE_PHOTO = gql`
+  mutation likeAnonymousPhoto($input: LikePhoto!) {
+    likeAnonymousPhoto(input: $input) {
+      id
+      liked
+      likes
+    }
+  }
+`;
+
+export const useToggleLikeMutation = () => {
+  const [mutation, { data, loading, error }] = useMutation(LIKE_PHOTO);
+  return { mutation, data, loading, error };
+};
 ```
+
+- Este hook son sirve de mucho para hacer cambios en la base de datos de nuestra aplicación
+
+Para ejecutar una mutación, primero llama a useMutation dentro de un componente de React y le pasa la mutación que desea ejecutar, así:
+
+```js
+import { gql, useMutation } from '@apollo/client';
+
+// Define mutation
+const INCREMENT_COUNTER = gql`
+  # Increments a back-end counter and gets its resulting value
+  mutation IncrementCounter {
+    currentValue
+  }
+`;
+
+function MyComponent() {
+  // Pass mutation to useMutation
+  const [mutateFunction, { data, loading, error }] = useMutation(INCREMENT_COUNTER);
+}
+```
+
+**useMutation** nos regresa una función para mutar el contenido de nuestra base de datos y también nos retorna un objeto con los datos, loading y error para poder controlar esos aspectos:
+
+```js
+const { mutation, mutationLoading, mutationError } = useToggleLikeMutation();
+
+const handleFavClick = () => {
+  !liked &&
+    mutation({
+      variables: {
+        input: { id },
+      },
+    });
+  setLiked(!liked);
+};
+```
+
+>
