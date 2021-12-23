@@ -255,5 +255,3 @@ const handleFavClick = () => {
   setLiked(!liked);
 };
 ```
-
->

@@ -26,6 +26,7 @@
   - [Hooks](#hooks)
     - [Use State](#use-state)
   - [Pruebas Unitarias y de Integración](#pruebas-unitarias-y-de-integración)
+    - [AAA:](#aaa)
   - [Para React](#para-react)
   - [Para Javascript](#para-javascript)
 
@@ -659,6 +660,40 @@ Son funciones que nos va a ayudar a crear mejores aplicaciones más facilmente
 ### Use State
 
 ## Pruebas Unitarias y de Integración
+
+Pruebas Unitarias => Enfocadas en pequeñas funcionalidades
+Pruebas de Integración => Enfocadas a probar varias piezas en conjunto
+
+Características:
+
+1. Fáciles de leer
+2. Fáciles de escribir
+3. Confiables
+4. Rápidas
+5. Principalmente Unitarias
+
+### AAA:
+
+- Arrange => Arreglar
+  - Preparamos el estado inicial
+  - Inicializamos variables
+  - Importanciones necesarias
+- Act => Actuar
+  - Aplicamos acciones o estímulos
+  - Llamar métodos
+  - Simular clicks
+  - Realizar acciones sobre el paso anterior
+- Assert => Afirmar
+  - Observar el comportamiento resultante
+  - Esperar que el resultado es el esperado
+
+Mitos:
+
+- Hace que mi aplicación no tenga errores
+- Las pruebas no pueden fallar
+- Hacen más lenta mi aplicación => Las pruebas se corren en la máquina del desarrollador.
+- Es una pérdida de tiempo
+- Hay que probar todo
 
 ## Para React
 
