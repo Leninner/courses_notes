@@ -6,15 +6,11 @@ Estas son notas del curso de Platzi:
 
 **Índice**:
 
-1. [Tipos de Pensamiento](#tipos-pensamiento)
-2. [DOM, Virtual DOM y React DOM](#react-dom)
-3. [Create React App](#react-app)
-4. [Sintaxis JSX](#jsx)
-5. [Creación y Tipos de Componentes](#components-types)
-6. [Propiedades (Props)](#props)
-7. [Componentes Vs Elementos](#components-elements)
+- [Notas sobre Aprendizaje Efectivo en Línea](#notas-sobre-aprendizaje-efectivo-en-línea)
+  - [Tipos de Pensamiento](#tipos-de-pensamiento)
+  - [Etapas del Aprendizaje](#etapas-del-aprendizaje)
 
-## Tipos de Pensamiento <a name="tipos-pensamiento"></a>
+## Tipos de Pensamiento
 
 La **neurociencia** estudia el sistema nervioso. Todavía no tenemos certeza de las capacidades del cerebro.
 

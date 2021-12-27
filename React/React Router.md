@@ -6,6 +6,8 @@
   - [Para mantener componentes en todas las páginas del sitio](#para-mantener-componentes-en-todas-las-páginas-del-sitio)
   - [Manejando Enlaces y configuraciones](#manejando-enlaces-y-configuraciones)
   - [History V5 | useNavigate() V6](#history-v5--usenavigate-v6)
+  - [NavLink](#navlink)
+  - [Rutas privadas](#rutas-privadas)
 
 # ¿Qué es React Router y cómo instalarlo?
 
@@ -168,9 +170,29 @@ Otro ejemplo, al crear una estructura personalizada de link:
 
 ```js
 <Link to={`/player/${id}`}>Play</Link>
+```
 
-// Para usar lo anterior usamos una ruta similar a esta:
-<Route path='/player/:id' element={<Player />} />
+- En las rutas, podemos hacer algo como esto para tener estructuras personalizadas:
+
+```js
+<Route path="/player/:id" element={<Player />} />
+```
+
+- Para captutat el ID, hacemos uso de useParams de React-router-dom, así:
+
+```js
+import { useParams } from 'react-router-dom';
+import { VideoWithQuery } from 'path/to/VideoWithQuery';
+
+export const Player = () => {
+  const { id } = useParams();
+
+  return (
+    <>
+      <VideoWithQuery categoryId={id} />
+    </>
+  );
+};
 ```
 
 - Al atributo `to` del componente importado `Link` le dice a React que nos debemos mover a ese path. En el ejemplo anterior, al darle click a la imagen vamos a irnos al home, porque el atributo `to` tiene ese path.
@@ -217,5 +239,159 @@ const App = () => {
     props.loginRequest(form);
     navigate('/'); // aquí hacemos uso de useNavigate
   };
+};
+```
+
+## NavLink
+
+Con este componente de React Router podemos hacer control de `aria-current` y dar estilos de la siguiente manera:
+
+> Aria current nos ayuda a identificar cuál es el elemento activo actualmente.
+
+```js
+import styled from 'styled-components';
+import { NavLink as LinkRouter } from 'react-router-dom';
+import { fadeIn } from '../../styles/animations';
+
+export const Link = styled(LinkRouter)`
+  align-items: center;
+  color: #888;
+  display: inline-flex;
+  font-size: 14px;
+  justify-content: center;
+  height: 100%;
+  text-decoration: none;
+  width: 100%;
+
+  &[aria-current] {
+    color: #000;
+
+    &:after {
+      ${fadeIn({ time: '0.5s' })};
+      content: '.';
+      position: absolute;
+      bottom: 0;
+      font-size: 34px;
+      line-height: 35px;
+      color: black;
+    }
+  }
+`;
+```
+
+## Rutas privadas
+
+Para hacerlo con render props:
+
+```js
+// Aquí están las render props
+const UserLogged = ({ children }) => {
+  return children({ isAuth: true });
+};
+
+export const App = () => {
+  return (
+    <div>
+      <GlobalStyle />
+      <Logo />
+      <Router>
+        <Home path="/" />
+        <Home path="/pet/:categoryId" />
+        <Detail path="/detail/:detailId" />
+      </Router>
+
+      <UserLogged>
+        {({ isAuth }) =>
+          isAuth ? (
+            <Router>
+              <Favs path="/favs" />
+              <User path="/user" />
+            </Router>
+          ) : (
+            <Router>
+              <NotRegisteredUser path="/favs" />
+              <NotRegisteredUser path="/user" />
+            </Router>
+          )
+        }
+      </UserLogged>
+
+      <NavBar />
+    </div>
+  );
+};
+```
+
+Para hacerlo separando rutas:
+
+- App.jsx
+
+```js
+import React from 'react';
+import { GlobalStyles } from '../styles/GlobalStyles';
+import { BrowserRouter } from 'react-router-dom';
+import { Layout } from '../container/Layout';
+import { MainRoute } from './MainRoute';
+import { PrivateRoute } from './PrivateRoute';
+
+export const App = () => {
+  return (
+    <>
+      <BrowserRouter>
+        <GlobalStyles />
+        <Layout>
+          <MainRoute />
+          <PrivateRoute isAuth={false} />
+        </Layout>
+      </BrowserRouter>
+    </>
+  );
+};
+```
+
+- MainRoute.jsx
+
+```js
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { Home } from '../pages/Home';
+import { Detail } from '../pages/Detail';
+
+export const MainRoute = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/pet/:id" element={<Home />} />
+      <Route path="/detail/:detailId" element={<Detail />} />
+    </Routes>
+  );
+};
+```
+
+- PrivateRoute.jsx
+
+```js
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { User } from '../pages/User';
+import { Favs } from '../pages/Favs';
+import { NotRegisteredUser } from '../pages/NotRegisteredUser';
+
+export const PrivateRoute = ({ isAuth }) => {
+  return (
+    <>
+      {isAuth ? (
+        <Routes>
+          <Route path="/user" element={<User />} />
+          <Route path="/favs" element={<Favs />} />
+        </Routes>
+      ) : (
+        <Routes>
+          <Route path="/user" element={<NotRegisteredUser />} />
+          <Route path="/favs" element={<NotRegisteredUser />} />
+        </Routes>
+      )}
+    </>
+  );
 };
 ```

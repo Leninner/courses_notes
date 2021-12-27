@@ -695,6 +695,8 @@ Mitos:
 - Es una pérdida de tiempo
 - Hay que probar todo
 
+> ToBe en jest nos sirve para hacer una triple igualdad y ToEqual nos sirve para comparar objetos, arreglos y sus propiedades
+
 ## Para React
 
 1. Para no hacer cambios al instante que se esté actualizando el código y más bien hacerlo cuando se de a CTRL + S, podemos crear un archivo en la raíz del proyecto llamando _.env_ y dentro escribir **FAST_REFRESH=false**

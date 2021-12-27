@@ -32,7 +32,7 @@ sudo apt-get upgrade => Sirve para hacer las actualizaciones del sistema operati
 
 NOTE: Para compartir archivos entre Linux y Windows debemos buscar con PWD en la parte inicial la carpeta de nuetro proyecto y copiar allí nuestros archivos.
 
-En la powershell: wsl --shutdown => Para cerrar y menorar la cantidad de uso de memoria.
+> En la powershell: wsl --shutdown => Para cerrar y menorar la cantidad de uso de memoria.
 
 ## Textos
 
