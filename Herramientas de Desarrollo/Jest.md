@@ -16,6 +16,11 @@
     - [¿Qué son funciones puras?](#qué-son-funciones-puras)
       - [¿Qué son los efectos secundarios observables?](#qué-son-los-efectos-secundarios-observables)
   - [Mocking](#mocking)
+- [Pruebas asíncronas](#pruebas-asíncronas)
+- [Pruebas sobre componentes de React](#pruebas-sobre-componentes-de-react)
+- [Enzyme - Testing Unit](#enzyme---testing-unit)
+  - [Configuraciones y notas para evitar errores](#configuraciones-y-notas-para-evitar-errores)
+  - [Para comprobar si un elemento se encuentra dentro de un componente](#para-comprobar-si-un-elemento-se-encuentra-dentro-de-un-componente)
 
 # Testing Basics
 
@@ -295,3 +300,195 @@ Las afirmaciones de pruebas simples proporcionan:
 - Mejor legibilidad.
 - Menos código.
 - Menos mantenimiento.
+
+# Pruebas asíncronas
+
+Para hacer pruebas asíncronas con promesas debemos hacer lo siguiente:
+
+- Al cada test se le pasa un callback llamado `done` que le va a indicar a jest que en ese punto terminamos la prueba asíncrona y no tiene que evaluar más.
+
+```js
+import { getHeroeByIdAsync } from '../base/09-promesas';
+import heroes from '../data/Heroes';
+
+describe('Funciones asíncronas', () => {
+  test('Debe retornar un heroe por ID async', (done) => {
+    const id = 1;
+
+    getHeroeByIdAsync(id).then((heroe) => {
+      expect(heroe).toBe(heroes[0]);
+      done();
+    });
+  });
+
+  test('Error si el heroe no existe', (done) => {
+    const id = 10;
+
+    getHeroeByIdAsync(id).catch((error) => {
+      // eslint-disable-next-line jest/no-conditional-expect
+      expect(error).toBe('No se pudo encontrar el héroe');
+      done();
+    });
+  });
+});
+```
+
+También se puede utilizar `async` y `await`:
+
+```js
+import { getImagen } from '../base/11-async-await';
+
+describe('Async and await', () => {
+  test('Debe retornar el URL de una imagen', async () => {
+    const url = await getImagen();
+
+    console.log(url);
+
+    expect(url.includes('https')).toBe(true);
+  });
+});
+```
+
+# Pruebas sobre componentes de React
+
+Para hacer pruebas sobre componentes debemos configurar nuestro entorno de desarrollo así:
+
+- Crear un archivo `setupTests.js` en la raíz de la carpeta `src`:
+
+```js
+import '@testing-library/jest-dom/extend-expect';
+```
+
+- Crear los tests en otro archivo de la siguiente manera:
+
+```js
+import { render } from '@testing-library/react';
+import React from 'react';
+import CounterApp from '../CounterApp';
+
+describe('Debe estar en el documento', () => {
+  const title = 'CounterApp';
+
+  it(`Debe tener el titulo ${title}`, () => {
+    // render sirve para simular el render del componente que estamos probando
+    const { getByText } = render(<CounterApp />);
+    // eslint-disable-next-line testing-library/prefer-screen-queries
+    expect(getByText(title)).toBeInTheDocument();
+  });
+});
+```
+
+# Enzyme - Testing Unit
+
+> Desarrollada por AirBnb. Documentación para versiones menores a la 17 de react: https://enzymejs.github.io/enzyme/
+
+> Documentación para versiones 17 y superior: (Beta) https://github.com/wojtekmaj/enzyme-adapter-react-17
+
+- Para instalar Enzyme:
+
+```bash
+npm install --save-dev @wojtekmaj/enzyme-adapter-react-17
+```
+
+- Agregamos la configuración en `setupTest.js`:
+
+```js
+import Enzyme from 'enzyme';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+
+Enzyme.configure({ adapter: new Adapter() });
+```
+
+## Configuraciones y notas para evitar errores
+
+1. Vamos a instalar un paquete para convertir enzyme a JSON:
+
+```bash
+npm install --save-dev enzyme-to-json
+```
+
+2. En el archivo de `setupTest.js` añadimos:
+
+```js
+import { createSerializer } from 'enzyme-to-json';
+
+expect.addSnapshotSerializer(createSerializer({ mode: 'deep' }));
+```
+
+> Al momento de lanzar pruebas, nos va a pedir que actualicemos el snapshot generado con la letra U o si es el caso, debemos refactorizar el código y mejorarlo
+
+## Para comprobar si un elemento se encuentra dentro de un componente
+
+Podemos hacer uso de esto:
+
+```js
+import React from 'react';
+import CounterApp from '../CounterApp';
+import { shallow } from 'enzyme';
+import '@testing-library/jest-dom';
+
+describe('Debe estar en el documento', () => {
+  // Esta prueba nos sirve para analizar si el componente coincide con el snapshot
+  test('Debe mostrar el componente correctamente', () => {
+    const wrapper = shallow(<CounterApp value={45} />);
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  // Esta prueba nos ayuda a ver si algún texto está dentro de un elemento en nuestro componente
+  test('Debe mostrar el subtitulo enviado por props', () => {
+    const value = 100;
+    const wrapper = shallow(<CounterApp value={value} />);
+
+    const valueText = wrapper.find('h2').text();
+
+    expect(valueText).toBe(value.toString());
+  });
+});
+```
+
+- Para reinicializar el componente antes de cada prueba, podemos hacer uso del método `beforeEach()`, así:
+
+```js
+describe('Debe estar en el documento', () => {
+  // podemos esta asignación porque caso contrario perdemos el intellisense
+  let wrapper = shallow(<CounterApp value={45} />);
+
+  // Aquí estamos reinicializando el componente antes de cada prueba
+  beforeEach(() => {
+    wrapper = shallow(<CounterApp value={45} />);
+  });
+
+  test('Debe mostrar el componente correctamente', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  test('Debe incrementar el contador', () => {
+    wrapper.find('button').at(0).simulate('click');
+
+    const valueText = wrapper.find('h2').text();
+
+    expect(valueText).toBe('46');
+  });
+
+  test('Debe menorar el contador', () => {
+    wrapper.find('button').at(1).simulate('click');
+
+    const valueText = wrapper.find('h2').text();
+
+    expect(valueText).toBe('44');
+  });
+});
+```
+
+- Para simular clicks, podemos hacer:
+
+```js
+test('Debe incrementar el contador', () => {
+  wrapper.find('button').at(0).simulate('click');
+
+  const valueText = wrapper.find('h2').text();
+
+  expect(valueText).toBe('46');
+});
+```
