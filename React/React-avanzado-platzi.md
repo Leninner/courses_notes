@@ -14,6 +14,7 @@ _Índice:_
     - [React.useEffect](#reactuseeffect)
     - [Custom Hooks](#custom-hooks)
     - [Use Ref](#use-ref)
+  - [Context API](#context-api)
   - [Intersection Observer](#intersection-observer)
     - [Uso de polyfill de Intersection Observer e imports dinámicos](#uso-de-polyfill-de-intersection-observer-e-imports-dinámicos)
     - [Imports Dinámicos](#imports-dinámicos)
@@ -561,6 +562,136 @@ export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
         {likes} likes!
       </Button>
     </article>
+  );
+};
+```
+
+## Context API
+
+Context API es una característica que tiene React para poder pasar datos en nuestra aplicación sin necesidad de usar las Props.
+
+Para poder usarlo, vamos a crear un archivo dónde vamos a darle la siguiente estructura:
+
+- Context.jsx
+
+```js
+import { createContext } from 'react';
+
+const Context = createContext();
+
+export default Context;
+```
+
+Luego, en nuestro punto de entrada, en el `index.jsx` vamos a importar el contexto y vamos a envolver nuestra `App` con el componente `Provider` que nos da el contexto:
+
+> También tenemos el componente `Consumer`
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Context from 'path/to/Context';
+
+ReactDOM.render(
+  <Context.Provider value={{ isAuth: false }}>
+    <App />
+  </Context.Provider>,
+  document.getElementById('root')
+);
+```
+
+Para usar el componente `Consumer`, debemos tener en cuenta algunas consideraciones:
+
+- El hijo que se le pasa al Consumer debe ser una función
+
+```js
+import Context from 'path/to/context';
+
+//Se usa así el consumer
+<Context.Consumer>{({ isAuth }) => <PrivateRoute isAuth={isAuth} />}</Context.Consumer>;
+```
+
+- Podemos crear nuestro contexto de la siguiente manera:
+
+- Context.jsx
+
+```js
+import React, { createContext, useState } from 'react';
+
+const Context = createContext();
+
+const Provider = ({ children }) => {
+  const [isAuth, setIsAuth] = useState(false);
+
+  const value = {
+    isAuth,
+    activateAuth: () => {
+      setIsAuth(true);
+    },
+  };
+
+  return <Context.Provider value={value}>{children}</Context.Provider>;
+};
+
+export default { Provider, Consumer: Context.Consumer };
+```
+
+- Index.jsx
+
+```js
+<Context.Provider>
+      <App />
+</Context.Provider>,
+```
+
+- Una manera de consumir el método para autenticarme:
+
+```js
+import React from 'react';
+import Context from '../Context';
+
+export const NotRegisteredUser = () => {
+  return (
+    <Context.Consumer>
+      {({ activateAuth }) => {
+        return (
+          <form onSubmit={activateAuth}>
+            <button>Iniciar Sesión</button>
+          </form>
+        );
+      }}
+    </Context.Consumer>
+  );
+};
+```
+
+NOTA IMPORTANTE: Cuando tenemos un hook que retorna los mismos valores que hace uso un input, podemos enviarlo a través de spread operator:
+
+- Custom Hook
+
+```js
+export const useInputValue = (initialValue) => {
+  const [value, setValue] = useState(initialValue);
+  const onChange = (e) => setValue(e.target.value);
+  return { value, onChange };
+};
+```
+
+- Inputs de un formulario
+
+```js
+import { useInputValue } from '../../hooks/useInputValue';
+import React from 'react';
+
+export const UserForm = ({ onSubmit }) => {
+  const email = useInputValue('');
+  const password = useInputValue('');
+
+  return (
+    <form onSubmit={onSubmit}>
+      <input type="mail" placeholder="E-mail" {...email} />
+      <input type="password" placeholder="Password" {...password} />
+      <button>Iniciar Sesión</button>
+    </form>
   );
 };
 ```
