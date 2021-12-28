@@ -1424,6 +1424,8 @@ useEffect(() => {
 }, []);
 ```
 
+> Diferencia entre Fetch y Axios: Fetch es nativo y axios es un paquete. Fetch nos entrega la respuesta para nosotros parsearla a través de `.json()`, axios nos entrega la respuesta lista para trabajar con ella. Manejar errores en axios es mucho más intuitivo que en fetch.
+
 ### Custom Hook
 
 Crear un Custom Hook significa que vamos a pasar la información que teníamos a una función que podemos usar cuántos veces queramos.
