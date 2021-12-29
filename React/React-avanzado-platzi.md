@@ -21,6 +21,7 @@ _Índice:_
   - [Local Storage](#local-storage)
   - [Parámetros para un query con GraphQL](#parámetros-para-un-query-con-graphql)
   - [Usar render Props para recuperar datos](#usar-render-props-para-recuperar-datos)
+  - [Session Storage vs Local Storage](#session-storage-vs-local-storage)
 
 # React JS
 
@@ -826,4 +827,51 @@ Y el enrutado del componente antes de ir a esta URL debería verse así:
 
 ```js
 <a href={`/?detail=${id}`}></a>
+```
+
+## Session Storage vs Local Storage
+
+Session Storage sirve para guardar pares de datos en un objeto y se borran cuando se cierra el navegador o la ventana que actualmente se está viendo.
+
+Local Storage sirve para guardar pares de datos en un objeto y se boarran manualmente cuando el usuario lo haga o borre la caché del sitio.
+
+> La sintaxis es muy similar
+
+- Local storage
+
+```js
+let key = 'Item 1';
+// para guardar datos
+localStorage.setItem(key, 'Value');
+
+// para recuperar datos
+let myItem = localStorage.getItem(key);
+
+// para borrar datos
+localStorage.removeItem(key);
+
+// para eliminar todo lo local storage
+localStorage.clear();
+
+// Se debe guardar elementos js en formato de texto
+let myObj = { name: 'Skip', breed: 'Labrador' };
+localStorage.setItem(key, JSON.stringify(myObj));
+
+// Para obtener valores y transformarlos a js
+let item = JSON.parse(localStorage.getItem(key));
+
+// para comprobar si el navegador soporta local storage
+if (window.localStorage) {
+  // localStorage supported
+}
+```
+
+- Session Storage
+
+```js
+// Almacena la información en sessionStorage
+sessionStorage.setItem('key', 'value');
+
+// Obtiene la información almacenada desde sessionStorage
+let data = sessionStorage.getItem('key');
 ```

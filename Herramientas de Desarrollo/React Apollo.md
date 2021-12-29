@@ -240,7 +240,7 @@ function MyComponent() {
 }
 ```
 
-**useMutation** nos regresa una función para mutar el contenido de nuestra base de datos y también nos retorna un objeto con los datos, loading y error para poder controlar esos aspectos:
+**useMutation** nos regresa una promesa para mutar el contenido de nuestra base de datos y también nos retorna un objeto con los datos, loading y error para poder controlar esos aspectos:
 
 ```js
 const { mutation, mutationLoading, mutationError } = useToggleLikeMutation();
@@ -254,4 +254,96 @@ const handleFavClick = () => {
     });
   setLiked(!liked);
 };
+```
+
+Otro ejemplo de uso de **Use Mutation**:
+
+- Hook
+
+```js
+import { useMutation, gql } from '@apollo/client';
+
+const REGISTER_MUTATION = gql`
+  mutation signup($input: UserCredentials!) {
+    signup(input: $input)
+  }
+`;
+
+export const useRegisterMutation = () => {
+  const [registerMutation, { loading, error }] = useMutation(REGISTER_MUTATION);
+
+  return {
+    registerMutation,
+    loading,
+    error,
+  };
+};
+```
+
+- Uso de la mutación y del hook:
+
+```js
+import { useRegisterMutation } from '../hooks/useRegisterMutation';
+
+export const NotRegisteredUser = () => {
+  const { registerMutation } = useRegisterMutation();
+
+  return (
+    <Context.Consumer>
+      {({ activateAuth }) => {
+        const onSubmit = ({ email, password }) => {
+          const input = { email, password };
+          const variable = { input };
+          registerMutation({ variables: variable }).then(activateAuth);
+        };
+
+        return (
+          <>
+            <UserForm onSubmit={activateAuth} title="Iniciar Sesión" />
+            <UserForm onSubmit={onSubmit} title="Registrarse" />
+          </>
+        );
+      }}
+    </Context.Consumer>
+  );
+};
+```
+
+Otro ejemplo de uso:
+
+-Hook
+
+```js
+import { useMutation, gql } from '@apollo/client';
+
+const LOGIN_USER = gql`
+  mutation login($input: UserCredentials!) {
+    login(input: $input)
+  }
+`;
+
+export const useLoginUser = () => {
+  const [loginMutation, { loading, error }] = useMutation(LOGIN_USER);
+
+  return { loginMutation, loading, error };
+};
+```
+
+- Para usar el Hook
+
+```js
+import { useLoginUser } from '../hooks/useLoginUser';
+
+const { loginMutation, loading: loadingLogin, error: errorLogin } = useLoginUser();
+const errorMsgLogin = errorLogin && 'La contraseña es incorrecta o hay un error en el servidor';
+
+// Función para ejecutar la mutación
+const onSubmitLogin = ({ email, password }) => {
+  const input = { email, password };
+  const variable = { input };
+  loginMutation({ variables: variable }).then(activateAuth);
+};
+
+// Componente
+<UserForm onSubmit={onSubmitLogin} title="Iniciar Sesión" disabled={loadingLogin} error={errorMsgLogin} />;
 ```
