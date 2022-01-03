@@ -22,6 +22,7 @@ _Índice:_
   - [Parámetros para un query con GraphQL](#parámetros-para-un-query-con-graphql)
   - [Usar render Props para recuperar datos](#usar-render-props-para-recuperar-datos)
   - [Session Storage vs Local Storage](#session-storage-vs-local-storage)
+  - [JWT](#jwt)
 
 # React JS
 
@@ -875,3 +876,15 @@ sessionStorage.setItem('key', 'value');
 // Obtiene la información almacenada desde sessionStorage
 let data = sessionStorage.getItem('key');
 ```
+
+## JWT
+
+Un JSON Web Token (JWT) es un estándar abierto para crear tokens y asegurar que el envío de datos es confiable y seguro. Van a ser muy útiles para implementar la lógica de los likes pues solamente los usuarios autentificados podrán dar like.
+
+Un JWT se conforma de 3 partes:
+
+- Header: Es un objeto que define qué algoritmo y tipo tiene el token.
+- Payload: La información que almacenamos en el token.
+- Verify Signature: Una encriptación del header más el payload más tu llave secreta.
+
+Para utilizar nuestro JWT necesitamos añadirlo al header authorization de las peticiones HTTP que hagamos con el texto Bearer [token].

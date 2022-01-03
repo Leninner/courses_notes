@@ -1563,6 +1563,7 @@ import { AppContext } from '@context/AppContext';
 
 const App = () => {
   const initialState = useInitialState();
+
   return (
     <AppContext.Provider value={}>
       <BrowserRouter>
@@ -1589,6 +1590,7 @@ import { AppContext } from '@context/AppContext';
 
 const App = () => {
   const initialState = useInitialState();
+  
   return (
     <AppContext.Provider value={initialState}>
       <BrowserRouter>
