@@ -61,7 +61,7 @@
 - [Hacer deploy en Github Pages](#hacer-deploy-en-github-pages)
 - [Metodología Atomic Design](#metodología-atomic-design)
   - [Creación de Servicio de Gravatar](#creación-de-servicio-de-gravatar)
-- [Validaciones](#validaciones)
+- [Validaciones con Clases](#validaciones-con-clases)
 - [Automatización y Despliegue con Github Actions](#automatización-y-despliegue-con-github-actions)
 
 NOTE: Ruta de aprendizaje de React => https://roadmap.sh/roadmaps/react.png
@@ -1590,7 +1590,7 @@ import { AppContext } from '@context/AppContext';
 
 const App = () => {
   const initialState = useInitialState();
-  
+
   return (
     <AppContext.Provider value={initialState}>
       <BrowserRouter>
@@ -2723,7 +2723,7 @@ const gravatar = (email) => {
 };
 ```
 
-# Validaciones
+# Validaciones con Clases
 
 Las validaciones nos va a servir de mucho para poder crear estados distintos, según el componente y el comportamiento con el que estemos involucrando este elemento.
 
@@ -2806,10 +2806,4 @@ jobs:
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: build # The folder the action should deploy.
-```
-
-<!-- Stand By -->
-
-```
-
 ```
