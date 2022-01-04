@@ -2,6 +2,7 @@
 
 - [Patrones de Render y Composición](#patrones-de-render-y-composición)
   - [Composición de Componentes](#composición-de-componentes)
+  - [Render Props y Render Functions](#render-props-y-render-functions)
 
 # Patrones de Render y Composición
 
@@ -33,4 +34,34 @@ const TodoApp = () => {
     <TodoSearch />
   </TodoList>;
 };
+```
+
+## Render Props y Render Functions
+
+1. Render Props
+
+   - Son funciones que se le envian a un componente a través de propiedades y dependiendo de lógica que nosotros hagamos, podemos renderizar algo.
+
+2. Render Functions
+   - Son funciones que se crean en la propiedad children de un componente y son similares a las funciones de las **render props**.
+
+- Ejemplo con Render Props
+
+```js
+<TodoList
+  onError={(error) => <TodoError error={error} />}
+  onLoading={() => <TodoLoading />}
+  onEmptyTodos={() => <EmptyTodos />}
+  render={(todo) => <RenderTodos {...todo} />}
+/>
+```
+
+- Ejemplo con Render Functions
+
+```js
+<TodoList>
+  {(todos) => {
+    <RenderTodos {...todos} />;
+  }}
+</TodoList>
 ```
