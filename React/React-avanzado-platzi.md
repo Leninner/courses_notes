@@ -9,6 +9,7 @@ _Índice:_
     - [Pasar de SVG a Componente](#pasar-de-svg-a-componente)
     - [Animaciones con Keyframes](#animaciones-con-keyframes)
     - [Props en Styled Components](#props-en-styled-components)
+    - [Animaciones con Animate.css](#animaciones-con-animatecss)
   - [Hooks](#hooks)
     - [React.useState](#reactusestate)
     - [React.useEffect](#reactuseeffect)
@@ -450,6 +451,10 @@ const renderList = (fixed) => {
   );
 };
 ```
+
+### Animaciones con Animate.css
+
+> https://animate.style/
 
 ## Hooks
 

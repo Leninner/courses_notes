@@ -3,6 +3,7 @@
 - [Patrones de Render y Composición](#patrones-de-render-y-composición)
   - [Composición de Componentes](#composición-de-componentes)
   - [Render Props y Render Functions](#render-props-y-render-functions)
+  - [React.Children y React.cloneElement](#reactchildren-y-reactcloneelement)
 
 # Patrones de Render y Composición
 
@@ -41,6 +42,7 @@ const TodoApp = () => {
 1. Render Props
 
    - Son funciones que se le envian a un componente a través de propiedades y dependiendo de lógica que nosotros hagamos, podemos renderizar algo.
+   - Las render props nos permiten ser más específicos sobre que vamos a renderizar, cuando y donde vamos a renderizar cada parte del contenido de nuestros componentes.
 
 2. Render Functions
    - Son funciones que se crean en la propiedad children de un componente y son similares a las funciones de las **render props**.
@@ -65,3 +67,56 @@ const TodoApp = () => {
   }}
 </TodoList>
 ```
+
+- Ejemplo de Mezclar Render Props y Render Functions
+
+  - Punto de entrada
+
+```js
+<TodoList
+  error={error}
+  loading={loading}
+  searchedTodos={searchedTodos}
+  onError={() => <TodoError />}
+  onLoading={() => <TodoLoading />}
+  onEmptyTodos={() => <TodoEmpty />}>
+  {(todo) => (
+    <TodoItem
+      key={todo.text}
+      text={todo.text}
+      completed={todo.completed}
+      onComplete={() => {
+        completeTodos(todo.text);
+      }}
+      onDelete={() => {
+        deleteTodos(todo.text);
+      }}
+    />
+  )}
+</TodoList>
+```
+
+- Todo List
+
+```js
+export const TodoList = (props) => {
+  const { error, loading, searchedTodos, onError, onLoading, onEmptyTodos, children, render } = props;
+
+  const renderFunction = children || render;
+
+  return (
+    <section>
+      {error && onError()}
+      {loading && onLoading()}
+      {!loading && !searchedTodos.length && onEmptyTodos()}
+      {searchedTodos.map(renderFunction)}
+    </section>
+  );
+};
+```
+
+## React.Children y React.cloneElement
+
+React.Children:
+
+React.cloneElement:

@@ -27,6 +27,7 @@
     - [Use State](#use-state)
   - [Pruebas Unitarias y de Integración](#pruebas-unitarias-y-de-integración)
     - [AAA:](#aaa)
+  - [Generando el Build para producción y despliegues en Github Pages](#generando-el-build-para-producción-y-despliegues-en-github-pages)
   - [Para React](#para-react)
   - [Para Javascript](#para-javascript)
 
@@ -696,6 +697,16 @@ Mitos:
 - Hay que probar todo
 
 > ToBe en jest nos sirve para hacer una triple igualdad y ToEqual nos sirve para comparar objetos, arreglos y sus propiedades
+
+## Generando el Build para producción y despliegues en Github Pages
+
+Vamos a crear el build del proyecto con:
+
+```bash
+npm run build
+```
+
+- Luego de eso, vamos a cambiar el nombre de la carpeta **build** por **docs** y cambiamos las rutas, añadiendo un punto al principio de cada ruta del archivo index de la carpeta **docs**.
 
 ## Para React
 
