@@ -4,6 +4,7 @@
   - [Composición de Componentes](#composición-de-componentes)
   - [Render Props y Render Functions](#render-props-y-render-functions)
   - [React.Children y React.cloneElement](#reactchildren-y-reactcloneelement)
+  - [High Order Components](#high-order-components)
 
 # Patrones de Render y Composición
 
@@ -117,6 +118,42 @@ export const TodoList = (props) => {
 
 ## React.Children y React.cloneElement
 
-React.Children:
+> https://es.reactjs.org/docs/react-api.html
 
-React.cloneElement:
+- **React.Children**:
+
+```js
+React.Children.map(children, function[(thisArg)])
+```
+
+React.Children proporciona utilidades para lidiar con la estructura de datos opaca de this.props.children.
+
+- **React.cloneElement**:
+
+```js
+React.cloneElement(element, [config], [...children]);
+```
+
+Clona y retorna un elemento React usando **element** como punto de partida. **config** debe contener todas las nuevas props, key, o ref.
+El elemento resultante tendrá las props del elemento original con las nuevas props **combinadas superficialmente**.
+Los nuevos hijos reemplazarán los hijos existentes.
+
+> key y ref del elemento original serán preservadas si key y ref no están presentes en la configuración.
+
+## High Order Components
+
+> High Order Funcion => Son funciones que retornan otras funciones
+
+<img src="./../utils/images/HOF.png">
+
+Los HOC son componentes que retornan otros componentes, así:
+
+```js
+function withApi(WrapperComponent) {
+  const apiData = fetchApi('url');
+
+  return function WrapperComponentWithApi(props) {
+    return <WrapperComponent data={apiData.json} />;
+  };
+}
+```
