@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "presend": "git commit -a -m 'Update'",
-    "send": "git push"
+    "send": "git commit -a -m 'Update' && git push"
   },
   "repository": {
     "type": "git",
