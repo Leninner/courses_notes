@@ -157,3 +157,98 @@ function withApi(WrapperComponent) {
   };
 }
 ```
+
+<img src="../utils/images/muestra.png">
+
+Al usar HOC vamos a pensar en lo siguiente:
+
+1. Primero, la función padre es nuestro HOC y se pueden combinar varios HOCs.
+2. Al llamar la ejecución de este HOC hay un orden de propiedades que se deben enviar. Primero se envía el argumento del HOC padre y luego se va en escalera enviando propiedades de la siguiente forma:
+
+```js
+const AppWithWathever = withWathever(App)('Hola')('Pepe')('some')(789);
+```
+
+3. La forma anterior, es la forma en la que se llama a los HOCs
+4. Si un HOC renderiza un componente, y este recibe props, estas props se las envian al momento de renderizar el HOC, así:
+
+```js
+<AppWithWathever mensaje="Yo soy el aventurero" />
+```
+
+- Ejemplo de uso:
+
+```js
+function App({ saludo, name, mensaje }) {
+  return (
+    <h1>
+      {saludo} {name}
+      <p>{mensaje}</p>
+    </h1>
+  );
+}
+
+function withWathever(WrapperComponent) {
+  return function ComponenteDeVerdad(saludo) {
+    return function ComponentePro(nombre) {
+      return function WrapperComponentWithSaludo(props) {
+        return <WrapperComponent name={nombre} saludo={saludo} {...props} />;
+      };
+    };
+  };
+}
+
+const AppWithWathever = withWathever(App)('Hola')('Pepe');
+
+ReactDOM.render(<AppWithWathever mensaje="Yo soy el aventurero" />, document.getElementById('root'));
+```
+
+Otro Ejemplo de uso:
+
+- HOC
+
+```js
+export function withChangeStorage(WrappedComponent) {
+  return function WrappedComponentWithStorageListener(props) {
+    const [hasChanges, setHasChanges] = useState(false);
+
+    window.addEventListener('storage', (change) => {
+      if (change.key === 'TODOS_V1') {
+        setHasChanges(true);
+      }
+    });
+
+    return <WrappedComponent {...props} hasChanges={hasChanges} setHasChanges={setHasChanges} />;
+  };
+}
+```
+
+- Componente que usa el HOC
+
+```js
+import { withChangeStorage } from './withChangeStorage';
+import './changeAlert.css';
+
+function ChangeAlert({ hasChanges, setHasChanges, sincronizeTodos }) {
+  return (
+    <>
+      {hasChanges && (
+        <div className="alerta">
+          <h3>You have unsaved changes.</h3>
+          <button
+            onClick={() => {
+              setHasChanges(false);
+              sincronizeTodos();
+            }}>
+            Refresh the page
+          </button>
+        </div>
+      )}
+    </>
+  );
+}
+
+const ChangeAlertWithStorage = withChangeStorage(ChangeAlert);
+
+export { ChangeAlertWithStorage };
+```
