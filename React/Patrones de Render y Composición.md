@@ -5,6 +5,7 @@
   - [Render Props y Render Functions](#render-props-y-render-functions)
   - [React.Children y React.cloneElement](#reactchildren-y-reactcloneelement)
   - [High Order Components](#high-order-components)
+  - [Render props vs Render Functions vs React Hooks](#render-props-vs-render-functions-vs-react-hooks)
 
 # Patrones de Render y Composición
 
@@ -252,3 +253,9 @@ const ChangeAlertWithStorage = withChangeStorage(ChangeAlert);
 
 export { ChangeAlertWithStorage };
 ```
+
+## Render props vs Render Functions vs React Hooks
+
+- Para enviar componentes, el claro ganador son las render props, por encima de los React Hooks. Es muy importante anañizar nuestro componente y ver qué se necesita y qué no
+
+- Para enviar data o información, lo mejor es usar React hooks, ya que el código es totalmente vertical y fácil de leer
