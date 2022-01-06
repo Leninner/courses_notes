@@ -24,6 +24,9 @@ _Índice:_
   - [Usar render Props para recuperar datos](#usar-render-props-para-recuperar-datos)
   - [Session Storage vs Local Storage](#session-storage-vs-local-storage)
   - [JWT](#jwt)
+  - [React Helmet](#react-helmet)
+  - [React Memo](#react-memo)
+  - [React Lazy y Suspense](#react-lazy-y-suspense)
 
 # React JS
 
@@ -893,3 +896,126 @@ Un JWT se conforma de 3 partes:
 - Verify Signature: Una encriptación del header más el payload más tu llave secreta.
 
 Para utilizar nuestro JWT necesitamos añadirlo al header authorization de las peticiones HTTP que hagamos con el texto Bearer [token].
+
+## React Helmet
+
+Nos permite hacer mejores optimizaciones para el SEO del sitio web
+
+Para instalar:
+
+```bash
+npm install react-helmet
+```
+
+Para usar:
+
+- Se puede usar en cualquier componente pero lo recomendable es hacerlo en un **Layout.jsx**
+
+```jsx
+import React from 'react';
+import { Logo } from '../components/Logo';
+import { NavBar } from '../components/NavBar';
+import { Helmet } from 'react-helmet';
+import { Title } from './styles';
+
+export const Layout = ({ children, title, subtitle }) => {
+  return (
+    <>
+      {/* Aquí estamos definiendo las props para el SEO*/}
+      <Helmet>
+        {title && <title>{title} | Petgram 🦊</title>}
+        {subtitle && <meta name="description" content={subtitle} />}
+      </Helmet>
+      <Logo />
+      <div>
+        {title && <Title>{title}</Title>}
+        {subtitle && <h2>{subtitle}</h2>}
+        {children}
+      </div>
+      <NavBar />
+    </>
+  );
+};
+```
+
+## React Memo
+
+Sirve para evitar re renderizados innecesarios
+
+Para poder usarlo debemos envolver el componente con **React.memo**:
+
+```js
+export const ListOfCategories = React.memo(ListOfCategoriesComponent);
+```
+
+> React.memo le dice al navegador que memorice los componentes y si no tienen cambios en sus estados, entonces no re renderice de nuevo
+
+- Se pueden pasar como segundo parámetro una función que le ayuda a React a entender si es que debo re renderizar el componente o no.
+
+```js
+import React from 'react';
+import { ListOfCategories } from '../components/ListOfCategories';
+import { ListOfPhotoCards } from '../components/ListOfPhotoCards';
+import { useParams } from 'react-router-dom';
+import { Layout } from '../container/Layout';
+
+const HomePage = () => {
+  const { id } = useParams();
+
+  return (
+    <Layout title="Home">
+      <ListOfCategories />
+      <ListOfPhotoCards categoryId={id} />
+    </Layout>
+  );
+};
+
+// Si la id no es igual en las props previas y en las current props, entonces va a ejecutar el renderizado
+
+export const Home = React.memo(HomePage, (prevProps, currentProps) => {
+  return prevProps.categoryId === currentProps.categoryId;
+});
+```
+
+> Para hacer análisis de performance debemos visitar el área de **profiler** en las `React Developers Tools`. React.memo puede ser peligroso si lo utilizamos mal
+
+## React Lazy y Suspense
+
+**React lazy** nos va a permitir importar de forma dinámico los componente y solo los componentes que necesitamos
+
+Se lo usa así:
+
+- Se usan importes dinámicos
+
+```jsx
+const Favs = React.lazy(() => import('../pages/Favs'));
+```
+
+- Se debe tener en cuenta en el import dinámico debe recibir un componente exportado de manera por defecto para poder funcionar, así:
+
+```js
+export default () => {
+  const { favs, loading, error } = useGetFavorites();
+
+  return (
+    <Layout title="Favoritos">
+      <ListOfFavs favs={favs} loading={loading} error={error} />
+    </Layout>
+  );
+};
+```
+
+- El componente nos va a servir para envolver la aplicación y cuando las páginas no están cargadas aún, debe recibir una prop llamada **fallback** que nos permite enviar un elemento HTML para renderizar antes de renderizar el nuevo componente, así:
+
+```js
+import { Suspense } from 'react';
+const Favs = React.lazy(() => import('../pages/Favs'));
+
+<Suspense fallback={<div />}>
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/favs" element={<Favs />} />
+    <Route path="*" element={<NotFound />} />
+  </Routes>
+</Suspense>;
+```

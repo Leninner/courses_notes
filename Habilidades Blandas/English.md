@@ -6,6 +6,7 @@
   - [at](#at)
 - [Greetings (saludos) and Farewalls (despedidas)](#greetings-saludos-and-farewalls-despedidas)
 - [Introducing yourself](#introducing-yourself)
+- [Identifying puns](#identifying-puns)
 
 # Prepositions of time
 
@@ -123,3 +124,5 @@ Good Bye:
 - Hello, My name is Thomas, my last name spelled MARTIN. I´m 31 years old. I´m Canadian.
 - Good morning, my name is Gina, my last name spelled PEDRACA. I´m 29 years old. I´m from New York City.
 - Hi, I´m Lenin. My last name spelled is MAZABANDA. I´m 18 years old and I´m Ecuadorian.
+
+# Identifying puns
