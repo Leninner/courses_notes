@@ -27,6 +27,10 @@ _Índice:_
   - [React Helmet](#react-helmet)
   - [React Memo](#react-memo)
   - [React Lazy y Suspense](#react-lazy-y-suspense)
+  - [Proptypes](#proptypes)
+  - [PWA](#pwa)
+    - [Generando el manifest](#generando-el-manifest)
+    - [Trabajando Offline](#trabajando-offline)
 
 # React JS
 
@@ -1019,3 +1023,132 @@ const Favs = React.lazy(() => import('../pages/Favs'));
   </Routes>
 </Suspense>;
 ```
+
+## Proptypes
+
+Sirven para validar el tipo de propiedades de cada componente, para usarlo hay varios pasos que se deben seguir:
+
+> Es una dependencia de desarrollo
+
+1. Instalar `prop-types` en nuestro proyecto:
+
+```bash
+npm install prop-types -D
+```
+
+Para empezar a usarlo en los componentes, debemos importarlo y usarlo de la siguiente manera:
+
+```js
+import PropTypes from 'prop-types';
+
+FavButton.propTypes = {
+  liked: PropTypes.bool.isRequired,
+  likes: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+```
+
+- Validación más compleja:
+
+```js
+PhotoCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  src: PropTypes.string,
+  likes: (props, propName, componentName) => {
+    const propValue = props[propName];
+
+    if (propValue === undefined) {
+      return new Error(`${propName} value must be defined`);
+    }
+
+    if (propValue < 0) {
+      return new Error(`${propName} value must be greater than 0`);
+    }
+
+    return null;
+  },
+  liked: PropTypes.number.isRequired,
+};
+```
+
+## PWA
+
+### Generando el manifest
+
+Debemos generar un reporte con Lighthouse y luego vamos a ir a generar un **noscript**:
+
+```html
+<noscript> You need to enable JavaScript to run this app.</noscript>
+```
+
+Para crear el manifest vamos a instalar un plugin de webpack:
+
+```bash
+npm i webpack-pwa-manifest -D
+```
+
+Para crear la configuración, vamos a hacer en nuestro archivo de configuración de Webpack:
+
+```js
+const WebpackPwaManifestPlugin = require('webpack-pwa-manifest');
+```
+
+- Y creamos una configuración como ésta en la parte de plugins:
+
+```js
+plugins: [
+  /*plugins*/
+  new WebpackPwaManifestPlugin({
+    name: 'The Petgram App',
+    short_name: 'Petgram',
+    description: 'Con esta aplicación puedes encontrar fotos de animales muy cute',
+    background_color: '#ffffff',
+    theme_color: '#b1a',
+    crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
+    icons: [
+      {
+        src: path.resolve('public', 'icon.png'),
+        sizes: [96, 128, 192, 256, 384, 512], // multiple sizes
+        purpose: 'maskable', // <-- Añade esta línea
+      },
+    ],
+  }),
+];
+```
+
+> Debemos revisar todos los puntos que nos arroja Lighthouse para hacer un correcto análisis de nuestra PWA
+
+### Trabajando Offline
+
+Nos permite trabajar cuando no tenemos internet:
+
+```bash
+npm i workbox-webpack-plugin -D
+```
+
+Luego en la config de Webpack debemos hacer esto en la parte de plugins:
+
+```js
+new WorkboxWebpackPlugin.GenerateSW({
+      runtimeCaching: [
+        {
+          urlPattern: new RegExp('https://(res.cloudinary.com|images.unsplash.com)'),
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'images',
+          },
+        },
+        {
+          urlPattern: new RegExp('https://petgram-server-leninner-leninner.vercel.app'),
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'api',
+          },
+        },
+      ],
+    }),
+```
+
+> Para montar un **servidor** local podemo utilizar **serve**
+
+---
