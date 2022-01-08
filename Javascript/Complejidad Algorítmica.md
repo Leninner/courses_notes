@@ -57,3 +57,35 @@ Vamos a analizar las tablas anteriores en un gráfico:
 En javascript existe la interfaz `performance` que nos permite medir el tiempo de una línea de código a otra línea de código.
 
 También existe `console.time()` pero no es tan **precisa** como `performance.now()`
+
+> https://radiant-anchorage-11930.herokuapp.com/
+
+- Performance.now()
+
+```js
+const contar = (n) => {
+  for (let i = 0; i < n; i++) {
+    console.log(i + 1);
+  }
+};
+
+let initialTime = performance.now();
+contar(5);
+let finalTime = performance.now();
+
+console.log(`Elapsed time: ${finalTime - initialTime} ms`);
+```
+
+- Console.time()
+
+```js
+const contar = (n) => {
+  for (let i = 0; i < n; i++) {
+    console.log(i + 1);
+  }
+};
+
+console.time('duracion del algoritmo');
+contar(5);
+console.timeEnd('duracion del algoritmo');
+```
