@@ -131,11 +131,13 @@ Instalación:
 npm i standard -D
 ```
 
-Agregar un script a `package.json`:
+Agregar una configuración:
 
 ```json
-"scripts": {
-  "lint": "standard",
+"eslintConfig": {
+  "extends": [
+    "./node_modules/standard/eslintrc.json"
+  ]
 }
 ```
 

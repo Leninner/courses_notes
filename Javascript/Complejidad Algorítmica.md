@@ -56,6 +56,8 @@ Vamos a analizar las tablas anteriores en un gráfico:
 
 En javascript existe la interfaz `performance` que nos permite medir el tiempo de una línea de código a otra línea de código.
 
+---
+
 También existe `console.time()` pero no es tan **precisa** como `performance.now()`
 
 > https://radiant-anchorage-11930.herokuapp.com/
