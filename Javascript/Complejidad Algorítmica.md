@@ -6,6 +6,12 @@
   - [Introducción a la complejidad algorítmica](#introducción-a-la-complejidad-algorítmica)
   - [Complejidad temporal](#complejidad-temporal)
     - [Práctica](#práctica)
+  - [Complejidad Espacial](#complejidad-espacial)
+    - [Espacio auxiliar](#espacio-auxiliar)
+  - [Otras complejidades existentes](#otras-complejidades-existentes)
+  - [Complejidad en el futuro](#complejidad-en-el-futuro)
+- [Análisis Asintótico](#análisis-asintótico)
+- [Notación Big-O](#notación-big-o)
 
 # Complejidad Algorítmica
 
@@ -91,3 +97,40 @@ console.time('duracion del algoritmo');
 contar(5);
 console.timeEnd('duracion del algoritmo');
 ```
+
+## Complejidad Espacial
+
+En este caso analizamos el espacio que ocupa un algorítmo para resolver un problema. Puede ser medido en kB. mB, gB, etc...
+
+- Se tiene en cuenta también el espacio auxiliar
+
+### Espacio auxiliar
+
+La complejidad espacial incluye el espacio auxiliar y el espacio ocupado por los datos de entrada.
+
+El espacio auxiliar es el
+
+`espacio total - espacio datos de entrada`
+
+Los pasos realizados dentro del algoritmo, pueden ser operaciones que creen más espacio (como crear una lista donde ir dejando los resultados de un algoritmo de ordenamiento).
+
+El espacio auxiliar es más importante que los datos de entrada.
+
+## Otras complejidades existentes
+
+- Accesos a memoria.
+- Procesos paralelos.
+- Comparaciones.
+
+## Complejidad en el futuro
+
+si decubrimos interesante optimizar el uso de un recurso en computación, allí tendremos un nuevo campo de estudio de complejidad.
+
+# Análisis Asintótico
+
+Es un método para descubrir el comportamiento limitante de una función.
+
+1. Se analiza el comportamiento del algorítmo en una gráfica: https://radiant-anchorage-11930.herokuapp.com/
+2. Se busca una función matemática similar para poder gráficar el comportamiento del algorítmo.
+
+# Notación Big-O
