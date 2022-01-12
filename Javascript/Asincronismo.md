@@ -36,7 +36,7 @@ Significa que las cosas no van a pasar al mismo tiempo que se ejecuta la aplicac
 ## Definición Estructura Callback
 
 **Callback** => Una función pasada como parámetro a otra **función de orden superior**.
-**High Order Function** => Una función que al crearla se le pasa otra función:
+**High Order Function** => Una función que al crearla se le pasa otra función, sirve para reutilizar lógica:
 
 ```js
 const numbers = [1, 2, 3, 4, 5, 6, 7];

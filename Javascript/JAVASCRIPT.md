@@ -85,34 +85,29 @@
           - [Personalización del cuestionario package.json](#personalización-del-cuestionario-packagejson)
           - [Creación de un archivo package.json predeterminado](#creación-de-un-archivo-packagejson-predeterminado)
         - [Transpilación de Código](#transpilación-de-código)
-      - [WEBPACK](#webpack)
-        - [Beneficios de Webpack](#beneficios-de-webpack)
-  - [Principios de Programación Orientada a Objetos](#principios-de-programación-orientada-a-objetos)
-    - [Solid Principles](#solid-principles)
-      - [Single Responsibility Principle](#single-responsibility-principle)
-        - [Pautas para implementar correctamente este principio](#pautas-para-implementar-correctamente-este-principio)
-        - [Estereotipos de roles de objetos](#estereotipos-de-roles-de-objetos)
-        - [Loosely Coupled Objects](#loosely-coupled-objects)
-        - [Ejemplo](#ejemplo)
-      - [Ejemplo 2](#ejemplo-2-1)
-      - [Open-Closed Principle](#open-closed-principle)
-        - [Ejemplo](#ejemplo-1)
-      - [Liskov Substitution Principle](#liskov-substitution-principle)
-      - [Interface Segregation Principle](#interface-segregation-principle)
-      - [Dependency Inversion Principle](#dependency-inversion-principle)
-    - [Acoplamiento](#acoplamiento)
-      - [Ejemplo](#ejemplo-2)
-      - [Patrones para reducir el acoplamiento](#patrones-para-reducir-el-acoplamiento)
+- [WEBPACK](#webpack)
+  - [Beneficios de Webpack](#beneficios-de-webpack)
+- [Principios de Programación Orientada a Objetos](#principios-de-programación-orientada-a-objetos)
+  - [Solid Principles](#solid-principles)
+    - [Single Responsibility Principle](#single-responsibility-principle)
+      - [Estereotipos de roles de objetos](#estereotipos-de-roles-de-objetos)
+      - [Loosely Coupled Objects](#loosely-coupled-objects)
+    - [Open-Closed Principle](#open-closed-principle)
+    - [Liskov Substitution Principle](#liskov-substitution-principle)
+    - [Interface Segregation Principle](#interface-segregation-principle)
+    - [Dependency Inversion Principle](#dependency-inversion-principle)
+  - [Acoplamiento](#acoplamiento)
+    - [Patrones para reducir el acoplamiento](#patrones-para-reducir-el-acoplamiento)
 - [Linting](#linting)
-  - [¿Por qué es importante el pelaje?](#por-qué-es-importante-el-pelaje)
+  - [¿Por qué es importante el linting?](#por-qué-es-importante-el-linting)
   - [Los problemas que pueden evitar "Linting"](#los-problemas-que-pueden-evitar-linting)
 - [Test Driven Development](#test-driven-development)
   - [¿Por qué los desarrolladores deberían preocuparse por las pruebas unitarias automatizadas?](#por-qué-los-desarrolladores-deberían-preocuparse-por-las-pruebas-unitarias-automatizadas)
   - [¿Cómo lleva TDD el desarrollo al siguiente nivel?](#cómo-lleva-tdd-el-desarrollo-al-siguiente-nivel)
 - [Promesas](#promesas)
 - [Generadores](#generadores)
-  - [Formularios y Validaciones](#formularios-y-validaciones)
-- [JSON](#json)
+- [Formularios y Validaciones](#formularios-y-validaciones)
+- [JSON(JavaScript Object Notation)](#jsonjavascript-object-notation)
   - [Estructura JSON](#estructura-json)
     - [Arrays como JSON](#arrays-como-json)
     - [Otras notas](#otras-notas)
@@ -2704,7 +2699,7 @@ EJEMPLO:
 
 Transpilar es generar a partir de código en un lenguaje código en otro lenguaje. Es decir, un programa produce otro programa en otro lenguaje cuyo comportamiento es el mismo que el original.
 
-#### WEBPACK
+# WEBPACK
 
 Es la herramienta de referencia en la web para agrupar y compilar código javascript.
 Webpack es simplemente una herramienta para agrupar módulos. Se habla mucho en la red sobre lo difícil y complejo que es configurarlo y usarlo, pero por el momento nuestras necesidades son pocas y la configuración es bastante simple.
@@ -2712,7 +2707,7 @@ Es usado para configurar módulos de Javascript.
 
 > Webpack es un paquete de módulos estáticos para aplicaciones JavaScript modernas. Cuando webpack procesa su aplicación, crea internamente un gráfico de dependencia que mapea cada módulo que su proyecto necesita y genera uno o más paquetes.
 
-##### Beneficios de Webpack
+## Beneficios de Webpack
 
 - Si desea utilizar Sass para escribir su CSS, webpack puede compilarlo por usted.
 - Webpack puede administrar sus imágenes y comprimirlas y optimizarlas para su uso en la web.
@@ -2750,29 +2745,33 @@ NOTE: Plugins
 
 Si bien los loaders se utilizan para transformar ciertos tipos de módulos, los complementos se pueden aprovechar para realizar una gama más amplia de tareas como optimización de paquetes, administración de activos e inyección de variables de entorno.
 
-webpack.config.js
+- webpack.config.js
 
+```js
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
 const webpack = require('webpack'); //to access built-in plugins
 
 module.exports = {
-module: {
-rules: [{ test: /\.txt$/, use: 'raw-loader' }],
-},
-plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
+  module: {
+    rules: [{ test: /\.txt$/, use: 'raw-loader' }],
+  },
+  plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
 };
+```
 
-NOTE: Mode
+Mode
 
 Al establecer el parámetro de modo en desarrollo, producción o ninguno, puede habilitar las optimizaciones integradas del paquete web que corresponden a cada entorno. El valor predeterminado es producción.
 
+```js
 module.exports = {
-mode: 'production',
+  mode: 'production',
 };
+```
 
-## Principios de Programación Orientada a Objetos
+# Principios de Programación Orientada a Objetos
 
-### Solid Principles
+## Solid Principles
 
 Es un acrónimo mnemónico que se refiere a una colección de principios de diseño que evolucionaron a partir de la comunidad orientada a objetos y fueron popularizados por los escritos de Robert C. Martin.
 
@@ -2784,251 +2783,250 @@ Estos principios son los siguientes:
 - The Interface Segregation Principle
 - The Dependency Inversion Principle
 
-#### Single Responsibility Principle
+### Single Responsibility Principle
 
-Establece que una clase (u objeto o módulo, etc) solo debe tener una responsabilidad. El principio dice:
+Establece que una clase (u objeto o módulo, etc) solo debe tener una responsabilidad.
+
+El principio dice:
 
 - Una clase debe tener solo una razón para cambiar
-
-> Un objeto debe tener un conjunto cohesivo de comportamientos, que en conjunto comprenden una sola responsabilidad que, si se cambia, requeriría la modificación de la definición del objeto.
-
-> Esto no significa que un objeto solo pueda hacer una cosa, pero sí significa que todo lo que hace un objeto debe ser parte de una responsabilidad.
+- Un objeto debe tener un conjunto cohesivo de comportamientos, que en conjunto comprenden una sola responsabilidad que, si se cambia, requeriría la modificación de la definición del objeto.
+- Esto no significa que un objeto solo pueda hacer una cosa, pero sí significa que todo lo que hace un objeto debe ser parte de una responsabilidad.
 
 En lugar de esto:
 
+```js
 function isGameOver() {
+  // game over logic goes here!
 
-// game over logic goes here!
-
-if (gameOver){
-const gameOverDiv = document.createElement('div')
-gameOverDiv.classList.add('game-over')
-gameOverDiv.textContent = `${this.winner} won the game!`
-document.body.appendChild(gameOverDiv)
+  if (gameOver) {
+    const gameOverDiv = document.createElement('div');
+    gameOverDiv.classList.add('game-over');
+    gameOverDiv.textContent = `${this.winner} won the game!`;
+    document.body.appendChild(gameOverDiv);
+  }
 }
-}
+```
 
-Debe extraer toda la manipulación DOM en su propio módulo y usarlo así:
+- Debe extraer toda la manipulación DOM en su propio módulo y usarlo así:
 
+```js
 function isGameOver() {
+  // game over logic goes here!
 
-// game over logic goes here!
-
-if (gameOver){
-DOMStuff.gameOver(this.winner)
+  if (gameOver) {
+    DOMStuff.gameOver(this.winner);
+  }
 }
-}
+```
 
 De hecho, la función isGameOver no debería llamar a la función DOM de todos modos. Eso debería ir a otra parte (directamente en el bucle del juego).
 
 NOTE: Un método / clase / componente dado debe tener una única razón para cambiar. De lo contrario, si un objeto está tratando de tener múltiples responsabilidades, cambiar un aspecto podría afectar a otro.
 
-TODO: Do one thing and do it well
+> Do one thing and do it well
 
-##### Pautas para implementar correctamente este principio
+Pautas para implementar correctamente este principio
 
-Si desea llamar a una función loginUserAndGetGroups (), probablemente esté incumpliendo el principio de responsabilidad única. Divida estas funciones en dos distintas.
+Si desea llamar a una `función loginUserAndGetGroups()`, probablemente esté incumpliendo el principio de responsabilidad única. Divida estas funciones en dos distintas.
 
-Para cada función que cree, piense si hay una parte útil que pueda extraerse en una función aún más pequeña.
+- Para cada función que cree, piense si hay una parte útil que pueda extraerse en una función aún más pequeña.
 
-Una vez que haya creado su función, vuelva a examinarla. Vea cuántas funciones reutilizables puede extraer.
+- Una vez que haya creado su función, vuelva a examinarla. Vea cuántas funciones reutilizables puede extraer.
 
-##### Estereotipos de roles de objetos
+#### Estereotipos de roles de objetos
 
-Son un conjunto de roles generales preestablecidos que ocurren comúnmente en las arquitecturas orientadas a objetos. Al establecer un conjunto de estereotipos de roles, los desarrolladores pueden proporcionarse un conjunto de plantillas que pueden usar a medida que avanzan en el ejercicio mental de descomponer el comportamiento en componentes cohesivos.
+Son un conjunto de roles generales preestablecidos que ocurren comúnmente en las arquitecturas orientadas a objetos.
 
-> Titular de la información: un objeto diseñado para conocer cierta información y proporcionar esa información a otros objetos.
-> Estructurador: un objeto que mantiene relaciones entre objetos e información sobre esas relaciones.
-> Proveedor de servicios: un objeto que realiza un trabajo específico y ofrece servicios a otros bajo demanda.
-> Controlador: un objeto diseñado para tomar decisiones y controlar una tarea compleja.
-> Coordinador: un objeto que no toma muchas decisiones pero, de forma mecánica o de memoria, delega el trabajo a otros objetos.
-> Interfaz: un objeto que transforma información o solicitudes entre distintas partes de un sistema.
+Al establecer un conjunto de estereotipos de roles, los desarrolladores pueden proporcionarse un conjunto de plantillas que pueden usar a medida que avanzan en el ejercicio mental de descomponer el comportamiento en componentes cohesivos.
 
-##### Loosely Coupled Objects
+- Titular de la información: un objeto diseñado para conocer cierta información y proporcionar esa información a otros objetos.
+- Estructurador: un objeto que mantiene relaciones entre objetos e información sobre esas relaciones.
+- Proveedor de servicios: un objeto que realiza un trabajo específico y ofrece servicios a otros bajo demanda.
+- Controlador: un objeto diseñado para tomar decisiones y controlar una tarea compleja.
+- Coordinador: un objeto que no toma muchas decisiones pero, de forma mecánica o de memoria, delega el trabajo a otros objetos.
+- Interfaz: un objeto que transforma información o solicitudes entre distintas partes de un sistema.
+
+#### Loosely Coupled Objects
 
 Todos nuestros objetos están pensados ​​para trabajar juntos para formar nuestra aplicación final, sin embargo, debe tener cuidado de asegurarse de que sus objetos individuales puedan estar solos tanto como sea posible.
 
 > Los objetos estrechamente acoplados son objetos que dependen tanto unos de otros que quitar o cambiar uno significará que tendrá que cambiar por completo otro, un verdadero fastidio.
 
-##### Ejemplo
+- Ejemplo
 
 El movimiento de artículos de producto en un carrito de compras:
 
+```js
 function Product(id, description) {
-this.getId = function() {
-return id;
-};
-this.getDescription = function() {
-return description;
-};
+  this.getId = function () {
+    return id;
+  };
+  this.getDescription = function () {
+    return description;
+  };
 }
 
 function Cart(eventAggregator) {
-var items = [];
+  var items = [];
 
-    this.addItem = function(item) {
-        items.push(item);
-    };
-
+  this.addItem = function (item) {
+    items.push(item);
+  };
 }
 
-var products = [
-new Product(1, "Star Wars Lego Ship"),
-new Product(2, "Barbie Doll"),
-new Product(3, "Remote Control Airplane")],
-cart = new Cart();
+let products = [
+    new Product(1, 'Star Wars Lego Ship'),
+    new Product(2, 'Barbie Doll'),
+    new Product(3, 'Remote Control Airplane'),
+  ],
+  cart = new Cart();
 
-(function() {
-function addToCart() {
-var productId = $(this).attr('id');
-var product = $.grep(products, function(x) {
-return x.getId() == productId;
-})[0];
-cart.addItem(product);
+(function () {
+  function addToCart() {
+    let productId = $(this).attr('id');
+    let product = $.grep(products, function (x) {
+      return x.getId() == productId;
+    })[0];
 
-        var newItem = $('<li></li>')
-            .html(product.getDescription())
-            .attr('id-cart', product.getId())
-            .appendTo("#cart");
-    }
+    cart.addItem(product);
 
-    products.forEach(function(product) {
-        var newItem = $('<li></li>')
-            .html(product.getDescription())
-            .attr('id', product.getId())
-            .dblclick(addToCart)
-            .appendTo("#products");
-    });
+    let newItem = $('<li></li>').html(product.getDescription()).attr('id-cart', product.getId()).appendTo('#cart');
+  }
 
+  products.forEach(function (product) {
+    let newItem = $('<li></li>')
+      .html(product.getDescription())
+      .attr('id', product.getId())
+      .dblclick(addToCart)
+      .appendTo('#products');
+  });
 })();
-/pre>
+```
 
-Primero, tenemos un comportamiento definido para manejar el llenado del modelo Carrito cuando se hace doble clic en un artículo.
+1. Primero, tenemos un comportamiento definido para manejar el llenado del modelo Carrito cuando se hace doble clic en un artículo.
 
-En segundo lugar, tenemos un comportamiento definido para agregar artículos a la vista del carrito cuando se hace doble clic en un artículo.
+2. En segundo lugar, tenemos un comportamiento definido para agregar artículos a la vista del carrito cuando se hace doble clic en un artículo.
 
-En tercer lugar, tenemos un comportamiento definido para poblar la vista de productos con el conjunto inicial de productos.
+3. En tercer lugar, tenemos un comportamiento definido para poblar la vista de productos con el conjunto inicial de productos.
 
 Dividamos estas tres responsabilidades en sus propios objetos:
 
+```js
 function Event(name) {
-this.\_handlers = [];
-this.name = name;
+  this._handlers = [];
+  this.name = name;
 }
-Event.prototype.addHandler = function(handler) {
-this.\_handlers.push(handler);
+Event.prototype.addHandler = function (handler) {
+  this._handlers.push(handler);
 };
-Event.prototype.removeHandler = function(handler) {
-for (var i = 0; i < handlers.length; i++) {
-if (this.\_handlers[i] == handler) {
-this.\_handlers.splice(i, 1);
-break;
-}
-}
-};
-Event.prototype.fire = function(eventArgs) {
-this.\_handlers.forEach(function(h) {
-h(eventArgs);
-});
-};
-
-var eventAggregator = (function() {
-var events = [];
-
-    function getEvent(eventName) {
-        return $.grep(events, function(event) {
-            return event.name === eventName;
-        })[0];
+Event.prototype.removeHandler = function (handler) {
+  for (var i = 0; i < handlers.length; i++) {
+    if (this._handlers[i] == handler) {
+      this._handlers.splice(i, 1);
+      break;
     }
+  }
+};
+Event.prototype.fire = function (eventArgs) {
+  this._handlers.forEach(function (h) {
+    h(eventArgs);
+  });
+};
 
-    return {
-        publish: function(eventName, eventArgs) {
-            var event = getEvent(eventName);
+var eventAggregator = (function () {
+  var events = [];
 
-            if (!event) {
-                event = new Event(eventName);
-                events.push(event);
-            }
-            event.fire(eventArgs);
-        },
+  function getEvent(eventName) {
+    return $.grep(events, function (event) {
+      return event.name === eventName;
+    })[0];
+  }
 
-        subscribe: function(eventName, handler) {
-            var event = getEvent(eventName);
+  return {
+    publish: function (eventName, eventArgs) {
+      var event = getEvent(eventName);
 
-            if (!event) {
-                event = new Event(eventName);
-                events.push(event);
-            }
+      if (!event) {
+        event = new Event(eventName);
+        events.push(event);
+      }
+      event.fire(eventArgs);
+    },
 
-            event.addHandler(handler);
-        }
-    };
+    subscribe: function (eventName, handler) {
+      var event = getEvent(eventName);
 
+      if (!event) {
+        event = new Event(eventName);
+        events.push(event);
+      }
+
+      event.addHandler(handler);
+    },
+  };
 })();
 
 function Cart() {
-var items = [];
+  var items = [];
 
-    this.addItem = function(item) {
-        items.push(item);
-        eventAggregator.publish("itemAdded", item);
-    };
-
+  this.addItem = function (item) {
+    items.push(item);
+    eventAggregator.publish('itemAdded', item);
+  };
 }
 
-var cartView = (function() {
-eventAggregator.subscribe("itemAdded", function(eventArgs) {
-var newItem = $('<li></li>')
-.html(eventArgs.getDescription())
-.attr('id-cart', eventArgs.getId())
-.appendTo("#cart");
-});
+var cartView = (function () {
+  eventAggregator.subscribe('itemAdded', function (eventArgs) {
+    var newItem = $('<li></li>').html(eventArgs.getDescription()).attr('id-cart', eventArgs.getId()).appendTo('#cart');
+  });
 })();
 
-var cartController = (function(cart) {
-eventAggregator.subscribe("productSelected", function(eventArgs) {
-cart.addItem(eventArgs.product);
-});
+var cartController = (function (cart) {
+  eventAggregator.subscribe('productSelected', function (eventArgs) {
+    cart.addItem(eventArgs.product);
+  });
 })(new Cart());
 
 function Product(id, description) {
-this.getId = function() {
-return id;
-};
-this.getDescription = function() {
-return description;
-};
+  this.getId = function () {
+    return id;
+  };
+  this.getDescription = function () {
+    return description;
+  };
 }
 
 var products = [
-new Product(1, "Star Wars Lego Ship"),
-new Product(2, "Barbie Doll"),
-new Product(3, "Remote Control Airplane")];
+  new Product(1, 'Star Wars Lego Ship'),
+  new Product(2, 'Barbie Doll'),
+  new Product(3, 'Remote Control Airplane'),
+];
 
-var productView = (function() {
-function onProductSelected() {
-var productId = $(this).attr('id');
-var product = $.grep(products, function(x) {
-return x.getId() == productId;
-})[0];
-eventAggregator.publish("productSelected", {
-product: product
-});
-}
-
-    products.forEach(function(product) {
-        var newItem = $('<li></li>')
-            .html(product.getDescription())
-            .attr('id', product.getId())
-            .dblclick(onProductSelected)
-            .appendTo("#products");
+var productView = (function () {
+  function onProductSelected() {
+    var productId = $(this).attr('id');
+    var product = $.grep(products, function (x) {
+      return x.getId() == productId;
+    })[0];
+    eventAggregator.publish('productSelected', {
+      product: product,
     });
+  }
 
+  products.forEach(function (product) {
+    var newItem = $('<li></li>')
+      .html(product.getDescription())
+      .attr('id', product.getId())
+      .dblclick(onProductSelected)
+      .appendTo('#products');
+  });
 })();
+```
 
 En nuestro diseño revisado, eliminamos nuestra función anónima y la reemplazamos con objetos para coordinar cada uno de los conjuntos separados de responsabilidades.
 
-NOTE: Supongamos que por cada usuario que inicia sesión, siempre necesita buscar su música favorita, sus programas de TV favoritos y su música favorita. Ahora sabemos que querrá dividirlos en funciones getShows (), getMovies () y getMusic ().
+> Supongamos que por cada usuario que inicia sesión, siempre necesita buscar su música favorita, sus programas de TV favoritos y su música favorita. Ahora sabemos que querrá dividirlos en funciones getShows (), getMovies () y getMusic ().
 
 Pero, ¿qué pasa si esas funciones casi siempre se combinan? No queremos crear una función getShowsAndMoviesAndMusic (). Pero tampoco queremos llamar a las 3 funciones diferentes cada vez.
 
@@ -3036,119 +3034,130 @@ Para no repetirnos, está bien crear una función de envoltura que encapsule los
 
 Usando esta lógica, runFacebook () es de hecho una función de responsabilidad única. Pero esto solo se aplica siempre que la implementación de la función runFacebook () subyacente también esté dividida correctamente.
 
-#### Ejemplo 2
+- Ejemplo 2
 
 Por ejemplo, digamos que tenemos algunas formas y queremos sumar todas las áreas de las formas. Bueno, esto es bastante simple, ¿verdad?
 
+```js
 const circle = (radius) => {
-const proto = {
-type: 'Circle',
-//code
-}
-return Object.assign(Object.create(proto), {radius})
-}
+  const proto = {
+    type: 'Circle',
+    //code
+  };
+  return Object.assign(Object.create(proto), { radius });
+};
+
 const square = (length) => {
-const proto = {
-type: 'Square',
-//code
-}
-return Object.assign(Object.create(proto), {length})
-}
+  const proto = {
+    type: 'Square',
+    //code
+  };
+  return Object.assign(Object.create(proto), { length });
+};
+```
 
 Primero, creamos nuestras funciones de fábrica de formas y configuramos los parámetros requeridos.
 A continuación, avanzamos creando la función de fábrica areaCalculator y luego escribimos nuestra lógica para resumir el área de todas las formas proporcionadas.
 
+```js
 const areaCalculator = (s) => {
-const proto = {
-sum() {
-// logic to sum
-},
-output () {
-return `
-
+  const proto = {
+    sum() {
+      // logic to sum
+    },
+    output() {
+      return `
 <h1>
 Sum of the areas of provided shapes:
 ${this.sum()}
-</h1>
-}
-}
-return Object.assign(Object.create(proto), {shapes: s})
-}
+</h1>`;
+    },
+  };
+
+  return Object.assign(Object.create(proto), { shapes: s });
+};
+```
 
 Para usar la función de fábrica areaCalculator, simplemente llamamos a la función y pasamos una matriz de formas, y mostramos el resultado en la parte inferior de la página.
 
-const shapes = [
-circle(2),
-square(5),
-square(6)
-]
-const areas = areaCalculator(shapes)
-console.log(areas.output())
+```js
+const shapes = [circle(2), square(5), square(6)];
+const areas = areaCalculator(shapes);
+console.log(areas.output());
+```
 
 Toda la lógica sería manejada por la función de fábrica areaCalculator, esto es lo que el "principio de responsabilidad única" desaprueba; la función de fábrica areaCalculator solo debe sumar las áreas de las formas proporcionadas, no debe importarle si el usuario quiere JSON o HTML.
 Entonces, para solucionar esto, puede crear una función de fábrica SumCalculatorOutputter y usarla para manejar cualquier lógica que necesite sobre cómo se muestran las áreas de suma de todas las formas proporcionadas.
 
-const shapes = [
-circle(2),
-square(5),
-square(6)
-]
-const areas = areaCalculator(shapes)
-const output = sumCalculatorOputter(areas)
-console.log(output.JSON())
-console.log(output.HAML())
-console.log(output.HTML())
-console.log(output.JADE())
+```js
+const shapes = [circle(2), square(5), square(6)];
+const areas = areaCalculator(shapes);
+const output = sumCalculatorOputter(areas);
+console.log(output.JSON());
+console.log(output.HAML());
+console.log(output.HTML());
+console.log(output.JADE());
+```
 
-#### Open-Closed Principle
+### Open-Closed Principle
 
-Nuestros módulos de JavaScript deben estar abiertos a la extensión, pero cerrados a la modificación. Lo que significa que si alguien quiere ampliar el comportamiento de nuestro módulo, no necesitará modificar el código existente si no lo desea.
+Nuestros módulos de JavaScript deben estar abiertos a la extensión, pero cerrados a la modificación.
+
+Lo que significa que si alguien quiere ampliar el comportamiento de nuestro módulo, no necesitará modificar el código existente si no lo desea.
 
 Si tengo que abrir el archivo JS de su módulo y hacer una modificación para extenderlo, no ha cumplido el principio de apertura cerrada.
 
 NOTE: Abrir para extensión significa que deberíamos poder agregar nuevas funciones o componentes a la aplicación sin romper el código existente.
 Cerrado por modificación significa que no deberíamos introducir cambios importantes en la funcionalidad existente, porque eso le obligaría a refactorizar una gran cantidad de código existente.
 
-##### Ejemplo
+- Ejemplo
 
+```js
 let iceCreamFlavors = ['chocolate', 'vanilla'];
+
 let iceCreamMaker = {
-makeIceCream(flavor) {
-if (iceCreamFlavors.indexOf(flavor) > -1) {
-console.log('Great success. You now have ice cream.');
-} else {
-console.log('Epic fail. No ice cream for you.');
-}
-},
+  makeIceCream(flavor) {
+    if (iceCreamFlavors.includes(flavor)) {
+      console.log('Great success. You now have ice cream.');
+    } else {
+      console.log('Epic fail. No ice cream for you.');
+    }
+  },
 };
+
 export default iceCreamMaker;
+```
 
 Como puede ver, no hay forma de agregar un sabor de helado sin editar la matriz iceCreamFlavor. Podemos cambiar eso fácilmente.
 
+```js
 let iceCreamFlavors = ['chocolate', 'vanilla'];
-let iceCreamMaker = {
-makeIceCream(flavor) {
-if (iceCreamFlavors.indexOf(flavor) > -1) {
-console.log('Great success. You now have ice cream.');
-} else {
-console.log('Epic fail. No ice cream for you.');
-}
-},
-addFlavor(flavor) {
-iceCreamFlavors.push(flavor);
-},
-};
-export default iceCreamMaker;
 
-NOTE: Ahora podemos agregar deliciosos sabores de helado desde cualquier lugar de nuestro código sin abrir el archivo iceCreamMaker.js.
+let iceCreamMaker = {
+  makeIceCream(flavor) {
+    if (iceCreamFlavors.includes(flavor)) {
+      console.log('Great success. You now have ice cream.');
+    } else {
+      console.log('Epic fail. No ice cream for you.');
+    }
+  },
+  addFlavor(flavor) {
+    iceCreamFlavors.push(flavor);
+  },
+};
+
+export default iceCreamMaker;
+```
+
+Ahora podemos agregar deliciosos sabores de helado desde cualquier lugar de nuestro código sin abrir el archivo iceCreamMaker.js.
 
 De hecho, JavaScript sólido.
 
-#### Liskov Substitution Principle
+### Liskov Substitution Principle
 
 Una subclase debe anular los métodos de la clase padre de una manera que no rompa la funcionalidad desde el punto de vista del cliente.
 
-#### Interface Segregation Principle
+### Interface Segregation Principle
 
 Significa que no debe crear interfaces infladas. Dado que JavaScript no tiene interfaces, usaré un ejemplo más abstracto:
 
@@ -3166,7 +3175,7 @@ NOTE: La lección aquí es que cada vez que exponga un módulo para uso externo,
 
 De lo contrario, tus amigos te odiarán.
 
-#### Dependency Inversion Principle
+### Dependency Inversion Principle
 
 Se trata de traspasar el control de la función en sí al llamador de la función.
 
@@ -3174,15 +3183,17 @@ Fred está de nuevo. Esta vez, creó una implementación de emisor de eventos qu
 
 No quieres ofender a Fred, así que inténtalo. Tu función se parece a esto:
 
+```js
 function awesomeSauce(dispatcher) {
-dispatcher.trigger('awesome/sauce');
+  dispatcher.trigger('awesome/sauce');
 }
 
 function awesomeSauceListener(dispatcher) {
-dispatcher.on('awesome/sauce', () => {
-alert('awesome!');
-});
+  dispatcher.on('awesome/sauce', () => {
+    alert('awesome!');
+  });
 }
+```
 
 Hay un problema. Los métodos de despachador de Fred se llaman emit () y listen ().
 
@@ -3190,23 +3201,25 @@ Podrías refactorizar tu código. Pero, ¿qué pasa si la implementación de Fre
 
 Te das cuenta de que no necesitas la implementación completa del objeto del despachador en cada función. Cambia su código para recibir solo los métodos relevantes para cada función.
 
+```js
 function awesomeSauce(dispatch) {
-dispatch('awesome/sauce');
+  dispatch('awesome/sauce');
 }
 
 function awesomeSauceListener(listen) {
-listen('awesome/sauce', () => {
-alert('awesome!');
-});
+  listen('awesome/sauce', () => {
+    alert('awesome!');
+  });
 }
+```
 
 Su código ahora no depende de ninguna implementación concreta del objeto emisor de un evento. Ahora puede cambiar libremente entre la implementación de Fred o utilizar una implementación simulada para realizar pruebas.
 
-### Acoplamiento
+## Acoplamiento
 
 El acoplamiento entre módulos se produce cuando un módulo hace referencia directamente a otro módulo. En otras palabras, un módulo "sabe" acerca de otro módulo.
 
-#### Ejemplo
+- Ejemplo
 
 Estamos creando una aplicación web que permite a las personas realizar pedidos de comida a domicilio. Cada vez que el usuario realiza un pedido, la aplicación crea el pedido y envía una confirmación al usuario que incluye el tiempo estimado de entrega. El usuario puede comprobar el estado o cancelar el pedido en cualquier momento.
 
@@ -3216,64 +3229,75 @@ Veamos una implementación de ejemplo. Tenga en cuenta que el código de esta pu
 
 > Crear Orden
 
+```js
 // Order module definition
-var orderModule = (function() {
-var module = {},
-deliveries = myApp.deliveryModule;
+let orderModule = (function () {
+  let module = {},
+    deliveries = myApp.deliveryModule;
 
-    module.createOrder = function(orderData) {
-        var orderResult;
+  module.createOrder = function (orderData) {
+    let orderResult;
 
-        orderResult = // Code to actually create the order
-        orderResult.estimatedDeliveryTime =    deliveries.getDeliveryTime(orderData);
+    orderResult = orderResult.estimatedDeliveryTime = deliveries.getDeliveryTime(orderData); // Code to actually create the order
 
-        return orderResult;
-    };
+    return orderResult;
+  };
 
-    return module;
-
+  return module;
 })();
+```
 
 Los módulos de pedido y entrega que se muestran están estrechamente acoplados. Para que el módulo de pedido obtenga el tiempo de entrega estimado, debe "saber" sobre el módulo de entrega y llamar a la API del módulo correspondiente.
 
-#### Patrones para reducir el acoplamiento
+### Patrones para reducir el acoplamiento
 
-Hay formas de reducir el acoplamiento, lo que incluye muchos patrones que se utilizan para lograr un acoplamiento suelto entre módulos. Estos patrones son a menudo una variación del llamado patrón de observador. Una de estas variaciones se conoce como patrón Pub / Sub o Publish / Subscribe.
+Hay formas de reducir el acoplamiento, lo que incluye muchos patrones que se utilizan para lograr un acoplamiento suelto entre módulos.
+
+Estos patrones son a menudo una variación del llamado patrón de observador. Una de estas variaciones se conoce como patrón Pub / Sub o Publish / Subscribe.
+
 El observador se registra directamente con el emisor del evento para ser notificado cada vez que ocurre un evento determinado. La desventaja de este enfoque es que un observador "sabe" sobre el objeto emisor de eventos y qué observables o eventos observar a través del proceso de registro.
 
 NOTE: OBJETOS LITERALES
 
+```js
 const book = {
-title: "Hippie",
-author: "Paulo Coelho",
-year: "2018"
-}
+  title: 'Hippie',
+  author: 'Paulo Coelho',
+  year: '2018',
+};
+```
 
 Para acceder a una propiedad dentro del objeto book, podemos hacerlo mediante el uso de . o usando corchetes:
 
-book.title = "Hippie"
+```js
+book.title = 'Hippie';
 
-book['title'] = "Hippie"
+book['title'] = 'Hippie';
+```
 
-El método Object.create () crea un nuevo objeto, utilizando un objeto existente como prototipo. Esta es la sintaxis básica:
+El método `Object.create()` crea un nuevo objeto, utilizando un objeto existente como prototipo. Esta es la sintaxis básica:
 
-Object.create(proto, [propertiesObject])
+```js
+Object.create(proto, [propertiesObject]);
+```
 
 proto is the prototype of the newly-created object. propertiesObject is an optional one.
 
 Example:
 
+```js
 const Book = {
-summary : function() {
-console.log(`${this.title} is written by ${this.author}.`)
-}
-}
+  summary: function () {
+    console.log(`${this.title} is written by ${this.author}.`);
+  },
+};
 const book1 = Object.create(Book);
-book1.author = "Paulo Coelho";
-book1.title = "Hippie";
-console.log(book1.summary());
 
-> Hippie is written by Paulo Coelho.
+book1.author = 'Paulo Coelho';
+book1.title = 'Hippie';
+
+console.log(book1.summary()); // Hippie is written by Paulo Coelho.
+```
 
 NOTE: La encapsulación significa ocultar información o datos. Se refiere a la capacidad del objeto para ejecutar su funcionalidad sin revelar ningún detalle de ejecución a la persona que llama. En otras palabras, la variable privada solo es visible para la función actual y no es accesible para el alcance global u otras funciones.
 
@@ -3374,34 +3398,44 @@ console.log(book.summary());
 Significa ejecutar una herramienta de calidad de código muy básica que examinará su JavaScript y le dirá dónde y cómo limpiarlo.
 En otras palabras, es algo que puede encontrar AUTOMÁTICAMENTE los errores tontos que todos cometemos, para que pueda corregirlos sin pensar. Hará que su código se rompa menos y evitará algunos problemas muy confusos.
 
-## ¿Por qué es importante el pelaje?
+## ¿Por qué es importante el linting?
 
 Las 5 razones principales por las que debería incluir su JavaScript:
 
-> Previene ciertos tipos de errores, incluidos algunos catastróficos.
-> Te ahorra tiempo.
-> Mejora tu código.
-> Es fácil.
-> Te hará follar más.
+- Previene ciertos tipos de errores, incluidos algunos catastróficos.
+- Te ahorra tiempo.
+- Mejora tu código.
+- Es fácil.
+- Te hará follar más.
 
 ## Los problemas que pueden evitar "Linting"
 
-Las herramientas de linting emiten advertencias sobre ciertos tipos de olores de código que pueden provocar problemas comunes. Algunos son bastante importantes.
+Las herramientas de linting emiten advertencias sobre ciertos tipos de olores de código que pueden provocar problemas comunes.
 
-> Problema n. ° 1: obras en desarrollo, interrupciones en la producción
+Algunos son bastante importantes.
 
-La mayoría de las pilas web modernas admiten la minificación, pero los minificadores no le dirán cuándo le faltan puntos y comas, ni tampoco su navegador. Pero un punto y coma que falta puede romper javascript minificado.
+1. Obras en desarrollo, interrupciones en la producción
+
+La mayoría de las pilas web modernas admiten la minificación, pero los minificadores no le dirán cuándo le faltan puntos y comas, ni tampoco su navegador.
+
+Pero un punto y coma que falta puede romper javascript minificado.
+
 Por qué esto apesta: su código funcionará bien y feliz en el desarrollo. Luego, lo implementará en producción; se rompe la mierda y no sabe por qué. Los clientes se quejan. Tu jefe te grita. ¡Juras que el código funciona! Sobreviene el caos.
 
-> Problema n. ° 2: conflictos de alcance
+2. Conflictos de alcance
 
-¿Alguna vez ha creado una variable llamada "id" o "nombre" o "valor"? Sí, también lo han hecho todos los demás desarrolladores de la historia, incluidas las personas que trabajarán en la misma base de código que tú. Y si alguien se olvida de declarar todas sus variables con var, pueden sobrescribirse entre sí de forma inesperada.
+¿Alguna vez ha creado una variable llamada "id" o "name" o "value"?
+
+Sí, también lo han hecho todos los demás desarrolladores de la historia, incluidas las personas que trabajarán en la misma base de código que tú. Y si alguien se olvida de declarar todas sus variables con var, pueden sobrescribirse entre sí de forma inesperada.
+
 Si tiene variables con el mismo nombre en varios lugares y alguien se olvida de usar var incluso una vez, puede apostar su dulce trasero a que su variable puede sobrescribirse con un valor que no esperaba.
+
 Y sucederá. Se olvidarán. Te olvidarás. Sobreviene el caos ... te haces una idea.
 
 # Test Driven Development
 
 Aquí escribe una prueba antes de escribir el código de producción suficiente para cumplir con esa prueba y luego refactoriza el código.
+
 TDD es una forma de pensar en sus requisitos o diseño antes de escribir su código funcional (lo que implica que TDD es tanto un requisito ágil importante como una técnica de diseño ágil).
 
 NOTE: Pasos para hacer buenos Test de Desarrollo
@@ -3445,55 +3479,59 @@ NOTE: Pasos para hacer buenos Test de Desarrollo
 
 Algo va a pasar si pasa algo.
 
+```js
 const helloPromise = () => {
-return new Promise((resolve, reject) => {
-if(true){
-resolve("Hey!!");
-} else {
-reject("Ups!!");
-}
-})
-}
+  return new Promise((resolve, reject) => {
+    if (true) {
+      resolve('Hey!!');
+    } else {
+      reject('Ups!!');
+    }
+  });
+};
 
 helloPromise()
-.then(respone => console.log(response))
-.catch(error => console.log(error))
+  .then((respone) => console.log(response))
+  .catch((error) => console.log(error));
+```
 
 # Generadores
 
 Se van ir ejecutando de acuerdo a lo que le pidamos al programa:
 
-function\* helloWorld(){
-if(true){
-return "Hello"
-}
-if(true){
-return "World
-}
+```js
+function* helloWorld() {
+  if (true) {
+    return 'Hello';
+  }
+
+  if (true) {
+    return 'World';
+  }
 }
 
 const sayHello = helloWorld();
 
 console.log(sayHello.next().value);
 console.log(sayHello.next().value);
+```
 
-## Formularios y Validaciones
+# Formularios y Validaciones
 
 En los formularios es importante trabajar con botones de tipo submit y para que no nos envíe a otra página o recargue la página es importante agregar un evento de escucha a nuestro formulario:
 
-```
-
-  <form action="" id="formulario">
-    <button type="submit">Enviar</button>
-  </form>
+```js
+<form action="" id="formulario">
+  <button type="submit">Enviar</button>
+</form>
 ```
 
 Luego, en Javascript vamos a utilizar el siguiente evento de escucha:
 
-```
+```js
 const formulario = document.getElementById('formulario');
 formulario.addEventListener('submit', (e) => {
-  e.preventDefault(); => Esta línea nos sirve para decirle a Javascript que no envíe el formulario.
+  e.preventDefault(); // Esta línea nos sirve para decirle a Javascript que no envíe el formulario.
 }
 ```
 
@@ -3504,21 +3542,19 @@ Por ejemplo, esto puede resultar útil cuando:
 - Al hacer clic en un botón "Enviar", evite que envíe un formulario
 - Al hacer clic en un enlace, evite que el enlace siga la URL
 
-NOTE: No todos los eventos se pueden cancelar. Utilice la propiedad cancelable para averiguar si un evento se puede cancelar.
+No todos los eventos se pueden cancelar. Utilice la propiedad cancelable para averiguar si un evento se puede cancelar.
 
-NOTE: El método preventDefault () no evita una mayor propagación de un evento a través del DOM. Usa el método stopPropagation () para manejar esto.
+El método preventDefault() no evita una mayor propagación de un evento a través del DOM. Usa el método stopPropagation () para manejar esto.
 
-TODO: Aprender a utilizar expresiones regulares.
+# JSON(JavaScript Object Notation)
 
-# JSON
+Es un formato estándar basado en texto para representar datos estructurados basados ​​en la sintaxis de objetos de JavaScript.
 
-JSON(JavaScript Object Notation) => Es un formato estándar basado en texto para representar datos estructurados basados ​​en la sintaxis de objetos de JavaScript.
-
-> Se usa comúnmente para transmitir datos en aplicaciones web (por ejemplo, enviar algunos datos desde el servidor al cliente, para que se puedan mostrar en una página web, o viceversa).
+Se usa comúnmente para transmitir datos en aplicaciones web (por ejemplo, enviar algunos datos desde el servidor al cliente, para que se puedan mostrar en una página web, o viceversa).
 
 Aunque se parece mucho a la sintaxis literal de objetos de JavaScript, se puede utilizar independientemente de JavaScript, y muchos entornos de programación cuentan con la capacidad de leer (analizar, parsear) y generar JSON.
 
-- Json existe como un string; útil cuando desea transmitir datos a través de una red. Debe convertirse a un objeto JavaScript nativo cuando desee acceder a los datos, pero Javascript nos provee métodos para hacerlo de una forma fácil.
+Json existe como un string; útil cuando desea transmitir datos a través de una red. Debe convertirse a un objeto JavaScript nativo cuando desee acceder a los datos, pero Javascript nos provee métodos para hacerlo de una forma fácil.
 
 NOTE: La conversión **de una cadena en un objeto nativo** se denomina **deserialización**, mientras que la conversión **de un objeto nativo en una cadena** para que pueda transmitirse a través de la red se denomina **serialización**.
 
@@ -3528,7 +3564,7 @@ La estructura JSON tiene una forma múy similar a la sintaxis de un objeto liter
 
 Esto puede resultar así:
 
-```
+```json
 {
   "squadName": "Super hero squad",
   "homeTown": "Metro City",
@@ -3540,33 +3576,7 @@ Esto puede resultar así:
       "name": "Molecule Man",
       "age": 29,
       "secretIdentity": "Dan Jukes",
-      "powers": [
-        "Radiation resistance",
-        "Turning tiny",
-        "Radiation blast"
-      ]
-    },
-    {
-      "name": "Madame Uppercut",
-      "age": 39,
-      "secretIdentity": "Jane Wilson",
-      "powers": [
-        "Million tonne punch",
-        "Damage resistance",
-        "Superhuman reflexes"
-      ]
-    },
-    {
-      "name": "Eternal Flame",
-      "age": 1000000,
-      "secretIdentity": "Unknown",
-      "powers": [
-        "Immortality",
-        "Heat Immunity",
-        "Inferno",
-        "Teleportation",
-        "Interdimensional travel"
-      ]
+      "powers": ["Radiation resistance", "Turning tiny", "Radiation blast"]
     }
   ]
 }
@@ -3574,53 +3584,47 @@ Esto puede resultar así:
 
 Si cargamos este string en un programa JavaScript, la analizamos en una variable llamada superHeroes, por ejemplo, podríamos acceder a los datos dentro de ella usando la misma notación de punto / corchete.
 
-```
-superHeroes.homeTown
-superHeroes['active']
-```
-
-Para acceder a los datos más abajo en la jerarquía, debe encadenar los nombres de propiedad requeridos y los índices de matriz juntos. Por ejemplo, para acceder a la tercera superpotencia del segundo héroe que aparece en la lista de miembros, debe hacer esto:
-
-```
-superHeroes['members'][1]['powers'][2]
+```js
+superHeroes.homeTown;
+superHeroes['active'];
 ```
 
-1. Primero tenemos el nombre de la variable: superhéroes.
-2. Dentro de eso queremos acceder a la propiedad de los miembros, entonces usamos ["miembros"].
+Para acceder a los datos más abajo en la jerarquía, debe encadenar los nombres de propiedad requeridos y los índices de matriz juntos.
+
+Por ejemplo, para acceder a la tercera superpotencia del segundo héroe que aparece en la lista de miembros, debe hacer esto:
+
+```js
+superHeroes['members'][1]['powers'][2];
+```
+
+1. Primero tenemos el nombre de la variable: superHeroes.
+2. Dentro de eso queremos acceder a la propiedad de los miembros, entonces usamos ["members"].
 3. _members_ contiene una matriz poblada por objetos. Queremos acceder al segundo objeto dentro de la matriz, así que usamos [1].
-4. Dentro de este objeto, queremos acceder a la propiedad de poderes, por lo que usamos ["poderes"].
+4. Dentro de este objeto, queremos acceder a la propiedad de poderes, por lo que usamos ["powers"].
 5. Dentro de la propiedad de poderes hay una matriz que contiene los superpoderes del héroe seleccionado. Queremos el tercero, así que usamos [2].
 
 ### Arrays como JSON
 
 También podemos trabajar conviertiendo de un array a un JSON y viceversa:
 
-```
+```js
 [
   {
-    "name": "Molecule Man",
-    "age": 29,
-    "secretIdentity": "Dan Jukes",
-    "powers": [
-      "Radiation resistance",
-      "Turning tiny",
-      "Radiation blast"
-    ]
+    name: 'Molecule Man',
+    age: 29,
+    secretIdentity: 'Dan Jukes',
+    powers: ['Radiation resistance', 'Turning tiny', 'Radiation blast'],
   },
   {
-    "name": "Madame Uppercut",
-    "age": 39,
-    "secretIdentity": "Jane Wilson",
-    "powers": [
-      "Million tonne punch",
-      "Damage resistance",
-      "Superhuman reflexes"
-    ]
-  }
-]
+    name: 'Madame Uppercut',
+    age: 39,
+    secretIdentity: 'Jane Wilson',
+    powers: ['Million tonne punch', 'Damage resistance', 'Superhuman reflexes'],
+  },
+];
 ```
 
-Lo anterior es JSON perfectamente válido. Solo tendría que acceder a los elementos de la matriz (en su versión analizada) comenzando con un índice de matriz, por ejemplo, [0] ["powers"] [0].
+Lo anterior es JSON perfectamente válido. Solo tendría que acceder a los elementos de la matriz (en su versión analizada) comenzando con un índice de matriz, por ejemplo, [0]["name"]
 
 ### Otras notas
 
@@ -3632,23 +3636,25 @@ Lo anterior es JSON perfectamente válido. Solo tendría que acceder a los eleme
 
 # Obteniendo un JSON
 
-Para obtener el JSON, usamos una API llamada XMLHttpRequest (a menudo llamada XHR). Este es un objeto de JavaScript muy útil que nos permite realizar solicitudes de red para recuperar recursos de un servidor a través de JavaScript (por ejemplo, imágenes, texto, JSON, incluso fragmentos de HTML ), lo que significa que podemos actualizar pequeñas secciones de contenido sin tener que volver a cargar toda la página.
+Para obtener el JSON, usamos una API llamada XMLHttpRequest (a menudo llamada XHR).
+
+Este es un objeto de JavaScript muy útil que nos permite realizar solicitudes de red para recuperar recursos de un servidor a través de JavaScript (por ejemplo, imágenes, texto, JSON, incluso fragmentos de HTML ), lo que significa que podemos actualizar pequeñas secciones de contenido sin tener que volver a cargar toda la página.
 
 1. Para empezar, almacenamos la URL del JSON que queremos recuperar en una variable:
 
-```
+```js
 let requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';
 ```
 
 2. Para crear una solicitud, necesitamos crear una nueva instancia de objeto de solicitud desde el constructor XMLHttpRequest, usando la nueva palabra clave:
 
-```
+```js
 let request = new XMLHttpRequest();
 ```
 
 3. Ahora necesitamos abrir la solicitud usando el método open ():
 
-```
+```js
 request.open('GET', requestURL);
 ```
 
@@ -3659,19 +3665,19 @@ Esto requiere al menos dos parámetros; hay otros parámetros opcionales disponi
 
 4. Aquí estamos configurando el responseType en JSON, para que XHR sepa que el servidor devolverá JSON, y que esto debe convertirse detrás de escena en un objeto JavaScript. Luego, enviamos la solicitud con el método send ():
 
-```
+```js
 request.responseType = 'json';
 request.send();
 ```
 
 5. La última parte de esta sección implica esperar a que la respuesta regrese del servidor y luego lidiar con ella:
 
-```
-request.onload = function() {
+```js
+request.onload = function () {
   const superHeroes = request.response;
   populateHeader(superHeroes);
   showHeroes(superHeroes);
-}
+};
 ```
 
 Aquí estamos almacenando la respuesta a nuestra solicitud (disponible en la propiedad de respuesta) en una variable llamada superHeroes; ¡esta variable ahora contiene el objeto JavaScript basado en JSON! Luego pasamos ese objeto a dos llamadas de función: la primera llena el <header> con los datos correctos, mientras que el segundo crea una tarjeta de información para cada héroe del equipo y la inserta en la <section>.
@@ -3701,26 +3707,26 @@ A veces recibimos una cadena JSON sin procesar y necesitamos convertirla en un o
 
 Ejemplo:
 
-```
+```js
 request.open('GET', requestURL);
 request.responseType = 'text'; // now we're getting a string!
 request.send();
 
-request.onload = function() {
-const superHeroesText = request.response; // get the string from the response
-const superHeroes = JSON.parse(superHeroesText); // convert it to an object
-populateHeader(superHeroes);
-showHeroes(superHeroes);
-}
+request.onload = function () {
+  const superHeroesText = request.response; // get the string from the response
+  const superHeroes = JSON.parse(superHeroesText); // convert it to an object
+  populateHeader(superHeroes);
+  showHeroes(superHeroes);
+};
 ```
 
 Como puede adivinar, stringify () funciona al revés. Intente ingresar las siguientes líneas en la consola de JavaScript de su navegador una por una para verlo en acción:
 
-```
-let myObj = { name: "Chris", age: 38 };
-myObj
+```js
+let myObj = { name: 'Chris', age: 38 };
+myObj;
 let myString = JSON.stringify(myObj);
-myString
+myString;
 ```
 
 Aquí estamos creando un objeto JavaScript, luego verificamos lo que contiene, luego lo convertimos en una cadena JSON usando stringify () - guardando el valor de retorno en una nueva variable - luego volviéndolo a verificar.
@@ -3752,45 +3758,39 @@ Los objetos de fecha no están permitidos en JSON.
 Si necesita incluir una fecha, escríbala como una cadena.
 Puedes volver a convertirlo en un objeto de fecha más tarde:
 
-```
+```html
 <!DOCTYPE html>
 <html>
-<body>
+  <body>
+    <h2>Convert a string into a date object.</h2>
+    <p id="demo"></p>
 
-<h2>Convert a string into a date object.</h2>
-<p id="demo"></p>
-
-<script>
-const text = '{"name":"John", "birth":"1986-12-14", "city":"New York"}';
-const obj = JSON.parse(text);
-obj.birth = new Date(obj.birth);
-document.getElementById("demo").innerHTML = obj.name + ", " + obj.birth;
-</script>
-
-</body>
+    <script>
+      const text = '{"name":"John", "birth":"1986-12-14", "city":"New York"}';
+      const obj = JSON.parse(text);
+      obj.birth = new Date(obj.birth);
+      document.getElementById('demo').innerHTML = obj.name + ', ' + obj.birth;
+    </script>
+  </body>
 </html>
-
-Output:
-
-Convert a string into a date object.
-John, Sat Dec 13 1986 19:00:00 GMT-0500 (hora de Ecuador)
-
 ```
+
+Output: Convert a string into a date object. John, Sat Dec 13 1986 19:00:00 GMT-0500 (hora de Ecuador)
 
 O puede usar el segundo parámetro, de la función JSON.parse (), llamado reviver.
 El parámetro reviver es una función que verifica cada propiedad, antes de devolver el valor.
 
-```
+```js
 const text = '{"name":"John", "birth":"1986-12-14", "city":"New York"}';
 const obj = JSON.parse(text, function (key, value) {
-  if (key == "birth") {
+  if (key == 'birth') {
     return new Date(value);
   } else {
     return value;
   }
 });
 
-document.getElementById("demo").innerHTML = obj.name + ", " + obj.birth;
+document.getElementById('demo').innerHTML = obj.name + ', ' + obj.birth;
 ```
 
 #### Parsing Functions
@@ -3799,12 +3799,12 @@ No se permiten funciones en JSON.
 Si necesita incluir una función, escríbala como una cadena.
 Puedes volver a convertirlo en una función más tarde:
 
-```
+```js
 const text = '{"name":"John", "age":"function () {return 30;}", "city":"New York"}';
 const obj = JSON.parse(text);
-obj.age = eval("(" + obj.age + ")");
+obj.age = eval('(' + obj.age + ')');
 
-document.getElementById("demo").innerHTML = obj.name + ", " + obj.age();
+document.getElementById('demo').innerHTML = obj.name + ', ' + obj.age();
 ```
 
 ### Json Stringify
@@ -3813,16 +3813,14 @@ Un uso común de JSON es intercambiar datos hacia / desde un servidor web.
 Al enviar datos a un servidor web, los datos deben ser una cadena.
 Convierta un objeto JavaScript en una cadena con JSON.stringify ().
 
-```
-const obj = {name: "John", age: 30, city: "New York"};
+```js
+const obj = { name: 'John', age: 30, city: 'New York' };
 const myJSON = JSON.stringify(obj);
 ```
 
 El resultado sería una playlist.
 
 Tiene las mismas excepciones que Json Parse
-
-````
 
 # Reactividad
 
@@ -3841,7 +3839,7 @@ Componentes: Es un patrón visual repetido que se puede resumir algo independien
 
 Ejemplo:
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -3861,34 +3859,29 @@ Ejemplo:
     <script src="./index.js"></script>
   </body>
 </html>
+```
 
-
+```js
 const d = document,
   $item = d.getElementById('todo-item'),
   $list = d.getElementById('todo-list');
-
 d.addEventListener('submit', (e) => {
   if (!e.target.matches('#todo-form')) return false;
+  e.preventDefault(); //Agregar item to list
 
-  e.preventDefault();
-
-  //Agregar item to list
   let $li = d.createElement('li');
   $li.textContent = $item.value;
-  $list.appendChild($li);
-
-  // Limpiar el imput
+  $list.appendChild($li); // Limpiar el imput
   $item.value = '';
   $item.focus();
 });
-
 ```
 
 ## Manipulación del DOM basada en el Estado.
 
 1. Manipulación directa del estado:
 
-```
+```js
 const d = document;
 
 // Estado
@@ -3936,14 +3929,13 @@ d.addEventListener('submit', (e) => {
   $item.value = '';
   $item.focus();
 });
-
 ```
 
 2. Estado Reactivo
 
 Se evita redactar el estado directamente. Para que el estado original no vaya a tener propiedades que no necesito.
 
-```
+```js
 const d = document;
 
 // Estado
@@ -4007,14 +3999,13 @@ d.addEventListener('submit', (e) => {
   $item.value = '';
   $item.focus();
 });
-
 ```
 
 3. Estado inmutable
 
 Debemos evitar que el estado sea mutable. Es mutable porque se permite crear una copia del estado actual y añadiendo nuevos elementos y también porque se lo manipula directamente.
 
-```
+```js
 const d = document;
 
 // Estado
@@ -4086,8 +4077,4 @@ d.addEventListener('submit', (e) => {
   $item.value = '';
   $item.focus();
 });
-
 ```
-
-4. Componentes con Estado
-````
