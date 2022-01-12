@@ -2,10 +2,11 @@
 
 - [Patrón de diseño](#patrón-de-diseño)
   - [Objetivos de los patrones](#objetivos-de-los-patrones)
+  - [Historia](#historia)
   - [Categorías de Patrones de Diseño](#categorías-de-patrones-de-diseño)
-    - [Creacionales. Proveen diferentes mecanismos para crear objetos.](#creacionales-proveen-diferentes-mecanismos-para-crear-objetos)
-    - [Estructurales. Describen formas de componer objetos para formar nuevas estructuras flexibles y eficientes.](#estructurales-describen-formas-de-componer-objetos-para-formar-nuevas-estructuras-flexibles-y-eficientes)
-    - [De Comportamiento. Gestionan algoritmos y responsabilidades entre objetos.](#de-comportamiento-gestionan-algoritmos-y-responsabilidades-entre-objetos)
+    - [Creacionales](#creacionales)
+    - [Estructurales](#estructurales)
+    - [De Comportamiento](#de-comportamiento)
   - [Singleton (Creacional)](#singleton-creacional)
   - [Observer](#observer)
   - [Casos de Uso del patrón Observer: Redux](#casos-de-uso-del-patrón-observer-redux)
@@ -15,136 +16,159 @@
 
 Los patrones de diseño son unas técnicas para resolver problemas comunes en el desarrollo de software y otros ámbitos referentes al diseño de interacción o interfaces.
 
-Un patrón de diseño resulta ser una solución a un problema de diseño. Para que una solución sea considerada un patrón debe poseer ciertas características. Una de ellas es que debe haber comprobado su efectividad resolviendo problemas similares en ocasiones anteriores. Otra es que debe ser reutilizable, lo que significa que es aplicable a diferentes problemas de diseño en distintas circunstancias.1
+Un patrón de diseño resulta ser una solución a un problema de diseño.
+
+Para que una solución sea considerada un patrón debe poseer ciertas características. Una de ellas es que debe haber comprobado su efectividad resolviendo problemas similares en ocasiones anteriores.
+
+Otra es que debe ser reutilizable, lo que significa que es aplicable a diferentes problemas de diseño en distintas circunstancias.
 
 ## Objetivos de los patrones
 
 Los patrones de diseño pretenden:
 
-Proporcionar catálogos de elementos reusables en el diseño de sistemas software.
-Evitar la reiteración en la búsqueda de soluciones a problemas ya conocidos y solucionados anteriormente.
-Formalizar un vocabulario común entre diseñadores.
-Estandarizar el modo en que se realiza el diseño.
-Facilitar el aprendizaje de las nuevas generaciones de diseñadores condensando conocimiento ya existente.
+- Proporcionar catálogos de elementos reusables en el diseño de sistemas software.
+- Evitar la reiteración en la búsqueda de soluciones a problemas ya conocidos y solucionados anteriormente.
+- Formalizar un vocabulario común entre diseñadores.
+- Estandarizar el modo en que se realiza el diseño.
+- Facilitar el aprendizaje de las nuevas generaciones de diseñadores condensando conocimiento ya existente.
+
 Asimismo, no pretenden:
 
-Imponer ciertas alternativas de diseño frente a otras.
-Eliminar la creatividad inherente al proceso de diseño.
-No es obligatorio utilizar los patrones, solo es aconsejable en el caso de tener el mismo problema o similar que soluciona el patrón, siempre teniendo en cuenta que en un caso particular puede no ser aplicable. “Abusar o forzar el uso de los patrones puede ser un error”.
+- Imponer ciertas alternativas de diseño frente a otras.
+- Eliminar la creatividad inherente al proceso de diseño.
+- No es obligatorio utilizar los patrones, solo es aconsejable en el caso de tener el mismo problema o similar que soluciona el patrón, siempre teniendo en cuenta que en un caso particular puede no ser aplicable.
+
+"Abusar o forzar el uso de los patrones puede ser un error”.
 
 Volver a aprender el diseño CSS
+
 Si te encuentras luchando con el diseño CSS, es probable que estés tomando decisiones sobre los navegadores que deberían tomar ellos mismos. A través de una serie de diseños simples y componibles , cada diseño le enseñará cómo aprovechar mejor los algoritmos integrados que potencian los navegadores y CSS.
 
-Emplear un diseño de diseño algorítmico significa eliminar los @mediapuntos de interrupción, los " números mágicos " y otros trucos para crear componentes de diseño independientes del contexto. Sus futuros sistemas de diseño serán más consistentes, tendrán menos código y serán más maleables en manos de sus usuarios y sus dispositivos.
+Emplear un diseño de diseño algorítmico significa eliminar los puntos de interrupción, los "números mágicos" y otros trucos para crear componentes de diseño independientes del contexto.
+Sus futuros sistemas de diseño serán más consistentes, tendrán menos código y serán más maleables en manos de sus usuarios y sus dispositivos.
 
-Historia[editar]
+## Historia
+
 En 1979 el arquitecto Christopher Alexander aportó al mundo de la arquitectura el libro The Timeless Way of Building; en él proponía el aprendizaje y uso de una serie de patrones para la construcción de edificios de una mayor calidad, en la que esa mayor calidad se refería a la arquitectura antigua y la menor calidad correspondía a la arquitectura moderna, que el romper con la arquitectura antigua había perdido esa conexión con lo que las personas consideraban que era calidad.
 
-En palabras de este autor, "Cada patrón describe un problema que ocurre infinidad de veces en nuestro entorno, así como la solución al mismo, de tal modo que podemos utilizar esta solución un millón de veces más adelante sin tener que volver a pensarla otra vez."
-Los patrones que Christopher Alexander y sus colegas definieron, publicados en un volumen denominado A Pattern Language, son un intento de formalizar y plasmar de una forma práctica generaciones de conocimiento arquitectónico. Los patrones no son principios abstractos que requieran su redescubrimiento para obtener una aplicación satisfactoria, ni son específicos a una situación particular o cultural; son algo intermedio. Un patrón define una posible solución correcta para un problema de diseño dentro de un contexto dado, describiendo las cualidades invariantes de todas las soluciones. Dentro de las soluciones de Christopher Alexander se encuentran cómo se deben diseñar ciudades y dónde deben ir las perillas de las puertas.
+En palabras de este autor, "**Cada patrón describe un problema que ocurre infinidad de veces en nuestro entorno**, así como la solución al mismo, de tal modo que podemos utilizar esta solución un millón de veces más adelante sin tener que volver a pensarla otra vez."
 
-Más tarde, en 1987, Ward Cunningham y Kent Beck, sobrepasados por el pobre entrenamiento que recibían los nuevos programadores en orientación a objetos, se preguntaban cómo se podían capturar las buenas ideas para, luego de alguna manera, traspasarlas a los nuevos programadores recién instruidos en herencia y polimorfismo. Leyendo a Alexander se dieron cuenta del paralelo que existía entre la buena arquitectura propuesta por Alexander y la buena arquitectura OO, de modo que usaron varias ideas de Alexander para desarrollar cinco patrones de interacción hombre-ordenador (HCI) y publicaron un artículo en OOPSLA-87 titulado Using Pattern Languages for OO Programs.
+Los patrones que Christopher Alexander y sus colegas definieron, publicados en un volumen denominado A Pattern Language, son un intento de formalizar y plasmar de una forma práctica generaciones de conocimiento arquitectónico.
+
+Los patrones no son principios abstractos que requieran su redescubrimiento para obtener una aplicación satisfactoria, ni son específicos a una situación particular o cultural; son algo intermedio.
+
+**Un patrón define una posible solución correcta para un problema de diseño dentro de un contexto dado**, describiendo las cualidades invariantes de todas las soluciones.
+
+Dentro de las soluciones de Christopher Alexander se encuentran cómo se deben diseñar ciudades y dónde deben ir las perillas de las puertas.
+
+Más tarde, en 1987, Ward Cunningham y Kent Beck, sobrepasados por el pobre entrenamiento que recibían los nuevos programadores en orientación a objetos, se preguntaban cómo se podían capturar las buenas ideas para, luego de alguna manera, traspasarlas a los nuevos programadores recién instruidos en herencia y polimorfismo.
+
+Leyendo a Alexander se dieron cuenta del paralelo que existía entre la buena arquitectura propuesta por Alexander y la buena arquitectura OO, de modo que usaron varias ideas de Alexander para desarrollar cinco patrones de interacción hombre-ordenador (HCI) y publicaron un artículo en OOPSLA-87 titulado Using Pattern Languages for OO Programs.
 
 No obstante, no fue hasta principios de la década de 1990 cuando los patrones de diseño tuvieron un gran éxito en el mundo de la informática a partir de la publicación del libro Design Patterns escrito por el grupo Gang of Four (GoF) compuesto por Erich Gamma, Richard Helm, Ralph Johnson y John Vlissides, en el que se recogían 23 patrones de diseño comunes.
 
 ## Categorías de Patrones de Diseño
 
-### Creacionales. Proveen diferentes mecanismos para crear objetos.
+### Creacionales
 
 Proveen diferentes mecanismos para crear objetos.
 
-Abstract Factory
-Builder (Constructor)
-Factory Method
-Prototype
-Singleton
+- Abstract Factory
+- Builder (Constructor)
+- Factory Method
+- Prototype
+- Singleton
 
-### Estructurales. Describen formas de componer objetos para formar nuevas estructuras flexibles y eficientes.
+### Estructurales
 
 Describen formas de componer objetos para formar nuevas estructuras flexibles y eficientes.
-Adapter
-Bridge
-Composite
-Decorator
-Facade
-Flyweight
-Proxy
 
-### De Comportamiento. Gestionan algoritmos y responsabilidades entre objetos.
+- Adapter
+- Bridge
+- Composite
+- Decorator
+- Facade
+- Flyweight
+- Proxy
+
+### De Comportamiento
 
 Gestionan algoritmos y responsabilidades entre objetos.
-Chain of Responsibility
-Command
-Interpreter
-Iterator
-Mediator
-Memento
-Observer
-State
-Strategy
-Template Method
-Visitor
+
+- Chain of Responsibility
+- Command
+- Interpreter
+- Iterator
+- Mediator
+- Memento
+- Observer
+- State
+- Strategy
+- Template Method
+- Visitor
 
 ## Singleton (Creacional)
 
-Es un patrón que te asegura que una clase solo tiene una instancia. Esta única instancia puede ser consumida por cualquier otro objeto.
+Te asegura que una clase solo tiene una instancia. Esta única instancia puede ser consumida por cualquier otro objeto.
 
 “Single” en inglés es “sencillo” (o soltero ¬w¬) así que se puede recordar si se asocia con su significado “Singleton” vendría a ser un objeto o instancia “solterona”.
 
-Singlenton con TS
+- Singlenton con TS
+
 Uno de los patrones de diseño de creación más populares es el patrón Singleton que restringe la creación de instancias de una clase a un objeto.
-
-En esta publicación, le mostraré cómo usar el patrón junto con TypeScript.
-
-Es genial con TS
-La biblia de los patrones de diseño, a saber, el libro de Gang of Four (GoF), presenta la aplicación de patrones utilizando el lenguaje C ++, un lenguaje estáticamente tipado.
 
 TypeScript permite implementar el patrón Singleton gracias a las siguientes características:
 
-soporte para modificadores de acceso (privado, protegido, público),
-soporte para métodos estáticos,
-siendo un lenguaje estáticamente escrito.
-Patrón Singleton
-En el siguiente ejemplo, creo la clase ActionsBus que se supone que se instancia solo una vez, ya que debería haber un único punto para enviar una acción. Además, debe ser notificado sobre cada acción en el sistema simplemente suscribiéndose en un lugar.
+- soporte para modificadores de acceso (privado, protegido, público),
+- soporte para métodos estáticos,
+- siendo un lenguaje estáticamente escrito.
 
+En el siguiente ejemplo, creo la clase ActionsBus que se supone que se instancia solo una vez, ya que debería haber un único punto para enviar una acción.
+
+Además, debe ser notificado sobre cada acción en el sistema simplemente suscribiéndose en un lugar.
+
+```ts
 import { BehaviorSubject } from 'rxjs';
 
 interface Action {
-type: string;
+  type: string;
 }
 
 class ActionsBus {
-private static instance: ActionsBus;
-private actionsSubject = new BehaviorSubject<Action>(null);
+  private static instance: ActionsBus;
+  private actionsSubject = new BehaviorSubject<Action>(null);
 
-get actions$() {
-return this.actionsSubject.asObservable();
-}
+  get actions$() {
+    return this.actionsSubject.asObservable();
+  }
 
-private constructor() {
-}
+  private constructor() {}
 
-static getInstance(): ActionsBus {
-if (!ActionsBus.instance) {
-ActionsBus.instance = new ActionsBus();
-}
+  static getInstance(): ActionsBus {
+    if (!ActionsBus.instance) {
+      ActionsBus.instance = new ActionsBus();
+    }
 
     return ActionsBus.instance;
+  }
 
+  dispatch(action: Action) {
+    this.actionsSubject.next(action);
+  }
 }
+```
 
-dispatch(action: Action) {
-this.actionsSubject.next(action);
-}
-}
 Los puntos clave son:
 
-constructor con un modificador de acceso privado, para que no sea accesible fuera del cuerpo de la clase,
-instancia estática archivada que se supone que hace referencia a la instancia única de la clase,
-Método getInstance estático que se encarga de devolver la instancia de la clase. Además, sigue una estrategia de evaluación perezosa, por lo tanto, debe crear la instancia cuando se llama por primera vez.
+- constructor con un modificador de acceso privado, para que no sea accesible fuera del cuerpo de la clase,
+- instancia estática archivada que se supone que hace referencia a la instancia única de la clase,
+- Método getInstance estático que se encarga de devolver la instancia de la clase. Además, sigue una estrategia de evaluación perezosa, por lo tanto, debe crear la instancia cuando se llama por primera vez.
+
 Singleton en acción
+
 Veamos si la clase ActionsBus es un singleton, es decir, si solo hay una instancia de la clase.
 
+```ts
 //illegal since the constructor is private
 const illegalActionsBus = new ActionsBus();
 
@@ -155,44 +179,74 @@ const secondActionsBus = ActionsBus.getInstance();
 console.log(firstActionsBus === secondActionsBus);
 
 firstActionsBus.actions$.subscribe(console.log);
-secondActionsBus.dispatch({ type: 'Fetch news' })
+secondActionsBus.dispatch({ type: 'Fetch news' });
 
 //console output
 //{type: "Fetch news"}
-Es ilegal crear la instancia de clase de forma tradicional fuera del cuerpo de la clase. Para obtener una referencia a la instancia única de ActionsBus , debe llamar al método estático getInstance . Ambas constantes ( primer / segundo ActionsBus ) hacen referencia al mismo objeto, por lo tanto, la comparación lógica produce verdadero . Por último, pero no menos importante, si se suscribe a la acción $ stream con la ayuda de la referencia firstActionsBus , recibirá una acción enviada utilizando la referencia secondActionsBus . Definitivamente confirma que solo hay una instancia de la clase ActionsBus en el sistema.
+```
 
-Conclusiones
-Espero que les haya gustado la publicación y hayan aprendido algo nuevo. El patrón Singleton es uno de los patrones más fáciles de entender, por lo tanto, es un buen punto de partida para familiarizarse con los patrones. Recuerdo que cuando me uní al mundo de JavaScript, estaba un poco molesto porque, debido a la falta de tipeo, el conocimiento sobre los patrones de diseño no sería tan útil como en Java o C ++. Afortunadamente, TypeScript al rescate!
+Es ilegal crear la instancia de clase de forma tradicional fuera del cuerpo de la clase.
+
+Para obtener una referencia a la instancia única de ActionsBus, debe llamar al método estático getInstance.
+
+Ambas constantes ( primer / segundo ActionsBus ) hacen referencia al mismo objeto, por lo tanto, la comparación lógica produce verdadero.
+
+Por último, pero no menos importante, si se suscribe a la acción$ stream con la ayuda de la referencia firstActionsBus, recibirá una acción enviada utilizando la referencia secondActionsBus.
+
+Definitivamente confirma que solo hay una instancia de la clase ActionsBus en el sistema.
 
 ## Observer
 
-El patrón observer se compone de un sujeto que ofrece mecanismos de suscripción y desuscripción a múltiples observadores que quieren ser notificados de los cambios en dicho sujeto. Cada observador expone un método de update que es usado por el sujeto para notificar cualquier cambio a todos los suscritos.
+> Definir una dependencia uno a muchos entre objetos, de tal forma que cuando el objeto cambie de estado, todos sus objetos dependientes sean notificados automáticamente.
+
+El patrón observer se compone de un sujeto que ofrece mecanismos de suscripción y desuscripción a múltiples observadores que quieren ser notificados de los cambios en dicho sujeto.
+
+Cada observador expone un método de update que es usado por el sujeto para notificar cualquier cambio a todos los suscritos.
+
 Es uno de los patrones más utilizados, algunos ejemplos típicos son:
 
 - Newsletter
 - Sockets
 - Listeners en páginas web
 
-Observer (patrón de diseño)
-Observador (en inglés: Observer) es un patrón de diseño de software que define una dependencia del tipo uno a muchos entre objetos, de manera que cuando uno de los objetos cambia su estado, notifica este cambio a todos los dependientes. Se trata de un patrón de comportamiento (existen de tres tipos: creación, estructurales y de comportamiento), por lo que está relacionado con algoritmos de funcionamiento y asignación de responsabilidades a clases y objetos.
+Observador (en inglés: Observer) es un patrón de diseño de software que define una dependencia del tipo uno a muchos entre objetos, de manera que cuando uno de los objetos cambia su estado, notifica este cambio a todos los dependientes.
+
+Se trata de un patrón de **comportamiento**, por lo que está relacionado con algoritmos de funcionamiento y asignación de responsabilidades a clases y objetos.
 
 Los patrones de comportamiento describen no solamente estructuras de relación entre objetos o clases sino también esquemas de comunicación entre ellos y se pueden clasificar en función de que trabajen con clases (método plantilla) u objetos (cadena de responsabilidad, comando, iterador, recuerdo, observador, estado, estrategia, visitante).
 
 La variación de la encapsulación es la base de muchos patrones de comportamiento, por lo que cuando un aspecto de un programa cambia frecuentemente, estos patrones definen un objeto que encapsula dicho aspecto. Los patrones definen una clase abstracta que describe la encapsulación del objeto.
 
-Este patrón también se conoce como el patrón de publicación-inscripción o modelo-patrón. Estos nombres sugieren las ideas básicas del patrón, que son: el objeto de datos, que se le puede llamar Sujeto a partir de ahora, contiene atributos mediante los cuales cualquier objeto observador o vista se puede suscribir a él pasándole una referencia a sí mismo. El Sujeto mantiene así una lista de las referencias a sus observadores. Los observadores a su vez están obligados a implementar unos métodos determinados mediante los cuales el Sujeto es capaz de notificar a sus observadores suscritos los cambios que sufre para que todos ellos tengan la oportunidad de refrescar el contenido representado. De manera que cuando se produce un cambio en el Sujeto, ejecutado, por ejemplo, por alguno de los observadores, el objeto de datos puede recorrer la lista de observadores avisando a cada uno. Este patrón suele utilizarse en los entornos de trabajo de interfaces gráficas orientados a objetos, en los que la forma de capturar los eventos es suscribir listeners a los objetos que pueden disparar eventos.
+Este patrón también se conoce como el patrón de publicación-inscripción o modelo-patrón.
 
-El patrón observador es la clave del patrón de arquitectura Modelo Vista Controlador (MVC).1​ De hecho el patrón fue implementado por primera vez en el MVC de Smalltalk basado en un entorno de trabajo de interfaz.2​ Este patrón está implementado en numerosos bibliotecas y sistemas, incluyendo todos los toolkits de GUI.
+Estos nombres sugieren las ideas básicas del patrón, que son: el objeto de datos, que se le puede llamar Sujeto a partir de ahora, contiene atributos mediante los cuales cualquier objeto observador o vista se puede suscribir a él pasándole una referencia a sí mismo.
+
+El Sujeto mantiene así una lista de las referencias a sus observadores.
+
+Los observadores a su vez están obligados a implementar unos métodos determinados mediante los cuales el Sujeto es capaz de notificar a sus observadores suscritos los cambios que sufre para que todos ellos tengan la oportunidad de refrescar el contenido representado.
+
+De manera que cuando se produce un cambio en el Sujeto, ejecutado, por ejemplo, por alguno de los observadores, el objeto de datos puede recorrer la lista de observadores avisando a cada uno.
+
+Este patrón suele utilizarse en los entornos de trabajo de interfaces gráficas orientados a objetos, en los que la forma de capturar los eventos es suscribir listeners a los objetos que pueden disparar eventos.
+
+El patrón observer es la clave del patrón de arquitectura Modelo Vista Controlador (MVC).
+
+De hecho el patrón fue implementado por primera vez en el MVC de Smalltalk basado en un entorno de trabajo de interfaz.
+
+Este patrón está implementado en numerosos bibliotecas y sistemas, incluyendo todos los toolkits de GUI.
 
 Patrones relacionados: publicador-subscriptor, mediador, singleton.
 
-Objetivo
-Definir una dependencia uno a muchos entre objetos, de tal forma que cuando el objeto cambie de estado, todos sus objetos dependientes sean notificados automáticamente. Se trata de desacoplar la clase de los objetos clientes del objeto, aumentando la modularidad del lenguaje, creando las mínimas dependencias y evitando bucles de actualización (espera activa o sondeo). En definitiva, normalmente, se usará el patrón observador cuando un elemento quiere estar pendiente de otro, sin tener que estar comprobando de forma continua si ha cambiado o no.
+FIXME: Objetivo
+
+Se trata de desacoplar la clase de los objetos clientes del objeto, aumentando la modularidad del lenguaje, creando las mínimas dependencias y evitando bucles de actualización (espera activa o sondeo). En definitiva, normalmente, se usará el patrón observador cuando un elemento quiere estar pendiente de otro, sin tener que estar comprobando de forma continua si ha cambiado o no.
 
 Motivación
+
 Si se necesita consistencia entre clases relacionadas, pero con independencia, es decir, con un bajo acoplamiento.
 
 Estructura
+
 EstructuraPatronObservador.png
 Participantes
 Habrá sujetos concretos cuyos cambios pueden resultar interesantes a otros y observadores a los que al menos les interesa estar pendientes de un elemento y en un momento dado, reaccionar ante sus notificaciones de cambio. Todos los sujetos tienen en común que un conjunto de objetos quieren estar pendientes de ellos. Cualquier elemento que quiera ser observado tiene que permitir indicar:
