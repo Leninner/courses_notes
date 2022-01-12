@@ -2730,16 +2730,18 @@ En un nivel alto, los cargadores tienen dos propiedades en la configuración de 
 - La propiedad de prueba identifica qué archivo o archivos deben transformarse.
 - La propiedad de uso indica qué cargador se debe usar para realizar la transformación.
 
+```js
 const path = require('path');
 
 module.exports = {
-output: {
-filename: 'my-first-webpack.bundle.js',
-},
-module: {
-rules: [{ test: /\.txt$/, use: 'raw-loader' }],
-},
+  output: {
+    filename: 'my-first-webpack.bundle.js',
+  },
+  module: {
+    rules: [{ test: /\.txt$/, use: 'raw-loader' }],
+  },
 };
+```
 
 NOTE: Plugins
 

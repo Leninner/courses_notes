@@ -24,32 +24,35 @@ Module bundlers son herramientas de frontend que nos permiten usar archivos con 
 Webpack es una herramienta que nos permite preparar nuestro código para llevarlo a producción (module bundler)
 Webpack nos permite trabajar con:
 
-HTML
-CSS
-JavaScript
-Archivos estáticos
-Imágenes
-Fuentes
+- HTML
+- CSS
+- JavaScript
+- Archivos estáticos
+- Imágenes
+- Fuentes
 
 Tambien nos permite tener un modo en desarrollo para nuestros proyectos para hacer pruebas
 
 Nacio en el 2012, desde ese entonces varias empresas lo usan como ser:
 
-Twitter
-Instagram
-PayPal
-También nos permite
-Gestionar dependencias
-Ejecutar tareas
-Conversión de archivos
+- Twitter
+- Instagram
+- PayPal
+
+También nos permite:
+
+- Gestionar dependencias
+- Ejecutar tareas
+- Conversión de archivos
 
 Nos permite trabajar en módulos permitiéndonos tener un código separado en desarrollo, pero en producción en una fuente
-Webpack permite tener módulos de JS en formato
-AMD
-Common JS
-ES15
+Webpack permite tener módulos de JS en formato:
 
-RESUMEN: Webpack es un module bundler que nos permite trabajar con una variedad de tecnologías web empezando desde HTML y terminando con JS. Además de tener soporte para archivos estáticos
+- AMD
+- Common JS
+- ES15
+
+Webpack es un module bundler que nos permite trabajar con una variedad de tecnologías web empezando desde HTML y terminando con JS. Además de tener soporte para archivos estáticos
 
 ## Conceptos Básicos
 
@@ -97,22 +100,26 @@ npx webpack --mode <modo> => Sirve para cambiar entre modos dentro de webpack.
 
 Crear archivo: <webpack.config.js>
 
-const path = require("path");
+```js
+const path = require('path');
 
 module.exports = {
-entry: "./src/index.js",
-output: {
-path: path.resolve(\_\_dirname, "dist"),
-filename: "main.js",
-},
-resolve: {
-extensions: [".js"],
-},
+  entry: './src/index.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'main.js',
+  },
+  resolve: {
+    extensions: ['.js'],
+  },
 };
+```
 
 NOTE: Babel sirve para que el código sea compatible con todos los navegadores.
 
-> npm i babel-loader @babel/core @babel/preset-env @babel/plugin-transform-runtime -D
+```bash
+npm i babel-loader @babel/core @babel/preset-env @babel/plugin-transform-runtime -D
+```
 
 ## HTML
 
