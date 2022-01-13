@@ -12,6 +12,8 @@
   - [Complejidad en el futuro](#complejidad-en-el-futuro)
 - [Análisis Asintótico](#análisis-asintótico)
 - [Notación Big-O](#notación-big-o)
+  - [Clases de Big-O](#clases-de-big-o)
+  - [Cálculo de la Notación Big-O](#cálculo-de-la-notación-big-o)
 
 # Complejidad Algorítmica
 
@@ -134,3 +136,22 @@ Es un método para descubrir el comportamiento limitante de una función.
 2. Se busca una función matemática similar para poder gráficar el comportamiento del algorítmo.
 
 # Notación Big-O
+
+Con esta notación, buscamos una manera de escribir la eficiencia de un logarítmo de una manera sencilla
+
+Buscamos descubrir una función (constante, lineal, polinomial, logarítmica y exponencial) que sea **mayor o igual** a la complejidad del algoritmo
+
+## Clases de Big-O
+
+<center><img src="../utils/images/big.png" /></center>
+
+> https://www.geogebra.org/calculator/wc7dgmbt
+
+O(1) = O(🤗)
+O(log n) = O(🙂)
+O(n) = O(😶)
+O(n^2) = O(😪)
+O(2^n) = O(😩)
+O(n!) = O(😭)
+
+## Cálculo de la Notación Big-O
