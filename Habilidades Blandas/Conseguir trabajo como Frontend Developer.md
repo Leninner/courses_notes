@@ -18,6 +18,11 @@
   - [A nivel teórico](#a-nivel-teórico-2)
 - [Live coding](#live-coding)
 - [Resolución de problemas](#resolución-de-problemas)
+- [Recomendaciones generales para la entrevista](#recomendaciones-generales-para-la-entrevista)
+- [Buenas prácticas en HTML, CSS y JS a nivel teórico](#buenas-prácticas-en-html-css-y-js-a-nivel-teórico)
+- [Buenas prácticas en HTML, CSS y JS a nivel práctico](#buenas-prácticas-en-html-css-y-js-a-nivel-práctico)
+- [Pruebas técnicas](#pruebas-técnicas)
+  - [Entendimiento del problema](#entendimiento-del-problema)
 
 # Responsabilidades como frontend
 
@@ -187,3 +192,69 @@ Resolver problemas con codigo. Ejemplos de problemas:
 - Slider
 - Petición a API público. Ej. Giphy
 - form que guarde local storage
+
+# Recomendaciones generales para la entrevista
+
+Todos los días:
+
+- Codificar
+- Revisar el código
+- Aprender nuevos trucos
+
+Conocimientos === Tiempo libre, pasión y experiencia
+
+> Debemos aprender a vendernos, mostrar lo mejor que tenemos
+
+- Mostrarnos seguros y relajados
+- No tener miedo de decir NO SÉ
+- Profundiza, pero no demasiado
+- Tener una muy buena actitud
+- Escucha sugerencias
+- Haz preguntas sobre el empleo
+- Ser puntual
+- Se honesto
+- Confía en ti
+
+Preguntas para la empresa:
+
+- ¿Cómo se sienten en la empresa?
+- ¿Qué prestaciones dan a los trabajadores para crecer profesionalmente?
+
+# Buenas prácticas en HTML, CSS y JS a nivel teórico
+
+- Preguntar como será la entrevista a nivel teórico y práctico
+
+> Guía de estudios para Frontend Developer: https://medium.com/@chen.reuven/the-ultimate-study-guide-for-front-end-interview-776fa3ead1b3
+
+Las preguntas de entrevistas están diseñadas para emdir el nivel de conocimiento que tenemos en un lenguaje.
+
+# Buenas prácticas en HTML, CSS y JS a nivel práctico
+
+- Ubicate en un lugar cómodo
+- Ten listo tu ambiente. Trata de usar herramientas con las que ya estés familiarizada
+- Concéntrate y que comience el juego
+
+En HTML/CSS lo mas común es que te den un tiempo para maquetar una landing page. Prepara tu HTML con buenas prácticas desde el principio, verifica bien tu código desde el principio.
+
+En Javascript, la mayoría son ejercicios de algoritmos, puedes practicar esto en paginas como leetcode, hackerank, codewars etc
+
+> https://codeshare.io/ => Sirve para compartir código
+> https://www.lapa.ninja/post/shopflamingo/ => Landing page de inspiración
+
+- Todos los grandes líderes de la industria, también fueron rechazados en algún momento.
+
+- Todos los grandes líderes de la industria, también tuvieron que empezar por algún lado.
+
+- Todos los grandes líderes de la industria, también tuvieron que estar en varios procesos para encontrar la empresa de sus sueños.
+
+Recursos adicionales:
+
+- https://frontendinterviewhandbook.com/introduction/
+- https://github.com/h5bp/Front-end-Developer-Interview-Questions
+- https://frontendmasters.com/guides/front-end-handbook/2018/practice/interview-q.html
+
+# Pruebas técnicas
+
+Son aquellas pruebas que nos envian a casa para medir el nivel de nuestro código
+
+## Entendimiento del problema
