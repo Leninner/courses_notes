@@ -14,6 +14,9 @@
 - [Notación Big-O](#notación-big-o)
   - [Clases de Big-O](#clases-de-big-o)
   - [Cálculo de la Notación Big-O](#cálculo-de-la-notación-big-o)
+    - [Simplificar la notación](#simplificar-la-notación)
+  - [Evaluación de la complejidad temporal con notación Big-O](#evaluación-de-la-complejidad-temporal-con-notación-big-o)
+  - [Evaluación de la complejidad espacial con notación Big-O](#evaluación-de-la-complejidad-espacial-con-notación-big-o)
 
 # Complejidad Algorítmica
 
@@ -155,3 +158,73 @@ O(2^n) = O(😩)
 O(n!) = O(😭)
 
 ## Cálculo de la Notación Big-O
+
+Para medir el tiempo se debe tener en cuenta el tiempo de ejecución de cada línea de código, así:
+
+```js
+let bar = 'test'	// O(1)
+if() {}		// O(1)
+for() {}		// O(n)
+while() {}	// O(n)
+for() { for() {} }// O(n^2)
+```
+
+Para medir el espacio se debe tener en cuenta el espacio de cada línea de código, así:
+
+```js
+let bar = 'test'  // 0(1)
+if () {}               // 0(1)
+for () {}             // 0(1)
+let resultado = [1,2,...,n]  // 0(n)
+let dimensional = [[2,4],[6,8],[10,12]] //0(n^2)
+```
+
+### Simplificar la notación
+
+Se debe simplificar lo más que se pueda, así:
+
+- O(3 x n) = O(n)
+- O(50) = O(1)
+- O(n^2 + 50) = O(n^2)
+
+> El crecimiento siempre importa
+
+- La complejidad algorítmica nace para averiguar la cantidad de recursos que utiliza el algoritmo al ejecutarse
+- La notación Big-O se enfoca en analizar el crecimiento
+
+## Evaluación de la complejidad temporal con notación Big-O
+
+Para hacer una medición del tiempo con notación Big-O, vamos a tener una operación sencilla entre el tiempo de cada instrucción de código, así:
+
+```js
+/**
+ * Este algoritmo hace un ordenamiento burbuja para encontrar un elemento en un arreglo.
+ * Complejidad temporal = O(n^2 + 9) = O(n^2)
+ */
+
+function bubbleSort(array) {
+  let swapped = true; // O (1)
+  let j = 0; // O (1)
+
+  while (swapped) {
+    // O (n)
+    swapped = false; // O (1)
+    j++; // O (1)
+
+    for (let i = 0; i < array.length - j; i++) {
+      // O (n)
+      if (array[i] > array[i + 1]) {
+        // O (1)
+        let tmp = array[i]; // O (1)
+        array[i] = array[i + 1]; // O (1)
+        array[i + 1] = tmp; // O (1)
+        swapped = true; // O (1)
+      }
+    }
+  }
+
+  return array; // O (1)
+}
+```
+
+## Evaluación de la complejidad espacial con notación Big-O
