@@ -17,6 +17,8 @@
     - [Simplificar la notación](#simplificar-la-notación)
   - [Evaluación de la complejidad temporal con notación Big-O](#evaluación-de-la-complejidad-temporal-con-notación-big-o)
   - [Evaluación de la complejidad espacial con notación Big-O](#evaluación-de-la-complejidad-espacial-con-notación-big-o)
+- [Recomendaciones para la evaluación de algoritmos](#recomendaciones-para-la-evaluación-de-algoritmos)
+- [Retos de Análisis](#retos-de-análisis)
 
 # Complejidad Algorítmica
 
@@ -113,7 +115,7 @@ En este caso analizamos el espacio que ocupa un algorítmo para resolver un prob
 
 La complejidad espacial incluye el espacio auxiliar y el espacio ocupado por los datos de entrada.
 
-El espacio auxiliar es el
+El espacio auxiliar es el espacio ocupado por el cuerpo del algoritmo, pero no por los datos de entrada
 
 `espacio total - espacio datos de entrada`
 
@@ -196,6 +198,8 @@ Se debe simplificar lo más que se pueda, así:
 
 Para hacer una medición del tiempo con notación Big-O, vamos a tener una operación sencilla entre el tiempo de cada instrucción de código, así:
 
+- Cuando tenemos bucles anidados, entonces vamos a ver que tenemos un O(n^2)
+
 ```js
 /**
  * Este algoritmo hace un ordenamiento burbuja para encontrar un elemento en un arreglo.
@@ -228,3 +232,140 @@ function bubbleSort(array) {
 ```
 
 ## Evaluación de la complejidad espacial con notación Big-O
+
+- Siempre se debe tomar el valor más grande en la notación Big-O
+
+Se debe tener en cuenta el espacio que es usado por el algorítmo:
+
+```js
+/**
+ * Este algoritmo hace un ordenamiento por selección para encontrar un elemento en un arreglo.
+ * Complejidad temporal = O(n^2 + 8) = O(n^2)
+ * Complexidad espacial = O(n)
+ * Espacio auxiliar = Complexidad espacial - espacio temporal = O(1)
+ */
+
+function selectionSort(array) {
+  // O(n)
+  for (let i = 0; i < array.length; i++) {
+    // O(1)
+    let min = i; // O(1)
+
+    for (let j = i + 1; j < array.length; j++) {
+      // O(1)
+      if (array[j] < array[min]) {
+        min = j;
+      }
+    }
+
+    if (min !== i) {
+      let tmp = array[i]; // O(1)
+      array[i] = array[min];
+      array[min] = tmp;
+    }
+  }
+
+  return array;
+}
+```
+
+# Recomendaciones para la evaluación de algoritmos
+
+El crecimiento no siempre importa, hay otras variables que entran en juego para determinar si un algoritmo es bueno o no.
+
+Tengamos en cuenta algo: Un algoritmo no se va a ejecutar de la misma manera en una computadora de los años 2000 a comparación de una computadora de los años actuales
+
+# Retos de Análisis
+
+> Esta es mi solución, sin embargo pues cambiar
+
+- Complejidad temporal: O(n^2)
+- Complejidad espacial: O(n)
+- Espacio auxiliar: O(1)
+
+```js
+async function algoritmoAlfa(payloadId, payloadAPI) {
+  let respuesta = await fetch(payloadAPI);
+  let data = await respuesta.json();
+
+  for (let i = 0; i < data.length; i++) {
+    let payloads = data[i].rocket.second_stage['payloads'];
+    for (let j = 0; j < payloads.length; j++) {
+      if (payloadId == payloads[j].payload_id) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+```
+
+- Complejidad temporal: O(n^2)
+- Complejidad espacial: O(n)
+- Espacio auxiliar: O(1)
+
+```js
+async function algoritmoBeta(payloadId, payloadAPI) {
+  let arreglosCoinciden = (arreglo1, arreglo2) => {
+    if (arreglo1.length != arreglo2.length) {
+      return false;
+    }
+
+    for (let i = 0; i < arreglo1.length; i++) {
+      if (arreglo1[i] != arreglo2[i]) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  let respuesta = await fetch(payloadAPI);
+  let data = await respuesta.json();
+  let payloadIdArray = payloadId.split('');
+
+  for (let i = 0; i < data.length; i++) {
+    let payloads = data[i].rocket.second_stage.payloads;
+    for (let j = 0; j < payloads.length; j++) {
+      if (arreglosCoinciden(payloadIdArray, payloads[j].payload_id.split(''))) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+```
+
+- Complejidad temporal: O(n)
+- Complejidad espacial: O(n)
+- Espacio auxiliar: O(1)
+
+```js
+async function algoritmoDelta(payloadId, payloadAPI) {
+  let respuesta = await fetch(payloadAPI);
+  let data = await respuesta.json();
+  let listaDePayloads = [];
+  let longitudData = data.length;
+
+  for (let i = 0; i < longitudData; i++) {
+    let payloads = data[i].rocket;
+    listaDePayloads.push(...payloads.second_stage['payloads']);
+  }
+
+  for (let i = 0; i < listaDePayloads.length; i++) {
+    let localPayloadId = listaDePayloads[i].payload_id;
+
+    if (localPayloadId == payloadId) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+```
+
+<img src="../utils/images/espacio.png">
+<img src="../utils/images/tiempo.png">
+<img src="../utils/images/simplificacion.png">
