@@ -494,9 +494,25 @@ class Welcome extends Component {
 }
 ```
 
+Si defines un componente funcional, **las props se reciben directamente en los argumentos de la función**:
+
+```js
+export const SomeComponent = (props) => {
+  return <h1>{props.name}</h1>;
+};
+```
+
+- También se puede utilizar destructuración de Objetos para recibir las props
+
+```js
+export const SomeComponent = ({ name }) => {
+  return <h1>{name}</h1>;
+};
+```
+
 NOTE: Default Props
 
-```javascript
+```js
 import React from 'react';
 
 export default function Propiedades(props) {
@@ -576,7 +592,7 @@ En React hay varias formas de crear un componente:
 
 1. Con clases: (Actualmente no se usa)
 
-```javascript
+```js
 class Componente extends React.Components {
   render() {
     return (
@@ -635,7 +651,7 @@ const Componente = () => {
   <h1>Dorime</h1>
 ```
 
-NOTE: Los componentes son una version traducida de los elementos en HTML a Javascript (JSX).
+> Los componentes son una version traducida de los elementos en HTML a Javascript (JSX).
 
 ## Propiedades vs Atributos
 
@@ -805,7 +821,9 @@ export default class RenderizadoElements extends React.Component {
             <li key={index}>{value}</li>
           ))}
         </ol>
+
         <h3>Frameworks Frontend Javascript</h3>
+
         <ul>
           {Data.frameworks.map((value) => (
             <ListItem framework={value.name} link={value.web} key={value.id} />
@@ -872,14 +890,13 @@ function CreateTodoButton(props) {
 
   return (
     <button className="CreateTodoButton" onClick={() => onClickButton(props.msg)}>
-      {' '}
       +
     </button>
   );
 }
 ```
 
-NOTE: CADA VEZ QUE SE UTILICE EVENTOS DENTRO DE COMPONENTES DE CLASE, DEBEMOS UTILIZAR LA TÉCNICA DE BIND DENTRO DEL CONSTRUCTOR.
+> CADA VEZ QUE SE UTILICE EVENTOS DENTRO DE COMPONENTES DE CLASE, DEBEMOS UTILIZAR LA TÉCNICA DE BIND DENTRO DEL CONSTRUCTOR.
 
 Ejemplo:
 
