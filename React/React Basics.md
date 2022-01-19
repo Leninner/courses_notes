@@ -590,7 +590,7 @@ class Componente extends React.Components {
 
 Sintaxis:
 
-```javascript
+```js
 React.createElement(elemento, atributos, contenido);
 ```
 
@@ -600,7 +600,7 @@ En el **contenido** se coloca contenido que va dentro de la etiqueta. Es decir, 
 
 Veamos con un ejemplo:
 
-```javascript
+```js
 const ejemplo1 = React.createElement('h1', { id: 'title' }, 'Oli React');
 const ejemplo2 = React.createElement('p', { id: 'paragraph-elemental', class: 'paragraph' }, 'Oli React');
 const ejemplo2 = React.createElement('p', { id: 'paragraph-elemental', class: 'paragraph' }, 'Oli React');
@@ -610,7 +610,7 @@ Ambas versiones del ejemplo 2 son validas, solo es cuestión de que la persona l
 
 1. Con Funciones: (Se usa actualmente y es más cómodo que usar React.createElement())
 
-```javascript
+```js
 function Componente = () => {
  return(
   //Codigo
