@@ -22,7 +22,8 @@
 - [Buenas prácticas en HTML, CSS y JS a nivel teórico](#buenas-prácticas-en-html-css-y-js-a-nivel-teórico)
 - [Buenas prácticas en HTML, CSS y JS a nivel práctico](#buenas-prácticas-en-html-css-y-js-a-nivel-práctico)
 - [Pruebas técnicas](#pruebas-técnicas)
-  - [Entendimiento del problema](#entendimiento-del-problema)
+  - [Consejos para la prueba técnica](#consejos-para-la-prueba-técnica)
+- [NO RENDIRSE NUNCA](#no-rendirse-nunca)
 
 # Responsabilidades como frontend
 
@@ -255,6 +256,17 @@ Recursos adicionales:
 
 # Pruebas técnicas
 
-Son aquellas pruebas que nos envian a casa para medir el nivel de nuestro código
+Son aquellas pruebas que nos envian a casa para medir el nivel de nuestro código, sirven para medir nuestro conocimiento en cierto lenguaje o librería que la empresa quiera utilizar.
 
-## Entendimiento del problema
+## Consejos para la prueba técnica
+
+- Primero haz que funcione y luego lo pones bonito
+- Si tiene diseño, cuida cada detalle. La extensión PerfectPixel te puede ayudar con eso
+- Entregarla eo acordado
+- Cumple con el 100% de los requerimientos
+- Trata de hacer el deploy. Puedes usar github pages para esto, también está Netlify, Heroku etc
+- Haz tu código 100% en inglés. Si necesitas agregar comentarios en tu codigo deberia estar en inglés
+- Usa las mejores practicas
+- Haz un buen README
+
+# NO RENDIRSE NUNCA
