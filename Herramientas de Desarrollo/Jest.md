@@ -22,6 +22,10 @@
   - [Configuraciones y notas para evitar errores](#configuraciones-y-notas-para-evitar-errores)
   - [Para comprobar si un elemento se encuentra dentro de un componente](#para-comprobar-si-un-elemento-se-encuentra-dentro-de-un-componente)
 - [Ejemplos de Pruebas con Jest](#ejemplos-de-pruebas-con-jest)
+- [Pruebas con Fetching de Datos](#pruebas-con-fetching-de-datos)
+- [Simular clicks](#simular-clicks)
+- [Simular el Submit de un Formulario](#simular-el-submit-de-un-formulario)
+- [Notas importantes](#notas-importantes)
 
 # Testing Basics
 
@@ -518,5 +522,81 @@ describe('Debe estar en el documento', () => {
     expect(img.prop('src')).toBe(url);
     expect(img.prop('alt')).toBe(title);
   });
+});
+```
+
+# Pruebas con Fetching de Datos
+
+Para hacer pruebas con fetching de datos, simplemente utilizamos un código similar al siguiente:
+
+```js
+import { getData } from '../../helpers/getData';
+
+describe('Debe entregarme correctamente los datos en el fetching', () => {
+  test('Debe entregarme 10 elementos', async () => {
+    const datos = await getData('Goku');
+
+    expect(datos.length).toBe(10);
+  });
+
+  test('Debe entregarme 0 elementos', async () => {
+    const datos = await getData('');
+
+    expect(datos.length).toBe(0);
+  });
+});
+```
+
+# Simular clicks
+
+Para simluar clicks, podemos hacer uso de la función `simulate("click")`, y para simular cambios en un input, podemos hacer uso de la función `simulate("change")`
+
+- Puede ocurrir el caso de que el evento no se esté pasando y tengamos un error, para controlar eso, podemos hacer algo como esto:
+
+```js
+import { shallow } from 'enzyme';
+import { AddCategory } from '../../components/AddCategory';
+
+describe('Pruebas en el componente Add Category', () => {
+  const setCategories = () => {};
+  const wrapper = shallow(<AddCategory setCategories={setCategories} />);
+
+  test('Debe mostrarse correctamente', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  test('Debe funcionar el onChange en el input', () => {
+    const input = wrapper.find('ForwardRef(TextField)'); // con esto se busca el input con MUI
+    const value = 'Hola Mundo';
+
+    input.simulate('change', { target: { value } }); // aquí hacemos uso de simulate para simular el evento
+    const parent = wrapper.find('p');
+
+    expect(parent.text().trim()).toBe(value);
+  });
+});
+```
+
+# Simular el Submit de un Formulario
+
+Para simular el envío de un formulario podemos utilizar la función `simulate("submit")`, así:
+
+```js
+test('No debe postear la información al hacer submit', () => {
+  const form = wrapper.find('form');
+
+  form.simulate('submit', { preventDefault() {} });
+});
+s;
+```
+
+# Notas importantes
+
+Para reiniciar el componente antes de cada prueba, podemos hacer uso del método `beforeEach()`, así:
+
+```js
+beforeEach(() => {
+  jest.clearAllMocks(); // sirve para limpiar todas las simulaciones que hicimos en el componente
+  wrapper = shallow(<AddCategory setCategories={setCategories} />);
 });
 ```
