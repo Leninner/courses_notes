@@ -5,11 +5,13 @@
   - [Funciones en Javascript](#funciones-en-javascript)
   - [Funciones Puras](#funciones-puras)
   - [Objetos: Variables primitivas y no primitivas](#objetos-variables-primitivas-y-no-primitivas)
+    - [Modificación de Objetos](#modificación-de-objetos)
+  - [Inmutabilidad en nuestras funciones](#inmutabilidad-en-nuestras-funciones)
     - [Nota importante:](#nota-importante)
 
 # Programación Funcional
 
-La programación Funcional es un paradigma de programación.
+La programación Funcional es un paradigma de programación en donde se piensa diferente y se trata de hacer código más conciso y legible e incluso testeable,
 
 ## POO vs PF
 
@@ -79,7 +81,7 @@ Son funciones predecibles, que si las ejecutamos 10 veces, las 10 veces me tiene
 
 - Función pura
 
-Las funciones puras no dependen de factores externos y son predecibles, trabajan con los argumentos que asignamos y constantes como números, o PI.
+Las funciones puras no dependen de factores externos y son predecibles
 
 ```js
 //Pure function
@@ -120,9 +122,181 @@ time(); // 2023
 
 ## Objetos: Variables primitivas y no primitivas
 
-- Almacenamiento Stack: Aquí se guardan los tipos de datos primitivas como: bool, string, numbers. Los datos se guardan `uno encima de otro`
+- Almacenamiento Stack: Aquí se guardan los tipos de datos primitivas como: bool, string, numbers. Los datos se guardan `uno encima de otro`. El acceso a esta información es mucho más rápido.
 
-- Almacenamiento Heap: Aquí se guardan los objetos en lugares aleatorios de memoria
+```js
+let name = 'Lenin';
+let age = 78;
+```
+
+- Almacenamiento Heap: Aquí se guardan los **objetos** en lugares aleatorios de memoria. El acceso a esta información es un poco más lento. Para acceder a estos datos, se necesita una referencia a la variable.
+
+La siguiente variable **crea una referencia o un puntero** el cuál se almacena en el Stack para luego buscar información en el almacenamiento Heap, que es donde se almacena el objeto.
+
+```js
+let obj = {};
+```
+
+### Modificación de Objetos
+
+Para modificar variables primitivas no tenemos ningún inconveniente, ya que al estar almacenadas en el stack, tienen un valor exactamente definido, un ejemplo:
+
+```js
+let number = 12;
+let anotherNumber = number;
+
+console.log({ number, anotherNumber }); // 12 12
+
+anotherNumber += 1;
+
+console.log({ number, anotherNumber }); // 12 13
+```
+
+Tenemos este caso en objetos:
+
+```js
+let car = {
+  make: 'Honda',
+  model: 'Civic',
+  year: 2017,
+  color: 'red',
+  km: 0,
+};
+
+let newCar = car;
+
+console.table(car); // todo normal
+console.table(newCar); // todo normal
+
+newCar.year = 2000;
+
+console.table(car); // car.year = 2000
+console.table(newCar); // newCar.year = 2000
+```
+
+Lo anterior sucede porque en `let newCar = car` solamente crea una **nueva referencia** al objeto guardado en memoria heap y por lo tanto, al modificar la propiedad **year** en **newCar**, estamos modificando el mismo objeto al que apunta **car**.
+
+Para evitar lo anterior, tenemos varios métodos para copiar y modificar objetos:
+
+- Object.assign => Recibe dos argumentos, el primero es un nuevo objeto, y el segundo parámetro nos indica de dónde queremos copiar las propiedades:
+
+```js
+let car = {
+  make: 'Honda',
+  model: 'Civic',
+  year: 2017,
+  color: 'red',
+  km: 0,
+};
+
+let newCar = Object.assign({}, car);
+
+console.table(car); // todo normal
+console.table(newCar); // todo normal
+
+newCar.year = 2000;
+
+console.table(car); // car.year = 2017
+console.table(newCar); // newCar.year = 2000
+```
+
+- Spread operator
+
+```js
+let car = {
+  make: 'Honda',
+  model: 'Civic',
+  year: 2017,
+  color: 'red',
+  km: 0,
+};
+
+let newCar = { ...car };
+
+console.table(car); // todo normal
+console.table(newCar); // todo normal
+
+newCar.year = 2000;
+
+console.table(car); // car.year = 2017
+console.table(newCar); // newCar.year = 2000
+```
+
+- Object.assign: https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Object/assign
+- Spread operator: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+
+Object.assign y Spread operator no funcionan cuando queremos hacer copiar de objetos profundas y por esa razón se debe utilizar otros métodos para copiar objetos:
+
+- JSON.parse y JSON.stringify
+
+```js
+let car = {
+  make: 'Honda',
+  model: 'Civic',
+  year: 2017,
+  color: 'red',
+  km: 0,
+  owner: {
+    name: 'Lenin',
+    age: 18,
+  },
+};
+
+let newCar = JSON.parse(JSON.stringify(car));
+
+console.table(car); // todo normal
+console.table(newCar); // todo normal
+
+newCar.owner.name = 'Mathias';
+
+console.table(car); // car.owner.name = "Lenin"
+console.table(newCar); // newCar.owner.name = "Mathias"
+```
+
+## Inmutabilidad en nuestras funciones
+
+La inmutabilidad nos dice que no tenemos que manipular directamente la variable en la que estemos trabajando:
+
+- En este ejemplo, se está utilizando mutación ya que estamos cambiando directamente esa lista
+
+```js
+const doSome = (list, item, quantity) => {
+  list.push({
+    item,
+    quantity,
+  });
+
+  return list;
+};
+```
+
+- El mismo ejemplo anterior, pero sin mutación de la lista
+
+> Solución con clonación de primer nivel
+
+```js
+const doSome = (list, item, quantity) => {
+  return [...list, { item, quantity }];
+};
+```
+
+> Solución con clonación de todos los niveles
+
+```js
+const doSome = (list, item, quantity) => {
+  const newList = JSON.parse(JSON.stringify(list));
+
+  return [...newList, { item, quantity }];
+};
+
+// O
+
+const doSome = (list, item, quantity) => {
+  const newList = JSON.parse(JSON.stringify(list));
+
+  return newList.push({ iten, quantity });
+};
+```
 
 ### Nota importante:
 
