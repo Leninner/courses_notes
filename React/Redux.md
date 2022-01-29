@@ -27,7 +27,7 @@
   - [Llamando a múltiples reducers en un solo action](#llamando-a-múltiples-reducers-en-un-solo-action)
   - [Uso del estado en el action](#uso-del-estado-en-el-action)
   - [Inmutabilidad](#inmutabilidad)
-  - [Evitar sobre escritura](#evitar-sobre-escritura)
+  - [Evitar sobreescritura](#evitar-sobreescritura)
 
 # Redux Básico
 
@@ -344,21 +344,21 @@ const CarouselItem = (props) => {
   };
 
   return (
-    <div className='carousel-item'>
-      <img className='carousel-item__img' src={cover} alt={title} />
-      <div className='carousel-item__details'>
+    <div className="carousel-item">
+      <img className="carousel-item__img" src={cover} alt={title} />
+      <div className="carousel-item__details">
         <div>
-          <img className='carousel-item__details--img' src={playIcon} alt='Play Icon' />
-          <img className='carousel-item__details--img' src={plusIcon} alt='Plus Icon' onClick={handleSetFavorite} />
+          <img className="carousel-item__details--img" src={playIcon} alt="Play Icon" />
+          <img className="carousel-item__details--img" src={plusIcon} alt="Plus Icon" onClick={handleSetFavorite} />
           <img
-            className='carousel-item__details--img'
+            className="carousel-item__details--img"
             src={removeIcon}
-            alt='Remove Icon'
+            alt="Remove Icon"
             onClick={() => handleDeleteFavorite(id)}
           />
         </div>
-        <p className='carousel-item__details--title'>{title}</p>
-        <p className='carousel-item__details--subtitle'>{`${year} ${contentRating} ${duration}`}</p>
+        <p className="carousel-item__details--title">{title}</p>
+        <p className="carousel-item__details--subtitle">{`${year} ${contentRating} ${duration}`}</p>
       </div>
     </div>
   );
@@ -614,7 +614,7 @@ Recurso para obtener un spinner: https://loading.io/css/
 
 ```js
 const putContent = () => {
-  if (cargando) return <div class='lds-ripple'>{/*spinner*/}</div>;
+  if (cargando) return <div class="lds-ripple">{/*spinner*/}</div>;
 
   return <>{/*content*/}</>;
 };
@@ -644,7 +644,7 @@ const App = () => {
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path='/publications/:key' element={<Publications />} />{' '}
+          <Route path="/publications/:key" element={<Publications />} />{' '}
           {/*los 2 puntos nos dice que tiene que obtener los valores que le siguen a través del componente Link*/}
         </Routes>
       </Layout>
@@ -659,7 +659,7 @@ export default App;
 
 ```js
 <Link to={`/publications/${key}`}>
-  <div className='eye-solid icon'></div>
+  <div className="eye-solid icon"></div>
 </Link>
 ```
 
@@ -723,7 +723,7 @@ props.cargando;
 const { usuarios, error } = props;
 ```
 
-> NOTA IMPORTANTE: En cada reducer debe haber un estado inicial por defecto para que la función `combineReducers` haga su trabajo y retorne un único objeto de estado.\*(puede variar)
+> NOTA IMPORTANTE: En cada reducer debe haber un estado inicial por defecto para que la función `combineReducers` haga su trabajo y retorne un único objeto de estado. (puede variar)
 
 ## Múltiples Reducers
 
