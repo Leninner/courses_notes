@@ -7,6 +7,7 @@
   - [Objetos: Variables primitivas y no primitivas](#objetos-variables-primitivas-y-no-primitivas)
     - [Modificación de Objetos](#modificación-de-objetos)
   - [Inmutabilidad en nuestras funciones](#inmutabilidad-en-nuestras-funciones)
+  - [Shared state](#shared-state)
     - [Nota importante:](#nota-importante)
 
 # Programación Funcional
@@ -296,6 +297,31 @@ const doSome = (list, item, quantity) => {
 
   return newList.push({ iten, quantity });
 };
+```
+
+## Shared state
+
+Cuando una variable tiene un scope compartido, ya se de manera local o global.
+
+```js
+// Funciones impuras. Estamos creando un estado compartido en este ejemplo
+const a = {
+  value: 2,
+};
+
+const addOne = () => a.value++;
+
+const timesTwo = () => (a.value *= 2);
+
+// Funciones puras.
+
+const b = {
+  value: 2,
+};
+
+const addPureOne = (obj) => Object.assign({}, obj, { value: obj.value + 1 });
+
+const timesPureTwo = (obj) => Object.assign({}, obj, { value: obj.value * 2 });
 ```
 
 ### Nota importante:
