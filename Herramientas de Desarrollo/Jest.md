@@ -25,6 +25,7 @@
 - [Pruebas con Fetching de Datos](#pruebas-con-fetching-de-datos)
 - [Simular clicks](#simular-clicks)
 - [Simular el Submit de un Formulario](#simular-el-submit-de-un-formulario)
+- [Mock](#mock)
 - [Notas importantes](#notas-importantes)
 
 # Testing Basics
@@ -588,6 +589,25 @@ test('No debe postear la información al hacer submit', () => {
   form.simulate('submit', { preventDefault() {} });
 });
 s;
+```
+
+Para comprobar que estamos ejecutando una función, podemos hacer uso del siguiente método:
+
+```js
+expect(setCategories).toHaveBeenCalledWith(expect.any(Function));
+```
+
+# Mock
+
+Nos va a servir para simular el fetch de datos que un componente se necesita una serie de pasos:
+
+1. Debemos importar la función para hacer fetch.
+2. Debemos crear un mock con el `path` de la función de fetch de datos que queremos simular:
+
+```js
+import { useFetchGifs } from '../../hooks/useFetchGifs';
+
+jest.mock('../../hooks/useFetchGifs');
 ```
 
 # Notas importantes

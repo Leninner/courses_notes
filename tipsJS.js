@@ -1,15 +1,9 @@
-const persona = {
-  nombre: 'Juan',
-  apellido: 'Perez',
-  edad: 20,
-  direccion: {
-    calle: 'Calle falsa 123',
-  },
-};
+const isInOffice = false;
 
-// Copia en profundidad
-const theSamePerson = JSON.parse(JSON.stringify(persona));
+if (!isInOffice) {
+  console.log("I'm at home");
+  // I'm at home
+}
 
-// Copia hasta el primer nivel
-const theSamePerson2 = Object.assign({}, persona);
-const theSamePerson3 = { ...persona };
+console.assert(isInOffice, "I'm at home");
+// Assertion failed: I'm at home
