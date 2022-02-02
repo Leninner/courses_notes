@@ -599,15 +599,33 @@ expect(setCategories).toHaveBeenCalledWith(expect.any(Function));
 
 # Mock
 
-Nos va a servir para simular el fetch de datos que un componente se necesita una serie de pasos:
+Nos va a servir para simular el fetch de datos que un componente necesita, para lograrlo, debemos hacer una serie de pasos:
 
 1. Debemos importar la función para hacer fetch.
 2. Debemos crear un mock con el `path` de la función de fetch de datos que queremos simular:
 
 ```js
+import { shallow } from 'enzyme';
+import { GifGrid } from '../../components/GifGrid';
 import { useFetchGifs } from '../../hooks/useFetchGifs';
 
 jest.mock('../../hooks/useFetchGifs');
+
+describe('Vamos a tener una buena prueba', () => {
+  const category = 'One Punch';
+  const gifs = [{ id: 'ABC', url: 'https://localhost/one-punch.gif', title: 'One Punch' }];
+
+  useFetchGifs.mockReturnValue({ data: gifs, loading: true }); // El parámetro enviado debe ser igual a la data que retorna el hook.
+  //Este método se debe escribir antes de hacer el wrapper para que pueda funcionar
+
+  const wrapper = shallow(<GifGrid category={category} />);
+
+  test('Debe coincidir con el snapshot', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  test('Debe mostrar las imágenes cuando se va cargando', () => {});
+});
 ```
 
 # Notas importantes
