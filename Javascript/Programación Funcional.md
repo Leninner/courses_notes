@@ -8,6 +8,10 @@
     - [Modificación de Objetos](#modificación-de-objetos)
   - [Inmutabilidad en nuestras funciones](#inmutabilidad-en-nuestras-funciones)
   - [Shared state](#shared-state)
+    - [Composición de funciones o Function composition](#composición-de-funciones-o-function-composition)
+  - [Closures en Programación Funcional](#closures-en-programación-funcional)
+  - [Currying](#currying)
+  - [Introducción a High Order Functions](#introducción-a-high-order-functions)
     - [Nota importante:](#nota-importante)
 
 # Programación Funcional
@@ -313,7 +317,7 @@ const addOne = () => a.value++;
 
 const timesTwo = () => (a.value *= 2);
 
-// Funciones puras.
+// Funciones puras
 
 const b = {
   value: 2,
@@ -323,6 +327,110 @@ const addPureOne = (obj) => Object.assign({}, obj, { value: obj.value + 1 });
 
 const timesPureTwo = (obj) => Object.assign({}, obj, { value: obj.value * 2 });
 ```
+
+### Composición de funciones o Function composition
+
+Recursos:
+
+- https://yeisondaza.com/componiendo-funciones-en-javascript
+- https://medium.com/javascript-scene/master-the-javascript-interview-what-is-function-composition-20dfb109a1a0
+
+Es cuando combinamos funciones para crear una nueva función.
+Para generar composición de funciones vamos a escribir código de la siguiente manera:
+
+```js
+const b = {
+  value: 2,
+};
+
+const addPureOne = (obj) => Object.assign({}, obj, { value: obj.value + 1 });
+
+const timesPureTwo = (obj) => Object.assign({}, obj, { value: obj.value * 2 });
+
+console.log(addPureOne(timesPureTwo(b))); // Aquí estamos haciendo una combinación de funciones
+```
+
+## Closures en Programación Funcional
+
+Los Closures son funciones que retornan otras funciones.
+
+Recuerdan el scope en el que fueron creadas, es decir, son funciones que utilizan principios de la programación funcional, no modifica el valor de variables u objetos externos, más bien, utilizan sus propias variables independientes (a partir de los parámetros que reciban estas funciones) para dar resultados correctos.
+
+Ejemplos de closures:
+
+```js
+const addFiveWithClosure = (a) => {
+  return (b) => a + b + 5;
+};
+
+const addFive = addFiveWithClosure(10);
+
+console.log(addFive(10)); // 25
+```
+
+Una forma simplificada de utilizar closures con arrow functions, es de la siguiente manera:
+
+```js
+const addFiveWithClosure = (a) => (b) => a + b + 5;
+```
+
+Ejemplo de uso en el curso de programación funcional de Platzi:
+
+```js
+const tagAtributes =
+  (object = {}) =>
+  (content = '') =>
+    `<${object.tag} ${object.attrs ? ` ${attrsToString(object.attrs)}` : ''}>${content}</${object.tag}>`;
+```
+
+## Currying
+
+El concepto de currying nace de los closures.
+
+Hacer currying es dividir las funciones en partes más pequeñas para que puedan recibir un solo argumento.
+
+```js
+const addFiveWithClosure = (a) => {
+  return (b) => a + b + 5;
+};
+
+const addFive = addFiveWithClosure(10);
+
+console.log(addFive(10)); // 25
+console.log(addFiveWithClosure(10)(23)); // 38
+```
+
+Otro ejemplo más elaborado:
+
+```js
+// Sin Currying
+function sumThreeNumbers(a, b, c) {
+  return a + b + c;
+}
+
+console.log(sumThreeNumbers(1, 2, 3)); // 6
+
+// Con currying
+function sumThreeNumbers(a) {
+  return function (b) {
+    return function (c) {
+      return a + b + c;
+    };
+  };
+}
+
+console.log(sumThreeNumbers(1)(2)(3)); // 6
+```
+
+Ejemplo de una suma de 3 números con currying y arrow functions:
+
+```js
+const sumThreeNumbers = (a) => (b) => (c) => a + b + c;
+
+console.log(sumThreeNumbers(1)(2)(3)); // 6
+```
+
+## Introducción a High Order Functions
 
 ### Nota importante:
 

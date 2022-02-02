@@ -475,7 +475,7 @@ Boolean(function () {}); //Cualquier función es verdadera también
 
 ## Hoisting
 
-Es cuando las variables y las funciones se declaran antes de que se ejecute cualquier código. En ES6+ No existe Hoisting.
+Es cuando las variables y las funciones se declaran antes de que se ejecute cualquier código. En ES6+ No existe Hoisting
 
 ## Coerción
 
