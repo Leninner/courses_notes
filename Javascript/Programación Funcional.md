@@ -430,7 +430,24 @@ const sumThreeNumbers = (a) => (b) => (c) => a + b + c;
 console.log(sumThreeNumbers(1)(2)(3)); // 6
 ```
 
+- Todas las funciones creadas hasta este momento se conocen como First Class Functions o Funciones de primer clase
+
 ## Introducción a High Order Functions
+
+Se caracterizan por recibir una función como parámetro. Un gran ejemplo de una HOF son los métodos de arrays:
+
+- `map`: Ejecuta una función sobre cada elemento de un array y devuelve el arreglo con mutaciones sobre el array original:
+
+```js
+const array1 = [1, 2, 3, 4, 5, 6];
+let array2 = array1.map(function (item) {
+  return item * 2;
+});
+
+// o
+
+let array2 = array1.map((item) => item * 2);
+```
 
 ### Nota importante:
 
