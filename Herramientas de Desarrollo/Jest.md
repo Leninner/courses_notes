@@ -26,6 +26,7 @@
 - [Simular clicks](#simular-clicks)
 - [Simular el Submit de un Formulario](#simular-el-submit-de-un-formulario)
 - [Mock](#mock)
+- [Pruebas con Hooks](#pruebas-con-hooks)
 - [Notas importantes](#notas-importantes)
 
 # Testing Basics
@@ -626,6 +627,14 @@ describe('Vamos a tener una buena prueba', () => {
 
   test('Debe mostrar las imágenes cuando se va cargando', () => {});
 });
+```
+
+# Pruebas con Hooks
+
+Para poder hacer pruebas en custom hooks debemos instalar un paquete adicional, llamado [react-hooks-testing-library](https://react-hooks-testing-library.com/):
+
+```bash
+$ npm install --save-dev @testing-library/react-hooks
 ```
 
 # Notas importantes
