@@ -12,6 +12,7 @@
   - [Closures en Programación Funcional](#closures-en-programación-funcional)
   - [Currying](#currying)
   - [Introducción a High Order Functions](#introducción-a-high-order-functions)
+  - [Programación declarativa](#programación-declarativa)
     - [Nota importante:](#nota-importante)
 
 # Programación Funcional
@@ -448,6 +449,14 @@ let array2 = array1.map(function (item) {
 
 let array2 = array1.map((item) => item * 2);
 ```
+
+## Programación declarativa
+
+La programación imperativa consiste en explicar paso a paso cómo conseguir un resultado, en cambio, la programación declarativa se centra en qué hay que hacer.
+
+Podemos utilizar programación declarativa trabajando con funciones especiales de JavaScript.
+
+Por ejemplo, en vez de utilizar un ciclo for, podemos utilizar la función .map para ejecutar alguna función en cada elemento de una array, el resultado es el mismo pero, cuando utilizamos métodos declarativos es mucho más fácil de leer y entender nuestro código a primera vista.
 
 ### Nota importante:
 
