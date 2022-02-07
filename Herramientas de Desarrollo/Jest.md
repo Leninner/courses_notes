@@ -27,6 +27,7 @@
 - [Simular el Submit de un Formulario](#simular-el-submit-de-un-formulario)
 - [Mock](#mock)
 - [Pruebas con Hooks](#pruebas-con-hooks)
+  - [Wait for next update](#wait-for-next-update)
 - [Notas importantes](#notas-importantes)
 
 # Testing Basics
@@ -635,6 +636,60 @@ Para poder hacer pruebas en custom hooks debemos instalar un paquete adicional, 
 
 ```bash
 $ npm install --save-dev @testing-library/react-hooks
+```
+
+Para empezar con pruebas sencillas en hooks, debemos hacer uso de `renderHook`, de otro modo, vamos a experimentar un error. El código de ejemplo es el siguiente:
+
+- Al llamar a `renderHook` debemos pasarle el hook que queremos probar, en este caso `useFetchGifs`. También hay que tener en cuenta que debemos hacer una destructuración de `renderHook` para poder acceder a los datos que retorna.
+
+```js
+import { useFetchGifs } from '../../hooks/useFetchGifs';
+import { renderHook } from '@testing-library/react-hooks';
+
+describe('Pruebas en Use Fetch Gifs', () => {
+  test('Debe retornar el estado inicial', () => {
+    const { result } = renderHook(() => useFetchGifs('One Punch')); // Destructuración de renderHook
+
+    const { data, loading } = result.current;
+
+    expect(data).toEqual([]);
+    expect(loading).toBe(true);
+  });
+});
+```
+
+## Wait for next update
+
+El método de `waitForNextUpdate` nos permite esperar a que se ejecute una cierta acción de nuestro hook. Este método es una promesa que no se resuelve hasta que la acción sea ejecutada.
+
+Un ejemplo de uso:
+
+```js
+import { useFetchGifs } from '../../hooks/useFetchGifs';
+import { renderHook } from '@testing-library/react-hooks';
+
+describe('Pruebas en Use Fetch Gifs', () => {
+  test('Debe retornar el estado inicial', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => useFetchGifs('One Punch'));
+
+    const { data, loading } = result.current;
+    await waitForNextUpdate();
+
+    expect(data).toEqual([]);
+    expect(loading).toBe(true);
+  });
+
+  test('Debe retornar un arreglo de imágenes y el arreglo en false', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => useFetchGifs('One Punch'));
+
+    await waitForNextUpdate();
+
+    const { data, loading } = result.current;
+
+    expect(data.length).toBe(10);
+    expect(loading).toBe(false);
+  });
+});
 ```
 
 # Notas importantes
