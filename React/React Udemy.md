@@ -25,6 +25,8 @@
     - [Eventos Sintéticos](#eventos-sintéticos)
   - [Hooks](#hooks)
     - [Use State](#use-state)
+    - [UseEffect](#useeffect)
+      - [Precauciones](#precauciones)
   - [Pruebas Unitarias y de Integración](#pruebas-unitarias-y-de-integración)
     - [AAA:](#aaa)
   - [Generando el Build para producción y despliegues en Github Pages](#generando-el-build-para-producción-y-despliegues-en-github-pages)
@@ -659,6 +661,64 @@ const handleAdd = (e) => {
 Son funciones que nos va a ayudar a crear mejores aplicaciones más facilmente
 
 ### Use State
+
+### UseEffect
+
+Va a ejecutar un effecto cuando haya cambios en algún elemento de su arreglo de dependencias.
+Solo se va a ejecutar una vez si no hay elementos en el arreglo de dependencias.
+Va a entrar a un bucle infinito si no se pasa un segundo parámetro para controlar el efecto.
+
+- Ejemplo de mal uso:
+
+```js
+useEffect(() => {
+  console.log('Ejecutando efecto');
+});
+```
+
+- Ejemplo de buen uso:
+
+```js
+useEffect(() => {
+  console.log('Ejecutando efecto');
+}, [
+  {
+    /*Arreglo de dependencias*/
+  },
+]);
+```
+
+El useEffect retorna una función de limpieza, que se va a ejecutar cuando el componente se desmonte, no exista o haya muerto, así:
+
+```js
+useEffect(() => {
+  effect;
+
+  return () => {
+    cleanUp;
+  };
+}, [inputs]);
+```
+
+#### Precauciones
+
+Si tenemos un evento de escucha en un effecto que solo se debe ejecutar cuando el componente se renderice y tenemos una función de retorno que no está eliminando ese evento de escucha, vamos a estar duplicando los eventos de escucha y por lo tanto la performance de nuestra aplicación va a caer a los suelos.
+
+Para controlar esto, podemos hacer un código de la siguiente manera:
+
+```js
+useEffect(() => {
+  const handleMove = () => {
+    console.log('Moviendo');
+  };
+
+  window.addEventListener('mousemove', handleMove);
+
+  return () => {
+    window.removeEventListener('mousemove', handleMove);
+  };
+}, []);
+```
 
 ## Pruebas Unitarias y de Integración
 
