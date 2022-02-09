@@ -25,6 +25,7 @@
 - [Use State](#use-state)
 - [Use Effect](#use-effect)
 - [Use Context](#use-context)
+- [Use Reducer](#use-reducer)
 
 ## Introducción a los Hooks
 
@@ -138,5 +139,47 @@ export const HooksApp = () => {
       <Characters />
     </div>
   );
+};
+```
+
+## Use Reducer
+
+Tiene características muy similar al concepto de `reducer` de Redux.
+Este hook nos permite manejar el estado de nuestro componente pero NO es una alternativa a Redux
+
+Este hook acepta dos parámetros, el `reducer` y el `initialState`:
+
+- Fuera del componente
+
+```js
+const initialState = {
+  favorites: [],
+};
+
+const favoriteReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'ADD_TO_FAVORITEs':
+      return { ...state, favorites: [...state.favorites, action.payload] };
+
+    default:
+      return state;
+  }
+};
+```
+
+- Dentro del componente:
+
+```js
+const [favorites, dispatch] = useReducer(favoriteReducer, initialState);
+```
+
+Se hace una destructuración de `useReducer` y se le pasa el `reducer` y el `initialState`.
+Para poder usar el dispatch debemos hacer algo como lo siguiente:
+
+```js
+const [favorites, dispatch] = useReducer(favoriteReducer, initialState);
+
+const handleClick = (character) => {
+  dispatch({ type: 'ADD_TO_FAVORITEs', payload: character });
 };
 ```
