@@ -28,6 +28,7 @@
 - [Use Reducer](#use-reducer)
 - [Memoization](#memoization)
 - [Use Memo](#use-memo)
+- [useRef](#useref)
 
 ## Introducción a los Hooks
 
@@ -277,3 +278,29 @@ const filteredUsers = useMemo(() => {
 ```
 
 `useMemo` recibe dos parámetros, un callback y un arreglo de dependencias (en este caso, `data` y `search`) y le va a permitir ejecutar el callback sólo cuando alguna de las dependencias cambie.
+
+## useRef
+
+[useRef](https://reactjs.org/docs/hooks-reference.html#useref)
+
+Nos va a permitir crear referencias a nuestros objetos de HTML. Es muy bueno usar este hook para controlar formularios e inputs para evitar bugs
+
+Para crear referencias vamos a importar el hook useRef y vamos a crear un código similar a este:
+
+```js
+import { useRef } from 'react';
+
+// Creación de la referencia
+
+const searchValue = useRef(null);
+
+// Utilización de la referencia
+
+<input type="text" name="search" id="search" value={search} onChange={handleSearch} ref={searchInput} />;
+```
+
+Para acceder a los datos de la referencia, vamos a utilizar el método `current`:
+
+```js
+const handleSearch = () => setSearch(searchInput.current.value);
+```
