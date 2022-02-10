@@ -29,6 +29,8 @@
 - [Memoization](#memoization)
 - [Use Memo](#use-memo)
 - [useRef](#useref)
+- [useCallback](#usecallback)
+- [Optimización de componentes en React con React.memo](#optimización-de-componentes-en-react-con-reactmemo)
 
 ## Introducción a los Hooks
 
@@ -304,3 +306,15 @@ Para acceder a los datos de la referencia, vamos a utilizar el método `current`
 ```js
 const handleSearch = () => setSearch(searchInput.current.value);
 ```
+
+## useCallback
+
+[When use useMemo and when use useCallback?](https://kentcdodds.com/blog/usememo-and-usecallback)
+
+[useCallback](https://reactjs.org/docs/hooks-reference.html#usecallback)
+
+Este hook nos va a ayudar a evitar cálculos innecesarios en nuestras funciones, funcione de manera similar a useMemo, solo que useCallback solo se usa en funciones.
+
+Hay que tener cuidado, ya que al estar implementando técnicas de rendimiento, si no lo hacemos con responsabilidad, vamos a tener peores problemas de rendimiento.
+
+## Optimización de componentes en React con React.memo
