@@ -26,6 +26,7 @@
 - [Use Effect](#use-effect)
 - [Use Context](#use-context)
 - [Use Reducer](#use-reducer)
+- [Memoization](#memoization)
 
 ## Introducción a los Hooks
 
@@ -183,3 +184,77 @@ const handleClick = (character) => {
   dispatch({ type: 'ADD_TO_FAVORITEs', payload: character });
 };
 ```
+
+## Memoization
+
+Con la técnica de la `memoización` vamos a ser capaces de guardar el resultados de los cálculos cada vez que los hacemos para no tener que repetirlos en el futuro.
+
+> Estamos ahorrando grandes cantidades de tiempo a cambio de `mucho` espacio de almacenamiento.
+
+Es una gran técnica de React para optimizar el rendimiento de nuestra aplicación.
+
+1. Ejemplo de memoization con el cálculo de `factorial` de un número:
+
+- La forma tradicional de calcular el factorial de un número con recursividad es:
+
+```js
+function factorial(n) {
+  if (n === 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}
+```
+
+Al momento de calcular el factorial de 5 y luego el factorial de 10, vamos a estar repitiendo los últimos cálculos del factorial de 5. Para evitar esto, podemos utilizar `memoization`:
+
+- Utilización de memoization para controlar el cálculo del factorial de un número:
+
+```js
+const memo = [];
+
+function memoFactorial(n) {
+  if (n === 1) {
+    return 1;
+  } else if (!memo[n]) {
+    memo[n] = n * memoFactorial(n - 1);
+  }
+  return memo[n];
+}
+```
+
+1. Ejemplo de memoization con el cálculo de `fibonacci`:
+
+> 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377...
+
+- El algoritmo para encontrar un número en la posición `n` en la serie de Fibonacci es:
+
+```js
+function fibonacci(n) {
+  if (n === 0 || n === 1) {
+    return 1;
+  } else {
+    return fibonacci(n - 1) + fibonacci(n - 2);
+  }
+}
+```
+
+Vamos a guardar el resultado de cada cálculo Fibonacci en una variable memo, así cuando debamos volver a calcular el Fibonacci de un número, podemos simplemente utilizar el resultado que previamente calculamos.
+
+```js
+const memo = [];
+
+function memoFibonacci(n) {
+  if (n === 0 || n === 1) {
+    return 1;
+  } else if (!memo[n]) {
+    memo[n] = memoFibonacci(n - 1) + memoFibonacci(n - 2);
+  }
+  return memo[n];
+}
+```
+
+> Recuerda que solo debemos implementar memoización en funciones puras, es decir, funciones que siempre devuelven el mismo resultado cuando enviamos los mismos argumentos.
+
+No implementes memoización en llamados a una API o para trabajar con fechas y horas en JavaScript.
