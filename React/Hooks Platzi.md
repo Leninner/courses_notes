@@ -27,6 +27,7 @@
 - [Use Context](#use-context)
 - [Use Reducer](#use-reducer)
 - [Memoization](#memoization)
+- [Use Memo](#use-memo)
 
 ## Introducción a los Hooks
 
@@ -258,3 +259,21 @@ function memoFibonacci(n) {
 > Recuerda que solo debemos implementar memoización en funciones puras, es decir, funciones que siempre devuelven el mismo resultado cuando enviamos los mismos argumentos.
 
 No implementes memoización en llamados a una API o para trabajar con fechas y horas en JavaScript.
+
+## Use Memo
+
+[useMemo](https://reactjs.org/docs/hooks-reference.html#usememo)
+
+Nos va a permitir evitar cálculos innecesarios en nuestra aplicación aplicando la técnica de la `memoización`
+
+Para hacer uso de useMemo, vamos a importar el Hook y vamos a crear un código similar a este filtro de búsquedas:
+
+```js
+const filteredUsers = useMemo(() => {
+  return data.filter((user) => {
+    return user.name.toLowerCase().includes(search.toLowerCase());
+  });
+}, [data, search]);
+```
+
+`useMemo` recibe dos parámetros, un callback y un arreglo de dependencias (en este caso, `data` y `search`) y le va a permitir ejecutar el callback sólo cuando alguna de las dependencias cambie.
