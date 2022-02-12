@@ -317,4 +317,14 @@ Este hook nos va a ayudar a evitar cálculos innecesarios en nuestras funciones,
 
 Hay que tener cuidado, ya que al estar implementando técnicas de rendimiento, si no lo hacemos con responsabilidad, vamos a tener peores problemas de rendimiento.
 
+Para usar este hook, lo hacemos así:
+
+```js
+import { useCallback } from 'react';
+// Uso de useCallback
+const handleSearch = useCallback(() => {
+  setSearch(searchInput.current.value);
+}, []);
+```
+
 ## Optimización de componentes en React con React.memo
