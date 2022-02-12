@@ -31,6 +31,9 @@
 - [useRef](#useref)
 - [useCallback](#usecallback)
 - [Optimización de componentes en React con React.memo](#optimización-de-componentes-en-react-con-reactmemo)
+  - [React.memo vs. React.PureComponent](#reactmemo-vs-reactpurecomponent)
+    - [¿Cómo funciones React.PureComponent?](#cómo-funciones-reactpurecomponent)
+    - [¿Cómo funciones React.memo y cuándo debo usarlo?](#cómo-funciones-reactmemo-y-cuándo-debo-usarlo)
 
 ## Introducción a los Hooks
 
@@ -328,3 +331,126 @@ const handleSearch = useCallback(() => {
 ```
 
 ## Optimización de componentes en React con React.memo
+
+Optimizar significa que vamos a ahorrar renders o cálculos innecesarios a nuestros componentes para darle una mejor experiencia a nuestros usuarios.
+
+### React.memo vs. React.PureComponent
+
+Vamos a evitar renders innecesarios causados por un mal manejo de las props
+
+#### ¿Cómo funciones React.PureComponent?
+
+Por defecto el método `shouldComponentUpdate` compara las props nuevas y viejas, si no han cambiado, evita volver a llamar el método render del componente.
+Es un método de `class components`.
+Esta comparación se llama [Shallow Comparison](https://github.com/facebook/react/blob/cb7075399376f4b913500c4e377d790138b31c74/packages/shared/shallowEqual.js#L19).
+
+- ¿Cuándo usarlo?
+
+Lo debemos usar cuando veamos que nuestros componentes tienes re-renders inncesearios. PAra poder indenfiticar esto vamos a movernos a la pestaña `profiles` de React Dev Tools e indentifiquemos si una App tiene renders innecesarios
+
+#### ¿Cómo funciones React.memo y cuándo debo usarlo?
+
+React.memo es el equivalente en `functional components` de React.PureComponent el cuál se usa en `class components`
+
+- Ejemplo sin aplicacar React.memo
+
+```js
+const App = function () {
+  console.log('Render App');
+
+  const [count, setCount] = React.useState(1);
+  const [canEdit, setCanEdit] = React.useState(true);
+
+  const countPlusPlus = () => {
+    console.log('Click al botón de counter');
+    setCount(count + 1);
+  };
+
+  const toggleCanEdit = () => {
+    console.log('Click al botón de toggleCanEdit');
+    setCanEdit(!canEdit);
+  };
+
+  return (
+    <>
+      <button onClick={countPlusPlus}>Counter +1</button>
+      <Counter count={count} />
+
+      <button onClick={toggleCanEdit}>Toggle Can Edit</button>
+      <Permissions canEdit={canEdit} />
+    </>
+  );
+};
+
+const Permissions = function ({ canEdit }) {
+  console.log('Render Permissions');
+
+  return (
+    <form>
+      <p>Can Edit es {canEdit ? 'verdadero' : 'falso'}</p>
+    </form>
+  );
+};
+
+const Counter = function ({ count }) {
+  console.log('Render Counter');
+
+  return (
+    <form>
+      <p>Counter: {count}</p>
+    </form>
+  );
+};
+```
+
+En el ejemplo anterior, todos los componentes hijos se renderizan a pesar de no tener cambios en sus props.
+
+- Ahora usemos React.memo para que nuestro componente no se renderice si las props que recibe siguen igual que en el render anterior.
+
+```js
+const App = React.memo(function () {
+  /* … */
+});
+
+const Permissions = React.memo(function ({ canEdit }) {
+  /* … */
+});
+
+const Counter = React.memo(function ({ count }) {
+  /* … */
+});
+```
+
+Para crear una validación personalizada vamos a escribir un código como el siguiente:
+
+```js
+function memoStopIfPropsAreEqualOrNot(oldProps, newProps) {
+  return true;
+}
+
+const Permissions = React.memo(function ({ canEdit }) {
+  /* … */
+}, memoStopIfPropsAreEqualOrNot);
+```
+
+En el caso anterior evitamos que nuestro componente se actualice sin importar si cambian nuestras props.
+
+Pero ¿qué tal si sí debemos volver a renderizar cuando cambia alguna de nuestras props?
+
+```js
+function memoIsInputEqual(oldProps, newProps) {
+  if (oldProps.input.value !== newProps.input.value) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+const Permissions = React.memo(function ({ canEdit }) {
+  /* … */
+}, memoIsInputEqual);
+```
+
+La función de evaluación de React.memo debe devolver false si nuestras props son diferentes y, por ende, queremos permitir un nuevo render.
+
+> La reocmendación lo mismo que el autor marca, solo usarlo cuando veas que el componente no va a tener actualizaciones.
