@@ -38,6 +38,9 @@
 - [Integrar la aplicación con PayPal](#integrar-la-aplicación-con-paypal)
   - [Crear una app en PayPal para recibir pagos:](#crear-una-app-en-paypal-para-recibir-pagos)
   - [Ver mis traslaciones:](#ver-mis-traslaciones)
+- [Conectar la aplicación con la API de Google Maps](#conectar-la-aplicación-con-la-api-de-google-maps)
+- [Como conectar Leaflet con React](#como-conectar-leaflet-con-react)
+- [Continuous Integration y Continuous Delovery](#continuous-integration-y-continuous-delovery)
 
 ## Introducción a los Hooks
 
@@ -486,6 +489,70 @@ Si queremos revisar, actualizar el token o hacer algún cambio podemos regresar 
 
 IMPORTANTE: para efectos de pruebas es necesario tener tu token válido en modo “Sandbox”. Si quieres habilitar tu token para tu proyecto en producción solo debes de seguir los mismos pasos pero eligiendo la opción de “Live” y creando una nueva App.
 
+Para poder integrar de una mejor manera Paypal, vamos a instalar un paquete:
+
+```zsh
+npm i react-paypal-button-v2
+```
+
+Y para empezarlo a usar, vamos a crear una lógica de la siguiente manera:
+
+```js
+import { useContext } from 'react';
+import { AppContext } from '../context/AppContext';
+import { PayPalButton } from 'react-paypal-button-v2';
+import { useNavigate } from 'react-router-dom';
+
+export const Payment = () => {
+  const { state, addNewOrder } = useContext(AppContext);
+
+  const { cart, buyer } = state;
+  const navigate = useNavigate();
+
+  const paypalOptions = {
+    clientId: 'AQFrhhX_j2fu13qmV7zHpDoyqRRZWkk7ZZM6GvjoCZiXPrVJ9hZl6K_MAdfGP8xddBTP7LWZ9peO-4kI',
+    intent: 'capture',
+    currency: 'USD',
+  };
+
+  const buttonStyles = {
+    layout: 'vertical',
+    shape: 'rect',
+  };
+
+  const handlePaymentSuccess = (data) => {
+    if (data.status === 'COMPLETED') {
+      const newOrder = {
+        buyer,
+        product: cart,
+        payment: data,
+      };
+
+      addNewOrder(newOrder);
+    }
+
+    navigate('/checkout/success');
+  };
+
+  const handleSumTotal = () => {
+    const reducer = (accumulator, currentValue) => accumulator + currentValue.price;
+    const sum = cart.reduce(reducer, 0);
+    return sum;
+  };
+
+  return (
+    <PayPalButton
+      paypalOptions={paypalOptions}
+      buttonStyles={buttonStyles}
+      amount={handleSumTotal()}
+      onSuccess={(data) => handlePaymentSuccess(data)}
+      onError={(error) => console.log(error)}
+      onCancel={(data) => console.log(data)}
+    />
+  );
+};
+```
+
 ### Crear una app en PayPal para recibir pagos:
 
 Para habilitar PayPal como un método de pago válido y recibir transacciones en tu proyecto en producción debemos crear una aplicación a la cual estará ligado nuestro token.
@@ -499,3 +566,79 @@ Es necesario especificar una URL de retorno cuando la transacción ha sido exito
 En el apartado de “Sandbox” podrás ver las cuentas creadas, notificaciones, los llamados a la API, el simulador entre otras herramientas que te ayudarán a darle seguimiento a tus pruebas de integración con PayPal.
 
 Para revisar tus llamados y eventos en tu API de producción solo debes de dirigirte al apartado “Live” donde encontrarás la información que estás solicitando para ver qué está pasando con cada evento ocurrido.
+
+## Conectar la aplicación con la API de Google Maps
+
+Para integrar la API de Google Maps en tu aplicación es necesario darse de alta en Google Developers
+
+Debemos instalar en nuestro proyecto un paquete que nos permitirá integrar la API de Google Maps.
+
+```zsh
+npm install @react-google-maps/api --save
+```
+
+El código debería ir parecido a esto:
+
+```js
+import React from 'react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+
+export const Maps = () => {
+  const mapStyles = {
+    width: '100%',
+    height: '50vh',
+  };
+
+  const defaultCenter = {
+    lat: -34.397,
+    lng: 150.644,
+  };
+
+  return (
+    <LoadScript googleMapsApiKey="AIzaSyBaX3mu5KydIro9HO58FxvoiF9P-ZWOcfc">
+      <GoogleMap mapContainerStyle={mapStyles} center={defaultCenter} zoom={9}>
+        <Marker position={defaultCenter} />
+      </GoogleMap>
+    </LoadScript>
+  );
+};
+```
+
+> Para conectar la API de Geolocalización, debemos pagar
+
+## Como conectar Leaflet con React
+
+> https://react-leaflet.js.org/
+
+Instalamos las dependencias:
+
+```zsh
+npm i leaflet react-leaflet
+```
+
+Creamos un código similar a este:
+
+```js
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+
+const position = [-1.159896, -78.59781];
+
+const style = {
+  width: '100%',
+  height: '50vh',
+};
+
+export const Maps = () => {
+  return (
+    <MapContainer center={position} zoom={13} style={style}>
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <Marker position={position} />
+    </MapContainer>
+  );
+};
+```
+
+## Continuous Integration y Continuous Delovery
+
+Github Actions es una herramiento de GitHub que nos permite crear prodcesos y flujos de trabajo para hacer deploy de aplicaciones y que automaticamente nos ayude a hacer una integración continua.
