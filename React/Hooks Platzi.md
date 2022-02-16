@@ -641,4 +641,55 @@ export const Maps = () => {
 
 ## Continuous Integration y Continuous Delovery
 
-Github Actions es una herramiento de GitHub que nos permite crear prodcesos y flujos de trabajo para hacer deploy de aplicaciones y que automaticamente nos ayude a hacer una integración continua.
+Github Actions es una herramiento de GitHub que nos permite crear procesos y flujos de trabajo para hacer deploy de aplicaciones y que automaticamente nos ayude a hacer una integración continua.
+
+Vamos a crear actions de Github para que podamos hacer deploy de nuestra aplicación automaticamente cada que hacemos un push a nuestro repo.
+
+Creamos en la raiz de nuestro proyecto una carpeta llamada `.github` y dentro otra carpeta llamada `workflows` y dentro creamos un archivo con un nombre descriptivo, en este caso vamos a hacer deploy a Firebase y por esa razón el nombre del archivo será `deploy-firebase.yml`.
+
+Dentro de este archivo vamos a añadir esta configuración:
+
+```yml
+name: Build and Deploy
+on: [push]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@main
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: dist
+          path: dist
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@main
+      - name: Download Artifact
+        uses: actions/download-artifact@main
+        with:
+          name: dist
+          path: dist
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          # Aquí estamos requiriendo el token guardado en los secrets de nuestro proyecto en GitHub.
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+```
+
+En GitHub vamos a crear un `secret` llamado `FIREBASE_TOKEN` y le asignamos el token de nuestra aplicación de Firebase.
+
+Para hacerlo vamos a ir a `settings` en nuestro repositorio que queremos desplegar y posteriormente buscamos el apartado de `secrets` y le damos a `actions` y luego a `new repository secret`
