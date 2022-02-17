@@ -92,3 +92,81 @@ Holiii
 ```
 
 # Configurar las variables de entorno en Node.js
+
+Existten variables que no se deben mostrar en le código directamente, como por ejemplo:
+
+- Credenciales
+- Tokens de APIs
+
+Para acceder a las variables de entorno vamos a acceder a nuestro proceso
+
+- Para acceder se hace algo así:
+
+```js
+const name = process.env.NAME;
+
+console.log('Hola ' + name);
+```
+
+Al momento de correr el archivo, podemos definir la variable de entorno, así:
+
+- Para Linux, MacOS:
+
+```zsh
+NAME=LENIN node path/to/file.js
+```
+
+- Para Windows en PowerShell:
+
+Primero debemos crear la variable de entorno así:
+
+```powershell
+$env:NOMBRE="Carlos"
+```
+
+Luego podemos ejecutar el código normalmente:
+
+```powershell
+node path/to/file.js
+```
+
+> Nombrar a las variables de entorno en UPPER_CASE y guión bajo
+
+# Herramientas para ser más felices: Nodemon y PM2
+
+1. Nodemon
+   Sirve para tener el código siempre ejecutándose, escuchando cambios y sin necesidad de reiniciar el proceso. Es una herramiento de desarrollo
+
+   > https://nodemon.io/
+
+   ```bash
+   npm i -g nodemon
+   ```
+
+2. PM2
+
+   - Es un administrador de procesos demonio que lo ayudará a administrar y mantener su aplicación en línea las 24 horas, los 7 días de la semana
+   - Enfocado a producción
+
+   > https://pm2.keymetrics.io/
+
+   ```bash
+   npm install pm2 -g
+   ```
+
+   Para empezar alguna aplicación, vamos a hacer:
+
+   ```bash
+   pm2 start ./path/to/file.js
+   ```
+
+   Usefuls:
+
+   ```bash
+   pm2 status
+   pm2 log
+   pm2 list
+   pm2 stop ./path/to/file.js
+   ```
+
+# CallBacks
