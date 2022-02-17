@@ -170,3 +170,141 @@ node path/to/file.js
    ```
 
 # CallBacks
+
+> Una HOF recibe una función como parámetro y devuelve una función. En otras palabras, un HOF, recibe un callback como parámetro
+
+Un callback es una función que es pasada como argumento a otra función para ser llamada en otro momento.
+
+La funcion que recibe como argumento otras funciones es denominada funcion de orden superior (higher-order function), esta contiene la logica correspondiente para ejecutar adecuadamente la funcion callback.
+
+En el siguiente codigo
+
+```js
+setTimeout(console.log('Hello'), 1000);
+```
+
+- setTimeout es una `higher-order function`
+- console.log es una `callback function`
+
+Ejemplo de callaback:
+
+```js
+const Hola = (name, callback) => {
+  setTimeout(() => {
+    console.log(`Hola ${name}`);
+    callback(name);
+  }, 1500);
+};
+
+const Adios = (name, callback) => {
+  setTimeout(() => {
+    console.log(`Adios ${name}`);
+    callback();
+  }, 1500);
+};
+
+Hola('Carlos', (nombre) => {
+  Adios(nombre, () => {
+    console.log('Terminando proceso...');
+  });
+});
+```
+
+# Callback Hell: refactorizar o sufrir
+
+Muchísimos callabacks anidados. Se ve así:
+
+```js
+const Hola = (name, callback) => {
+  setTimeout(() => {
+    console.log(`Hola ${name}`);
+    callback(name);
+  }, 1500);
+};
+
+const Hablar = (callback) => {
+  setTimeout(() => {
+    console.log('Hablar');
+    callback();
+  }, 1000);
+};
+
+const Adios = (name, callback) => {
+  setTimeout(() => {
+    console.log(`Adios ${name}`);
+    callback();
+  }, 1500);
+};
+
+//------------------------------------------------------
+
+Hola('Carlos', (nombre) => {
+  Hablar(() => {
+    Hablar(() => {
+      Hablar(() => {
+        Adios(nombre, () => {
+          console.log('Proceso finalizado');
+        });
+      });
+    });
+  });
+});
+```
+
+Para refactorizar el código y tener nuestro callback más legible vamos a hacer uso de la recursividad que quiére decir que una función se va a llamar a sí misma con ligeros cambios
+
+```js
+function hola(nombre, miCallback) {
+  setTimeout(function () {
+    console.log('Hola, ' + nombre);
+    miCallback(nombre);
+  }, 1500);
+}
+
+function hablar(callbackHablar) {
+  setTimeout(function () {
+    console.log('Bla bla bla bla...');
+    callbackHablar();
+  }, 1000);
+}
+
+function adios(nombre, otroCallback) {
+  setTimeout(function () {
+    console.log('Adios', nombre);
+    otroCallback();
+  }, 1000);
+}
+
+//En esta parte del código uso funciones recursivas porque estoy llamando a conversacion dentro de si misma. y mediante un If como estructura de control le digo que cantidad de veces va a  ejectuarse la funcion hablar.
+function conversacion(nombre, veces, callback) {
+  if (veces > 0) {
+    hablar(function () {
+      conversacion(nombre, --veces, callback);
+    });
+  } else {
+    adios(nombre, callback);
+  }
+}
+
+// --
+
+console.log('Iniciando proceso...');
+hola('Aleajandro-sin', function (nombre) {
+  conversacion(nombre, 3, function () {
+    console.log('Proceso terminado');
+  });
+});
+
+/****************HELL**********************/
+// hola('Alejandro', function (nombre) {
+//     hablar(function () {
+//         hablar(function () {
+//             hablar(function () {
+//                 adios(nombre, function() {
+//                     console.log('Terminando proceso...');
+//                 });
+//             });
+//         });
+//     });
+// });
+```

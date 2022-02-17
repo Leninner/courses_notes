@@ -1,5 +1,34 @@
-const name = process.env.NAME;
+const Hola = (name, callback) => {
+  setTimeout(() => {
+    console.log(`Hola ${name}`);
+    callback(name);
+  }, 1500);
+};
 
-console.log(`Hold on ${name}, I'm going to show you a tip!`);
+const Hablar = (callback) => {
+  setTimeout(() => {
+    console.log('Hablar');
+    callback();
+  }, 1000);
+};
 
-console.log('Leninner');
+const Adios = (name, callback) => {
+  setTimeout(() => {
+    console.log(`Adios ${name}`);
+    callback();
+  }, 1500);
+};
+
+//------------------------------------------------------
+
+Hola('Carlos', (nombre) => {
+  Hablar(() => {
+    Hablar(() => {
+      Hablar(() => {
+        Adios(nombre, () => {
+          console.log('Proceso finalizado');
+        });
+      });
+    });
+  });
+});
