@@ -1,5 +1,6 @@
 **ÍNDICE**
 
+- [Instalación y primeros pasos con TypeScript](#instalación-y-primeros-pasos-con-typescript)
 - [Typescript Bases](#typescript-bases)
   - [Tipos Básicos](#tipos-básicos)
   - [Funciones](#funciones)
@@ -11,6 +12,32 @@
   - [Comprensión private](#comprensión-private)
   - [Comprensión protected](#comprensión-protected)
 - [Refactorización](#refactorización)
+
+# Instalación y primeros pasos con TypeScript
+
+Necesitamos instalar globalmente Typescript para usarlo en cualquier proyecto, lo logramos con:
+
+```bash
+npm install -g typescript
+```
+
+Para poder ejecutar directamente archivos TS vamos a instalar:
+
+> Es bueno tener la extensión `Code Runner` instalada
+
+```bash
+npm install -g ts-node
+```
+
+Ahora estamos listos para empezar a tirar código con TS
+
+- Para generar un archivo de configuración de TS, vamos a ejecutar en la carpeta en donde estamos trabajando:
+
+```bash
+tsc --init
+```
+
+Dentro de esa carpeta vamos a encontrar varias opciones. Para conocer más vamos a [tsc CLI](https://www.typescriptlang.org/docs/handbook/compiler-options.html)
 
 # Typescript Bases
 
