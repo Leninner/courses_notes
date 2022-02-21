@@ -1,34 +1,26 @@
-const Hola = (name, callback) => {
-  setTimeout(() => {
-    console.log(`Hola ${name}`);
-    callback(name);
-  }, 1500);
+const fs = require('fs').promises;
+
+const readFile = async (path) => {
+  try {
+    const file = await fs.readFile(path, 'utf8');
+    console.log(file);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-const Hablar = (callback) => {
-  setTimeout(() => {
-    console.log('Hablar');
-    callback();
-  }, 1000);
+const writeFile = async (path, data) => {
+  try {
+    await fs.writeFile(path, data);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-const Adios = (name, callback) => {
-  setTimeout(() => {
-    console.log(`Adios ${name}`);
-    callback();
-  }, 1500);
+const deleteFile = async (path) => {
+  try {
+    await fs.unlink(path);
+  } catch (error) {
+    console.error(error);
+  }
 };
-
-//------------------------------------------------------
-
-Hola('Carlos', (nombre) => {
-  Hablar(() => {
-    Hablar(() => {
-      Hablar(() => {
-        Adios(nombre, () => {
-          console.log('Proceso finalizado');
-        });
-      });
-    });
-  });
-});

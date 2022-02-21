@@ -308,3 +308,153 @@ hola('Aleajandro-sin', function (nombre) {
 //     });
 // });
 ```
+
+# Promesas
+
+Para evitar el Callback hell se utilizan las promesas. El cambio principal es que ahora las promesas tienen estados, como completada, pendiente o fallida.
+
+Un ejemplo de promesa es:
+
+```js
+const Hola = (nombre) => {
+  return new Promise((resolve, eject) => {
+    console.log(`Hola ${nombre}`);
+    resolve(nombre);
+  });
+};
+
+const Adios = (nombre) => {
+  return new Promise((resolve, reject) => {
+    console.log(`Adios ${nombre}`);
+    resolve();
+  });
+};
+
+const Hablar = (nombre) => {
+  return new Promise((resolve, reject) => {
+    console.log('bla bla bla');
+    resolve(nombre);
+  });
+};
+
+console.log('Inicio');
+
+Hola('Carlos')
+  .then(Hablar)
+  .then(Hablar)
+  .then(Hablar)
+  .then(Adios)
+  .catch((err) => {
+    console.log(err);
+  });
+```
+
+# Async/Await
+
+Es una azúcar sintáctica que nos va a permitir hacer uso de las promesas de una manera más amigable
+
+Para evitar que todo se vea asíncrono, y que la sintáxis sea más legible las operaciones secuenciales como hacer un archivo que se procese, subirlo para tener una URL y de ahí mandarla a una base de datos.
+
+Async y Await nos permite definir una función de forma explícita como asíncrona y esperar a que la función termine. No estará bloqueando el hilo principal, pues estará esperando a que se resuelva con el event loop
+
+```js
+// La palabra async  la convierte inmediatamente en asíncrona.
+async function hola(nombre) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      console.log('Hola, ' + nombre);
+      resolve(nombre);
+    }, 1000);
+  });
+}
+
+async function hablar(nombre) {
+  return new Promise((resolve, reject) => {
+    setTimeout(function () {
+      console.log('Bla bla bla bla...');
+      resolve('Hay un error');
+    }, 1000);
+  });
+}
+
+async function adios(nombre) {
+  return new Promise((resolve, reject) => {
+    setTimeout(function () {
+      console.log('Adios', nombre);
+      resolve();
+    }, 1000);
+  });
+}
+
+// Await solo es válido dentro de una función asíncrona.
+async function main() {
+  const nombre = await hola('Lenin');
+  await hablar();
+  hablar(); // Para hacer que se ejecute en segundo plano no debe existi el await
+  await hablar();
+  await adios(nombre);
+  console.log('Termina el proceso');
+}
+
+// Esto nos permitirá saber si nuestra función se está ejecutanod de forma asíncrona.
+console.log('Empezamos el proceso');
+main();
+console.log('Va a ser la segunda instrucción');
+```
+
+# Globals
+
+Son módulos que ya vienen integrados en Node JS. `Global` es el equivalente a `this` en el navegador
+
+```js
+this == global; // true
+```
+
+Si quieres usar variables goblales, es mejor no usarlas. Pero se crean así:
+
+```js
+global.miVariable = 'Hola';
+
+console.log(miVariable); // No hago global.miVariables porque es una variable global y el entorno de node lo entiende
+```
+
+# Fyle System
+
+Nos va a permitir trabajar con archivos y directorios, como leer, editar, borrar y crear.
+
+Todo lo que vayamos a hacer con FS se va a ejecutar de forma asíncrona
+
+Tenemos varios métodos con FS, algunos de ellos son:
+
+- readFile => Vamos a poder leer un archivo en alguna ruta específica
+- writeFile => Vamos a poder escribir un archivo en alguna ruta específica
+- unlink => Vamos a ser capaces de borrar un archivo en alguna ruta específica
+
+```js
+const fs = require('fs').promises;
+
+const readFile = async (path) => {
+  try {
+    const file = await fs.readFile(path, 'utf8');
+    console.log(file);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const writeFile = async (path, data) => {
+  try {
+    await fs.writeFile(path, data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const deleteFile = async (path) => {
+  try {
+    await fs.unlink(path);
+  } catch (error) {
+    console.error(error);
+  }
+};
+```
