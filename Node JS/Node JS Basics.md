@@ -458,3 +458,67 @@ const deleteFile = async (path) => {
   }
 };
 ```
+
+# Console
+
+Nos sirve para poder ver el funcionamiento de nuestro código y así ayudar al debugueo del mismo.
+
+Algunos métodos de la consola en node, son:
+
+- **console.log:** recibe cualquier tipo y lo muestra en el consola.
+- **console.info:** es equivalente a log pero es usado para informar.
+- **console.error:**es equivalente a log pero es usado para errores.
+- **console.warn:** es equivalente a log pero es usado para warning.
+- **console.table:** muestra una tabla a partir de un objeto.
+- **console.count:** inicia un contador autoincremental.
+- **console.countReset:** reinicia el contador a 0.
+- **console.time:** inicia un cronometro en ms.
+- **console.timeEnd:** Finaliza el cronometro.
+- **console.group:** permite agrupar errores mediante identación.
+- **console.groupEnd:** finaliza la agrupación.
+- **console.clear:** Limpia la consola.
+
+# Errores
+
+Node maneja los errores por si mismo, avisándonos sobre el error mientras se ejecuta el código, bloqueando el hilo principal y no permitiendo que se ejecute el código que está después. Esto puede ser muy contradictorio en aplicaciones en producción.
+
+Para controlar errores nosotros mismos podemos hacer uso de `try/catch`:
+
+```js
+const doSome = () => {
+  try {
+    return 3 + z;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+doSome();
+```
+
+> También se pueden manejar errores en el código de forma asíncrona.
+
+# Procesos Hijo
+
+En node podemos crear procesos hijos que ejecuten cualquier accion de nuestro sistema operativo, como si nos encontraramos en la linea de comandos.
+
+Podemos llamar a `exec` para ejecuciones sencillas:
+
+- Esto nos sirve para ejecutar un comando en el sistem operativo, en este caso es `ls`.
+
+```js
+const { exec } = require('child_process');
+exec('ls', (e, stdout) => {
+  e ? console.log(e) : console.log(stdout);
+});
+```
+
+Podemos llamar a spawn para obtener el proceso: La ventaja de este enfoque es que obtienes mayor control del proceso, y del estado en el que se encuenta
+
+```js
+const { spawn } = require('child_process');
+const myprocess = spawn('ls');
+
+process.stdout.on('data', (data) => console.log(data.toString()));
+process.on('exit', () => console.log('process end'));
+```
