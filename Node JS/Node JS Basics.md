@@ -2,6 +2,8 @@
 
 # ¿Qué es NODE JS?
 
+> Documentación: https://nodejs.org/es/
+
 Es un entorno de ejecución de JavaScript fuera del navegador. Fue creado en 2009 y está orientado a los servidores
 
 **Datos de NODE JS**
@@ -521,4 +523,103 @@ const myprocess = spawn('ls');
 
 process.stdout.on('data', (data) => console.log(data.toString()));
 process.on('exit', () => console.log('process end'));
+```
+
+# Módulos nativos en C++
+
+Vamos a ver como trabajar con módulos nativos de C++ directamente con JS.
+
+1. Instala `node-gyp`. Hay que hacerlo de forma global. Para eso, ejecuta:
+
+   `npm i -g node-gyp`
+
+   _Dependiendo del sistema de archivos, y los permisos, puede que tengas que usar sudo en linux y mac, o ejecutar como administrador en windows_
+
+2. Crea tu archivo fuente. Un ejemplo lo puedes encontrar en [la documentación de node](https://nodejs.org/api/addons.html#addons_hello_world)
+3. Crea un `binding.gyp` en la raiz del módulo.
+4. En la carpeta raiz del módulo, ejecuta:
+
+   `node-gyp configure`
+
+5. Se habrá generado un directorio build.
+6. En la carpeta raiz del módulo, ejecuta:
+
+   `node-gyp build`
+
+7. El módulo se compilará. y podrás importarlo en javascript. Puedes revisar que exista el archivo `build/Release/addon.node` _(es un binario, así que no podrás abrirlo)_
+8. Para usarlo, crea un archivo js. Para importarlo:
+
+   `const addon = require('./build/Release/addon');`
+
+   y para usarlo:
+
+   `addon.hola()`
+
+   debería imprimir `mundo`
+
+# HTTP
+
+Nos permite crear un servidor web, que puede recibir peticiones y devolver respuestas.
+
+Para crear un servidor simple podemos hacerlo de la siguiente manera:
+
+```js
+const http = require('http');
+
+const router = (req, res) => {
+  console.log('Nueva petición');
+  console.log('URL: ' + req.url);
+
+  res.writeHead(201, { 'content-type': 'text/html; charset=utf-8' });
+
+  switch (req.url) {
+    case '/':
+      res.write('<h1>Página principal</h1>');
+      res.write('<a href="/acerca">Acerca de</a>');
+      res.write('<a href="/contacto">Contacto</a>');
+      res.end();
+      break;
+    default:
+      res.write('<h1>Página no encontrada</h1>');
+      res.end();
+      break;
+  }
+};
+
+http.createServer(router).listen(3000);
+
+console.log('Escuchando en el puerto 3000');
+```
+
+# OS
+
+Nos permite acceder a TODO el sistema operativo. Normalmente esta información solo está disponible para lenguajes de bajo nivel, pero con node podemos acceder a ella.
+
+Algunos métodos interesantes son:
+
+```js
+const os = require('os');
+
+console.log(os.arch());
+console.log(os.platform());
+console.log(os.cpus().length);
+console.log(os.freemem());
+
+const SIZE = 1024;
+
+function kbytes(bytes) {
+  return bytes / SIZE;
+}
+
+function mbytes(bytes) {
+  return kbytes(bytes) / SIZE;
+}
+
+function gbytes(bytes) {
+  return mbytes(bytes) / SIZE;
+}
+
+console.log(kbytes(os.freemem()));
+console.log(mbytes(os.freemem()));
+console.log(gbytes(os.freemem()));
 ```
