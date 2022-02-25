@@ -623,3 +623,154 @@ console.log(kbytes(os.freemem()));
 console.log(mbytes(os.freemem()));
 console.log(gbytes(os.freemem()));
 ```
+
+# Process
+
+Nos va a pemitir escuchar procesos. Podemos usarlo para escuchar a otros procesos, o para escuchar a nuestro propio proceso.
+Existen varios métodos para usar:
+
+- **UncaughtException**: Permite capturar cualquier error que no fue capturado previamente. Esto evita que Node cierre todos los hijos al encontrar un error no manejado.
+
+```js
+process.on('uncaughtException', (error, origen) => {
+  console.log(error, origen);
+});
+```
+
+- **exit**: Se ejecuta cuando node detiene el eventloop y cierra su proceso principal.
+
+```js
+process.on('exit', () => console.log('Adios'));
+```
+
+# Gestión de paquetes: NPM y package.json
+
+- **npm**: Es un gestor de paquetes que permite instalar paquetes de terceros.
+- **package.json**: Es un archivo que contiene la información de un proyecto, como su versión, sus dependencias y sus dev dependencias.
+
+# Construyendo módulos: Require e Import
+
+Podemos crear módulos e importarlos de dos maneras diferentes:
+
+- Sintaxis tradicional
+
+```js
+const modulo = require('./modulo');
+
+modulo();
+```
+
+- Sintaxis de ES6
+
+```js
+import modulo from './modulo';
+
+modulo();
+```
+
+# Módulos útiles
+
+1. bcrypt
+
+```bash
+npm i bcrypt
+```
+
+- Para usarlo:
+
+```js
+const bcrypt = require('bcrypt');
+
+const password = '12345Segura!';
+
+bcrypt.hash(password, 5, (error, hash) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(hash);
+  }
+
+  // Compare sirve para comprobar si el hash es igual a la password
+  bcrypt.compare(password, hash, (error, result) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(result);
+    }
+  });
+});
+```
+
+2. Moment JS
+
+> Documentación: [moment.js](https://momentjs.com/docs/)
+
+Nos sirve para trabajar con fechas de una manera mucho más efectiva
+
+```bash
+npm i moment
+```
+
+- Para usarlo:
+
+```js
+const moment = require('moment');
+
+let ahora = moment();
+
+console.log(ahora.format('YYYY-MM-DD HH:mm:ss'));
+```
+
+3. Sharp
+
+> Documentación: [sharp](https://sharp.pixelplumbing.com/en/stable/)
+
+Nos sirve para trabajar con imágenes
+
+```bash
+npm i sharp
+```
+
+- Para usarlo:
+
+```js
+const sharp = require('sharp');
+
+// La siguiente reducira una imagen de 120x120 o cualquier tamaño a 80x80 y lo guardara en una imagen mas pequeña sin eliminr la original.
+sharp('imagen.png').resize(80, 80).toFile('imagen_80x80.png');
+```
+
+# Datos almacenados vs en memoria
+
+Los datos almacenados pueden llegar a ralentizar mucho nuestros procesos, ya que se están grabando ya sea en un SSD o en un HDD. Sin embargo guardar en memoria RAM llega a ser mucho más rápido en comparación con los datos almacenados.
+
+## Buffers
+
+Un buffer es un montón de datos en binario que vienen en crudo y se van moviendo de un lado a otro.
+
+- Ejemplos de buffers:
+
+```js
+let buffer = Buffer.alloc(4);
+let buffer2 = Buffer.from([1, 2, 3]);
+let buffer3 = Buffer.from('Hola');
+
+console.log(buffer);
+console.log(buffer2);
+console.log(buffer3);
+console.log(buffer3.toString());
+
+let abc = Buffer.alloc(26);
+console.log(abc);
+
+for (let i = 0; i < abc.length; i++) {
+  abc[i] = i + 97;
+}
+
+console.log(abc);
+console.log(abc.toString());
+```
+
+Los datos se guardar en binario que son mostrados en formato Hexadecimal.
+
+## Streams
