@@ -83,6 +83,10 @@ Es similar a una función matemática:
 
 Son aquellas funciones que no dependen de scope global si no solo de scope local, `trabaja solamente con los argumentos que nosotros le estamos pasando`
 
+- El valor de retorno cambia, si la entrada cambia
+- Misma entrada, misma salida
+- Sin efectos colaterales.
+
 Son funciones predecibles, que si las ejecutamos 10 veces, las 10 veces me tienen que retornar lo mismo, así:
 
 - Función pura
