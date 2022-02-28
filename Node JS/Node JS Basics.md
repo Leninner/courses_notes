@@ -774,3 +774,263 @@ console.log(abc.toString());
 Los datos se guardar en binario que son mostrados en formato Hexadecimal.
 
 ## Streams
+
+Es el paso de datos de un punto a otro. Existen diversos tipos de streams:
+
+- De lectura: Va enviando datos a otro punto.
+- De escritura: Va recogiendo datos que llegan desde otro punto.
+- De doble sentido: Va recogiendo y enviando datos.
+
+> Un stream nos sirve para leer archivos muy pesados, ya que el stream va a ir leyendo poco a poco.
+
+Para crear un stream de lectura:
+
+```js
+const fs = require('fs');
+
+let data = '';
+
+let readableStream = fs.createReadStream(__dirname + '/input.txt');
+
+readableStream.setEncoding('utf8');
+
+readableStream.on('data', (chunk) => {
+  data += chunk;
+});
+
+readableStream.on('end', () => {
+  console.log(data);
+});
+```
+
+Para crear un stream de escritura:
+
+```js
+const fs = require('fs');
+const stream = require('stream');
+const util = require('util');
+
+let data = '';
+
+let readableStream = fs.createReadStream(__dirname + '/input.txt');
+
+const Transform = stream.Transform;
+
+function Mayus() {
+  Transform.call(this);
+}
+
+util.inherits(Mayus, Transform);
+
+Mayus.prototype._transform = function (chunk, encoding, callback) {
+  chunkMayus = chunk.toString().toUpperCase();
+  this.push(chunkMayus);
+  callback();
+};
+
+var mayus = new Mayus();
+
+readableStream.pipe(mayus).pipe(process.stdout);
+```
+
+- util.inherits(Mayus,Transform)=> Crea una instancia de la clase Transform y estableciéndolo como prototipo a la función Mayus, tambien adjuntando el EventEmmitter. Es decir el Transform.Call(this).
+  de modo que cada vez que se crea una instancia de la funcion Mayus se ejecutará el fichero.
+
+# Benchmark
+
+Prueba de rendimiento o comparativa.
+Para poder ver el tiempo que se demora en ejecutarse un algoritmo, nos apoyamos de `console.time`:
+
+```js
+let suma = 0;
+
+console.time('suma');
+
+for (let i = 0; i < 100000; i++) {
+  suma += i;
+}
+
+console.timeEnd('suma');
+```
+
+- Console.time solo va a mostrar el tiempo que se tarda en ejecutarse desde que se abre el console.time hasta donde se cierra con el console.timeEnd.
+
+Para controlar procesos asíncronos, podemos usar esto:
+
+```js
+let suma = 0;
+
+const asincrona = () => {
+  return new Promise((resolve, reject) => {
+    +setTimeout(() => {
+      suma += 1;
+      resolve(suma);
+    }, 1000);
+  });
+};
+
+console.time('asíncrona');
+
+asincrona().then((resultado) => {
+  console.log(resultado);
+  console.timeEnd('asíncrona');
+});
+```
+
+# Debugger
+
+Para debuggear podemos hacer algo como esto en la consola:
+
+```bash
+node --inspect path/to/file.js
+```
+
+# Error First Callbacks
+
+Un patrón que se sigue siempre en cualquier lenguaje y programa de devs es Error First Callbacks, esto quiere decir que siempre que tengamos un callback el primer parámetro debería ser el error.
+
+> 😭 Esto se usa por la convención de que todo puede fallar.
+
+Otro patrón típico es tener el callback es tener en el callback como la última función que se pasa. Aunque depende del caso.
+
+```js
+function asincrona(callback) {
+  setTimeout(() => {
+    try {
+      let a = 3 + w;
+      callback(null, a);
+    } catch (error) {
+      callback(error);
+    }
+  }, 1000);
+}
+
+asincrona((err, dato) => {
+  if (err) {
+    console.error('Tenemos un error');
+    console.error(err);
+    return false;
+
+    // throw err
+  }
+
+  console.log(`Todo ha ido bien, mi dato es ${dato}`);
+});
+```
+
+> El Throw no sirve en funciones asíncronas y en callbacks.
+
+# Scraping
+
+Nos sirve para extraer datos de una página web.
+
+> Chromium es open source de donde se basa chrome
+
+**Puppeteer** se usa mas que nada para ver una página sin necesidad de cargarla visualmente.
+
+Para instalarlo:
+
+```bash
+npm i puppeteer
+```
+
+- Ejemplo para obtener el título de una página en Wikipedia:
+
+```js
+const puppeteer = require('puppeteer');
+
+(async () => {
+  console.log('lanzamos navegador');
+  // const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ headless: false });
+
+  const page = await browser.newPage();
+  await page.goto('https://es.wikipedia.org/wiki/Node.js');
+
+  var titulo1 = await page.evaluate(() => {
+    const h1 = document.querySelector('h1');
+    console.log(h1.innerHTML);
+    return h1.innerHTML;
+  });
+
+  console.log(titulo1);
+  console.log('Cerramos navegador');
+  browser.close();
+  console.log('Navegardor cerrado');
+})();
+```
+
+# Automatización de procesos
+
+Nos sirve para automatizar procesos. Vamos a utilizar gulp y para isntalarlo, vamos a hacer:
+
+```bash
+npm i gulp gulp-server-livereload
+```
+
+Ejemplo de uso:
+
+- Debemos crear un archivo llamado **gulpfile.js**
+
+```js
+const gulp = require('gulp');
+const server = require('gulp-server-livereload');
+
+gulp.task('build', function (cb) {
+  console.log('Building files');
+  cb();
+});
+
+gulp.task('serve', (cb) => {
+  gulp.src('www').pipe(
+    server({
+      livereload: true,
+      open: true,
+    })
+  );
+});
+```
+
+- En nuestros scripts iría:
+
+```json
+"scripts": {
+  "build": "gulp build",
+  "serve": "gulp serve"
+},
+```
+
+# Aplicaciones de escritorio
+
+Electron es un paquete muy poderoso de node que nos va a permitir crear aplicaciones de escritorio a partir de aplicaciones web. Un ejemplo es Visual Studio Code.
+
+Para poder utilizar electron, vamos a instalar:
+
+```bash
+npm i electron
+```
+
+Un ejemplo rápido de uso es:
+
+```js
+const { app, BrowserWindow } = require('electron');
+
+let mainWindow;
+
+const createWindow = () => {
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+  });
+
+  mainWindow.loadFile('index.html');
+};
+
+app.on('ready', createWindow);
+```
+
+En el package JSON en los scripts iría:
+
+```json
+"start": "electron ."
+```
