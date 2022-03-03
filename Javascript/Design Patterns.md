@@ -12,7 +12,17 @@
     - [Abstract Factory](#abstract-factory)
   - [Patrones Estructurales o Structural Patterns](#patrones-estructurales-o-structural-patterns)
     - [Module Pattern](#module-pattern)
-  - [De Comportamiento](#de-comportamiento)
+    - [Mixins Pattern](#mixins-pattern)
+    - [Facade Pattern](#facade-pattern)
+    - [Flyweight Pattern](#flyweight-pattern)
+    - [Decorator Pattern](#decorator-pattern)
+    - [Model View Controller (MVC)](#model-view-controller-mvc)
+    - [Model View Presenter (MVP)](#model-view-presenter-mvp)
+    - [Model View View Model (MVVM)](#model-view-view-model-mvvm)
+  - [Patrones de Comportamiento o Behavioral Patterns](#patrones-de-comportamiento-o-behavioral-patterns)
+    - [Observer Pattern](#observer-pattern)
+    - [State Pattern](#state-pattern)
+    - [Chain(Cadena) of Responsibility Pattern](#chaincadena-of-responsibility-pattern)
 - [Singleton (Creacional)](#singleton-creacional)
   - [Observer](#observer)
   - [Casos de Uso del patrón Observer: Redux](#casos-de-uso-del-patrón-observer-redux)
@@ -269,31 +279,196 @@ const suv = autoManufacturer('suv', 'Ford', 'F150', '2018');
 Son patrones que nos sirven para poder organizar nuestro código. Organizar aplicaciones largas.
 
 - Module Pattern
-- Adapter
-- Bridge
-- Composite
-- Decorator
-- Facade
-- Flyweight
+- Mixins Pattern
+- Facade Pattern
+- Flyweight Pattern
+- Decorator Pattern
+- Model View Controller (MVC)
 - Proxy
 
 ### Module Pattern
 
-## De Comportamiento
+Sirve para poder modularizar nuestro código en funciones puras, pequeñas, fáciles de depurar y mantener. También podemos modularizar nuestras aplicaciones en diferentes archivos y carpetas.
 
-Gestionan algoritmos y responsabilidades entre objetos.
+### Mixins Pattern
 
-- Chain of Responsibility
-- Command
-- Interpreter
-- Iterator
+Este patrón nos ayuda a añadir nuevas funcionalidades a una clase a partir de la utilización de `Object.assign()`
+
+- Podemos usar este patrón así:
+
+```js
+class Car {
+  constructor(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+  }
+}
+
+class CarFactory {
+  createCar(make, model, year) {
+    switch (make) {
+      case 'Ford':
+        return new Car(make, model, year);
+      case 'Chevy':
+        return new Car(make, model, year);
+      case 'Dodge':
+        return new Car(make, model, year);
+    }
+  }
+}
+
+class SUV {
+  constructor(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+  }
+}
+
+class SuvFactory {
+  createCar(make, model, year) {
+    switch (make) {
+      case 'Ford':
+        return new SUV(make, model, year);
+      case 'Chevy':
+        return new SUV(make, model, year);
+      case 'Dodge':
+        return new SUV(make, model, year);
+    }
+  }
+}
+
+// Aquí estamos creando nuestro mixin con un método para mostrar un mensaje
+const getMessageMixin = {
+  getMessage() {
+    console.log(`The ${this.make} ${this.model} ${this.year} is ready to go!`);
+  },
+};
+
+const carsFactory = new CarFactory();
+const suvsFactory = new SuvFactory();
+
+const autoManufacturer = (type, make, model, year) => {
+  switch (type) {
+    case 'car':
+      return carsFactory.createCar(make, model, year);
+    case 'suv':
+      return suvsFactory.createCar(make, model, year);
+  }
+};
+
+// Aquí estamos haciendo un mixin para añadir el método getMessage al prototype de nuestra clase Car y que se pueda utilizar por todos los objetos que sean instancia de Car
+Object.assign(Car.prototype, getMessageMixin);
+
+const car = autoManufacturer('car', 'Ford', 'F150', '2018');
+
+// Aquí estamos haciendo la ejecución del código que está dentro del mixin
+car.getMessage();
+```
+
+### Facade Pattern
+
+**Al trabajar con componentes en React**, estamos usando el patrón Facade, que consiste en dividir la complejidad de la aplicación en componentes más pequeños y que se puedan reutilizar y así evitar la complejidad.
+
+> En React se utiliza todo el tiempo el patrón Facade para poder reutilizar componentes y reducir la complejidad de la aplicación.
+
+### Flyweight Pattern
+
+Con este patrón podemos prevenir la creación de muchos items en la memoria de los browser o donde sea que la aplicación corra.
+Este patrón es muy similar a `Singleton`.
+
+### Decorator Pattern
+
+Es muy similar a los `mixins`. Este patrón se utiliza mucho para `añadir` funcionalidades extras a una clase.
+
+- Un ejemplo en TypeScript:
+
+```Ts
+function first() {
+  console.log("first(): factory evaluated");
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    console.log("first(): called");
+  };
+}
+
+function second() {
+  console.log("second(): factory evaluated");
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    console.log("second(): called");
+  };
+}
+
+// En esta estamos añadiendo dos funciones que van a "decorar" nuestra clase
+class ExampleClass {
+  @first()
+  @second()
+  method() {
+    // do something
+  }
+}
+```
+
+### Model View Controller (MVC)
+
+Provee una forma de separar la lógica dentro de nuestras aplicaciones:
+
+- Models: son los datos que se manejan en la aplicación.
+- View: son los componentes que se muestran en la aplicación. (HTML)
+- Controller: son los métodos que se ejecutan en la aplicación. (Lógica)
+
+### Model View Presenter (MVP)
+
+Provee una forma de separar la lógica dentro de nuestras aplicaciones:
+
+- Models: son los datos que se manejan en la aplicación.
+- View: son los componentes que se muestran en la aplicación. (HTML)
+- Presenter: son los métodos que se ejecutan en la aplicación. (Lógica)
+
+Se diferencia de MVC porque en MVP, la View solamente depende del Presenter y no tiene interacción directa con el Model. También el model solo interactua con el Presenter y no con la View.
+
+Presenter está en entre el Model y la View.
+
+> Este patrón se usa mucho en Android Development
+
+### Model View View Model (MVVM)
+
+Es muy similar a las dos anteriores. Este patrón se usa mucho en Frameworks como React y Angular.
+
+## Patrones de Comportamiento o Behavioral Patterns
+
+Se enfocan en la comunicación entre objetos en una aplicación. Es similar a implementar una mejor comunicación entre humanos.
+
+- Observer Pattern
+- State Pattern
+- Chain of Responsibility Pattern
+- Iterator Pattern
 - Mediator
 - Memento
-- Observer
-- State
 - Strategy
 - Template Method
 - Visitor
+
+### Observer Pattern
+
+Se da cuando un objeto debe notificar a otros objetos cuando cambia su estado.\*
+
+### State Pattern
+
+Es muy popular en el uso de React. Tenemos un estado y cuando ese estado cambia, se debe lanzar un nuevo render con los cambios que se han hecho.
+
+- Ejemplo de estado en React:
+
+```js
+const [state, setState] = useState(0);
+```
+
+### Chain(Cadena) of Responsibility Pattern
+
+Es un patrón que nos ayuda a resolver problemas comunes cuando tenemos una petición de un cliente y necesitamos pasar esos datos por varias funciones para obtener un resultado final.
+
+Imaginemos un botón de pago que desencadena una serie de eventos que se deben tener en cuenta para poder completar el pago, como verificar si tiene dirección, calcular precios de envío, etc.
+Ahi es donde podemos usar el patrón Chain of Responsibility creando `Handler Funcions` que se ejecutan en orden.
 
 # Singleton (Creacional)
 
