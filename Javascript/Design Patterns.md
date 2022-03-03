@@ -23,10 +23,15 @@
     - [Observer Pattern](#observer-pattern)
     - [State Pattern](#state-pattern)
     - [Chain(Cadena) of Responsibility Pattern](#chaincadena-of-responsibility-pattern)
+    - [Iterator Pattern](#iterator-pattern)
+    - [Strategy Pattern](#strategy-pattern)
+    - [Memento Pattern](#memento-pattern)
+    - [Mediator Pattern](#mediator-pattern)
+    - [Command Pattern](#command-pattern)
 - [Singleton (Creacional)](#singleton-creacional)
-  - [Observer](#observer)
+- [Observer](#observer)
   - [Casos de Uso del patrón Observer: Redux](#casos-de-uso-del-patrón-observer-redux)
-  - [Patrón Decorator](#patrón-decorator)
+- [Patrón Decorator](#patrón-decorator)
 
 # Design Patterns
 
@@ -443,9 +448,8 @@ Se enfocan en la comunicación entre objetos en una aplicación. Es similar a im
 - State Pattern
 - Chain of Responsibility Pattern
 - Iterator Pattern
-- Mediator
-- Memento
-- Strategy
+- Strategy Pattern
+- Memento Pattern
 - Template Method
 - Visitor
 
@@ -469,6 +473,66 @@ Es un patrón que nos ayuda a resolver problemas comunes cuando tenemos una peti
 
 Imaginemos un botón de pago que desencadena una serie de eventos que se deben tener en cuenta para poder completar el pago, como verificar si tiene dirección, calcular precios de envío, etc.
 Ahi es donde podemos usar el patrón Chain of Responsibility creando `Handler Funcions` que se ejecutan en orden.
+
+### Iterator Pattern
+
+Este patrón se utiliza cuando tenemos una lista de datos y queremos iterar sobre ellos.
+
+```js
+const listOfObjects = [
+  {
+    id: 1,
+    name: 'John',
+  },
+  {
+    id: 2,
+    name: 'Jane',
+  },
+  {
+    id: 3,
+    name: 'Joe',
+  },
+];
+
+for (let key in listOfObjects) {
+  console.log(listOfObjects[key]);
+}
+```
+
+### Strategy Pattern
+
+Este patrón consiste en una manera de encapsular una función y en runtime usar la misma función para correr diferentes escenarios.
+
+- Ejemplo de uso:
+
+```js
+class Car {
+  constructor(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+  }
+}
+
+// Aquí hacemos uso de Strategy Pattern, utilizando la misma clase para crear diferentes objetos.
+const car = new Car('Ford', 'F150', '2018');
+const car2 = new Car('Ford', 'F150', '2018');
+```
+
+### Memento Pattern
+
+Provee estado temporal a un objeto para poder hacer una restauración de los datos en otro cálculo.
+Se usa a menudo en la serialización y deserialización de datos.
+
+Imaginemos un petición HTTP, que al ser enviada, se serializan los datos y al ser recibida, se deserealizan. En ningún punto se pierden los datos gracias a este patrón.
+
+### Mediator Pattern
+
+Provee un set de objetos que interactúan entre sí. Principalmente al tener una autoridad central que dicta los términos entre los objetos. \*
+
+### Command Pattern
+
+Encapsula acciones u operaciones como objetos. **Redux** utiliza este patrón para crear acciones.
 
 # Singleton (Creacional)
 
@@ -558,7 +622,7 @@ Por último, pero no menos importante, si se suscribe a la acción$ stream con l
 
 Definitivamente confirma que solo hay una instancia de la clase ActionsBus en el sistema.
 
-## Observer
+# Observer
 
 > Definir una dependencia uno a muchos entre objetos, de tal forma que cuando el objeto cambie de estado, todos sus objetos dependientes sean notificados automáticamente.
 
@@ -707,7 +771,7 @@ visibilityFilter: visibilityFilter(state.visibilityFilter, action)
 
 Esto es básicamente toda la idea de Redux. Tenga en cuenta que no hemos utilizado ninguna API de Redux. Ya se incluyen algunas utilidades para facilitar este patrón, pero la idea principal es que usted describe cómo su estado se actualiza con el tiempo en respuesta a los objetos de acción, y el 90% del código que se escribe es simplemente JavaScript, sin uso de Redux en si mismo, sus APIs, o cualquier magia.
 
-## Patrón Decorator
+# Patrón Decorator
 
 Añade nuevas responsabilidades a un objeto de forma dinámica permitiendo así extender su funcionalidad sin tener que usar subclases.
 
