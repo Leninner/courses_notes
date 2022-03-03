@@ -2,6 +2,7 @@
 
 - [Lenguaje Javascript](#lenguaje-javascript)
   - [Notas Interesantes](#notas-interesantes)
+    - [Functions As First Class Citizens](#functions-as-first-class-citizens)
   - [Hoisting](#hoisting)
   - [Coerción](#coerción)
   - [Windows Subsystem for Linux](#windows-subsystem-for-linux)
@@ -352,7 +353,7 @@ function nombre(){
 }
 ```
 
-> Espresiva
+> Expresiva
 
 ```js
 let arreglo = function () {
@@ -472,6 +473,24 @@ Boolean(function () {}); //Cualquier función es verdadera también
 ```
 
 [note]: "==" compara valores y "===" compara valores y tipo de dato
+
+### Functions As First Class Citizens
+
+Las funciones As First Class Citizens en JS son funciones que pueden ser tratadas como variables.
+
+- Pueden ser pasadas como argumentos a otras funciones
+- Pueden ser asignadas como un valor a otra variable
+- Pueden ser retornadas como un valor dentro de otra función.
+
+```js
+const calc = () => {
+  return 4 * 3;
+};
+
+// Ejemplo de función as First Class Citizen
+let result = calc();
+console.log(result); //12
+```
 
 ## Hoisting
 

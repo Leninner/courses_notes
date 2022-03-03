@@ -1,88 +1,274 @@
 **ÍNDICE**
 
-- [Patrón de diseño](#patrón-de-diseño)
+- [Design Patterns](#design-patterns)
   - [Objetivos de los patrones](#objetivos-de-los-patrones)
   - [Historia](#historia)
-  - [Categorías de Patrones de Diseño](#categorías-de-patrones-de-diseño)
-    - [Creacionales](#creacionales)
-    - [Estructurales](#estructurales)
-    - [De Comportamiento](#de-comportamiento)
-  - [Singleton (Creacional)](#singleton-creacional)
+- [Categorías de Patrones de Diseño](#categorías-de-patrones-de-diseño)
+  - [Patrones Creacionales o Creationals Patterns](#patrones-creacionales-o-creationals-patterns)
+    - [Class Design Pattern](#class-design-pattern)
+    - [Builder (Constructor)](#builder-constructor)
+    - [Singleton Pattern](#singleton-pattern)
+    - [Factory Pattern](#factory-pattern)
+    - [Abstract Factory](#abstract-factory)
+  - [Patrones Estructurales o Structural Patterns](#patrones-estructurales-o-structural-patterns)
+    - [Module Pattern](#module-pattern)
+  - [De Comportamiento](#de-comportamiento)
+- [Singleton (Creacional)](#singleton-creacional)
   - [Observer](#observer)
   - [Casos de Uso del patrón Observer: Redux](#casos-de-uso-del-patrón-observer-redux)
   - [Patrón Decorator](#patrón-decorator)
 
-# Patrón de diseño
+# Design Patterns
 
 Los patrones de diseño son unas técnicas para resolver problemas comunes en el desarrollo de software y otros ámbitos referentes al diseño de interacción o interfaces.
 
 Un patrón de diseño resulta ser una solución a un problema de diseño.
 
-Para que una solución sea considerada un patrón debe poseer ciertas características. Una de ellas es que debe haber comprobado su efectividad resolviendo problemas similares en ocasiones anteriores.
+Para que una solución sea considerada un patrón:
 
-Otra es que debe ser reutilizable, lo que significa que es aplicable a diferentes problemas de diseño en distintas circunstancias.
+1. Debe poseer ciertas características. Una de ellas es que debe haber comprobado su efectividad resolviendo problemas similares en ocasiones anteriores.
+2. Otra es que debe ser reutilizable, lo que significa que es aplicable a diferentes problemas de diseño en distintas circunstancias.
+
+> Design Patterns son formas fáciles de resolver problemas en el código.
 
 ## Objetivos de los patrones
 
-Los patrones de diseño pretenden:
+Pretenden:
 
-- Proporcionar catálogos de elementos reusables en el diseño de sistemas software.
-- Evitar la reiteración en la búsqueda de soluciones a problemas ya conocidos y solucionados anteriormente.
-- Formalizar un vocabulario común entre diseñadores.
-- Estandarizar el modo en que se realiza el diseño.
-- Facilitar el aprendizaje de las nuevas generaciones de diseñadores condensando conocimiento ya existente.
+- Proporcionar **catálogos de elementos reusables** en el diseño de sistemas de software.
+- **Evitar la reiteración** en la búsqueda de soluciones a problemas ya conocidos y **solucionados** anteriormente.
+- **Formalizar** un vocabulario **común** entre diseñadores.
+- **Estandarizar** el modo en que se realiza el **diseño.**
+- **Facilitar el aprendizaje** de las nuevas generaciones de diseñadores condensando conocimiento ya existente.
 
-Asimismo, no pretenden:
+No pretenden:
 
-- Imponer ciertas alternativas de diseño frente a otras.
-- Eliminar la creatividad inherente al proceso de diseño.
-- No es obligatorio utilizar los patrones, solo es aconsejable en el caso de tener el mismo problema o similar que soluciona el patrón, siempre teniendo en cuenta que en un caso particular puede no ser aplicable.
+- **Imponer** alternativas de diseño frente a otras.
+- **Eliminar la creatividad** inherente al proceso de diseño.
+- **No es obligatorio utilizar los patrones**, solo es aconsejable en el caso de tener el mismo problema o similar al que soluciona el patrón.
 
-"Abusar o forzar el uso de los patrones puede ser un error”.
-
-Volver a aprender el diseño CSS
-
-Si te encuentras luchando con el diseño CSS, es probable que estés tomando decisiones sobre los navegadores que deberían tomar ellos mismos. A través de una serie de diseños simples y componibles , cada diseño le enseñará cómo aprovechar mejor los algoritmos integrados que potencian los navegadores y CSS.
-
-Emplear un diseño de diseño algorítmico significa eliminar los puntos de interrupción, los "números mágicos" y otros trucos para crear componentes de diseño independientes del contexto.
-Sus futuros sistemas de diseño serán más consistentes, tendrán menos código y serán más maleables en manos de sus usuarios y sus dispositivos.
+> Abusar o forzar el uso de los patrones puede ser un error
 
 ## Historia
 
-En 1979 el arquitecto Christopher Alexander aportó al mundo de la arquitectura el libro The Timeless Way of Building; en él proponía el aprendizaje y uso de una serie de patrones para la construcción de edificios de una mayor calidad, en la que esa mayor calidad se refería a la arquitectura antigua y la menor calidad correspondía a la arquitectura moderna, que el romper con la arquitectura antigua había perdido esa conexión con lo que las personas consideraban que era calidad.
+En 1979 el arquitecto **Christopher Alexander** aportó al mundo de la arquitectura el libro `The Timeless Way of Building`, en él proponía el aprendizaje y uso de una serie de patrones para la construcción de edificios de una mayor calidad, en la que esa mayor calidad se refería a la arquitectura antigua y la menor calidad correspondía a la arquitectura moderna, que el romper con la arquitectura antigua había perdido esa conexión con lo que las personas consideraban que era calidad.
 
-En palabras de este autor, "**Cada patrón describe un problema que ocurre infinidad de veces en nuestro entorno**, así como la solución al mismo, de tal modo que podemos utilizar esta solución un millón de veces más adelante sin tener que volver a pensarla otra vez."
+En palabras de este autor, `Cada patrón describe un problema que ocurre infinidad de veces en nuestro entorno, así como la solución al mismo, de tal modo que podemos utilizar esta solución un millón de veces más adelante sin tener que volver a pensarla otra vez.`
 
-Los patrones que Christopher Alexander y sus colegas definieron, publicados en un volumen denominado A Pattern Language, son un intento de formalizar y plasmar de una forma práctica generaciones de conocimiento arquitectónico.
+Los patrones que **Christopher Alexander** y sus colegas definieron, publicados en un volumen denominado A Pattern Language, son un intento de formalizar y plasmar de una forma práctica generaciones de conocimiento arquitectónico.
 
 Los patrones no son principios abstractos que requieran su redescubrimiento para obtener una aplicación satisfactoria, ni son específicos a una situación particular o cultural; son algo intermedio.
 
-**Un patrón define una posible solución correcta para un problema de diseño dentro de un contexto dado**, describiendo las cualidades invariantes de todas las soluciones.
+> **Un patrón define una posible solución correcta para un problema de diseño dentro de un contexto dado**, describiendo las cualidades invariantes de todas las soluciones.
 
 Dentro de las soluciones de Christopher Alexander se encuentran cómo se deben diseñar ciudades y dónde deben ir las perillas de las puertas.
 
 Más tarde, en 1987, Ward Cunningham y Kent Beck, sobrepasados por el pobre entrenamiento que recibían los nuevos programadores en orientación a objetos, se preguntaban cómo se podían capturar las buenas ideas para, luego de alguna manera, traspasarlas a los nuevos programadores recién instruidos en herencia y polimorfismo.
 
-Leyendo a Alexander se dieron cuenta del paralelo que existía entre la buena arquitectura propuesta por Alexander y la buena arquitectura OO, de modo que usaron varias ideas de Alexander para desarrollar cinco patrones de interacción hombre-ordenador (HCI) y publicaron un artículo en OOPSLA-87 titulado Using Pattern Languages for OO Programs.
+Leyendo a Alexander se dieron cuenta del paralelo que existía entre la buena arquitectura propuesta por Alexander y la buena arquitectura OO, de modo que usaron varias ideas de Alexander para desarrollar cinco patrones de interacción hombre-ordenador (HCI) y publicaron un artículo en OOPSLA-87 titulado `Using Pattern Languages for OO Programs`.
 
-No obstante, no fue hasta principios de la década de 1990 cuando los patrones de diseño tuvieron un gran éxito en el mundo de la informática a partir de la publicación del libro Design Patterns escrito por el grupo Gang of Four (GoF) compuesto por Erich Gamma, Richard Helm, Ralph Johnson y John Vlissides, en el que se recogían 23 patrones de diseño comunes.
+No obstante, no fue hasta principios de la década de 1990 cuando los patrones de diseño tuvieron un gran éxito en el mundo de la informática a partir de la publicación del libro `Design Patterns` escrito por el grupo Gang of Four (GoF) compuesto por Erich Gamma, Richard Helm, Ralph Johnson y John Vlissides, en el que se recogían 23 patrones de diseño comunes.
 
-## Categorías de Patrones de Diseño
+# Categorías de Patrones de Diseño
 
-### Creacionales
+## Patrones Creacionales o Creationals Patterns
 
-Proveen diferentes mecanismos para crear objetos.
+Controlan el proceso de creación de un objeto
 
-- Abstract Factory
+- Class Design Pattern or Prototype
 - Builder (Constructor)
-- Factory Method
-- Prototype
-- Singleton
+- Singleton Pattern
+- Factory Pattern
+- Abstract Factory
 
-### Estructurales
+### Class Design Pattern
 
-Describen formas de componer objetos para formar nuevas estructuras flexibles y eficientes.
+Podemos crear objetos a partir de una clase en JS
 
+- Podemos hacerlo de esta manera
+
+```js
+class Car {
+  constructor(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+  }
+}
+
+const Audi = new Car('Audi', 'A4', '2018');
+
+console.log(Audi);
+```
+
+### Builder (Constructor)
+
+Sirve mucho cuando queremos crear múltiples subcategorías de una clase. Hacemos uso de herencias.
+
+- Podemos crear una subcategoría de una clase, de esta forma:
+
+```js
+class Car {
+  constructor(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+  }
+}
+
+// Aquí estamos usando el patrón constructor para crear una subcategoría de una clase padre
+class SUV extends Car {
+  constructor(make, model, year) {
+    super(make, model, year);
+    this.wheels = 4;
+  }
+}
+
+const Audi = new SUV('Audi', 'A4', '2018');
+
+console.log(Audi);
+```
+
+### Singleton Pattern
+
+Nos asegura una sola instancia de una clase, es decir, no van a poderse crear más de una instancia.
+Comprueba si ya existe una instancia, y si es así, retorna esa instancia, caso contrario, crea una nueva instancia.
+
+- Podemos crearla así:
+
+```js
+let instance = null;
+
+class Car {
+  constructor(make, model, year) {
+    if (!instance) {
+      this.make = make;
+      this.model = model;
+      this.year = year;
+      // En instancia, guardamos la información del objeto con la palabra this
+      instance = this;
+    } else {
+      return instance;
+    }
+  }
+}
+
+const Audi = new Car('Audi', 'A4', '2018');
+const BMW = new Car('BMW', 'X5', '2019');
+
+console.log(Audi);
+console.log(BMW);
+```
+
+### Factory Pattern
+
+Sirve cuando queremos crear un mecanismo para crear otros objetos a partir de un type dado. Es muy útil para aplicaciones grandes.
+
+- Podemos crearlos en forma de clase, así:
+
+```js
+class Car {
+  constructor(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+  }
+}
+
+// Aquí estamos aplicacando el patrón Factory
+class carFactory {
+  createCar(make, model, year) {
+    switch (make) {
+      case 'Ford':
+        return new Car(make, model, year);
+      case 'Chevy':
+        return new Car(make, model, year);
+      case 'Dodge':
+        return new Car(make, model, year);
+    }
+  }
+}
+
+const factory = new carFactory();
+const ford = factory.createCar('Ford', 'F150', '2016');
+const chevy = factory.createCar('Chevy', 'Corvette', '2017');
+const dodge = factory.createCar('Dodge', 'Charger', '2018');
+```
+
+### Abstract Factory
+
+Con este patrón vas a ser capaz de manejar múltiples fábricas, clases, etc.
+Tiene una abstracción superiór a Factory Pattern.
+
+- Podemos usarla de la siguiente manera:
+
+```js
+class Car {
+  constructor(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+  }
+}
+
+class CarFactory {
+  createCar(make, model, year) {
+    switch (make) {
+      case 'Ford':
+        return new Car(make, model, year);
+      case 'Chevy':
+        return new Car(make, model, year);
+      case 'Dodge':
+        return new Car(make, model, year);
+    }
+  }
+}
+
+class SUV {
+  constructor(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+  }
+}
+
+class SuvFactory {
+  createCar(make, model, year) {
+    switch (make) {
+      case 'Ford':
+        return new SUV(make, model, year);
+      case 'Chevy':
+        return new SUV(make, model, year);
+      case 'Dodge':
+        return new SUV(make, model, year);
+    }
+  }
+}
+
+//Aquí estamos creando instancias de las fábricas que son el patrón Factory Pattern
+const carsFactory = new CarFactory();
+const suvsFactory = new SuvFactory();
+
+// Esta función es nuestro patrón abstract factory que nos va a permitir controlar que fábrica vamos a usar y luego qué módelo de auto vamos a crear
+
+const autoManufacturer = (type, make, model, year) => {
+  switch (type) {
+    case 'car':
+      return carsFactory.createCar(make, model, year);
+    case 'suv':
+      return suvsFactory.createCar(make, model, year);
+  }
+};
+
+const car = autoManufacturer('car', 'Ford', 'F150', '2018');
+const suv = autoManufacturer('suv', 'Ford', 'F150', '2018');
+```
+
+## Patrones Estructurales o Structural Patterns
+
+Son patrones que nos sirven para poder organizar nuestro código. Organizar aplicaciones largas.
+
+- Module Pattern
 - Adapter
 - Bridge
 - Composite
@@ -91,7 +277,9 @@ Describen formas de componer objetos para formar nuevas estructuras flexibles y 
 - Flyweight
 - Proxy
 
-### De Comportamiento
+### Module Pattern
+
+## De Comportamiento
 
 Gestionan algoritmos y responsabilidades entre objetos.
 
@@ -107,7 +295,7 @@ Gestionan algoritmos y responsabilidades entre objetos.
 - Template Method
 - Visitor
 
-## Singleton (Creacional)
+# Singleton (Creacional)
 
 Te asegura que una clase solo tiene una instancia. Esta única instancia puede ser consumida por cualquier otro objeto.
 

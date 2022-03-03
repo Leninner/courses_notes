@@ -208,4 +208,14 @@ Toda función nos va a retornar algo, ya sea explícitamente o implícitamente.
 
 #### Retorno Explícito
 
+```js
+const returnExplicit = function (parametro) {
+  return parametro;
+};
+```
+
 #### Retorno Implícito
+
+```js
+const returnImplicit = (parametro) => parametro;
+```

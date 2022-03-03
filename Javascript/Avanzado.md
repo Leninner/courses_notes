@@ -529,29 +529,49 @@ Cada navegador tiene su implementación de JavaScript Engine:
 
 # Event Loop
 
-El Event Loop hace que Javascript parezca ser multihilo a pesar de que corre en un solo proceso.
+El **Event Loop** hace que Javascript parezca ser multihilo a pesar de que corre en un solo proceso.
 
 Javascript se organiza usando las siguientes estructuras de datos: Principalmente (Stack y Memory Heap)
 
-- Stack (Primero que entra, último que sale). Va apilando de forma organizada las diferentes instrucciones que se llaman. Lleva así un rastro de dónde está el programa, en que punto de ejecución nos encontramos.
-- Memory Heap. De forma desorganizada se guarda información de las variables y del scope.
-- Schedule Tasks. Aquí se agregan a la cola, las tareas programadas para su ejecución.
-- Task Queue (Primero que entra, primero que sale). Aquí se agregan las tares que ya están listas para pasar al stack y ser ejecutadas. El stack debe estar vacío para que esto suceda.
-- MicroTask Queue. Aquí se agregan las promesas. Esta Queue es la que tiene mayor prioridad.
+**Stack** (Primero que entra, último que sale)
+
+- Va apilando de forma organizada las diferentes instrucciones que se llaman. Lleva así un rastro de dónde está el programa, en que punto de ejecución nos encontramos.
+
+**Memory Heap**
+
+- De forma desorganizada se guarda información de las variables y del scope.
+
+**Schedule Tasks**
+
+- Aquí se agregan a la cola, las tareas programadas para su ejecución.
+
+**Task Queue** (Primero que entra, primero que sale).
+
+- Aquí se agregan las tares que ya están listas para pasar al stack y ser ejecutadas. El stack debe estar vacío para que esto suceda.
+
+**MicroTask Queue**
+
+- Aquí se agregan las promesas. Esta Queue es la que tiene mayor prioridad.
 
 El Event Loop es un loop que está ejecutando todo el tiempo y pasa periódicamente revisando las queues y el stack moviendo tareas entre estas dos estructuras.
 
-NOTE: Set Time Out es una función que va a ejecutar otra función en un tiempo predeterminado => setTimeOut(function, 1000);
-
 # Promesas
 
-Para crear las promesas usamos la clase Promise. El constructor de Promise recibe un sólo argumento, un callback con dos parámetros, resolve y reject. resolve es la función a ejecutar cuando se resuelve y reject cuando se rechaza.
-El async/await es sólo syntax sugar de una promesa, por debajo es exactamente lo mismo.
-La clase Promise tiene algunos métodos estáticos bastante útiles:
-Promise.all. Da error si una de las promesas es rechazada.
-Promise.race. Regresa sólo la promesa que se resuelva primero.
+Para crear las promesas usamos la **clase Promise**.
 
-Fectch => La API Fetch proporciona una interfaz JavaScript para acceder y manipular partes del canal HTTP, tales como peticiones y respuestas. También provee un método global fetch() (en-US) que proporciona una forma fácil y lógica de obtener recursos de forma asíncrona por la red.
+El constructor de Promise recibe un sólo argumento, un **callback** con dos parámetros, **resolve y reject.**
+
+- **resolve** => es la función a ejecutar cuando se resuelve la promesa
+- **reject** cuando se rechaza.
+
+> El async/await es sólo syntax sugar de una promesa, por debajo es exactamente lo mismo.
+
+La clase Promise tiene algunos métodos estáticos bastante útiles:
+
+- Promise.all. Da error si una de las promesas es rechazada.
+- Promise.race. Regresa sólo la primera promesa que se resuelva
+
+> **Fetch** => La API Fetch proporciona una solución para hacer peticiones y respuestas en HTTPS. También provee un método global fetch() (en-US) que proporciona una forma fácil y lógica de obtener recursos de forma asíncrona por la red.
 
 # Getters and Setters
 
@@ -561,17 +581,21 @@ Estas propiedades al ser funciones pueden llevar una validación de por medio y 
 
 Ejemplo:
 
+```js
 const player = {
-play: () => this.play(),
-pause: () => this.pause(),
-media: this.media,
-get muted() {
-return this.media.muted;
-},
-set muted(value) {
-this.media.muted = value;
-},
+  play: () => this.play(),
+  pause: () => this.pause(),
+  media: this.media,
+
+  get muted() {
+    return this.media.muted;
+  },
+
+  set muted(value) {
+    this.media.muted = value;
+  },
 };
+```
 
 # Proxy
 
