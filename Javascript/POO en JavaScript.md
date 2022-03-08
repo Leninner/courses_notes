@@ -239,3 +239,33 @@ class SUV extends Car {
 ```
 
 ## Introducción a Mixins y su uso
+
+Solo podemos extender una clase, pero podemos usar **mixins** para heredar propiedades de varias clases, o añadir propiedades a diferentes clases.
+
+Una forma de hacerlo es así:
+
+```js
+let mixin = {
+  drive() {
+    return `${this.brand} is driving`;
+  },
+  panic() {
+    return `${this.brand} is panicking`;
+  },
+};
+
+class Car {
+  constructor(doors, engine, color) {
+    this.doors = doors;
+    this.engine = engine;
+    this.color = color;
+
+    // Uso de mixin para añadir nuevos métodos
+    Object.assign(this, mixin);
+  }
+}
+
+const civic = new Car(4, 'V6', 'grey');
+
+console.log(civic.drive()); // Honda is driving
+```
