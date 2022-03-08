@@ -7,6 +7,11 @@
   - [Hoisting explicado con clases](#hoisting-explicado-con-clases)
   - [Strict Mode en JS](#strict-mode-en-js)
   - [Métodos Estáticos y su uso](#métodos-estáticos-y-su-uso)
+  - [¿Qué es prototype?](#qué-es-prototype)
+  - [Constructores](#constructores)
+  - [Uso de Super](#uso-de-super)
+  - [Introducción a `Extends` y su uso](#introducción-a-extends-y-su-uso)
+  - [Introducción a Mixins y su uso](#introducción-a-mixins-y-su-uso)
 
 # POO en JavaScript
 
@@ -126,3 +131,111 @@ function doSome() {
 Nos ayuda a evitar errores en el código, ya que nos ayuda a asegurarnos de que el código que estamos escribiendo es correcto.
 
 ## Métodos Estáticos y su uso
+
+Los métodos estáticos son métodos a los que no se puede acceder **a través de una instancia de una clase**, sino que **solo están disponibles** a través de la clase misma. Se crean para funciones de utilidad que no se relacionan con la instancia de la clase.
+
+No se usan regularmente.
+
+- Ejemplo de uso:
+
+```js
+class Car {
+  constructor(doors, engine, color) {
+    this.doors = doors;
+    this.engine = engine;
+    this.color = color;
+  }
+
+  carStats() {
+    return `This car has ${this.doors} doors, a ${this.engine} engine and ${this.color} color.`;
+  }
+
+  static totalDoors(car1, car2) {
+    const doors1 = car1.doors;
+    const doors2 = car2.doors;
+
+    return doors1 + doors2;
+  }
+}
+
+const civic = new Car(4, 'V6', 'grey');
+const mondeo = new Car(5, 'V6', 'blue');
+
+// console.log(civid.totalDoors(1, 2)); // Error
+
+console.log(Car.totalDoors(civic, mondeo)); // 9
+```
+
+## ¿Qué es prototype?
+
+Los **prototipos** son un mecanismo mediante el cual los objetos en JavaScript heredan características entre sí. Todo en JS es un objeto, y los objetos en JS heredan de otros objetos.
+
+## Constructores
+
+Tu puedes usar un solo método `constructor` por **clase**, caso contrario aparecerá un error de sintaxis.
+
+Un constructor es un método que crea un **objeto** cuando una nueva instancia de la clase es creada y cualquier propiedad pasada como argumento a la instancia será inicializada como propiedad de `this` object.
+
+> Un constructor construye un objeto por nosotros.
+
+```js
+class Car {
+  constructor(doors, engine, color) {
+    this.doors = doors;
+    this.engine = engine;
+    this.color = color;
+  }
+}
+```
+
+También podemos usar la palabra `super` que nos va a permitir heredar las propiedades de una clase padre.
+
+## Uso de Super
+
+Cuando queremos heredar propiedades y métodos de otra clase padre, podemos utilizar la palabra `super`.
+
+La forma de usarlo, es muy fácil:
+
+```js
+class Car {
+  constructor(doors, engine, color) {
+    this.doors = doors;
+    this.engine = engine;
+    this.color = color;
+  }
+}
+
+class SUV extends Car {
+  constructor(doors, engine, color, brand) {
+    // Aquí hacemos uso de super, para heredar ls props de Car
+    super(doors, engine, color);
+    this.brand = brand;
+  }
+
+  myBrand() {
+    return `This car is a ${this.brand}`;
+  }
+}
+
+const civic = new SUV(4, 'V6', 'grey', 'Honda');
+```
+
+> Se usa la palabra `extends` para heredar las propiedades de una clase padre.
+
+## Introducción a `Extends` y su uso
+
+Cuando desea aprovechar una clase padre, podemos usar la palabra `extends` para heredar las propiedades de una clase padre.
+
+- Ejemplo de uso:
+
+```js
+class SUV extends Car {
+  constructor(doors, engine, color, brand) {
+    // Aquí hacemos uso de super, para heredar ls props de Car
+    super(doors, engine, color);
+    this.brand = brand;
+  }
+}
+```
+
+## Introducción a Mixins y su uso
