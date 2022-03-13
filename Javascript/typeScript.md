@@ -73,7 +73,7 @@ Todos los tipos en TS son subtipos del tipo `any`. Este tipo puede almacenar cua
 Los tipos primitivos son los tipos:
 
 - `boolean`
-- `number`
+- `number` or `BigInteger`
 - `string`
 - `void`
 - `null`
@@ -83,21 +83,74 @@ Los tipos primitivos son los tipos:
 > El tipo `void` existe para indicar la ausencia de un valor; además, los tipos `null` y `undefined` no tienen una interfaz para setearla como tipo y se los reconoce cuando están asignados como valor en alguna variable.
 
 ```ts
-// Boolean
+// Boolean: Pueden tener valores de true or false
 
 let booleano: boolean = false;
+let flag: boolean;
+let yes = true;
+let no = false;
 
 // Números
 
 let firstNumber: number = 45;
 let secondNumber = 78;
+let x: number;
+let y = 0;
+let z: number = 123.456;
+let big: bigint = 100n;
 
 let result: number = firstNumber + secondNumber;
 
 // String
 
 let saludo: string = 'Me llamo Lucas';
+let s: string;
+let empty = "";
+let abc = 'abc';
+let firstName: string = "Mateo";
+let sentence: string = `My name is ${firstName}.
+    I am new to TypeScript.`;
+```
 
+###  Object Types and Types Parameters
+
+Los `Object Types` son todos aquellos tipos no primitivos, como:
+
+- Arrays
+- Objects
+- Class
+- Interfaz
+- Cualquier cosa que no sea un tipo primitivo
+
+> Los tipos de `clase e interfaz` se introducen a través de declaraciones de clase e interfaz y se les hace referencia por el nombre que se les da en sus `declaraciones`. Los tipos de clase e interfaz pueden ser tipos genéricos que tienen uno o más parámetros de tipo.
+
+```ts
+const numbers: numbers[]
+```
+
+## Enum or Enumeration Type
+
+**Las enumeraciones** ofrecen una manera fácil de trabajar con conjuntos de constantes relacionadas. `enum` es una palabra para denotar sets de valores
+
+Las enumeraciones se tratan como tipos de datos y puede usarlas para crear conjuntos de constantes para usar con variables y propiedades.
+
+> Para declarar algo opcional en Typescript, debemos indicarlo con el signo de interrogación (?)
+
+Siempre que un procedimiento acepte un conjunto limitado de variables, considere usar una enumeración. 
+
+> Las enumeraciones hacen que el código sea más claro y legible, particularmente cuando se usan nombres significativos.
+
+Beneficios de usar enumeraciones:
+
+- Las enumeraciones le permiten especificar una lista de opciones disponibles.
+- Ayuda a reducir los errores causados por transponer o escribir mal los números.
+- Facilita el cambio de valores en el futuro.
+- Hace que el código sea más fácil de leer, lo que significa que es menos probable que se introduzcan errores.
+- Asegura la compatibilidad hacia adelante. Con las enumeraciones, es menos probable que su código falle si en el futuro alguien cambia los valores correspondientes a los nombres de los miembros.
+
+Para crear un `enum`:
+
+```ts
 // Enum
 
 enum Colores {
@@ -146,12 +199,6 @@ console.log(richard);
 ## Interfaces
 
 Nos permiten declarar la forma exacta de un objeto, definiendo los tipos de sus propiedades y si son opcionales o no.
-
-## Enum
-
-Sirven para declarar un tipo de dato específico.
-
-> Para declarar algo opcional en Typescript, debemos indicarlo con el signo de interrogación (?).
 
 # Clases
 
