@@ -69,6 +69,18 @@ Todos los tipos en TS son subtipos del tipo `any`. Este tipo puede almacenar cua
 
 ### Datos primitivos
 
+Los tipos primitivos son los tipos:
+
+- `boolean`
+- `number`
+- `string`
+- `void`
+- `null`
+- `undefined` 
+junto con los tipos de **enumeración o enum** definidos por el usuario:
+
+> El tipo `void` existe para indicar la ausencia de un valor; además, los tipos `null` y `undefined` no tienen una interfaz para setearla como tipo y se los reconoce cuando están asignados como valor en alguna variable.
+
 ```ts
 // Boolean
 
@@ -77,26 +89,13 @@ let booleano: boolean = false;
 // Números
 
 let firstNumber: number = 45;
-let secondNumber: number = 78;
+let secondNumber = 78;
 
-let result = firstNumber + secondNumber;
+let result: number = firstNumber + secondNumber;
 
 // String
 
 let saludo: string = 'Me llamo Lucas';
-
-// Arreglos
-
-let peopple: string[] = [];
-peopple = ['Lenin', 'Mathias', 'Carlos', 'Pepe'];
-
-let numbers: number[] = [];
-numbers.push(45);
-numbers.push(789);
-
-let numbersAndStrings: Array<string | number> = [];
-numbersAndStrings.push('Lenin');
-numbersAndStrings.push(789);
 
 // Enum
 
@@ -109,15 +108,6 @@ enum Colores {
 
 let colorFavorito: Colores = Colores.verde;
 console.log(`Mi color favorito es: ${colorFavorito}`);
-
-// Any
-
-let comodin: any = 'Joker';
-comodin = { type: 'Wildcar' };
-
-// Object
-
-let someObject: object = { type: 'Wildcard' };
 ```
 
 ## Funciones
