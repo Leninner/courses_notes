@@ -1,12 +1,11 @@
 **ÍNDICE**
 
 - [Instalación y primeros pasos con TypeScript](#instalación-y-primeros-pasos-con-typescript)
-- [Typescript Bases](#typescript-bases)
-  - [Overview del Tipado en TypeScript](#overview-del-tipado-en-typescript)
-  - [Types and subtypes in TypeScript](#types-and-subtypes-in-typescript)
-  - [Funciones](#funciones)
-  - [Interfaces](#interfaces)
-  - [Enum](#enum)
+- [Overview del Tipado en TypeScript](#overview-del-tipado-en-typescript)
+- [Types and subtypes in TypeScript](#types-and-subtypes-in-typescript)
+- [Funciones](#funciones)
+- [Interfaces](#interfaces)
+- [Enum](#enum)
 - [Clases](#clases)
   - [Herencia](#herencia)
   - [Modificadores públicos, privados y protegidos.](#modificadores-públicos-privados-y-protegidos)
@@ -40,7 +39,7 @@ tsc --init
 
 Dentro de esa carpeta vamos a encontrar varias opciones. Para conocer más vamos a [tsc CLI](https://www.typescriptlang.org/docs/handbook/compiler-options.html)
 
-# Typescript Bases
+# Typescript Basics
 
 TypeScript es un superset de JavaScript que añade tipado a nuestras variables ayudando así a la detección de errores de forma temprana y mejorando el **entendimiento, diseño e implementación** de nuestras aplicaciones.
 
