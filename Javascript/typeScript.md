@@ -63,9 +63,11 @@ let z; //* Declares z without initializing it
 
 ## Types and subtypes in TypeScript
 
-1. Any type
+Todos los tipos en TS son subtipos del tipo `any`. Este tipo puede almacenar cualquier tipo de dato de JS sin problemas, pero también tiene un división muy interesante:
 
-Todos los tipos en TS son subtipos del tipo `any`. Este tipo puede almacenar cualquier tipo de dato de JS sin problemas:
+![image](https://user-images.githubusercontent.com/67031243/158045215-2d3184e5-52a5-469c-bf4b-6f4b940f7d6f.png)
+
+### Datos primitivos
 
 ```ts
 // Boolean
