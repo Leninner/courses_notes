@@ -1,11 +1,13 @@
 **ÍNDICE**
 
 - [Instalación y primeros pasos con TypeScript](#instalación-y-primeros-pasos-con-typescript)
-- [Overview del Tipado en TypeScript](#overview-del-tipado-en-typescript)
-- [Types and subtypes in TypeScript](#types-and-subtypes-in-typescript)
-- [Funciones](#funciones)
-- [Interfaces](#interfaces)
-- [Enum](#enum)
+- [Typescript Basics](#typescript-basics)
+  - [Overview del Tipado en TypeScript](#overview-del-tipado-en-typescript)
+  - [Types and subtypes in TypeScript](#types-and-subtypes-in-typescript)
+    - [Datos primitivos](#datos-primitivos)
+  - [Funciones](#funciones)
+  - [Interfaces](#interfaces)
+  - [Enum](#enum)
 - [Clases](#clases)
   - [Herencia](#herencia)
   - [Modificadores públicos, privados y protegidos.](#modificadores-públicos-privados-y-protegidos)
@@ -75,8 +77,8 @@ Los tipos primitivos son los tipos:
 - `string`
 - `void`
 - `null`
-- `undefined` 
-junto con los tipos de **enumeración o enum** definidos por el usuario:
+- `undefined`
+  junto con los tipos de **enumeración o enum** definidos por el usuario:
 
 > El tipo `void` existe para indicar la ausencia de un valor; además, los tipos `null` y `undefined` no tienen una interfaz para setearla como tipo y se los reconoce cuando están asignados como valor en alguna variable.
 
