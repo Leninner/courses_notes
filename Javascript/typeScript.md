@@ -2,7 +2,8 @@
 
 - [Instalación y primeros pasos con TypeScript](#instalación-y-primeros-pasos-con-typescript)
 - [Typescript Bases](#typescript-bases)
-  - [Tipos Básicos](#tipos-básicos)
+  - [Overview del Tipado en TypeScript](#overview-del-tipado-en-typescript)
+  - [Types and subtypes in TypeScript](#types-and-subtypes-in-typescript)
   - [Funciones](#funciones)
   - [Interfaces](#interfaces)
   - [Enum](#enum)
@@ -41,19 +42,30 @@ Dentro de esa carpeta vamos a encontrar varias opciones. Para conocer más vamos
 
 # Typescript Bases
 
-TypeScript es un superset de JavaScript que añade tipos a nuestras variables ayudando así a la detección de errores de forma temprana y mejorando el autocompletado.
+TypeScript es un superset de JavaScript que añade tipado a nuestras variables ayudando así a la detección de errores de forma temprana y mejorando el **entendimiento, diseño e implementación** de nuestras aplicaciones.
 
-Los navegadores no entienden TypeScript así que lo vamos a transpilar a JavaScript usando Parcel.
+Los navegadores no entienden TypeScript así que necesita ser transpilado a JavaScript para que pueda ser interpretado por el navegador.
 
-Nos va a ayudar con un desarrollo más seguro.
+## Overview del Tipado en TypeScript
 
-NOTE: Parcel es un servidor como live-server que es capaz de correr typescript en el navegador a través de un proceso de transpilación.
+El mayor beneficio de usar TypeScript es que nos ofrece una forma de tipado que nos permite tener un desarrollo más limpio, de mayor calidad y sin errores.
 
-> En Parcel, si experimentamos un error no previsto, podemos borrar la carpeta .cache y dist del proyecto en el que estamos trabajando para que pueda funcionar correctamente el transpilador.
+El análisis de TypeScript ocurre en `compile-time` y no agrega **sobrecarga de tiempo de ejecución** a la ejecución del programa.
 
-## Tipos Básicos
+Para declarar tipos, lo podemos hacer de forma explícita, o de forma implícita:
 
-Type script permite ser específico con los tipos de variables que se utilizan:
+```ts
+let x: number; //* Explicitly declares x as a number type
+let y = 1; //* Implicitly declares y as a number type
+
+let z; //* Declares z without initializing it
+```
+
+## Types and subtypes in TypeScript
+
+1. Any type
+
+Todos los tipos en TS son subtipos del tipo `any`. Este tipo puede almacenar cualquier tipo de dato de JS sin problemas:
 
 ```ts
 // Boolean
@@ -92,6 +104,7 @@ enum Colores {
   azul = 'Azul',
   amarillo = 'Amarillo',
 }
+
 let colorFavorito: Colores = Colores.verde;
 console.log(`Mi color favorito es: ${colorFavorito}`);
 
@@ -145,11 +158,12 @@ Nos permiten declarar la forma exacta de un objeto, definiendo los tipos de sus 
 
 Sirven para declarar un tipo de dato específico.
 
-NOTE: Para declarar algo opcional en Typescript, debemos indicarlo con el signo de itnerrogación (?).
+> Para declarar algo opcional en Typescript, debemos indicarlo con el signo de interrogación (?).
 
 # Clases
 
-JavaScript tradicional utiliza funciones y herencia basada en prototipos para construir componentes reutilizables, pero esto puede resultar un poco incómodo para los programadores más cómodos con un enfoque orientado a objetos, donde las clases heredan la funcionalidad y los objetos se crean a partir de estas clases. A partir de ECMAScript 2015, también conocido como ECMAScript 6, los programadores de JavaScript podrán construir sus aplicaciones utilizando este enfoque basado en clases orientado a objetos. En TypeScript, permitimos que los desarrolladores usen estas técnicas ahora y las compilen en JavaScript que funcione en todos los principales navegadores y plataformas, sin tener que esperar a la próxima versión de JavaScript.
+JavaScript tradicional utiliza funciones y herencia basada en prototipos para construir componentes reutilizables, pero esto puede resultar un poco incómodo para los programadores más cómodos con un enfoque orientado a objetos, donde las clases heredan la funcionalidad y los objetos se crean a partir de estas clases.
+A partir de ECMAScript 2015, también conocido como ECMAScript 6, los programadores de JavaScript podrán construir sus aplicaciones utilizando este enfoque basado en clases orientado a objetos. En TypeScript, permitimos que los desarrolladores usen estas técnicas ahora y las compilen en JavaScript que funcione en todos los principales navegadores y plataformas, sin tener que esperar a la próxima versión de JavaScript.
 
 Clases
 
@@ -158,9 +172,11 @@ Echemos un vistazo a un ejemplo simple basado en clases:
 ```ts
 class Greeter {
   greeting: string;
+
   constructor(message: string) {
     this.greeting = message;
   }
+
   greet() {
     return 'Hello, ' + this.greeting;
   }
