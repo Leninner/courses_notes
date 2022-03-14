@@ -16,7 +16,9 @@
     - [Literal types](#literal-types)
       - [Qué es Literal Narrowing?](#qué-es-literal-narrowing)
   - [Collection types in TypeScript](#collection-types-in-typescript)
-- [Implementando Interfaces en TypeScript](#implementando-interfaces-en-typescript)
+  - [Implementando Interfaces en TypeScript](#implementando-interfaces-en-typescript)
+    - [Razones para usar interfaces](#razones-para-usar-interfaces)
+    - [Diferencia entre Interfaces y tipos](#diferencia-entre-interfaces-y-tipos)
   - [Funciones](#funciones)
   - [Interfaces](#interfaces)
 - [Clases](#clases)
@@ -367,7 +369,61 @@ let person1: [string, number] = ['Marcia', 35, true]; //* Invalid
 let person1: [string, number] = [35, 'Marcia']; //* Invalid
 ```
 
-# Implementando Interfaces en TypeScript
+## Implementando Interfaces en TypeScript
+
+Una interfaz nos ayuda a definir una estructura de datos, parametrizando los tipos de los objetos. En ejemplo rápido es:
+
+```ts
+interface Employee {
+  firstName: string;
+  lastName: string;
+  fullName(): string;
+}
+```
+
+El único trabajo de las interfaces es la definición de tipos. Después de definirla, podemos obtener todos los beneficios de los tipos declarados, así:
+
+```ts
+let employee: Employee = {
+  firstName: 'Emil',
+  lastName: 'Andersson',
+  fullName(): string {
+    return this.firstName + ' ' + this.lastName;
+  },
+};
+
+employee.firstName = 10; //* Error - Type 'number' is not assignable to type 'string'
+```
+
+### Razones para usar interfaces
+
+- Crear nombres abreviados para los tipos de uso común.
+  Incluso con una interfaz simple como la declarada en el ejemplo anterior, aún obtiene el beneficio de Intellisense y la verificación de tipos.
+
+- Impulse la consistencia en un conjunto de objetos porque cada objeto que implementa la interfaz opera bajo las mismas definiciones de tipo.
+  Esto puede ser útil cuando está trabajando con un equipo de desarrolladores y quiere asegurarse de que los valores correctos se pasen a las propiedades, los constructores o las funciones. Por ejemplo, los objetos que implementan una interfaz deben implementar todos los miembros necesarios de la interfaz. Entonces, si no pasa todos los parámetros requeridos del tipo correcto, el compilador de TypeScript arrojará un error.
+- Describir las API de JavaScript existentes y aclarar los parámetros de función y los tipos de devolución. Esto es especialmente útil cuando trabaja con bibliotecas de JavaScript como jQuery. Una interfaz puede proporcionarle una comprensión clara de lo que espera una función y lo que devolverá sin tener que volver a visitar la documentación.
+
+### Diferencia entre Interfaces y tipos
+
+Un tipo define tipos de datos. Las interfaces nos ayuda a definir formas o estructuras, por ejemplo, un objeto
+`type` no se puede reabrir para extenderlo, pero una `interfaz` si puede ser reabierta para extenderla.
+
+```ts
+interface Employee {
+  firstName: string;
+  lastName: string;
+  fullName(): string;
+}
+
+// Pero también tiene forma de escribirse como un type:
+
+type Employee = {
+  firstName: string;
+  lastName: string;
+  fullName(): string;
+};
+```
 
 ## Funciones
 
