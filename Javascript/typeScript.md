@@ -10,6 +10,13 @@
   - [Any and unknown types in TypeScript](#any-and-unknown-types-in-typescript)
     - [Type Assertions](#type-assertions)
     - [Type guards](#type-guards)
+  - [Tipos de unión e intersección en TypeScript](#tipos-de-unión-e-intersección-en-typescript)
+    - [Union Types](#union-types)
+    - [Intersection Types](#intersection-types)
+    - [Literal types](#literal-types)
+      - [Qué es Literal Narrowing?](#qué-es-literal-narrowing)
+  - [Collection types in TypeScript](#collection-types-in-typescript)
+- [Implementando Interfaces en TypeScript](#implementando-interfaces-en-typescript)
   - [Funciones](#funciones)
   - [Interfaces](#interfaces)
 - [Clases](#clases)
@@ -20,6 +27,8 @@
 - [Refactorización](#refactorización)
 
 # Instalación y primeros pasos con TypeScript
+
+> Documentación: https://www.typescriptlang.org/docs/handbook/basic-types.html
 
 Necesitamos instalar globalmente Typescript para usarlo en cualquier proyecto, lo logramos con:
 
@@ -239,11 +248,126 @@ if (typeof randomValue === 'string') {
 | ------------ | ---------------------------------- |
 | `string`     | `typeof s === "string"`            |
 | `number`     | `typeof n === "number"`            |
-| `boolean`    | `typeof b=== "boolean"`            |
+| `boolean`    | `typeof b === "boolean"`           |
 | `undefined`  | `typeof undefined === "undefined"` |
 | `null`       | `typeof null === "null"`           |
 | `function`   | `typeof f === "function"`          |
 | `array`      | `Array.isArray(a)`                 |
+
+## Tipos de unión e intersección en TypeScript
+
+Ayudan a manejar situaciones en las que **un tipo se compone de dos o más tipos posibles**, mientras que los `tipos literales` le permiten restringir los valores asignados a un tipo a una lista limitada de opciones.
+
+### Union Types
+
+Describe un valor que puede ser uno de varios tipos:
+
+```ts
+let multiType: number | boolean; // Union types
+multiType = 20; //* Valid
+multiType = true; //* Valid
+multiType = 'twenty'; //* Invalid
+```
+
+- Otro ejemplo aplicado a una función que recibe dos argumentos:
+
+```ts
+function add(x: number | string, y: number | string) {
+  if (typeof x === 'number' && typeof y === 'number') {
+    return x + y;
+  }
+
+  if (typeof x === 'string' && typeof y === 'string') {
+    return x.concat(y);
+  }
+
+  throw new Error('Parameters must be numbers or strings');
+}
+
+console.log(add('one', 'two')); //* Returns "onetwo"
+console.log(add(1, 2)); //* Returns 3
+console.log(add('one', 2)); //* Returns error
+```
+
+### Intersection Types
+
+Son similares a los union types, pero se usan para describir una combinación de tipos, para poder tener todos los métodos disponidles de todos los tipos que se estén usando.
+
+Es muy utilizado con interfaces, ya que pueden ser usados para describir una combinación de métodos y propiedades:
+
+```ts
+interface Employee {
+  employeeID: number;
+  age: number;
+}
+
+interface Manager {
+  stockPlan: boolean;
+}
+
+type ManagementEmployee = Employee & Manager;
+
+let newManager: ManagementEmployee = {
+  employeeID: 12345,
+  age: 34,
+  stockPlan: true,
+};
+```
+
+### Literal types
+
+**Un literal es un subtipo más concreto de un tipo colectivo.** Lo que esto significa es que "Hello World" es un string, pero un string no es "Hello World" dentro del sistema de tipos.
+
+Hay tres conjuntos de tipos de literales disponibles en TypeScript:
+
+- string
+- number
+- boolean
+
+Mediante el uso de tipos literales, puede especificar un valor exacto que debe tener un string, un número o un valor booleano (por ejemplo, "sí", "no" o "tal vez").
+
+Al definir un tipo literal, puede usar el operador `|` para combinar múltiples tipos, como se muestra a continuación:
+
+```ts
+// Another example
+type testResult = 'pass' | 'fail' | 'incomplete';
+let myResult: testResult;
+myResult = 'incomplete'; //* Valid
+myResult = 'pass'; //* Valid
+myResult = 'failure'; //* Invalid
+
+// Another example
+type dice = 1 | 2 | 3 | 4 | 5 | 6;
+let diceRoll: dice;
+diceRoll = 1; //* Valid
+diceRoll = 2; //* Valid
+diceRoll = 7; //* Invalid
+```
+
+#### Qué es Literal Narrowing?
+
+El proceso de pasar de un número infinito de casos potenciales a un número finito más pequeño de casos potenciales se denomina `narrowing`.
+
+## Collection types in TypeScript
+
+Los tipos de objeto son todos tipos de `clase, interfaz, matriz y literal` (cualquier cosa que no sea un tipo primitivo).
+
+- Arrays
+
+```ts
+let list: number[] = [1, 2, 3];
+let list: Array<number> = [1, 2, 3];
+```
+
+- Tuples: Lista ordenada finita de elementos
+
+```ts
+let person1: [string, number] = ['Marcia', 35];
+let person1: [string, number] = ['Marcia', 35, true]; //* Invalid
+let person1: [string, number] = [35, 'Marcia']; //* Invalid
+```
+
+# Implementando Interfaces en TypeScript
 
 ## Funciones
 
@@ -280,6 +404,17 @@ console.log(richard);
 ## Interfaces
 
 Nos permiten declarar la forma exacta de un objeto, definiendo los tipos de sus propiedades y si son opcionales o no.
+
+```ts
+interface Employee {
+  employeeID: number;
+  age: number;
+}
+
+interface Manager {
+  stockPlan: boolean;
+}
+```
 
 # Clases
 
