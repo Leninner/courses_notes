@@ -27,6 +27,9 @@
     - [Use State](#use-state)
     - [UseEffect](#useeffect)
       - [Precauciones](#precauciones)
+    - [UseRef](#useref)
+    - [UseLayoutEffect](#uselayouteffect)
+  - [Memo - Método de React](#memo---método-de-react)
   - [Pruebas Unitarias y de Integración](#pruebas-unitarias-y-de-integración)
     - [AAA:](#aaa)
   - [Generando el Build para producción y despliegues en Github Pages](#generando-el-build-para-producción-y-despliegues-en-github-pages)
@@ -658,7 +661,7 @@ const handleAdd = (e) => {
 
 ## Hooks
 
-Son funciones que nos va a ayudar a crear mejores aplicaciones más facilmente
+Son funciones que nos van a ayudar a controlar el ciclo de vida de los componentes. Están disponibles a partir de la versión 16.8 de React.
 
 ### Use State
 
@@ -718,6 +721,90 @@ useEffect(() => {
     window.removeEventListener('mousemove', handleMove);
   };
 }, []);
+```
+
+### UseRef
+
+Nos sirve para hacer referencias a elementos del DOM, así:
+
+```js
+import { useRef } from 'react';
+
+export const FocusScreen = () => {
+  const inputRef = useRef();
+
+  const handleClick = () => {
+    inputRef.current.select();
+  };
+
+  return (
+    <div>
+      <input type="text" className="form-control" placeholder="Nombre" ref={inputRef} />
+      <button className="btn btn-outline-primary mt-5" onClick={handleClick}>
+        Focus
+      </button>
+    </div>
+  );
+};
+```
+
+También podemos usar `useRef` para controlar errores en componentes desmontados, de esta forma:
+
+```js
+import { useEffect, useState, useRef } from 'react';
+
+export const useFetch = (URL) => {
+  const isMounted = useRef(true);
+  const [state, setState] = useState({ data: [], isLoading: true, isError: false });
+
+  useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      setState({ data: [], isLoading: true, isError: false });
+      fetch(URL)
+        .then((response) => response.json())
+        .then((data) => {
+          setState({ data, isLoading: false, isError: false });
+        })
+        .catch(() => {
+          setState({ data: [], isLoading: false, isError: true });
+        });
+    }
+  }, []);
+
+  return state;
+};
+```
+
+### UseLayoutEffect
+
+Nos puede servir para sacar mediciones después de que se renderice el componente, así:
+
+```js
+const { quote } = data[0] || [];
+const pTag = useRef();
+
+useLayoutEffect(() => {
+  console.log(pTag.current.getBoundingClientRect());
+}, [quote]);
+```
+
+## Memo - Método de React
+
+Nos sirve para evitar que se renderice un componente si sus props no han cambiado, para implementar este método debemos importar el módulo `React.memo`:
+
+```js
+import { memo } from 'react';
+
+export const Small = memo(({ value }) => {
+  console.log('Me volví a llamar');
+  return <div>{value}</div>;
+});
 ```
 
 ## Pruebas Unitarias y de Integración
