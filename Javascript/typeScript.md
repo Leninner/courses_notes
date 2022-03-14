@@ -5,9 +5,13 @@
   - [Overview del Tipado en TypeScript](#overview-del-tipado-en-typescript)
   - [Types and subtypes in TypeScript](#types-and-subtypes-in-typescript)
     - [Datos primitivos](#datos-primitivos)
+    - [Object Types and Types Parameters](#object-types-and-types-parameters)
+  - [Enum or Enumeration Type](#enum-or-enumeration-type)
+  - [Any and unknown types in TypeScript](#any-and-unknown-types-in-typescript)
+    - [Type Assertions](#type-assertions)
+    - [Type guards](#type-guards)
   - [Funciones](#funciones)
   - [Interfaces](#interfaces)
-  - [Enum](#enum)
 - [Clases](#clases)
   - [Herencia](#herencia)
   - [Modificadores públicos, privados y protegidos.](#modificadores-públicos-privados-y-protegidos)
@@ -105,14 +109,14 @@ let result: number = firstNumber + secondNumber;
 
 let saludo: string = 'Me llamo Lucas';
 let s: string;
-let empty = "";
+let empty = '';
 let abc = 'abc';
-let firstName: string = "Mateo";
+let firstName: string = 'Mateo';
 let sentence: string = `My name is ${firstName}.
     I am new to TypeScript.`;
 ```
 
-###  Object Types and Types Parameters
+### Object Types and Types Parameters
 
 Los `Object Types` son todos aquellos tipos no primitivos, como:
 
@@ -125,7 +129,7 @@ Los `Object Types` son todos aquellos tipos no primitivos, como:
 > Los tipos de `clase e interfaz` se introducen a través de declaraciones de clase e interfaz y se les hace referencia por el nombre que se les da en sus `declaraciones`. Los tipos de clase e interfaz pueden ser tipos genéricos que tienen uno o más parámetros de tipo.
 
 ```ts
-const numbers: numbers[]
+const numbers: numbers[];
 ```
 
 ## Enum or Enumeration Type
@@ -136,7 +140,7 @@ Las enumeraciones se tratan como tipos de datos y puede usarlas para crear conju
 
 > Para declarar algo opcional en Typescript, debemos indicarlo con el signo de interrogación (?)
 
-Siempre que un procedimiento acepte un conjunto limitado de variables, considere usar una enumeración. 
+Siempre que un procedimiento acepte un conjunto limitado de variables, considere usar una enumeración.
 
 > Las enumeraciones hacen que el código sea más claro y legible, particularmente cuando se usan nombres significativos.
 
@@ -163,6 +167,83 @@ enum Colores {
 let colorFavorito: Colores = Colores.verde;
 console.log(`Mi color favorito es: ${colorFavorito}`);
 ```
+
+## Any and unknown types in TypeScript
+
+Cuando no conoces el tipo de dato con el que vas a trabajar, puedes usar el tipo `any` o `unknown`:
+
+- **Tipo `any`:** Puede almacenar cualquier tipo de dato de JS.
+
+```ts
+let randomValue: any = 10;
+randomValue = 'Mateo'; // OK
+randomValue = true; // OK
+```
+
+> El tipo any, debería ser evitado, ya que con TS, buscamos que todos los datos sean de un tipo específico.
+
+- **Tipo `unknown`:** Es similar a `any`, pero en este tipo de dato, no se puede aplicar métodos definidos en el tipo de variable, como `toString()` o `toUpperCase()`:
+
+```ts
+let randomValue: unknown = 10;
+randomValue = true; // OK
+randomValue = 'Mateo'; // OK
+
+console.log(randomValue.name); // Error: Object is of type unknown
+randomValue(); // Error: Object is of type unknown
+randomValue.toUpperCase(); // Error: Object is of type unknown
+```
+
+### Type Assertions
+
+Si necesita tratar una variable como un tipo de datos diferente, puede usar una aserción de tipo. Una aserción de tipo le dice a TypeScript que ha realizado las comprobaciones especiales que necesita antes de llamar a la declaración.
+
+> Le dice al compilador "confía en mí, sé lo que estoy haciendo".
+
+Tiene dos formas de ser declaradas:
+
+1. `as-syntax` => Es la más recomendada
+
+```ts
+(randomValue as string).toUpperCase();
+```
+
+2. `angle-bracket-syntax`
+
+```ts
+(<string>randomValue).toUpperCase();
+```
+
+Ejemplo de aseción de tipo:
+
+```ts
+let randomValue: unknown = 10;
+
+randomValue = true;
+randomValue = 'Mateo';
+
+if (typeof randomValue === 'string') {
+  console.log((randomValue as string).toUpperCase()); //* Returns MATEO to the console.
+} else {
+  console.log('Error - A string was expected here.'); //* Returns an error message.
+}
+```
+
+### Type guards
+
+`typeof` dentro de una sentencia `if` puede ayudarnos a realizar acciones específicas dependiendo del tipo de dato que se está tratando, podemos usar las siguientes comprobaciones:
+
+<!-- Tabla -->
+
+| Tipo de dato | Acciones                           |
+| ------------ | ---------------------------------- |
+| `string`     | `typeof s === "string"`            |
+| `number`     | `typeof n === "number"`            |
+| `boolean`    | `typeof b=== "boolean"`            |
+| `undefined`  | `typeof undefined === "undefined"` |
+| `null`       | `typeof null === "null"`           |
+| `function`   | `typeof f === "function"`          |
+| `array`      | `Array.isArray(a)`                 |
 
 ## Funciones
 
