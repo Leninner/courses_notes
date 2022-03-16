@@ -19,6 +19,8 @@
   - [Implementando Interfaces en TypeScript](#implementando-interfaces-en-typescript)
     - [Razones para usar interfaces](#razones-para-usar-interfaces)
     - [Diferencia entre Interfaces y tipos](#diferencia-entre-interfaces-y-tipos)
+    - [Extendiendo interfaces en TypeScript](#extendiendo-interfaces-en-typescript)
+    - [Otras formas de usar interfaces en TypeScript](#otras-formas-de-usar-interfaces-en-typescript)
   - [Funciones](#funciones)
   - [Interfaces](#interfaces)
 - [Clases](#clases)
@@ -395,6 +397,49 @@ let employee: Employee = {
 employee.firstName = 10; //* Error - Type 'number' is not assignable to type 'string'
 ```
 
+Otro ejemplo de interfaz:
+
+```ts
+interface IceCream {
+  flavor: string;
+  scoops: number;
+}
+
+// Este objeto, tiene las mismas propiedades que la interfaz
+let iceCream: IceCream = {
+  flavor: 'vanilla',
+  scoops: 2,
+};
+
+function tooManyScoops(dessert: IceCream) {
+  if (dessert.scoops >= 4) {
+    return dessert.scoops + ' is too many scoops!';
+  } else {
+    return 'Your order will be ready soon!';
+  }
+}
+
+console.log(tooManyScoops(iceCream));
+```
+
+Para declarar tipos opcionales en TypeScript, puede usar el operador `?` al final del nombre de una propiedad:
+
+```ts
+interface IceCream {
+  flavor: string;
+  scoops?: number;
+}
+```
+
+Para crear propiedades de solo lectura en TypeScript, puede usar el operador `readonly` al inicio de una propiedad:
+
+```ts
+interface IceCream {
+  flavor: string;
+  readonly scoops: number;
+}
+```
+
 ### Razones para usar interfaces
 
 - Crear nombres abreviados para los tipos de uso común.
@@ -423,6 +468,103 @@ type Employee = {
   lastName: string;
   fullName(): string;
 };
+```
+
+### Extendiendo interfaces en TypeScript
+
+Las `interfaces pueden extenderse` entre sí. Esto le permite `copiar los miembros de una interfaz en otra`, lo que le brinda más flexibilidad en la forma en que separa sus interfaces en `componentes reutilizables.`
+
+Algunas reglas a tener en cuenta:
+
+1. Debe implementar `todas las propiedades` necesarias de `todas las interfaces`.
+2. Dos interfaces pueden tener `la misma propiedad` si la propiedad tiene **exactamente** el mismo `nombre y tipo.` Esto incluye, si son opcionales o si son de solo lectura.
+3. Si dos interfaces tienen una propiedad con el mismo nombre pero diferentes tipos, debe declarar una nueva propiedad de modo que la propiedad resultante sea un subtipo de ambas interfaces.
+
+- Forma de extender interfaces
+
+```ts
+interface IceCream {
+  flavor: string;
+  scoops: number;
+  instructions?: string;
+}
+
+interface Sundae extends IceCream {
+  sauce: 'chocolate' | 'caramel' | 'strawberry';
+  nuts?: boolean;
+  whippedCream?: boolean;
+  instructions?: string;
+}
+
+let iceCream: Sundae = {
+  flavor: 'vanilla',
+  scoops: 2,
+  sauce: 'caramel',
+  nuts: true,
+};
+
+function tooManyScoops(dessert: Sundae) {
+  if (dessert.scoops >= 4) {
+    return dessert.scoops + ' is too many scoops!';
+  } else {
+    return 'Your order will be ready soon!';
+  }
+}
+
+console.log(tooManyScoops(iceCream));
+```
+
+### Otras formas de usar interfaces en TypeScript
+
+1. **Creando tipos indexables**
+   Puede usar interfaces que describan los tipos de matriz en los que puede indexar.
+
+```ts
+interface IceCreamArray {
+  [index: number]: string;
+}
+
+let myIceCream: IceCreamArray;
+myIceCream = ['chocolate', 'vanilla', 'strawberry'];
+let myStr: string = myIceCream[0];
+
+console.log(myStr);
+```
+
+2. **Describir una API de JavaScript usando una interfaz**
+   Podemos usar interfaces para describir la respuesta a una API y trabajar de mejor manera.
+
+```ts
+const fetchURL = 'https://jsonplaceholder.typicode.com/posts';
+// Interface describing the shape of our json data
+interface Post {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
+
+async function fetchPosts(url: string) {
+  let response = await fetch(url);
+  let body = await response.json();
+
+  return body as Post[];
+}
+
+async function showPost() {
+  let posts = await fetchPosts(fetchURL);
+
+  // Display the contents of the first item in the response
+  let post = posts[0];
+  console.log('Post #' + post.id);
+
+  // If the userId is 1, then display a note that it's an administrator
+  console.log('Author: ' + (post.userId === 1 ? 'Administrator' : post.userId.toString()));
+  console.log('Title: ' + post.title);
+  console.log('Body: ' + post.body);
+}
+
+showPost();
 ```
 
 ## Funciones
