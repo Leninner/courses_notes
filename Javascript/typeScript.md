@@ -373,6 +373,10 @@ let person1: [string, number] = [35, 'Marcia']; //* Invalid
 
 ## Implementando Interfaces en TypeScript
 
+> Documentación: https://www.typescriptlang.org/docs/handbook/2/objects.html
+
+El trabajo principal de una interfaz es describir los tipos de las propiedades y retornos de un objeto.
+
 Una interfaz nos ayuda a definir una estructura de datos, parametrizando los tipos de los objetos. En ejemplo rápido es:
 
 ```ts
