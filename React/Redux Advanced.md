@@ -244,6 +244,217 @@ npm i redux-saga
 
 Documentación: https://redux-saga.js.org/
 
+# Inmutabilidad
+
+Cada vez que declaramos una variable, y esta cambia de valor la estamos mutando.
+
+La inmutabilidad es un concepto de programación funcional que se aplica mucho al trabajar con Redux, ya que, Redux no indicará un nuevo render si una variable tiene exactamente el mismo valor.
+
+Para trabajar con Inmutabilidad en JS, tenemos varios caminos:
+
+- Utilizar Object.assign()
+
+```js
+const obj = {
+  a: 1,
+  b: 2,
+};
+
+const newObj = Object.assign({}, obj, { b: 3 });
+
+obj.a; // 1;
+newObj.b; // 3;
+```
+
+- Utilizar Spread Operator
+
+```js
+const obj = {
+  a: 1,
+  b: 2,
+};
+
+const newObj = { ...obj, b: 3 };
+
+obj.a; // 1;
+newObj.b; // 3;
+```
+
+> Spread Operator y Object.assign(), nos sirve para hacer copias de primer nivel de un objeto, es decir, va a copiar los elementos de primer nivel, y solo va a copiar las referencias a los objetos de los niveles más profundos
+
+- Utilizar JSON.parse() y JSON.stringify()
+
+> Esta solución nos ayuda a hacer copias profundas de un objeto, copiando todas sus propiedades y valores.
+
+```js
+const obj = {
+  a: 1,
+  b: {
+    c: 2,
+  },
+};
+
+const newObj = JSON.parse(JSON.stringify(obj));
+newObj.b.c = 3;
+
+obj.b.c; // 2;
+newObj.b.c; // 3;
+```
+
+## Inmutable JS
+
+Es una librería que nos facilita la vida al trabajar con inmutabilidad
+
+Para instalar:
+
+```bash
+npm i immutable
+```
+
+Forma de uso:
+
+1. Debemos importar `fromJS` desde `immutable`
+2. Debemos empezar a utilizarla en nuestro `initialState`
+3. Debemos utilizarla en nuestro reducer
+
+```js
+import { SET_POKEMONS, TOGGLE_LOADER, ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES } from '../actions/types';
+import { fromJS } from 'immutable';
+
+const initialState = fromJS({
+  list: [],
+  loading: false,
+  favorites: [],
+});
+
+export const pokemonReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_POKEMONS:
+      return state.set('list', fromJS(action.payload));
+    case TOGGLE_LOADER:
+      return state.set('loading', fromJS(!state.get('loading')));
+    case ADD_TO_FAVORITES:
+      return state.set('favorites', state.get('favorites').push(action.payload));
+    case REMOVE_FROM_FAVORITES:
+      return state.set(
+        'favorites',
+        state.get('favorites').filter(({ pokemon }) => pokemon.id !== action.payload.pokemon.id)
+      );
+    default:
+      return state;
+  }
+};
+```
+
+> Depende del proyecto, podemos utilizar immutable, debemos analizar variables como el performance de nuestro código, y si es posible, utilizarlo
+
+# Reducers Combinados
+
+Esta técnica nos sirve de mucho para separar responsabilidades. Puede haber el caso de que el mismo reducer tenga la responsabilidad de manejar la UI y también la responsabilidad de manejar el estado de la aplicación.
+
+Para separar esas responsabilidades, utilizamos `combineReducers`
+
+Debemos exportar nuestros reducers y en el archivo root de `reducers` vamos a hacer algo similar a esto:
+
+```js
+import { combineReducers } from 'redux';
+import { firstReducer } from './firstReducer';
+import { secondReducer } from './secondReducer';
+import { thirdReducer } from './thirdReducer';
+
+export const rootReducer = combineReducers({
+  firstReducer,
+  secondReducer,
+  thirdReducer,
+});
+```
+
+Este `rootReducer` es el que va a generar un objeto con los reducers que vamos a utilizar en nuestra aplicación y poder tener las responsabilidades separadas.
+
+Debemos importarlo en nuestro archivo de entrada de la aplicación, y se lo pasamos al store:
+
+```js
+const store = createStore(rootReducer, composedEnhancers);
+```
+
+# Redux Toolkit
+
+Busca una manera de estandarizar la forma en la que se trabaja con Redux. Esto nos ayuda a tener una mejor organización de nuestra aplicación.
+
+Redux Toolkit utilizar `immer` para trabajar con inmutabilidad
+
+Para instalar:
+
+```bash
+npm i @reduxjs/toolkit
+```
+
+Para empezar a usarlo:
+
+- Crear en el root de `src` una carpeta llamada `slices`. Un slice se encarga de envolver el estado inicial, los reducers y los actions en una sola unidad.
+
+- Ejemplo de configuración:
+
+```js
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { getPokemons, getPokemonsWithDetails } from '../api/getPokemons';
+import { setError, toggleLoading } from './ui';
+
+const initialState = {
+  list: [],
+};
+
+export const fetchPokemons = createAsyncThunk('pokemon/fetchPokemons', async (_, { dispatch }) => {
+  try {
+    dispatch(toggleLoading());
+    const response = await getPokemons();
+    const pokemonsWithDetails = await getPokemonsWithDetails(response.results);
+    dispatch(setPokemon(pokemonsWithDetails));
+    dispatch(toggleLoading());
+  } catch (err) {
+    dispatch(setError({ error: err, message: 'Error fetching pokemons' }));
+    dispatch(toggleLoading());
+  }
+});
+
+export const pokemonSlice = createSlice({
+  name: 'pokemon',
+  initialState,
+  reducers: {
+    setPokemon: (state, action) => {
+      state.list = action.payload;
+    },
+    setFavorite: (state, action) => {
+      const currentPokemonIndex = state.list.findIndex((elem) => elem.id === action.payload.pokemonId);
+      if (currentPokemonIndex >= 0) {
+        state.list[currentPokemonIndex].favorite = !state.list[currentPokemonIndex].favorite;
+      }
+    },
+  },
+});
+
+export const { setPokemon, setFavorite } = pokemonSlice.actions;
+
+export default pokemonSlice.reducer;
+```
+
+También necesitamos un `rootReducer`:
+
+```js
+import { combineReducers } from 'redux';
+import pokemonReducer from '../slices/pokemon';
+import uiReducer from '../slices/ui';
+
+const rootReducer = combineReducers({
+  pokemon: pokemonReducer,
+  ui: uiReducer,
+});
+
+export default rootReducer;
+```
+
+Este rootReducer lo importamos en la entrada de nuestra aplicación y lo usamos normalmente
+
 # Notas Importantes
 
 Se puede controlar la UI a través de un `action`
