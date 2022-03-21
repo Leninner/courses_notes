@@ -35,17 +35,21 @@ Significa que las cosas no van a pasar al mismo tiempo que se ejecuta la aplicac
 
 ## Definición Estructura Callback
 
-**Callback** => Una función pasada como parámetro a otra **función de orden superior**.
+**Callback** => Una función pasada como parámetro a otra **función de orden superior** que se ve así:
+
+```js
+const doSome = () => console.log('Hola mundo!');
+const HOFFunction = (callback) => callback();
+
+HOFFunction(doSome); // Hola mundo!
+```
+
 **High Order Function** => Una función que al crearla se le pasa otra función, sirve para reutilizar lógica:
 
 ```js
 const numbers = [1, 2, 3, 4, 5, 6, 7];
 const oddNumbers = numbers.filter((number) => number % 2 !== 0); // La función anónima dentro del método filter es una callback. El método filter sería una función de orden superior.
 ```
-
-> **XMLHttpRequest** es la forma antigua de hacer llamados asíncronos. La forma de usar XMLHttpRequest : https://developer.mozilla.org/es/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest.
-
-> **Clase Error de Javascript**: https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Error.
 
 ## Implementando Promesas
 
