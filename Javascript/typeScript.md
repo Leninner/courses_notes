@@ -22,6 +22,9 @@
     - [Extendiendo interfaces en TypeScript](#extendiendo-interfaces-en-typescript)
     - [Otras formas de usar interfaces en TypeScript](#otras-formas-de-usar-interfaces-en-typescript)
   - [Funciones](#funciones)
+    - [Named Functions](#named-functions)
+    - [Anonymous Functions](#anonymous-functions)
+    - [Arrow Functions](#arrow-functions)
   - [Interfaces](#interfaces)
 - [Clases](#clases)
   - [Herencia](#herencia)
@@ -573,34 +576,78 @@ showPost();
 
 ## Funciones
 
-En Typescript podemos ser explícitos con el tipo de los argumentos y el tipo de retorno de una función.
+En TS podemos definir funciones con parámetros tipados. Nos ayuda a escribir código más legible y claro, además nos da la posibilidad de marcar un parámetro como requerido o no. Esto nos permite asegurarnos de que los valores correctos se pasan a las propiedades, los constructores o las funciones.
+
+### Named Functions
+
+Una `named function` es una declaración de función escrita con la palabra clave `function` y provista de un nombre distinto dentro del alcance actual.
 
 ```ts
-// Funciones
-
-function suma(a: number, b: number) {
-  return a + b;
+function addNumbers(x: number, y: number): number {
+  return x + y;
 }
-const add = suma(12, 78);
-console.log(add);
+addNumbers(1, 2);
+```
 
-function createAdder(a: number): (number) => number {
-  return function (b: number) {
-    return a + b;
-  };
-}
+### Anonymous Functions
 
-const sumar = createAdder(12);
+Una `function expression` o `anonymous function` es una función que no está precargarda en el contexto de la ejecución, sino, será llamada cuando se la encuentre. Este tipo de funciones debe ser declarada antes de ser llamada, es decir, que no tiene `hoisting` al contrario de las `named functions` que pueden ser llamadas incluso antes de que se hayan declarado.
 
-const addTwelve = sumar(7);
+Pueden ser asignadas como valor, o como propiedad de una función.
 
-function fullName(name: string, lastName: string = 'Doe'): string {
-  return `${name} ${lastName}`;
-}
+```ts
+let addNumbers = function (x: number, y: number): number {
+  return x + y;
+};
 
-const richard = fullName('Richard');
+addNumbers(1, 2);
 
-console.log(richard);
+let total = function (input: number[]): number {
+  let total: number = 0;
+
+  for (let i = 0; i < input.length; i++) {
+    if (isNaN(input[i])) {
+      continue;
+    }
+
+    total += Number(input[i]);
+  }
+  return total;
+};
+
+console.log(total([1, 2, 3]));
+```
+
+### Arrow Functions
+
+Las `Arrow functions` o `Lambda functions` proveen una sintaxis más sencilla para escribir funciones anónimas.
+
+```ts
+// Anonymous function
+let addNumbers1 = function (x: number, y: number): number {
+  return x + y;
+};
+
+// Arrow function
+let addNumbers2 = (x: number, y: number): number => x + y;
+```
+
+> Las `arrow functions` de una línea pueden tener un retorno `implícito` o `sintaxis de cuerpo concisa`
+
+```ts
+let total2 = (input: number[]): number => {
+  let total: number = 0;
+
+  for (let i = 0; i < input.length; i++) {
+    if (isNaN(input[i])) {
+      continue;
+    }
+
+    total += Number(input[i]);
+  }
+
+  return total;
+};
 ```
 
 ## Interfaces
