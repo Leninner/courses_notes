@@ -578,6 +578,82 @@ showPost();
 
 En TS podemos definir funciones con parámetros tipados. Nos ayuda a escribir código más legible y claro, además nos da la posibilidad de marcar un parámetro como requerido o no. Esto nos permite asegurarnos de que los valores correctos se pasan a las propiedades, los constructores o las funciones.
 
+Los parámetros se deben pasar en orden a la función. Además tenemos parámetros `obligatorios, opcionales y por defecto.`
+
+- **Parámetros obligatorios:** Se los declara normalmente.
+
+```ts
+function addNumbers(x: number, y: number): number {
+  return x + y;
+}
+
+addNumbers(1, 2); // Returns 3
+addNumbers(1); // Returns an **error**
+```
+
+- **Parámetros opcionales:** Se los declara con un signo de interrogación `?` al final del nombre del parámetro.
+
+```ts
+function addNumbers(x: number, y?: number): number {
+  if (y === undefined) {
+    return x;
+  } else {
+    return x + y;
+  }
+}
+
+addNumbers(1, 2); // Returns 3
+addNumbers(1); // Returns 1
+```
+
+- **Parámetros por defecto:** Se los declara con un valor por defecto.
+
+```ts
+function addNumbers(x: number, y = 25): number {
+  return x + y;
+}
+
+addNumbers(1, 2); // Returns 3
+addNumbers(1); // Returns 26
+```
+
+- Parámetros de tipo Rest: Le dice al compilador que tenemos una cantidad desconocida de parámetros, los cuáles se van a tratar como opcionales.
+
+```ts
+let addAllNumbers = (firstNumber: number, ...restOfNumbers: number[]): number => {
+  let total: number = firstNumber;
+
+  for (let counter = 0; counter < restOfNumbers.length; counter++) {
+    if (isNaN(restOfNumbers[counter])) {
+      continue;
+    }
+
+    total += Number(restOfNumbers[counter]);
+  }
+
+  return total;
+};
+
+addAllNumbers(1, 2, 3, 4, 5, 6, 7); // returns 28
+addAllNumbers(2); // returns 2
+addAllNumbers(2, 3, 'three'); // flags error due to data type at design time, returns 5
+```
+
+- Parámetros de Objetos Destructurados: Nos permite utilizar `interfaces` para definir `parámetros con nombre`, **en lugar de posicionales**, en sus funciones. Sirven de mucho al trabajar con funciones que reciben muchos parámetros.
+
+```ts
+interface Message {
+  text: string;
+  sender: string;
+}
+
+function displayMessage({ text, sender }: Message) {
+  console.log(`Message from ${sender}: ${text}`);
+}
+
+displayMessage({ sender: 'Christopher', text: 'hello, world' });
+```
+
 ### Named Functions
 
 Una `named function` es una declaración de función escrita con la palabra clave `function` y provista de un nombre distinto dentro del alcance actual.
