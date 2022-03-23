@@ -29,6 +29,10 @@
       - [Precauciones](#precauciones)
     - [UseRef](#useref)
     - [UseLayoutEffect](#uselayouteffect)
+    - [UseMemo](#usememo)
+    - [UseCallback](#usecallback)
+    - [UseReducer](#usereducer)
+      - [¿Qué es un Reducer?](#qué-es-un-reducer)
   - [Memo - Método de React](#memo---método-de-react)
   - [Pruebas Unitarias y de Integración](#pruebas-unitarias-y-de-integración)
     - [AAA:](#aaa)
@@ -665,6 +669,29 @@ Son funciones que nos van a ayudar a controlar el ciclo de vida de los component
 
 ### Use State
 
+Este hook nos permite crear un estado en un componente, así:
+
+```js
+const [state, setState] = useState(0);
+```
+
+Para actualizar ese estado debemos hacer uso del segundo elemento del array que nos devuelve el hook, es cuál es una función que nos va a permitir actualizar el estado.
+
+Existen varias formas de actualizar el estado:
+
+```js
+// Primera forma
+setState(state + 1);
+
+// Segundo forma
+setState((previousState) => previousState + 1);
+
+// Tercera forma
+setState((previousState) => {
+  return previousState + 1;
+});
+```
+
 ### UseEffect
 
 Va a ejecutar un effecto cuando haya cambios en algún elemento de su arreglo de dependencias.
@@ -793,6 +820,91 @@ useLayoutEffect(() => {
   console.log(pTag.current.getBoundingClientRect());
 }, [quote]);
 ```
+
+### UseMemo
+
+Este hook nos sirve para decirle al navegador `memoriza el resultado de la función`, y no la ejecutes si sus dependencias no cambian.
+
+Se lo puede usar de la siguiente manera:
+
+```js
+import { useCounter } from '../hooks/useCounter';
+import { useState, useMemo } from 'react';
+import { procesoPesado } from '../../helpers/procesoPesado';
+
+export const MemoHook = () => {
+  const { counter, increment } = useCounter(50);
+  const [show, setShow] = useState(true);
+  // Uso de useMemo
+  const memoProcesoPesado = useMemo(() => procesoPesado(counter), [counter]);
+
+  return (
+    <div>
+      <h1>MemoHook</h1>
+      <h3>Counter: {counter}</h3>
+      <hr />
+
+      <p>{memoProcesoPesado}</p>
+
+      <button onClick={increment} className="btn btn-primary ">
+        +1
+      </button>
+
+      <button onClick={() => setShow(!show)} className="btn btn-danger">
+        Show
+      </button>
+    </div>
+  );
+};
+```
+
+### UseCallback
+
+Este hook nos sirve cuando estamos renderizando un nuevo componente, enviándole una función que depende de propiedades que cambian y no queremos que este componente se vuelva a renderizar.
+
+Para poder usarlo debemos tener `memorizado` nuestro componente a mostrar y la implementación del Hook `useCallback` es:
+
+```js
+import { useState, useCallback } from 'react';
+// Importación del componente a mostrar
+import { ShowIncrement } from './ShowIncrement';
+
+export const CallbackHook = () => {
+  const [counter, setCounter] = useState(10);
+
+  // Implementación de useCallback
+  const increment = useCallback(
+    (num = 2) => {
+      setCounter((counter) => counter + num);
+    },
+    [setCounter]
+  );
+
+  return (
+    <div>
+      <h1>Callback Hook: {counter}</h1>
+      <br />
+
+      <ShowIncrement increment={increment} />
+    </div>
+  );
+};
+```
+
+### UseReducer
+
+Hace lo mismo que `useState` pero con un reducer, es decir, **una función que recibe un estado y una acción y retorna un nuevo estado**. Es similar a trabajar con `Redux` y `React-redux`.
+
+#### ¿Qué es un Reducer?
+
+1. Es una función común y corriente y no puede ser **asíncrona**
+2. Debe ser una **función pura**, es decir, con los mismos parámetros, vamos a tener el mismo resultado, siempre:
+   1. No puede realizar procesos asíncronos, no debe tener efectos secundarios.
+   2. No puede mutar directamente el estado, sino que tiene que devolver siempre un nuevo estado (**inmutabilidad**).
+   3. No puede llamar a **local storage** o **session storage** ya que esos procesos son considerados asíncronos
+   4. No se puede requerir más de una acción
+3. Debe retornar un nuevo estado.
+4. Usualmente, solo reciben dos argumentos, el estado y la acción a ejecutar
 
 ## Memo - Método de React
 
