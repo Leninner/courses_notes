@@ -35,6 +35,7 @@
       - [¿Qué es un Reducer?](#qué-es-un-reducer)
       - [Grabar en localStorage con useReducer](#grabar-en-localstorage-con-usereducer)
   - [Memo - Método de React](#memo---método-de-react)
+  - [Context API](#context-api)
   - [Pruebas Unitarias y de Integración](#pruebas-unitarias-y-de-integración)
     - [AAA:](#aaa)
   - [Generando el Build para producción y despliegues en Github Pages](#generando-el-build-para-producción-y-despliegues-en-github-pages)
@@ -987,6 +988,16 @@ export const Small = memo(({ value }) => {
   return <div>{value}</div>;
 });
 ```
+
+## Context API
+
+`¿Qué problema resuelve?`
+
+Imaginemos que un componente muy profundo necesita de una propiedad que se encuentra en el primer nivel, entonces, deberíamos **pasar esa propiedad a todos los componentes** que se encuentren entre el componente más profundo y el componente más alto.
+
+El camino de las propiedades es muy largo y la complejidad aumenta mucho con cada nivel.
+
+**Al usar el context API** podemos consultar una propiedad desde el componente más alto hasta el componente más profundo, sin necesidad de pasar propiedades a todos los componentes.
 
 ## Pruebas Unitarias y de Integración
 
