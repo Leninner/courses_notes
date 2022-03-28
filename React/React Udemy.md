@@ -33,6 +33,7 @@
     - [UseCallback](#usecallback)
     - [UseReducer](#usereducer)
       - [¿Qué es un Reducer?](#qué-es-un-reducer)
+      - [Grabar en localStorage con useReducer](#grabar-en-localstorage-con-usereducer)
   - [Memo - Método de React](#memo---método-de-react)
   - [Pruebas Unitarias y de Integración](#pruebas-unitarias-y-de-integración)
     - [AAA:](#aaa)
@@ -895,6 +896,8 @@ export const CallbackHook = () => {
 
 Hace lo mismo que `useState` pero con un reducer, es decir, **una función que recibe un estado y una acción y retorna un nuevo estado**. Es similar a trabajar con `Redux` y `React-redux`.
 
+> Documentación: https://es.reactjs.org/docs/hooks-reference.html#usereducer
+
 #### ¿Qué es un Reducer?
 
 1. Es una función común y corriente y no puede ser **asíncrona**
@@ -905,6 +908,72 @@ Hace lo mismo que `useState` pero con un reducer, es decir, **una función que r
    4. No se puede requerir más de una acción
 3. Debe retornar un nuevo estado.
 4. Usualmente, solo reciben dos argumentos, el estado y la acción a ejecutar
+
+Para usar un reducer debemos importar `useReducer` y definir una función que reciba el reducer y el estado inicial:
+
+```js
+import { useReducer, useRef } from 'react';
+
+const [state, dispatch] = useReducer(todoReducer, initialState);
+```
+
+- **todoReducer**: Es la función que va a tomar un **estado** y una **acción** y va a retornar un nuevo estado.
+- **initialState**: Es el estado inicial del reducer.
+- **state**: Es el estado actual del reducer.
+- **dispatch**: Es el `disparador de acciones` que se ejecutarán.
+
+Un ejemplo de reducer es:
+
+```js
+export const todoReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_TODO':
+      return [...state, action.payload];
+    default:
+      return state;
+  }
+};
+```
+
+Un ejemplo de dispatch es:
+
+```js
+const actionToDispatch = {
+  type: 'ADD_TODO',
+  payload: 'Hola Mundo',
+};
+
+dispatch(actionToDispatch);
+```
+
+#### Grabar en localStorage con useReducer
+
+Para guardar datos en localStorage, podemos usar un `efecto`, así:
+
+```js
+useEffect(() => {
+  localStorage.setItem('state', JSON.stringify(state));
+}, [state]);
+```
+
+Para leer esos datos al empezar la aplicación, vamos a nuestro initialState y hacemos una HOF que nos ayude a recuperar esos datos de localStorage:
+
+```js
+// Forma 1
+const init = () => {
+  return localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : [];
+};
+
+// Forma 2
+const init = () => {
+  return JSON.parse(localStorage.getItem('todos')) || [];
+};
+
+// Al momento de hacer el llamado en useReducer
+const [state, dispatch] = useReducer(todoReducer, [], init);
+```
+
+> Cuando localStorage está vacío retorna null, y al ser parseado con `JSON.parse` retorna `null` y por lo tanto podemos hacer una validación
 
 ## Memo - Método de React
 
