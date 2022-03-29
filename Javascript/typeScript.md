@@ -26,8 +26,10 @@
     - [Anonymous Functions](#anonymous-functions)
     - [Arrow Functions](#arrow-functions)
   - [Interfaces](#interfaces)
-- [Clases](#clases)
-  - [Herencia](#herencia)
+  - [Clases](#clases)
+    - [Modificadores de acceso](#modificadores-de-acceso)
+    - [Propiedades estáticas](#propiedades-estáticas)
+    - [Extender una clase con herencia](#extender-una-clase-con-herencia)
   - [Modificadores públicos, privados y protegidos.](#modificadores-públicos-privados-y-protegidos)
   - [Comprensión private](#comprensión-private)
   - [Comprensión protected](#comprensión-protected)
@@ -741,38 +743,209 @@ interface Manager {
 }
 ```
 
-# Clases
+## Clases
 
-JavaScript tradicional utiliza funciones y herencia basada en prototipos para construir componentes reutilizables, pero esto puede resultar un poco incómodo para los programadores más cómodos con un enfoque orientado a objetos, donde las clases heredan la funcionalidad y los objetos se crean a partir de estas clases.
-A partir de ECMAScript 2015, también conocido como ECMAScript 6, los programadores de JavaScript podrán construir sus aplicaciones utilizando este enfoque basado en clases orientado a objetos. En TypeScript, permitimos que los desarrolladores usen estas técnicas ahora y las compilen en JavaScript que funcione en todos los principales navegadores y plataformas, sin tener que esperar a la próxima versión de JavaScript.
+**JavaScript tradicional** utiliza funciones y herencia basada en prototipos para construir componentes reutilizables, pero esto puede resultar un poco incómodo para los programadores con un enfoque orientado a objetos, donde las clases heredan la funcionalidad y los objetos se crean a partir de estas clases.
 
-Clases
+A partir de **ECMAScript 2015**, también conocido como **ECMAScript 6,** los programadores de JavaScript podrán construir sus aplicaciones utilizando este enfoque basado en clases orientado a objetos.
 
-Echemos un vistazo a un ejemplo simple basado en clases:
+En TypeScript, permitimos que los desarrolladores usen estas técnicas ahora y las compilen en JavaScript que funcione en todos los principales navegadores y plataformas, sin tener que esperar a la próxima versión de JavaScript.
+
+Una clase tiene ciertas cosas que valen la pena entender:
+
+1. **Propiedades**
+   Son los datos sin procesar que se pasan al objeto cuando se inicializa.
+2. **Métodos**
+   Son las funciones que se definen dentro de la clase y representan el comportamiento de cualquier instancia de la clase.
+3. **Constructores**
+   Es un método que se invoca automáticamente al crear una instancia de la clase. Este método crea un nuevo objeto con las propiedades y métodos definidos en la clase.
+4. **Accessors**
+   Son funciones que permiten acceder a las propiedades de una clase. Tenemos a los **getters** y **setters**.
+
+- Ejemplo rápido de una clase:
 
 ```ts
 class Greeter {
+  // Propiedades
   greeting: string;
 
+  // Método constructor
   constructor(message: string) {
     this.greeting = message;
   }
 
+  // Método
   greet() {
     return 'Hello, ' + this.greeting;
   }
 }
 
+// Instancia "greeter" de la clase Greeter
 let greeter = new Greeter('world');
 ```
 
-La sintaxis debería resultarle familiar si ha usado C # o Java anteriormente. Declaramos una nueva clase Greeter. Esta clase tiene tres miembros: una propiedad llamada greeting, un constructor y un método greet.
+- Otro ejemplo de clase:
 
-Notarás que en la clase cuando nos referimos a uno de los miembros de la clase que anteponemos this.. Esto denota que es un acceso de miembro.
+```ts
+class Car {
+  // Properties
+  _make: string;
+  _color: string;
+  _doors: number;
 
-En la última línea construimos una instancia de la Greeterclase usando new. Esto llama al constructor que definimos anteriormente, creando un nuevo objeto con la Greeterforma y ejecutando el constructor para inicializarlo.
+  // Constructor
+  constructor(make: string, color: string, doors = 4) {
+    this._make = make;
+    this._color = color;
+    this._doors = doors;
+  }
 
-## Herencia
+  // Accessors
+  // Se ejecuta al consultar la propiedad
+  // console.log(instance.doors); => 4 // Propiedad accesada por el getter doors
+  // console.log(instance._doors); => 4 // Propiedad en bruto
+  get doors() {
+    return this._doors;
+  }
+
+  // Se ejecuta al asignar valores a las propiedades fuera de la clase
+  // instance.doors = 5; => Doors must be an even number
+  set doors(doors) {
+    if (doors % 2 === 0) {
+      this._doors = doors;
+    } else {
+      throw new Error('Doors must be an even number');
+    }
+  }
+
+  // Methods
+  accelerate(speed: number): string {
+    return `${this.worker()} is accelerating to ${speed} MPH.`;
+  }
+
+  brake(): string {
+    return `${this.worker()} is braking with the standard braking system.`;
+  }
+
+  turn(direction: 'left' | 'right'): string {
+    return `${this.worker()} is turning ${direction}`;
+  }
+
+  // This function performs work for the other method functions
+  worker(): string {
+    return this._make;
+  }
+}
+```
+
+### Modificadores de acceso
+
+Todos los miembros de una clase, son públicos por defecto. Esto significa que todos los miembros de una clase son accesibles desde fuera de la clase.
+
+En TypeScript podemos definir los modificadores de acceso de los miembros de una clase:
+
+- **Public**: Si no especifica un modificador de acceso, el `valor predeterminado es público.` También puede configurar explícitamente el miembro como público mediante la palabra clave **public**.
+- **Private**: Si modifica el miembro con la palabra clave `private`, no se puede acceder desde fuera de su clase contenedora.
+- **Protected**: El modificador `protected` actúa como el modificador `private` con la excepción de que también se puede acceder a los miembros declarados **protected dentro de las clases derivadas.**
+- **readonly**: Si el modificador `readonly` se aplica a una propiedad, se declara que la propiedad no puede ser modificada desde fuera de la clase. Solo puede ser seteada en el constructor, al inicializar una instancia de la clase.
+
+Ejemplo de clase con modificadores de acceso:
+
+```ts
+class Car {
+  // Private Properties
+  private _make: string;
+  private _color: string;
+  private _doors: number;
+
+  // Constructor
+  constructor(make: string, color: string, doors = 4) {
+    this._make = make;
+    this._color = color;
+    if (doors % 2 === 0) {
+      this._doors = doors;
+    } else {
+      throw new Error('Doors must be an even number');
+    }
+  }
+
+  // Accessors
+  get doors() {
+    return this._doors;
+  }
+
+  set doors(doors) {
+    if (doors % 2 === 0) {
+      this._doors = doors;
+    } else {
+      throw new Error('Doors must be an even number');
+    }
+  }
+
+  // Methods
+  accelerate(speed: number): string {
+    return `${this.worker()} is accelerating to ${speed} MPH.`;
+  }
+
+  brake(): string {
+    return `${this.worker()} is braking with the standard braking system.`;
+  }
+
+  turn(direction: 'left' | 'right'): string {
+    return `${this.worker()} is turning ${direction}`;
+  }
+
+  // This function performs work for the other method functions. It is private
+  private worker(): string {
+    return this._make;
+  }
+}
+
+let myCar2 = new Car('Galaxy Motors', 'red', 4);
+
+console.log(myCar2.doors); // Método getter
+```
+
+### Propiedades estáticas
+
+Las propiedades y métodos estáticos son propiedades y métodos que se definen dentro de la clase, pero que no pertenecen a una instancia de la clase, sino que pueden se compartidas por todas las instancias de la clase.
+
+> Las propiedades y método de instancia son las propiedades y métodos que se definen dentro de la clase, y que pertenecen a cada instancia de la clase
+
+Para hacer una propiedad o método estático, se debe añadir la palabra clave **static** al inicio de la definición de la propiedad o método:
+
+```ts
+class Car {
+  // Properties
+  private static numberOfCars: number = 0; // New static property
+  private _make: string;
+  private _color: string;
+  private _doors: number;
+
+  // Constructor
+  constructor(make: string, color: string, doors = 4) {
+    this._make = make;
+    this._color = color;
+    this._doors = doors;
+    // Propiedad que es compartida con todas las instancias de la clase
+    // className.propertyName en lugar de this.propertyName
+    Car.numberOfCars++; // Increments the value of the static property
+  }
+
+  public static getNumberOfCars(): number {
+    return Car.numberOfCars;
+  }
+}
+
+// Instantiate the Car object with all parameters
+let myCar1 = new Car('Cool Car Company', 'blue', 2);
+// Instantiates the Car object with all parameters
+let myCar2 = new Car('Galaxy Motors', 'blue', 2);
+
+console.log(Car.getNumberOfCars()); // 2
+```
+
+### Extender una clase con herencia
 
 En TypeScript, podemos usar patrones comunes orientados a objetos. Uno de los patrones más fundamentales en la programación basada en clases es poder extender las clases existentes para crear otras nuevas usando la herencia.
 
