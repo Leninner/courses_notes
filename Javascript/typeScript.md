@@ -949,6 +949,8 @@ console.log(Car.getNumberOfCars()); // 2
 
 En TypeScript, podemos usar patrones comunes orientados a objetos. Uno de los patrones más fundamentales en la programación basada en clases es poder extender las clases existentes para crear otras nuevas usando la herencia.
 
+Al extender una clase `First` desde una clase `Second` podemos usar todas las propiedades y métodos de la clase `First`, pero también puede usar las propias propiedades y métodos de la clase `Second`
+
 Echemos un vistazo a un ejemplo:
 
 ```ts
