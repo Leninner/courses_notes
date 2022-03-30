@@ -30,9 +30,9 @@
     - [Modificadores de acceso](#modificadores-de-acceso)
     - [Propiedades estáticas](#propiedades-estáticas)
     - [Extender una clase con herencia](#extender-una-clase-con-herencia)
-  - [Modificadores públicos, privados y protegidos.](#modificadores-públicos-privados-y-protegidos)
-  - [Comprensión private](#comprensión-private)
-  - [Comprensión protected](#comprensión-protected)
+    - [Anular un método](#anular-un-método)
+    - [Declarar una Interface para asegurar la forma de una clase](#declarar-una-interface-para-asegurar-la-forma-de-una-clase)
+    - [Consideración de Diseño](#consideración-de-diseño)
 - [Refactorización](#refactorización)
 
 # Instalación y primeros pasos con TypeScript
@@ -974,140 +974,133 @@ dog.move(10);
 dog.bark();
 ```
 
-Este ejemplo muestra la característica de herencia más básica: las clases heredan propiedades y métodos de las clases base. Aquí, Doghay una clase derivada que deriva de la clase Animal base usando la extendspalabra clave. Las clases derivadas a menudo se denominan subclases , y las clases base a menudo se denominan superclases .
+> Animal es una `base class` o `super class` o `parent classes` y Dog es una`sub class`
 
-Debido a que Dogextiende la funcionalidad desde Animal, pudimos crear una instancia de Dogque podría ambos bark()y move().
-
-## Modificadores públicos, privados y protegidos.
-
-Público por defecto
-En nuestros ejemplos, hemos podido acceder libremente a los miembros que declaramos en todos nuestros programas. Si está familiarizado con las clases en otros idiomas, puede haber notado en los ejemplos anteriores que no hemos tenido que usar la palabrapublic para lograr esto; por ejemplo, C # requiere que cada miembro esté explícitamente etiquetado publiccomo visible. En TypeScript, cada miembro es publicpor defecto.
-
-Aún puede marcar un miembro publicexplícitamente. Podríamos haber escrito la Animalclase de la sección anterior de la siguiente manera:
+Cuando estamos trabajando con herencia, en el método constructor de la **sub clase** debemos utilizar la palabra **super** que nos va a ayudar a ejecutar el constructor de la **super clase**, se lo utiliza así:
 
 ```ts
-class Animal {
-  public name: string;
-  public constructor(theName: string) {
-    this.name = theName;
-  }
-  public move(distanceInMeters: number) {
-    console.log(`${this.name} moved ${distanceInMeters}m.`);
+class ElectricalCar extends Car {
+  // Properties
+  private _range: number;
+
+  // Constructor
+  constructor(make: string, color: string, range: number, doors = 2) {
+    // super() is used to call the constructor of the parent class
+    super(make, color, doors);
+    this._range = range;
   }
 }
 ```
 
-## Comprensión private
+Razones para usar la herencia:
 
-Cuando se marca un miembro private, no se puede acceder desde fuera de su clase que lo contiene. Por ejemplo:
+- Reutilización de código. Puede desarrollar una vez y reutilizarlo en muchos lugares. Esto también le ayuda a evitar la redundancia en su código.
+- Puede usar una base para derivar cualquier número de subclases en una jerarquía. Por ejemplo, las subclases de la jerarquía Coche también podrían incluir una clase SUV o una clase Convertible.
+- En lugar de tener que realizar cambios de código en muchas clases diferentes que tienen una funcionalidad similar, solo necesita realizar los cambios una vez en la clase base.
 
-```ts
-class Animal {
-  private name: string;
-  constructor(theName: string) {
-    this.name = theName;
-  }
-}
+### Anular un método
 
-new Animal('Cat').name; // Error: 'name' is private;
-```
+Cuando en una **sub clase** tenemos un método con el mismo nombre que un método de la **super clase**, este último método se anula. Esto nos sirve para darle una funcionalidad diferente a un método de una **sub clase**
 
-TypeScript es un sistema de tipo estructural. Cuando comparamos dos tipos diferentes, independientemente de su procedencia, si los tipos de todos los miembros son compatibles, entonces decimos que los tipos mismos son compatibles.
-
-Sin embargo, al comparar tipos que tienen privatey protectedmiembros, tratamos estos tipos de manera diferente. Para que dos tipos se consideren compatibles, si uno de ellos tiene un privatemiembro, el otro debe tener un privatemiembro que se originó en la misma declaración. Lo mismo se aplica a los protectedmiembros.
-
-Veamos un ejemplo para ver mejor cómo se desarrolla esto en la práctica:
+Los métodos creados en una **sub clase** para poder anular lo de su **clase padre** deben tener el mismo nombre y el mismo tipo de retorno que el método de la **super clase**:
 
 ```ts
-class Animal {
-  private name: string;
-  constructor(theName: string) {
-    this.name = theName;
-  }
+// Método brake de la super clase
+brake(): string {
+  return `${this.worker()} is braking with the standard braking system.`;
 }
 
-class Rhino extends Animal {
-  constructor() {
-    super('Rhino');
-  }
+
+// Método brake de la sub clase que anula el método de la super clase
+brake(): string {
+  return `${this.worker()}  is braking with the regenerative braking system.`
 }
-
-class Employee {
-  private name: string;
-  constructor(theName: string) {
-    this.name = theName;
-  }
-}
-
-let animal = new Animal('Goat');
-let rhino = new Rhino();
-let employee = new Employee('Bob');
-
-animal = rhino;
-animal = employee; // Error: 'Animal' and 'Employee' are not compatible
 ```
 
-En este ejemplo, tenemos una Animaly una Rhino, con Rhinoser una subclase de Animal. También tenemos una nueva clase Employeeque se ve idéntica Animalen términos de forma. Creamos algunas instancias de estas clases y luego tratamos de asignarlas entre sí para ver qué sucederá. Porque Animaly Rhinocomparten el privatelado de su forma desde la misma declaración de private name: stringin Animal, son compatibles. Sin embargo, este no es el caso Employee. Cuando intentamos asignar de a Employeea Animal, obtenemos un error de que estos tipos no son compatibles. Aunque Employeetambién tiene un privatemiembro llamado name, no es el que declaramos enAnimal .
+### Declarar una Interface para asegurar la forma de una clase
 
-## Comprensión protected
+Podemos definir **interfaces** que nos va a servir como un `contrato de la clase` para identificar los tipos de datos que debe tener una clase.
 
-El protectedmodificador actúa de manera muy similar al privatemodificador con la excepción de que los miembros declarados protectedtambién pueden accederse dentro de las clases derivadas. Por ejemplo:
+- Interfaz `vehicle` para la clase `Car`:
 
 ```ts
-class Person {
-  protected name: string;
-  constructor(name: string) {
-    this.name = name;
-  }
+interface Vehicle {
+  make: string;
+  color: string;
+  doors: number;
+  accelerate(speed: number): string;
+  brake(): string;
+  turn(direction: 'left' | 'right'): string;
 }
-
-class Employee extends Person {
-  private department: string;
-
-  constructor(name: string, department: string) {
-    super(name);
-    this.department = department;
-  }
-
-  public getElevatorPitch() {
-    return `Hello, my name is ${this.name} and I work in ${this.department}.`;
-  }
-}
-
-let howard = new Employee('Howard', 'Sales');
-console.log(howard.getElevatorPitch());
-console.log(howard.name); // error
 ```
 
-Tenga en cuenta que si bien no podemos usarlo namedesde fuera Person, aún podemos usarlo desde un método de instancia de Employeeporque Employeederiva dePerson .
+> Las interfaces solo puede incluir las propiedades o métodos públicos de la clase, de otro modo, TypeScript nos arrojará un error.
 
-Un constructor también puede estar marcado protected. Esto significa que la clase no se puede instanciar fuera de su clase que contiene, sino que se puede extender. Por ejemplo,
+Para implementar la interfaz en la clase:
 
 ```ts
-class Person {
-  protected name: string;
-  protected constructor(theName: string) {
-    this.name = theName;
-  }
+class Car implements Vehicle {
+  // ...
 }
-
-// Employee can extend Person
-class Employee extends Person {
-  private department: string;
-
-  constructor(name: string, department: string) {
-    super(name);
-    this.department = department;
-  }
-
-  public getElevatorPitch() {
-    return `Hello, my name is ${this.name} and I work in ${this.department}.`;
-  }
-}
-
-let howard = new Employee('Howard', 'Sales');
-let john = new Person('John'); // Error: The 'Person' constructor is protected
 ```
+
+### Consideración de Diseño
+
+- ¿Cuándo usar interfaces?
+
+  Las interfaces son una construcción en tiempo de diseño de TypeScript.
+
+  Puede usar interfaces para definir **parámetros de objetos** para funciones, definir la estructura para varias **propiedades de frameworks** y definir cómo se ven los objetos desde **servicios remotos o API.**
+
+  ```ts
+  interface Dog {
+    id?: number;
+    name: string;
+    age: number;
+    description: string;
+  }
+  ```
+
+  En el cliente, es posible que tenga un código para recuperar `dog` de la API del servidor que defina, que se parece a lo siguiente:
+
+  ```ts
+  async loadDog(id: number): Dog {
+    return await (await fetch('demoUrl')).json() as Dog;
+  }
+  ```
+
+- ¿Cuándo usar clases?
+
+  La principal diferencia entre Interfaces y Clases es que las Clases son las que nos permiten definir `detalles de implementación`, mientras que una interfaz solo define como están estructurados los datos.
+
+  Las clases le permiten definir **métodos, campos y propiedades**. Las clases también proporcionan una forma de crear **plantillas de objetos**, definiendo valores predeterminados.
+
+  Una forma de manejar datos en DB son con clases, de la siguiente manera:
+
+  ```ts
+  class DogRecord implements Dog {
+    id: number;
+    name: string;
+    age: number;
+    description: string;
+
+    constructor({ name, age, description, id = 0 }: Dog) {
+      this.id = id;
+      this.name = name;
+      this.age = age;
+      this.description = description;
+    }
+
+    static load(id: number): DogRecord {
+      // code to load dog from database
+      return dog;
+    }
+
+    save() {
+      // code to save dog to database
+    }
+  }
+  ```
 
 # Refactorización
 
