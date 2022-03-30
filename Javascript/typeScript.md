@@ -33,6 +33,7 @@
     - [Anular un método](#anular-un-método)
     - [Declarar una Interface para asegurar la forma de una clase](#declarar-una-interface-para-asegurar-la-forma-de-una-clase)
     - [Consideración de Diseño](#consideración-de-diseño)
+  - [Generadores en TypeScript](#generadores-en-typescript)
 - [Refactorización](#refactorización)
 
 # Instalación y primeros pasos con TypeScript
@@ -1100,6 +1101,88 @@ class Car implements Vehicle {
       // code to save dog to database
     }
   }
+  ```
+
+## Generadores en TypeScript
+
+Los genéricos son plantillas de código que puede definir y reutilizar en su base de código.
+
+Proporcionan una forma de decirle a las funciones, clases o interfaces qué tipo desea usar cuando lo llama.
+
+Puede pensar en esto de la misma manera que los argumentos se pasan a una función, excepto que un genérico le permite decirle al componente qué tipo debe esperar en el momento en que se llama.
+
+Cree funciones genéricas cuando su código sea una función o clase que:
+
+- Funciona con una variedad de tipos de datos.
+- Utiliza ese tipo de datos en varios lugares.
+
+Los genéricos pueden:
+
+- Proporcionar más flexibilidad al trabajar con tipos.
+- Habilitar la reutilización de código.
+- Reduce la necesidad de utilizar cualquier tipo.
+
+¿Por qué usar `genéricos`?
+
+La siguiente función genera un arreglo de cualquier tipo:
+
+```ts
+function getArray(items: any[]): any[] {
+  return new Array().concat(items);
+}
+
+let numberArray = getArray([5, 10, 15, 20]);
+let stringArray = getArray(['Cats', 'Dogs', 'Birds']);
+
+numberArray.push(25); // OK
+stringArray.push('Rabbits'); // OK
+numberArray.push('This is not a number'); // OK
+stringArray.push(30); // OK
+
+console.log(numberArray); // [5, 10, 15, 20, 25, "This is not a number"]
+console.log(stringArray); // ["Cats", "Dogs", "Birds", "Rabbits", 30]
+```
+
+- ¿Qué pasa si queremos tener tipado de datos en esa función?
+
+  Ahí es donde entra en juego los `genéricos`.
+
+  ```ts
+  function getArray<T>(items: T[]): T[] {
+    return new Array<T>().concat(items);
+  }
+  ```
+
+  - `T` es el nombre del genérico, que puede ser cualquier nombre.
+
+  Al momento de ejecutar la función, debemos llamarlo con el tipo de dato que queremos que nuestra función acepte y devuelva:
+
+  ```ts
+  let numberArray = getArray<number>([5, 10, 15, 20]);
+
+  numberArray.push(25); // OK
+  numberArray.push('This is not a number'); // Generates a compile time type check error
+
+  let stringArray = getArray<string>(['Cats', 'Dogs', 'Birds']);
+  stringArray.push('Rabbits'); // OK
+  stringArray.push(30); // Generates a compile time type check error
+  ```
+
+  También podemos definir varios tipos de datos en un genérico, de la siguiente forma:
+
+  ```ts
+  function identity<T, U>(value: T, message: U): T {
+    console.log(message);
+    return value;
+  }
+
+  let returnNumber = identity<number, string>(100, 'Hello!');
+  let returnString = identity<string, string>('100', 'Hola!');
+  let returnBoolean = identity<boolean, string>(true, 'Bonjour!');
+
+  returnNumber = returnNumber * 100; // OK
+  returnString = returnString * 100; // Error: Type 'number' not assignable to type 'string'
+  returnBoolean = returnBoolean * 100; // Error: Type 'number' not assignable to type 'boolean'
   ```
 
 # Refactorización
