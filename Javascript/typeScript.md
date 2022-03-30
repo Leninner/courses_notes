@@ -951,6 +951,8 @@ En TypeScript, podemos usar patrones comunes orientados a objetos. Uno de los pa
 
 Al extender una clase `First` desde una clase `Second` podemos usar todas las propiedades y métodos de la clase `First`, pero también puede usar las propias propiedades y métodos de la clase `Second`
 
+![image](https://user-images.githubusercontent.com/67031243/160859377-50970f08-c843-4b13-8d4a-8f118356e663.png)
+
 Echemos un vistazo a un ejemplo:
 
 ```ts
