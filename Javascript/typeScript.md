@@ -25,6 +25,7 @@
     - [Named Functions](#named-functions)
     - [Anonymous Functions](#anonymous-functions)
     - [Arrow Functions](#arrow-functions)
+  - [Types](#types)
   - [Interfaces](#interfaces)
   - [Clases](#clases)
     - [Modificadores de acceso](#modificadores-de-acceso)
@@ -726,6 +727,34 @@ let total2 = (input: number[]): number => {
   }
 
   return total;
+};
+```
+
+## Types
+
+Una función `type` nos puede ayudar a definir los argumentos y el retorno de una función, de la puede trabajar así:
+
+```ts
+type compareFunctionType = (a: number, b: number) => number;
+
+let sortDescending: compareFunctionType = (a, b) => {
+  if (a > b) {
+    return -1;
+  } else if (b > a) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
+
+let sortAscending: compareFunctionType = (a, b) => {
+  if (a > b) {
+    return 1;
+  } else if (b > a) {
+    return -1;
+  } else {
+    return 0;
+  }
 };
 ```
 
