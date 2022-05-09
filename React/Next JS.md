@@ -14,6 +14,11 @@
   - [**CSS Styling**](#css-styling)
   - [**Global Styles**](#global-styles)
 - [Pre Renderizaje y Fetching de Datos](#pre-renderizaje-y-fetching-de-datos)
+  - [Formas de hacer Pre-renderizado](#formas-de-hacer-pre-renderizado)
+  - [Cuánto usar `Static Generation` y cuándo usar `Server Side Rendering`](#cuánto-usar-static-generation-y-cuándo-usar-server-side-rendering)
+  - [Static Generation with and without Data](#static-generation-with-and-without-data)
+    - [Static Generation with Data using `getStaticProps`](#static-generation-with-data-using-getstaticprops)
+  - [Implementando `getStaticProps`](#implementando-getstaticprops)
 
 ## ¿Qué es Next Js?
 
@@ -200,3 +205,103 @@ export default function App({ Component, pageProps }) {
 ```
 
 ## Pre Renderizaje y Fetching de Datos
+
+Por defecto, **Next Js pre-renderiza cada página de nuestro sitio web**. Esto significa que Next.js **genera HTML para cada** página por adelantado.
+
+En lugar de tenerlo todo hecho por JavaScript del lado del cliente. **La renderización previa puede resultar en un mejor rendimiento y SEO.**
+
+> Cada HTML generado está asociado con el código **JavaScript mínimo necesario** para esa página. Cuando el navegador carga una página, su código JavaScript se ejecuta y hace que la página sea completamente interactiva. (Este proceso se llama `**hidratación**`.)
+
+<img src="../utils/images/ssr.png">
+<img src="../utils/images/nossr.png">
+
+### Formas de hacer Pre-renderizado
+
+Next Js tiene dos formas de hacer pre-renderizado, la diferencia está en `cuando` se genera el HTML.
+
+- `Static Generation`: Se genera el HTML en **build time**. El HTML renderizado previamente se reutiliza en cada solicitud.
+
+<img src="../utils/images/staticGeneration.png">
+
+- `Server Side Rendering`: Se genera el HTML en **cada request**. El HTML renderizado previamente se reutiliza en cada solicitud.
+
+<img src="../utils/images/ssrExample.png">
+
+> En el modo de desarrollo (cuando ejecuta `npm run dev` o `yarn dev`), cada página se renderiza previamente en cada solicitud, incluso para páginas que usan static generation.
+
+> Next Js nos permite elegir el modo de pre-renderizado que queramos, ya sea, `Static Generation` o `Server Side Rendering`. **También se puede hacer una app de Next Js híbrida**
+
+<img src="../utils/images/hybrid.png">
+
+### Cuánto usar `Static Generation` y cuándo usar `Server Side Rendering`
+
+> Es muy recomendable usar `Static Generation` (con y sin datos) siempre que sea posible, porque su página puede construirse una vez y servirse mediante CDN, lo que lo hace mucho más rápido que tener un servidor que renderice la página en cada solicitud.
+
+Puede usar la generación estática para muchos tipos de páginas, que incluyen:
+
+- Páginas de marketing
+- Publicaciones de blog
+- Listados de productos de comercio electrónico
+- Ayuda y documentación
+
+> Preguntarse: "¿Puedo renderizar previamente esta página antes de la solicitud de un usuario?" Si la respuesta es afirmativa, entonces debe elegir Generación estática.
+
+No deberíamos usar `Static Generation` cuando tengamos datos que se estén actualizando en tiempo real y el HTML cambie en cada solicitud. En ese caso, debemos usar `Server Side Rendering`, que será más lento, pero mostrará el HTML actualizado, o se puede saltar el paso de renderizado previo y usar el `client-side-rendering` para renderizar la página.
+
+### Static Generation with and without Data
+
+Las páginas se pueden renderizar sin hacer fetching de datos. Esas páginas serán estáticamente generada en el momento del **build para producción**
+
+<img src="../utils/images/staticNext.png">
+
+También se puede trabajar con datos:
+
+<img src="../utils/images/withNext.png">
+
+#### Static Generation with Data using `getStaticProps`
+
+Cuando exportar una página en Next Js, podemos exportar una función asíncrona que corre en **build time en producción** y dentro de la función puedes hacer fetch de datos externos y enviarlos como props a la página, así:
+
+```jsx
+export default function Home(props) { ... }
+
+export async function getStaticProps() {
+  // Get external data from the file system, API, DB, etc.
+  const data = ...
+
+  // The value of the `props` key will be
+  //  passed to the `Home` component
+  return {
+    props: ...
+  }
+}
+```
+
+- **getStaticProps()** le dice a Next Js: `“Hey, this page has some data dependencies — so when you pre-render this page at build time, make sure to resolve them first!”`
+
+### Implementando `getStaticProps`
+
+Para parsear datos en Markdown, debemos instalar el paquete `gray-matter`, con:
+
+```bash
+npm install gray-matter
+```
+
+Un ejemplo de como usar `getStaticProps`:
+
+```jsx
+export async function getStaticProps() {
+  const allPostsData = getSortedPostsData();
+
+  return {
+    props: {
+      allPostsData,
+    },
+  };
+}
+```
+
+- En **desarrollo** (npm run dev o yarn dev), `**getStaticProps**` se ejecuta en **cada solicitud.**
+- En **producción**, getStaticProps **se ejecuta en el momento de la compilación**. Sin embargo, este comportamiento se puede mejorar utilizando la clave alternativa devuelta por getStaticPaths
+
+> Esta función solo puede ser exportada en una página de Next Js, no de un no-page de Next Js.
