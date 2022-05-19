@@ -37,13 +37,13 @@ public class NombreClase {
 }
 ```
 
-- **public** es un modificador de acceso.
+- **public** es un modificador de acceso. Le dice al compilador de Java que cualquier objeto o isntancia puede usar esa clase o ese método.
 
 Para crear una nueva instancia o un nuevo objeto en Java, vamos a utilizar una sintaxis similar a esta:
 
 ```java
-NombreClase nombreObjeto = new NombreClase();
-NombreClase nombreObjetoTwo = new NombreClase();
+NombreClase nombreObjeto = new NombreClase(params);
+NombreClase nombreObjetoTwo = new NombreClase(params);
 ```
 
 ¿Qué es un **package**?
@@ -99,8 +99,8 @@ Acción o comportamiento de los objetos
 
 Para poder crearlos:
 
-- Si el método va a retornar algo, en lugar de `void`, se pone el tipo de dato que va a retornar.
-- Se usa `void` cuando la función no retorna nada.
+- Declaramos el tipo de **modificador de acceso** (public, private, protected)
+- Definimos el tipo de retorno del **método** (void, int, String, etc...)
 
 ```java
 public void arrancar() {
@@ -117,17 +117,27 @@ package POO.src.ClasesYMetodos;
 
 public class Main {
   public static void main(String[] args) {
+    // Instancia 1
     Coche c1 = new Coche();
+
+    // Propiedades
     c1.color = "Rojo";
     c1.marca = "Ferrari";
     c1.km = 0;
+
+    // Métodos
     c1.arrancar();
     c1.acelerar();
 
+    // Instancia 2
     Coche c2 = new Coche();
+
+    // Propiedades
     c2.color = "Azul";
     c2.marca = "Audi";
     c2.km = 0;
+
+    // Métodos
     c2.arrancar();
     c2.acelerar();
   }
@@ -136,19 +146,26 @@ public class Main {
 
 ## Parámetros y argumentos
 
-- Parámetros: Es una declaración de variable o declaración de variable que se va a usar en un método.
-- Argumentos: Son los valores que se pasan a un método.
+- **Parámetros**: Es una declaración de variable o declaración de variable que se va a usar en un método.
+- **Argumentos**: Son los valores que se pasan a un método.
 
 Para crear un parámetro en un método:
 
+- Debemos definir el tipo de dato que va a recibir el parámetro (String, int, etc...)
+- Además debemos darle un nombre al parámetro
+
 ```java
-// Declaración del método arrancar. Parámetros
+// Declaración del método arrancar.
+// Parámetros: String color, String marca
+
 public void arrancar(String color, String marca) {
   System.out.println("Arrancando el coche de color " + color + " y marca " + marca);
 }
 
-// Invocación de un objeto. Argumentos.
-Objeto.arrancar("Rojo", "Ferrari"); // Output: Arrancando el coche de color Rojo y marca Ferrari
+// Invocación de un objeto.
+// Argumentos: "Rojo", "Ferrari"
+Objeto.arrancar("Rojo", "Ferrari");
+// Output: Arrancando el coche de color Rojo y marca Ferrari
 ```
 
 ## Retorno de valores
@@ -183,9 +200,11 @@ String saludo = Objeto.saludar("Juan");
 
 ## Método Constructor
 
-Es un método especial de una clase, que se invoca siempre que se crea un objeto de una clase, en el siguiente ejemplo:
+Es un método especial de una clase, que se invoca siempre que se **crea un objeto de una clase**. Este método va a ser llamado automáticamente cuando se crea un objeto de la clase, asímismo va a configurar nuestra instancia con las propiedades y métodos que tenemos en la clase y pertenecen a una instancia.
 
-- `Coche()` es el método constructor.
+Ejemplo de como usar el **método constructor:**
+
+- `Coche()` es el método constructor
 
 ```java
 Coche c1 = new Coche();
@@ -208,10 +227,11 @@ Características del constructor:
 
 Para crear el constructor de una clase existen dos caminos:
 
-- Primer caso: Los parámetros del constructor tienen nombre distintos a los atributos de la clase.
+- **Primer caso:** Los parámetros del constructor tienen nombre distintos a los atributos de la clase.
 
 ```java
   // Método Constructor
+
 public Coche(String _nombre, String _color, int _km) {
   color = _color;
   marca = _nombre;
@@ -219,7 +239,7 @@ public Coche(String _nombre, String _color, int _km) {
 }
 ```
 
-- Segundo caso: Los parámetros del constructor tienen el mismo nombre que los atributos de la clase.
+- **Segundo caso:** Los parámetros del constructor tienen el mismo nombre que los atributos de la clase.
 
 ```java
   // Método Constructor
@@ -230,7 +250,7 @@ public Coche(String nombre, String color, int km) {
 }
 ```
 
-> `this` es una palabra reservada que le indica a Java que ese atributo es el mismo que la clase.
+> `this` es una palabra reservada que le indica a Java que ese atributo tiene el mismo nombre que el parámetro.
 
 Para instanciar un nuevo objeto, vamos a tener:
 
@@ -241,5 +261,47 @@ Coche c3 = new Coche("Ford", "Blanco", 0);
 ```
 
 ## Sobrecarga de Métodos
+
+Cuando escribimos más de un método con el mismo nombre, pero con distintos parámetros, podemos decir que es una sobrecarga de método.
+
+Ejemplo:
+
+```java
+// Método arrancar
+public void arrancar(String color, String marca) {
+  System.out.println("Arrancando el coche de color " + color + " y marca " + marca);
+}
+
+// Otro método arrancar
+public void arrancar(String color, String marca, int km) {
+  System.out.println("Arrancando el coche de color " + color + " y marca " + marca + " con " + km + " km");
+}
+
+// Otro método arrancar
+public void arrancar(String color, String marca, int km, String combustible) {
+  System.out.println("Arrancando el coche de color " + color + " y marca " + marca + " con " + km + " km y " + combustible);
+}
+```
+
+**Java** detecta que hay más de un método con el mismo nombre, pero sabe que son métodos sobrecargados por los tipos de datos de los parámetros y también la cantidad de parámetros que tenga cada método.
+
+Otros ejemplos de la sobrecarga de métodos:
+
+```java
+// Método saludar
+public String saludar(String nombre) {
+  return "Hola " + nombre;
+}
+
+// Otro método saludar sobrecargado
+public String saludar(String nombre, String apellido) {
+  return "Hola " + nombre + " " + apellido;
+}
+
+// Otro método saludar con la misma cantidad de parámetros pero con distintos tipos de datos
+public String saludar(String nombre, int edad) {
+  return "Hola " + nombre + " tu edad es " + edad;
+}
+```
 
 # Modificadores de Acceso
