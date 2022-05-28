@@ -10,13 +10,16 @@
     - [Espacio auxiliar](#espacio-auxiliar)
   - [Otras complejidades existentes](#otras-complejidades-existentes)
   - [Complejidad en el futuro](#complejidad-en-el-futuro)
-- [Análisis Asintótico](#análisis-asintótico)
+- [Análisis Asintótico o Asymptotic Notation](#análisis-asintótico-o-asymptotic-notation)
 - [Notación Big-O](#notación-big-o)
   - [Clases de Big-O](#clases-de-big-o)
   - [Cálculo de la Notación Big-O](#cálculo-de-la-notación-big-o)
     - [Simplificar la notación](#simplificar-la-notación)
   - [Evaluación de la complejidad temporal con notación Big-O](#evaluación-de-la-complejidad-temporal-con-notación-big-o)
   - [Evaluación de la complejidad espacial con notación Big-O](#evaluación-de-la-complejidad-espacial-con-notación-big-o)
+- [Los límites asintóticos o Asymptotic Notation](#los-límites-asintóticos-o-asymptotic-notation)
+  - [Notación Ω (Omega mayúscula)](#notación-ω-omega-mayúscula)
+  - [Notación θ (Theta)](#notación-θ-theta)
 - [Recomendaciones para la evaluación de algoritmos](#recomendaciones-para-la-evaluación-de-algoritmos)
 - [Retos de Análisis](#retos-de-análisis)
 
@@ -133,7 +136,7 @@ El espacio auxiliar es más importante que los datos de entrada.
 
 si decubrimos interesante optimizar el uso de un recurso en computación, allí tendremos un nuevo campo de estudio de complejidad.
 
-# Análisis Asintótico
+# Análisis Asintótico o Asymptotic Notation
 
 Es un método para descubrir el comportamiento limitante de una función.
 
@@ -267,6 +270,69 @@ function selectionSort(array) {
 
   return array;
 }
+```
+
+# Los límites asintóticos o Asymptotic Notation
+
+La notación Big O es **únicamente para definir los límites superiores**, en el total de recursos requeridos por determinada función o algoritmo de computadora.
+
+En las ciencias de la computación existen otras notaciones para demostrar la complejidad de un algorítmo en el mejor y peor de los casos (límites superiores e inferiores)
+
+## Notación Ω (Omega mayúscula)
+
+Contrario a la notación Big O, **la notación Ω** se usa para determinar los **límites inferiores en el consumo de recursos.**
+
+f(n) = Ω(g(n)) o lo que es lo mismo f(n) ∈ Ω(g(n)) si existe una constante real (c > 0) y una constante entera n0 ≥ 1 tal que f(n) ≥ cg(n) para cada entero n ≥ n0.
+
+Un ejemplo lo podemos notar en la búsqueda binaria:
+
+- En este ejemplo solo necesitamos una vuelta para encontrar el elemento, por lo que la complejidad temporal es Ω(1) para el límite inferior y O(log n) para el límite superior.
+
+```js
+// Input: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+// Output: 5
+
+const binarySearch = (array, target) => {
+  let left = 0;
+  let right = array.length - 1;
+
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+
+    if (array[mid] === target) {
+      return mid;
+    } else if (array[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+    }
+  }
+
+  return -1;
+};
+```
+
+## Notación θ (Theta)
+
+Esta notación se usa para describir que tanto el mejor y peor caso son el mismo, es decir, el tiempo de ejecución tanto del límite inferior y el superior es el mismo.
+
+Podemos ver un ejemplo claro al encontrar la longitud de una cadena de caracteres:
+
+- Tanto si la cadena es vacía como si no lo es, la complejidad temporal es O(1) en el peor caso y Ω(1) en el mejor de los casos.
+
+```js
+// Input: "Hello World"
+// Output: 11
+
+const length = (string) => {
+  let count = 0;
+
+  for (let i = 0; i < string.length; i++) {
+    count++;
+  }
+
+  return count;
+};
 ```
 
 # Recomendaciones para la evaluación de algoritmos
