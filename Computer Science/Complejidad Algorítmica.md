@@ -162,7 +162,8 @@ La notación formal de esta notación es:
 
 # Notación Big-O
 
-Con esta notación, buscamos una manera de escribir la eficiencia de un logarítmo de una manera sencilla
+Con esta notación, buscamos una manera de escribir la eficiencia de un algorítmo de una manera sencilla. Es una manera para medir que tan bien 
+un algorítmo escala cuando el cantidad de datos va creciendo.
 
 Buscamos descubrir una función (constante, lineal, polinomial, logarítmica y exponencial) que sea **mayor o igual** a la complejidad del algoritmo
 
