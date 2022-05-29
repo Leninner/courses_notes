@@ -1,3 +1,9 @@
+<h1>Complejidad Algorítmica</h1>
+
+> Los ejemplos de código presentados en el siguiente archivo están hechos en JavaScript, pero la teoría es totalmente válida para cualquier lenguaje de programación.
+
+> https://github.com/Leninner/coding-interview-university#algorithmic-complexity--big-o--asymptotic-analysis
+
 **ÍNDICE**
 
 - [Complejidad Algorítmica](#complejidad-algorítmica)
@@ -138,10 +144,21 @@ si decubrimos interesante optimizar el uso de un recurso en computación, allí 
 
 # Análisis Asintótico o Asymptotic Notation
 
+> https://www.bigocheatsheet.com/
+
 Es un método para descubrir el comportamiento limitante de una función.
 
 1. Se analiza el comportamiento del algorítmo en una gráfica: https://radiant-anchorage-11930.herokuapp.com/
 2. Se busca una función matemática similar para poder gráficar el comportamiento del algorítmo.
+
+La notación formal de esta notación es:
+
+    F(n) = O(f(n)) si y solo si c and No tiene las siguientes condiciones:
+
+        - N > No
+        - f(n) < c * g(n)
+
+    En palabras humanas, f(N) es O(g(N)), si para alguna c casi toda la gráfica de la función f está por debajo de la gráfica de la función c.g. Tenga en cuenta que esto significa que f crece como máximo tan rápido como lo hace c.g.
 
 # Notación Big-O
 
