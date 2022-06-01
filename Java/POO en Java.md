@@ -8,6 +8,12 @@
   - [Método Constructor](#método-constructor)
   - [Sobrecarga de Métodos](#sobrecarga-de-métodos)
 - [Modificadores de Acceso](#modificadores-de-acceso)
+  - [Tipos de Modificadores de Acceso](#tipos-de-modificadores-de-acceso)
+- [Encapsulamiento y métodos accesores (Getters y Setters)](#encapsulamiento-y-métodos-accesores-getters-y-setters)
+  - [Encapsulamiento](#encapsulamiento)
+  - [Métodos Accesores (Getters y Setters)](#métodos-accesores-getters-y-setters)
+- [Constantes](#constantes)
+- [Miembros estáticos de una clase](#miembros-estáticos-de-una-clase)
 
 # Conceptos Básicos de POO
 
@@ -304,4 +310,173 @@ public String saludar(String nombre, int edad) {
 }
 ```
 
+Ejemplos con sobrecarga de métodos constructores:
+
+```java
+// Método Constructor
+public Coche(String _nombre, String _color, int _km) {
+  color = _color;
+  marca = _nombre;
+  km = _km;
+}
+
+// Método Constructor sobrecargado
+public Coche(String nombre, String color, int km, String combustible) {
+  this.color = color;
+  this.marca = nombre;
+  this.km = km;
+  this.combustible = combustible;
+}
+```
+
 # Modificadores de Acceso
+
+Es una palabra especial que va antes de la definición de un atributo o de un método y nos va a servir para conocer cuál es la visibilidad de ese atributo o método respecto a otras clases o paquetes.
+
+Cuando dejamos la declaración de un atributo o método por defecto, es decir, sin especificar el modificador de acceso, va a ser visible para **todas las clases dentro de ese paquete, pero no para clases de otros paquetes**:
+
+Ejemplo:
+
+- Clase1.java (PaqueteUno)
+
+```java
+package PaqueteUno;
+
+public class Clase1 {
+  // Atributo
+  int atributo1;
+}
+```
+
+- Clase2.java (PaqueteUno)
+
+```java
+package PaqueteUno;
+
+public class Clase2 {
+  public static void main(String[] args) {
+    Clase1 objeto1 = new Clase1();
+
+    objeto1.atributo1 = 15; // Funciona correctamente y sin errores
+  }
+}
+```
+
+- Clase3.java (PaqueteDos)
+
+> Para crear un objeto de un paquete, dentro de otro, debemos importarlo
+
+```java
+package PaqueteDos;
+
+import PaqueteUno.Clase1; // Importamos el paquete PaqueteUno junto con la clase Clase1
+
+public class Clase3 {
+  public static void main(String[] args) {
+    Clase1 objeto1 = new Clase1();
+
+    objeto1.atributo1 = 15; // Salta un error que nos dice que ese atributo no está visible.
+  }
+}
+```
+
+Para solucionar el problema de la Clase3 vamos a hacer el atributo de la clase Clase1 público con la palabra **public**:
+
+- Clase1.java (PaqueteUno)
+
+```java
+package PaqueteUno;
+
+public class Clase1 {
+  public int atributo1;
+}
+```
+
+Al hacer eso, ya podemos acceder a ese atributo desde cualquier clase y desde cualquier paquete.
+
+## Tipos de Modificadores de Acceso
+
+- **public**: Se usa para declarar un atributo o método público, el cuál va a ser accesible desde cualquier clase o paquete.
+- **protected**: Se usa para declarar un atributo o método protegido, el cuál va a ser accesible desde cualquier clase o paquete, pero no desde clases de otros paquetes.
+- **private**: Se usa para declarar un atributo o método privado, el cuál va a ser accesible sólo desde la clase en la que está definido.
+- **default**: Se usa para declarar un atributo o método por defecto, el cuál va a ser accesible desde cualquier clase del mismo paquete, pero no desde otro paquete.
+
+# Encapsulamiento y métodos accesores (Getters y Setters)
+
+## Encapsulamiento
+
+El encapsulamiento es una técnica que nos permite ocultar los detalles, atributos o métodos de la clase, para que solo puedan ser accedidos desde esa misma clase y no cualquiera pueda modificar esos atributos o métodos a su antojo, sino más bien, a través de **métodos accesores.**
+
+Ejemplo de encapsulamiento (ocultar atributos o métodos de la clase):
+
+```java
+package PaqueteUno;
+
+public class Clase1 {
+  private int atributo1;
+}
+```
+
+## Métodos Accesores (Getters y Setters)
+
+Para poder acceder a estos atributos y métodos encapsulados, desde otras clases, vamos a utilizar los métodos accesores (Getters y Setters).
+
+Ejemplo:
+
+```java
+  private int edad;
+
+  // Método getter
+  int getEdad() {
+    return edad;
+  }
+
+  // Método setter
+  public void setEdad(int edad) {
+    this.edad = edad;
+  }
+```
+
+- Un **método getter** es un método que nos va a permitir obtener el valor de un atributo, y que va a ser llamado desde otras clases.
+- Un **método setter** es un método que nos va a permitir modificar el valor de un atributo, y que va a ser llamado desde otras clases.
+
+# Constantes
+
+Espacio de memoria en donde se almacena algún valor, y ese valor no va a variar en ningún momento.
+
+Para crear una constante, debemos usar la palabra **final**:
+
+```java
+final int constante1 = 15;
+public final int constante2 = 15;
+private final int constante3 = 15;
+```
+
+Ejemplo en una clase:
+
+```java
+package PaqueteUno;
+
+public class Clase1 {
+  private final String nombre;
+  private int edad;
+
+  public Clase1(String nombre) {
+    this.nombre = nombre;
+  }
+
+  public int getEdad() {
+    return edad;
+  }
+
+  public void setEdad(int edad) {
+    this.edad = edad;
+  }
+
+  public String getNombre() {
+    return nombre;
+  }
+}
+```
+
+# Miembros estáticos de una clase
