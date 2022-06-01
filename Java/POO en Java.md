@@ -480,3 +480,67 @@ public class Clase1 {
 ```
 
 # Miembros estáticos de una clase
+
+Son métodos o atributos que **no pertenecen a un objeto, sino a la clase misma.**
+
+Al crearse un nuevo objeto de una clase, se crean copias de los métodos y atributos **no** estáticos de la clase. Esto se debe a que **los métodos y atributos no estáticos son atributos o métodos de objetos,** y no de la clase misma.
+
+Un `atributo o método estático` va a ser accesible desde cualquier clase, pero no desde un objeto.
+
+> Se hace uso de la palabra reservada **static**
+
+Ejemplo:
+
+- **Método estático**:
+
+```java
+package PaqueteUno;
+
+  public class Clase1 {
+    public static void metodoEstatico() {
+      System.out.println("Método estático");
+    }
+  }
+```
+
+- **Atributo estático**:
+
+```java
+  public class Clase1 {
+    public static int atributoEstatico;
+  }
+```
+
+Ejemplo de uso:
+
+```java
+package PaqueteUno;
+
+public class Static {
+    private static String frase2 = "Segunda frase";
+
+    public static void main(String[] args) {
+        Static objeto = new Static();
+        Static objeto2 = new Static();
+
+        objeto.frase2 = "Cambio de frase";
+
+        System.out.println(objeto.frase2); // Cambio de frase
+        System.out.println(objeto2.frase2); // Cambio de frase
+    }
+}
+```
+
+Otra forma de utilizar:
+
+```java
+package PaqueteUno;
+
+public class Static {
+    static String frase2 = "Segunda frase";
+
+    public static void main(String[] args) {
+        System.out.println(Static.frase2); // Segunda frase
+    }
+}
+```
