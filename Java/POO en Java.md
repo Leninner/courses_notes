@@ -14,6 +14,8 @@
   - [Métodos Accesores (Getters y Setters)](#métodos-accesores-getters-y-setters)
 - [Constantes](#constantes)
 - [Miembros estáticos de una clase](#miembros-estáticos-de-una-clase)
+- [Diagrama de Clases (UML)](#diagrama-de-clases-uml)
+- [Ejercicios de Lógica](#ejercicios-de-lógica)
 
 # Conceptos Básicos de POO
 
@@ -541,6 +543,184 @@ public class Static {
 
     public static void main(String[] args) {
         System.out.println(Static.frase2); // Segunda frase
+    }
+}
+```
+
+# Diagrama de Clases (UML)
+
+Nos va a ayudar en la organización de clases.
+
+<img src="../utils/images/uml.png">
+
+- Se usa el menos (-) para atributos y métodos privados.
+- Se debe añadir el tipo de atributo
+
+# Ejercicios de Lógica
+
+1. Crear un programa que calcule el área y perímetro de un cuadrilátero.
+
+ <img src="../utils/images/uml.png">
+
+Cuadrilatero.java:
+
+```java
+public class Cuadrilatero {
+  // Atributos
+  private float lado1;
+  private float lado2;
+
+    // Constructor 1 (Cuadrilátero)
+    public Cuadrilatero(float lado1, float lado2){
+        this.lado1 = lado1;
+        this.lado2 = lado2;
+    }
+
+    // Constructor 2 (Cuadrado)
+    public Cuadrilatero(float lado1) {
+        this.lado1 = this.lado2 = lado1;
+    }
+
+    // Getters
+    public float getPerimetro(){
+        return (lado1 + lado2) * 2;
+    }
+
+    public float getArea(){
+        return lado1 * lado2;
+    }
+
+}
+```
+
+Main.java:
+
+```java
+import javax.swing.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Cuadrilatero cuadrilatero;
+
+        float lado1 = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el lado 1: "));
+        float lado2 = Float.parseFloat(JOptionPane.showInputDialog("Ingrese " +
+                "el lado 2: "));
+
+        if(lado1 == lado2){ // Cuadrilatero cuadrado
+            cuadrilatero = new Cuadrilatero(lado1);
+        } else { // Cuadrilatero rectángulo
+            cuadrilatero = new Cuadrilatero(lado1, lado2);
+        }
+
+        JOptionPane.showMessageDialog(null, "El perímetro es: " + cuadrilatero.getPerimetro() +
+                "\nEl área es: " + cuadrilatero.getArea());
+
+    }
+}
+```
+
+2. Construir un programa que permita dirigir el movimiento de un objeto dentro de un tablero y actualice su posición dentro del mismo. Los movimientos posibles son: arriba, abajo, izquierda y derecha.
+   Tras cada movimiento el programa mostrará la nueva dirección elegida y las coordenadas de situación del objeto dentro del tablero.
+
+Tablero.java:
+
+```java
+   package POOChallenge;
+
+public class Tablero {
+// Atributos
+private final int widthTable;
+private final int heightTable;
+private int[] currentPosition = {0, 0};
+
+    // Constructor
+    public Tablero(int widthTable, int heightTable) {
+        this.widthTable = widthTable;
+        this.heightTable = heightTable;
+    }
+
+    // Getters
+    public String getCurrentPosition(String direction) {
+        return "(" + (currentPosition[0] + 1)+ ", " + (currentPosition[1] + 1) + ")" +
+                "\nDirección: " + direction;
+    }
+
+    // Setters
+    public void setCurrentPosition(String direction) {
+        switch (direction) {
+            case "ARRIBA":
+                if(currentPosition[1] > 0) {
+                    currentPosition[1]--;
+                } else {
+                    System.out.println("No se puede mover hacia arriba");
+                }
+                break;
+            case "ABAJO":
+                if(currentPosition[1] < heightTable - 1) {
+                    currentPosition[1]++;
+                } else {
+                    System.out.println("No se puede mover hacia abajo");
+                }
+                break;
+            case "IZQUIERDA":
+                if(currentPosition[0] > 0) {
+                    currentPosition[0]--;
+                } else {
+                    System.out.println("No se puede mover hacia la izquierda");
+                }
+                break;
+            case "DERECHA":
+                if(currentPosition[0] < widthTable - 1) {
+                    currentPosition[0]++;
+                } else {
+                    System.out.println("No se puede mover hacia la derecha");
+                }
+                break;
+        }
+    }
+
+}
+```
+
+Main.java:
+
+```java
+package POOChallenge;
+
+import javax.swing.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Tablero tablero = new Tablero(2, 2);
+
+        do {
+            String direction = JOptionPane.showInputDialog(null, "Dirección: " +
+                    "\n1. Arriba" +"\n2. Abajo" + "\n3. Izquierda" + "\n4. Derecha");
+
+            switch (direction) {
+                case "1":
+                    tablero.setCurrentPosition("ARRIBA");
+                    JOptionPane.showMessageDialog(null, tablero.getCurrentPosition("ARRIBA"));
+                    break;
+                case "2":
+                    tablero.setCurrentPosition("ABAJO");
+                    JOptionPane.showMessageDialog(null, tablero.getCurrentPosition("ABAJO"));
+                    break;
+                case "3":
+                    tablero.setCurrentPosition("IZQUIERDA");
+                    JOptionPane.showMessageDialog(null, tablero.getCurrentPosition("IZQUIERDA"));
+                    break;
+                case "4":
+                    tablero.setCurrentPosition("DERECHA");
+                    JOptionPane.showMessageDialog(null, tablero.getCurrentPosition("DERECHA"));
+                    break;
+                default:
+                    System.out.println("Dirección no válida");
+                    break;
+            }
+
+        } while (JOptionPane.showConfirmDialog(null,
+                "¿Desea continuar moviendo la ficha?", "", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION);
     }
 }
 ```
