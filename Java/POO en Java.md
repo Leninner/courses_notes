@@ -625,13 +625,11 @@ public class Main {
 Tablero.java:
 
 ```java
-   package POOChallenge;
-
 public class Tablero {
-// Atributos
-private final int widthTable;
-private final int heightTable;
-private int[] currentPosition = {0, 0};
+    // Atributos
+    private final int widthTable;
+    private final int heightTable;
+    private int[] currentPosition = {0, 0};
 
     // Constructor
     public Tablero(int widthTable, int heightTable) {
@@ -639,46 +637,62 @@ private int[] currentPosition = {0, 0};
         this.heightTable = heightTable;
     }
 
-    // Getters
+    // Getter
     public String getCurrentPosition(String direction) {
         return "(" + (currentPosition[0] + 1)+ ", " + (currentPosition[1] + 1) + ")" +
                 "\nDirección: " + direction;
     }
 
-    // Setters
-    public void setCurrentPosition(String direction) {
-        switch (direction) {
-            case "ARRIBA":
-                if(currentPosition[1] > 0) {
-                    currentPosition[1]--;
-                } else {
-                    System.out.println("No se puede mover hacia arriba");
-                }
-                break;
-            case "ABAJO":
-                if(currentPosition[1] < heightTable - 1) {
-                    currentPosition[1]++;
-                } else {
-                    System.out.println("No se puede mover hacia abajo");
-                }
-                break;
-            case "IZQUIERDA":
-                if(currentPosition[0] > 0) {
-                    currentPosition[0]--;
-                } else {
-                    System.out.println("No se puede mover hacia la izquierda");
-                }
-                break;
-            case "DERECHA":
-                if(currentPosition[0] < widthTable - 1) {
-                    currentPosition[0]++;
-                } else {
-                    System.out.println("No se puede mover hacia la derecha");
-                }
-                break;
+    // Métodos de movimiento privados
+    private void moveRight() {
+        if(currentPosition[0] < widthTable - 1) {
+            currentPosition[0]++;
+        } else {
+            System.out.println("No se puede mover hacia la derecha");
         }
     }
 
+    private void moveLeft() {
+        if(currentPosition[0] > 0) {
+            currentPosition[0]--;
+        } else {
+            System.out.println("No se puede mover hacia la izquierda");
+        }
+    }
+
+    private void moveUp() {
+        if(currentPosition[1] > 0) {
+            currentPosition[1]--;
+        } else {
+            System.out.println("No se puede mover hacia arriba");
+        }
+    }
+
+    private void moveDown() {
+        if(currentPosition[1] < heightTable - 1) {
+            currentPosition[1]++;
+        } else {
+            System.out.println("No se puede mover hacia abajo");
+        }
+    }
+
+    // Setter
+    public void setCurrentPosition(String direction) {
+        switch (direction) {
+            case "ARRIBA":
+                moveUp();
+                break;
+            case "ABAJO":
+                moveDown();
+                break;
+            case "IZQUIERDA":
+                moveLeft();
+                break;
+            case "DERECHA":
+                moveRight();
+                break;
+        }
+    }
 }
 ```
 
