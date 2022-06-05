@@ -898,3 +898,94 @@ public class Main {
     }
 }
 ```
+
+5. Diseñar un programa para trabajar con triángulos isósceles. Para ello defina los atributos necesarios que se requieren, proporcione métodos de consulta, un método constructor e implemente métodos para calcular el perímetro y el área de un triángulo, además implementar un método que a partir de un arreglo de triángulos devuelva el área del triángulo de mayor superficie.
+
+Diagrama de clases:
+
+<img src="../utils/images/thirdJava.png">
+
+Triangulos.java
+
+```java
+package POOChallenge;
+
+public class Triangulo {
+    private float sideOne;
+    private float sideTwo;
+    private float base;
+
+    public Triangulo(float sideOne, float base) {
+        this.sideOne = this.sideTwo = sideOne;
+        this.base = base;
+    }
+
+    public float getPerimeter() {
+        return this.sideOne + this.sideTwo + this.base;
+    }
+
+    public double getArea() {
+        double altura =
+                Math.sqrt(Math.pow(this.base, 2) - Math.pow(this.sideOne
+                        , 2));
+
+        return Math.round(((this.base * altura) / 2) * 100.0) / 100.0;
+    }
+
+    public String getInfo() {
+        return "Triangulo de lados " + this.sideOne + " y " + this.sideTwo + " y base " + this.base + " tiene perimetro " + this.getPerimeter() + " y area " + this.getArea();
+    }
+}
+```
+
+Main.java
+
+```java
+package POOChallenge;
+
+import java.util.Scanner;
+
+public class Main {
+    public static String getLargestPerimeter(Triangulo[] triangulos) {
+        Triangulo maxPerimeter = triangulos[0];
+
+        for (Triangulo triangulo : triangulos) {
+            if (triangulo.getPerimeter() > maxPerimeter.getPerimeter()) {
+                maxPerimeter = triangulo;
+            }
+        }
+        return maxPerimeter.getInfo();
+    }
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Ingrese el numero de triangulos: ");
+        System.out.print("-> ");
+        int n = scan.nextInt();
+
+        Triangulo[] triangulos = new Triangulo[n];
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("Ingrese el lado uno y dos del triangulo " + (i + 1) + ": ");
+            System.out.print("-> ");
+            float sideOne = scan.nextFloat();
+
+            System.out.println("Ingrese la base del triangulo " + (i + 1) + ": ");
+            System.out.print("-> ");
+            float base = scan.nextFloat();
+
+            triangulos[i] = new Triangulo(sideOne, base);
+
+        }
+
+        System.out.println("El triangulo de mayor perimetro es: " +  getLargestPerimeter(triangulos));
+
+    }
+}
+```
+
+6.  Construir un programa para trabajar con 2 números complejos, implemente el siguiente menú:
+    1.  Sumar dos números complejos
+    2.  Multiplicar 2 números complejos
+    3.  Comparar 2 números complejos (iguales o no)
+    4.  Multiplicar un número complejos por un entero
