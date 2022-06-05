@@ -822,3 +822,79 @@ public class Main {
     }
 }
 ```
+
+4. Construir un programa para una competencia de atletismo, el programa debe gestionar una serie de atletas caracterizados por su número de atleta, nombre y tiempo de carrera, al final el programa debe mostrar los datos del atleta ganador de la carrera.
+
+Atletismo.java
+
+```java
+package POOChallenge;
+
+public class Atletismo {
+    // Construir un programa para una competencia de atletismo,
+    // el programa debe gestionar una serie de atletas caracterizados
+    // por su número de atleta, nombre y tiempo de carrera, al final
+    // el programa debe mostrar los datos del atleta ganador de la carrera.
+    private int numberAtleta;
+    private String nameAtleta;
+    private double timeAtleta;
+
+    public Atletismo(int numberAtleta, String nameAtleta, double timeAtleta) {
+        this.numberAtleta = numberAtleta;
+        this.nameAtleta = nameAtleta;
+        this.timeAtleta = timeAtleta;
+    }
+
+    public double getTimeAtleta() {
+        return timeAtleta;
+    }
+
+    public String getAtletaInfo() {
+        return "Atleta: " + numberAtleta + " | " + nameAtleta + " | " + timeAtleta;
+    }
+}
+```
+
+Main.java
+
+```java
+package POOChallenge;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Ingrese el número de atletas: ");
+        int numberAtletas = scan.nextInt();
+
+        Atletismo[] atletas = new Atletismo[numberAtletas];
+
+        for (int i = 0; i < numberAtletas; i++) {
+            System.out.println("Ingrese el número de atleta: ");
+            System.out.print("-> ");
+            int numberAtleta = scan.nextInt();
+
+            System.out.println("Ingrese el nombre del atleta: ");
+            System.out.print("-> ");
+            String nameAtleta = scan.next();
+
+            System.out.println("Ingrese el tiempo del atleta: ");
+            System.out.print("-> ");
+            double timeAtleta = scan.nextDouble();
+
+            atletas[i] = new Atletismo(numberAtleta, nameAtleta, timeAtleta);
+        }
+
+        Atletismo winnerAtleta = atletas[0];
+
+        for (int i = 0; i < numberAtletas; i++) {
+            if (atletas[i].getTimeAtleta() < winnerAtleta.getTimeAtleta()) {
+                winnerAtleta = atletas[i];
+            }
+        }
+
+        System.out.println("El atleta ganador de la carrera es: " + winnerAtleta.getAtletaInfo());
+    }
+}
+```
