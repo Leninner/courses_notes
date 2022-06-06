@@ -18,6 +18,7 @@
 - [Ejercicios de Lógica](#ejercicios-de-lógica)
 - [Herencia en Programación Orientada a Objetos](#herencia-en-programación-orientada-a-objetos)
 - [Sobreescritura de miembros](#sobreescritura-de-miembros)
+- [Clases y métodos abstractos](#clases-y-métodos-abstractos)
 
 # Conceptos Básicos de POO
 
@@ -1220,3 +1221,46 @@ En el constructor de la subclase debemos llamar al constructor de la superclase 
 La llamada a super() se realiza en la subclase y debe ser la primera instrucción del constructor de la clase hija.
 
 # Sobreescritura de miembros
+
+No es igual a sobrecarga de miembros o métodos. Es una forma de sobreescribir un mismo método en distintas clases.
+Se utiliza bastante en la herencia.
+
+- Clase padre `Animal`:
+
+```java
+package Herencia;
+
+public class Animal {
+    public void comer() {
+        System.out.println("Animal comiendo");
+    }
+}
+```
+
+- Clase hija `Perro`:
+
+```java
+package Herencia;
+
+public class Perro extends Animal {
+  // Se puede escribir @Override para indicar que se debe sobreescribir el método. Dependiendo la versión del JDK, el compilador puede o no mostrar el error.
+    public void comer() {
+        System.out.println("Perro comiendo");
+    }
+}
+```
+
+- Clase hija `Vaca`:
+
+```java
+package Herencia;
+
+public class Vaca extends Animal {
+  // Se puede escribir @Override para indicar que se debe sobreescribir el método. Dependiendo la versión del JDK, el compilador puede o no mostrar el error.
+    public void comer() {
+        System.out.println("Vaca comiendo");
+    }
+}
+```
+
+# Clases y métodos abstractos
