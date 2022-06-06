@@ -16,6 +16,8 @@
 - [Miembros estáticos de una clase](#miembros-estáticos-de-una-clase)
 - [Diagrama de Clases (UML)](#diagrama-de-clases-uml)
 - [Ejercicios de Lógica](#ejercicios-de-lógica)
+- [Herencia en Programación Orientada a Objetos](#herencia-en-programación-orientada-a-objetos)
+- [Sobreescritura de miembros](#sobreescritura-de-miembros)
 
 # Conceptos Básicos de POO
 
@@ -399,7 +401,7 @@ Al hacer eso, ya podemos acceder a ese atributo desde cualquier clase y desde cu
 ## Tipos de Modificadores de Acceso
 
 - **public**: Se usa para declarar un atributo o método público, el cuál va a ser accesible desde cualquier clase o paquete.
-- **protected**: Se usa para declarar un atributo o método protegido, el cuál va a ser accesible desde cualquier clase o paquete, pero no desde clases de otros paquetes.
+- **protected**: Se usa para declarar un atributo o método protegido, el cuál va a ser accesible desde cualquier clase o paquete, y además desde clases hijas, pero no desde clases ajenas y de otros paquetes.
 - **private**: Se usa para declarar un atributo o método privado, el cuál va a ser accesible sólo desde la clase en la que está definido.
 - **default**: Se usa para declarar un atributo o método por defecto, el cuál va a ser accesible desde cualquier clase del mismo paquete, pero no desde otro paquete.
 
@@ -989,3 +991,232 @@ public class Main {
     2.  Multiplicar 2 números complejos
     3.  Comparar 2 números complejos (iguales o no)
     4.  Multiplicar un número complejos por un entero
+
+Complejo.java
+
+```java
+package POOChallenge;
+
+public class Complejo {
+    //Construir un programa para trabajar con 2 números complejos, implemente el siguiente menú:
+    //    1.  Sumar dos números complejos
+    //    2.  Multiplicar 2 números complejos
+    //    3.  Comparar 2 números complejos (iguales o no)
+    //    4.  Multiplicar un número complejos por un entero
+    private double real;
+    private double imaginario;
+
+    public Complejo(double real, double imaginario) {
+        this.real = real;
+        this.imaginario = imaginario;
+    }
+
+    public double getReal() {
+        return real;
+    }
+
+    public double getImaginario() {
+        return imaginario;
+    }
+
+    public double sumar(Complejo complejo2) {
+        return real + complejo2.getReal();
+    }
+}
+```
+
+Main.java
+
+```java
+package POOChallenge;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void sumComplexNumbers(Scanner scan){
+        System.out.println("\n\tSumar dos números complejos");
+        System.out.print("\n\tIngresa parte real del primer número: ");
+        double real1 = scan.nextDouble();
+
+        System.out.print("\tIngresa el segundo real: ");
+        double real2 = scan.nextDouble();
+
+        System.out.print("\tIngresa el primer imaginario: ");
+        double imaginario1 = scan.nextDouble();
+
+        System.out.print("\tIngresa el segundo número imaginario: ");
+        double imaginario2 = scan.nextDouble();
+
+        Complejo complejo1 = new Complejo(real1, imaginario1);
+        Complejo complejo2 = new Complejo(real2, imaginario2);
+
+        System.out.println("La suma de los números complejos es: "
+                + (complejo2.getReal() + complejo1.getReal()) + " + "
+                + (complejo2.getImaginario() + complejo1.getImaginario()) + "i");
+    }
+
+    public static void multiplyComplexNumbers(Scanner scan) {
+        System.out.println("\n\tMultiplicar dos números complejos");
+
+        System.out.print("\n\tIngresa parte real del primer número: ");
+        double real1 = scan.nextDouble();
+
+        System.out.print("\tIngresa el segundo real: ");
+        double real2 = scan.nextDouble();
+
+        System.out.print("\tIngresa el primer imaginario: ");
+        double imaginario1 = scan.nextDouble();
+
+        System.out.print("\tIngresa el segundo número imaginario: ");
+        double imaginario2 = scan.nextDouble();
+
+        Complejo complejo1 = new Complejo(real1, imaginario1);
+        Complejo complejo2 = new Complejo(real2, imaginario2);
+
+        System.out.println("La multiplicación de los números complejos es: "
+                + (complejo2.getReal() * complejo1.getReal() - complejo2.getImaginario() * complejo1.getImaginario()) + " + "
+                + (complejo2.getImaginario() * complejo1.getImaginario()) + "i");
+    }
+
+    public static void compareComplexNumbers(Scanner scan) {
+        System.out.println("\n\tComparar dos números complejos");
+
+        System.out.print("\n\tIngresa parte real del primer número: ");
+        double real1 = scan.nextDouble();
+
+        System.out.print("\tIngresa el segundo real: ");
+        double real2 = scan.nextDouble();
+
+        System.out.print("\tIngresa el primer imaginario: ");
+        double imaginario1 = scan.nextDouble();
+
+        System.out.print("\tIngresa el segundo número imaginario: ");
+        double imaginario2 = scan.nextDouble();
+
+        Complejo complejo1 = new Complejo(real1, imaginario1);
+        Complejo complejo2 = new Complejo(real2, imaginario2);
+
+        if (complejo1.getReal() == complejo2.getReal() && complejo1.getImaginario() == complejo2.getImaginario()) {
+            System.out.println("Los números complejos son iguales");
+        } else {
+            System.out.println("Los números complejos no son iguales");
+        }
+    }
+
+    public static void multiplyComplexNumberByInteger(Scanner scan) {
+        System.out.println("\n\tMultiplicar un número complejo por un entero");
+
+        System.out.print("\n\tIngresa el real del número complejo: ");
+        double real = scan.nextDouble();
+
+        System.out.print("\tIngresa el imaginario del número complejo: ");
+        double imaginario = scan.nextDouble();
+
+        Complejo complejo = new Complejo(real, imaginario);
+
+        System.out.print("\tIngresa el número entero: ");
+        int integer = scan.nextInt();
+
+        System.out.println("La multiplicación del número complejo por el entero es: "
+                + (complejo.getReal() * integer) + " + "
+                + (complejo.getImaginario() * integer) + "i");
+    }
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int userSelection;
+
+        do {
+            System.out.println("\n¿Qué quiéres hacer hoy?");
+            System.out.println("\t1. Sumar dos números complejos");
+            System.out.println("\t2. Multiplicar dos números complejos");
+            System.out.println("\t3. Comparar dos números complejos");
+            System.out.println("\t4. Multiplicar un compejo y un entero");
+            System.out.println("\t5. Salir");
+            System.out.print("\n\t-> ");
+            userSelection = scan.nextInt();
+
+            System.out.println();
+
+            switch (userSelection) {
+                case 1:
+                    sumComplexNumbers(scan);
+                    break;
+                case 2:
+                    multiplyComplexNumbers(scan);
+                    break;
+                case 3:
+                    compareComplexNumbers(scan);
+                    break;
+                case 4:
+                    multiplyComplexNumberByInteger(scan);
+                    break;
+            }
+        } while(userSelection != 5);
+    }
+}
+```
+
+# Herencia en Programación Orientada a Objetos
+
+Forma de reutilización de software, en la que se crea una nueva clase al absorber los parámetros y métodos de una ya existente.
+
+<img src="../utils/images/herencia.png">
+
+Tenemos una clase padre o superclase:
+
+```java
+package Herencia;
+
+public class Persona {
+    private String nombre;
+    private String apellido;
+    private int edad;
+
+    public Persona(String nombre, String apellido, int edad) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+}
+```
+
+Y una clase hija o subclase:
+
+```java
+package Herencia;
+
+public class Estudiante extends Persona {
+    int codigoEstudiante;
+    double notaFinal;
+
+    public Estudiante(String nombre, String apellido, int edad, int codigoEstudiante, double notaFinal) {
+        super(nombre, apellido, edad);
+        this.codigoEstudiante = codigoEstudiante;
+        this.notaFinal = notaFinal;
+    }
+}
+```
+
+Hacemos uso de la palabra clase `extends` para indicar que la clase hija hereda de la clase padre.
+
+En el constructor de la subclase debemos llamar al constructor de la superclase a través de la palabra `super` para obtener los parámetros de la clase padre.
+
+> La keyword `super` se usa para referirse a una variable local en un método y a una variable de la superclase que tiene el mismo nombre
+
+La llamada a super() se realiza en la subclase y debe ser la primera instrucción del constructor de la clase hija.
+
+# Sobreescritura de miembros
