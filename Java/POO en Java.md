@@ -19,6 +19,7 @@
 - [Herencia en Programación Orientada a Objetos](#herencia-en-programación-orientada-a-objetos)
 - [Sobreescritura de miembros](#sobreescritura-de-miembros)
 - [Clases y métodos abstractos](#clases-y-métodos-abstractos)
+- [Polimorfismo](#polimorfismo)
 
 # Conceptos Básicos de POO
 
@@ -1331,4 +1332,133 @@ Main.java
 
 ```java
 
+```
+
+# Polimorfismo
+
+En una relación de tipo herencia, un objeto de la superclase puede almacenar un objeto de cualquiera de sus subclases.
+
+La clase padre es compatible con los tipos que derivan de ella. Pero no al revés.
+
+- Una clase padre, puede instanciar objetos de clases hijas, pero no viceversa.
+
+- `Poli` => Muchos
+- `Morfismo` => Forma
+
+**Polimorfismo** => Las muchas formas que puede tomar un objeto depende el contexto en dónde se utilice
+
+> Los objetos de tipo de la clase padre pueden ser instancias a través de cualquiera de sus subclases
+
+<img src="../utils/images/polimorfismo.png">
+
+Vehiculo.java
+
+```java
+package Polimorfismo;
+
+public class Vehiculo {
+    protected String marca;
+    protected String matricula;
+    protected String modelo;
+
+    public Vehiculo(String marca, String matricula, String modelo){
+        this.marca = marca;
+        this.matricula = matricula;
+        this.modelo = modelo;
+    }
+
+    public String getMarca(){
+        return marca;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public String mostrarDatos() {
+        return "Marca: " + marca + "\nMatricula: " + matricula + "\nModelo: " + modelo;
+    }
+}
+```
+
+VehiculoDeportivo.java
+
+```java
+package Polimorfismo;
+
+public class VehiculoDeportivo extends Vehiculo {
+    private int cilindrada;
+
+    public VehiculoDeportivo(String marca, String matricula, String modelo, int cilindrada) {
+        super(marca, matricula, modelo);
+        this.cilindrada = cilindrada;
+    }
+
+    public String mostrarDatos() {
+        return super.mostrarDatos() + "\nCilindrada: " + cilindrada;
+    }
+}
+```
+
+VehiculoFurgoneta.java
+
+```java
+package Polimorfismo;
+
+public class VehiculoFurgoneta extends Vehiculo {
+    private int carga;
+
+    public VehiculoFurgoneta(String marca, String matricula, String modelo, int carga) {
+        super(marca, matricula, modelo);
+        this.carga = carga;
+    }
+
+    public String mostrarDatos() {
+        return super.mostrarDatos() + "\nCarga: " + carga;
+    }
+}
+```
+
+VehiculoTurismo.java
+
+```java
+package Polimorfismo;
+
+public class VehiculoTurismo extends Vehiculo {
+    private int nPuertas;
+
+    public VehiculoTurismo(String marca, String matricula, String modelo, int nPuertas) {
+        super(marca, matricula, modelo);
+        this.nPuertas = nPuertas;
+    }
+
+    public String mostrarDatos() {
+        return super.mostrarDatos() + "\nNumero de puertas: " + nPuertas;
+    }
+}
+```
+
+Main.java
+
+```java
+package Polimorfismo;
+
+public class Main {
+    public static void main(String[] args) {
+        Vehiculo[] misVehiculos = new Vehiculo[4];
+
+        misVehiculos[0] = new Vehiculo("Ford", "ABC123", "Focus");
+        misVehiculos[1] = new VehiculoDeportivo("Ferrari", "DEF456", "F40", 488);
+        misVehiculos[2] = new VehiculoFurgoneta("Seat", "GHI789", "Ibiza", 5);
+        misVehiculos[3] = new VehiculoTurismo("Renault", "JKL012", "Megane", 5);
+
+        for (int i = 0; i < misVehiculos.length; i++) {
+            System.out.println(misVehiculos[i].mostrarDatos() + "\n");
+        }
+    }
+}
 ```
