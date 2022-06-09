@@ -1264,3 +1264,71 @@ public class Vaca extends Animal {
 ```
 
 # Clases y métodos abstractos
+
+Clase Abstracta:
+
+- Se utiliza solo como superclase o clase padre.
+- No se pueden instanciar objetos
+- Sirve para proporcionar una super clase apropiada a partir de la cuál heredan otras clases
+
+Métodos abstractos:
+
+- Van a ser métodos que se encuentran en superclases o clases padre.
+- Sirven para definir una función que debe ser implementada en las subclases, pero no se sabe como implementarla correctamente.
+- Al tener un método abstracto, la clase también debe ser abstracta.
+- Estos métodos deben ser sobreescritos SI o SI en al menos una subclase.
+
+Gráfico de ejemplo:
+
+<img src="../utils/images/abstract.png">
+
+SerVivo.java
+
+```java
+package Abstract;
+
+public abstract  class SerVivo {
+    public abstract void alimentarse();
+}
+```
+
+Planta.java
+
+```java
+package Abstract;
+
+public class Planta extends SerVivo {
+    // Tenemos que sobreescribir el método alimentarse
+    public void alimentarse() {
+        System.out.println("La planta se alimenta de nutrientes");
+    }
+}
+```
+
+Animal.java
+
+```java
+package Abstract;
+
+public abstract class Animal extends SerVivo {
+    public abstract void alimentarse();
+}
+```
+
+Hervivoro.java
+
+```java
+package Abstract;
+
+public class Hervivoro extends Animal {
+    public void alimentarse() {
+        System.out.println("El hervivoro se alimenta de carne");
+    }
+}
+```
+
+Main.java
+
+```java
+
+```
