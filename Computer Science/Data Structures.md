@@ -19,13 +19,13 @@ Tenemos acceso de tiempo constante para cada elemento del array. Tiempo constant
 Las posiciones o los índices empiezan a partir de 0:
 
 ```javascript
-const array = [1, 2, 3, 4, 5];
+const array = [10, 20, 30, 40, 50];
 
-array[0]; // 1
-array[1]; // 2
-array[2]; // 3
-array[3]; // 4
-array[4]; // 5
+array[0]; // 10
+array[1]; // 20
+array[2]; // 30
+array[3]; // 40
+array[4]; // 50
 ```
 
 Tenemos tiempo constante o BigO(1) para eliminar o añadir un elemento al final del arreglo y tiempo lineal o BigO(n) para añadir o eliminar elementos en una posición arbitraria.
