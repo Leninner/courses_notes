@@ -15,11 +15,12 @@
 - [Constantes](#constantes)
 - [Miembros estáticos de una clase](#miembros-estáticos-de-una-clase)
 - [Diagrama de Clases (UML)](#diagrama-de-clases-uml)
-- [Ejercicios de Lógica](#ejercicios-de-lógica)
 - [Herencia en Programación Orientada a Objetos](#herencia-en-programación-orientada-a-objetos)
 - [Sobreescritura de miembros](#sobreescritura-de-miembros)
 - [Clases y métodos abstractos](#clases-y-métodos-abstractos)
 - [Polimorfismo](#polimorfismo)
+- [Tratamiento de Excepciones](#tratamiento-de-excepciones)
+- [Ejercicios de Lógica](#ejercicios-de-lógica)
 
 # Conceptos Básicos de POO
 
@@ -558,7 +559,324 @@ Nos va a ayudar en la organización de clases.
 <img src="../utils/images/uml.png">
 
 - Se usa el menos (-) para atributos y métodos privados.
+- Se usa el # para atributos y métodos protegidos.
+- Se usa la palabra `abstract` para declarar un método abstracto.
+- Se usa la palabra `static` para declarar un atributo o método estático.
 - Se debe añadir el tipo de atributo
+
+# Herencia en Programación Orientada a Objetos
+
+Forma de reutilización de software, en la que se crea una nueva clase al absorber los parámetros y métodos de una ya existente.
+
+<img src="../utils/images/herencia.png">
+
+Tenemos una clase padre o superclase:
+
+```java
+package Herencia;
+
+public class Persona {
+    private String nombre;
+    private String apellido;
+    private int edad;
+
+    public Persona(String nombre, String apellido, int edad) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+}
+```
+
+Y una clase hija o subclase:
+
+```java
+package Herencia;
+
+public class Estudiante extends Persona {
+    int codigoEstudiante;
+    double notaFinal;
+
+    public Estudiante(String nombre, String apellido, int edad, int codigoEstudiante, double notaFinal) {
+        super(nombre, apellido, edad);
+        this.codigoEstudiante = codigoEstudiante;
+        this.notaFinal = notaFinal;
+    }
+}
+```
+
+Hacemos uso de la palabra clase `extends` para indicar que la clase hija hereda de la clase padre.
+
+En el constructor de la subclase debemos llamar al constructor de la superclase a través de la palabra `super` para obtener los parámetros de la clase padre.
+
+> La keyword `super` se usa para referirse a una variable local en un método y a una variable de la superclase que tiene el mismo nombre
+
+La llamada a super() se realiza en la subclase y debe ser la primera instrucción del constructor de la clase hija.
+
+# Sobreescritura de miembros
+
+No es igual a sobrecarga de miembros o métodos. Es una forma de sobreescribir un mismo método en distintas clases.
+Se utiliza bastante en la herencia.
+
+- Clase padre `Animal`:
+
+```java
+package Herencia;
+
+public class Animal {
+    public void comer() {
+        System.out.println("Animal comiendo");
+    }
+}
+```
+
+- Clase hija `Perro`:
+
+```java
+package Herencia;
+
+public class Perro extends Animal {
+  // Se puede escribir @Override para indicar que se debe sobreescribir el método. Dependiendo la versión del JDK, el compilador puede o no mostrar el error.
+    public void comer() {
+        System.out.println("Perro comiendo");
+    }
+}
+```
+
+- Clase hija `Vaca`:
+
+```java
+package Herencia;
+
+public class Vaca extends Animal {
+  // Se puede escribir @Override para indicar que se debe sobreescribir el método. Dependiendo la versión del JDK, el compilador puede o no mostrar el error.
+    public void comer() {
+        System.out.println("Vaca comiendo");
+    }
+}
+```
+
+# Clases y métodos abstractos
+
+Clase Abstracta:
+
+- Se utiliza solo como superclase o clase padre.
+- No se pueden instanciar objetos
+- Sirve para proporcionar una super clase apropiada a partir de la cuál heredan otras clases
+
+Métodos abstractos:
+
+- Van a ser métodos que se encuentran en superclases o clases padre.
+- Sirven para definir una función que debe ser implementada en las subclases, pero no se sabe como implementarla correctamente.
+- Al tener un método abstracto, la clase también debe ser abstracta.
+- Estos métodos deben ser sobreescritos SI o SI en al menos una subclase.
+
+Gráfico de ejemplo:
+
+<img src="../utils/images/abstract.png">
+
+SerVivo.java
+
+```java
+package Abstract;
+
+public abstract  class SerVivo {
+    public abstract void alimentarse();
+}
+```
+
+Planta.java
+
+```java
+package Abstract;
+
+public class Planta extends SerVivo {
+    // Tenemos que sobreescribir el método alimentarse
+    public void alimentarse() {
+        System.out.println("La planta se alimenta de nutrientes");
+    }
+}
+```
+
+Animal.java
+
+```java
+package Abstract;
+
+public abstract class Animal extends SerVivo {
+    public abstract void alimentarse();
+}
+```
+
+Hervivoro.java
+
+```java
+package Abstract;
+
+public class Hervivoro extends Animal {
+    public void alimentarse() {
+        System.out.println("El hervivoro se alimenta de carne");
+    }
+}
+```
+
+Main.java
+
+```java
+package Abstract;
+
+public class Main {
+    public static void main(String[] args) {
+        Carnivoro c = new Carnivoro(); // Its work
+        System.out.println(c.alimentarse());
+    }
+}
+```
+
+# Polimorfismo
+
+En una relación de tipo herencia, un objeto de la superclase puede almacenar un objeto de cualquiera de sus subclases.
+
+La clase padre es compatible con los tipos que derivan de ella. Pero no al revés.
+
+- Una clase padre, puede instanciar objetos de clases hijas, pero no viceversa.
+
+- `Poli` => Muchos
+- `Morfismo` => Forma
+
+**Polimorfismo** => Las muchas formas que puede tomar un objeto depende el contexto en dónde se utilice
+
+> Los objetos de tipo de la clase padre pueden ser instancias a través de cualquiera de sus subclases
+
+<img src="../utils/images/polimorfismo.png">
+
+Vehiculo.java
+
+```java
+package Polimorfismo;
+
+public class Vehiculo {
+    protected String marca;
+    protected String matricula;
+    protected String modelo;
+
+    public Vehiculo(String marca, String matricula, String modelo){
+        this.marca = marca;
+        this.matricula = matricula;
+        this.modelo = modelo;
+    }
+
+    public String getMarca(){
+        return marca;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public String mostrarDatos() {
+        return "Marca: " + marca + "\nMatricula: " + matricula + "\nModelo: " + modelo;
+    }
+}
+```
+
+VehiculoDeportivo.java
+
+```java
+package Polimorfismo;
+
+public class VehiculoDeportivo extends Vehiculo {
+    private int cilindrada;
+
+    public VehiculoDeportivo(String marca, String matricula, String modelo, int cilindrada) {
+        super(marca, matricula, modelo);
+        this.cilindrada = cilindrada;
+    }
+
+    public String mostrarDatos() {
+        return super.mostrarDatos() + "\nCilindrada: " + cilindrada;
+    }
+}
+```
+
+VehiculoFurgoneta.java
+
+```java
+package Polimorfismo;
+
+public class VehiculoFurgoneta extends Vehiculo {
+    private int carga;
+
+    public VehiculoFurgoneta(String marca, String matricula, String modelo, int carga) {
+        super(marca, matricula, modelo);
+        this.carga = carga;
+    }
+
+    public String mostrarDatos() {
+        return super.mostrarDatos() + "\nCarga: " + carga;
+    }
+}
+```
+
+VehiculoTurismo.java
+
+```java
+package Polimorfismo;
+
+public class VehiculoTurismo extends Vehiculo {
+    private int nPuertas;
+
+    public VehiculoTurismo(String marca, String matricula, String modelo, int nPuertas) {
+        super(marca, matricula, modelo);
+        this.nPuertas = nPuertas;
+    }
+
+    public String mostrarDatos() {
+        return super.mostrarDatos() + "\nNumero de puertas: " + nPuertas;
+    }
+}
+```
+
+Main.java
+
+```java
+package Polimorfismo;
+
+public class Main {
+    public static void main(String[] args) {
+        Vehiculo[] misVehiculos = new Vehiculo[4];
+
+        misVehiculos[0] = new Vehiculo("Ford", "ABC123", "Focus");
+        misVehiculos[1] = new VehiculoDeportivo("Ferrari", "DEF456", "F40", 488);
+        misVehiculos[2] = new VehiculoFurgoneta("Seat", "GHI789", "Ibiza", 5);
+        misVehiculos[3] = new VehiculoTurismo("Renault", "JKL012", "Megane", 5);
+
+        for (int i = 0; i < misVehiculos.length; i++) {
+            System.out.println(misVehiculos[i].mostrarDatos() + "\n");
+        }
+    }
+}
+```
+
+# Tratamiento de Excepciones
+
+Una **exepción** es una situación que puede ocurrir en un programa. Por ejemplo, si se intenta acceder a una posición de un arreglo que no existe.
 
 # Ejercicios de Lógica
 
@@ -1353,316 +1671,6 @@ public class Main {
     public static void imprimirPoligonos() {
         for (Poligono poligono : poligonos) {
             System.out.println(poligono.toString() + "\n");
-        }
-    }
-}
-```
-
-# Herencia en Programación Orientada a Objetos
-
-Forma de reutilización de software, en la que se crea una nueva clase al absorber los parámetros y métodos de una ya existente.
-
-<img src="../utils/images/herencia.png">
-
-Tenemos una clase padre o superclase:
-
-```java
-package Herencia;
-
-public class Persona {
-    private String nombre;
-    private String apellido;
-    private int edad;
-
-    public Persona(String nombre, String apellido, int edad) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.edad = edad;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public int getEdad() {
-        return edad;
-    }
-}
-```
-
-Y una clase hija o subclase:
-
-```java
-package Herencia;
-
-public class Estudiante extends Persona {
-    int codigoEstudiante;
-    double notaFinal;
-
-    public Estudiante(String nombre, String apellido, int edad, int codigoEstudiante, double notaFinal) {
-        super(nombre, apellido, edad);
-        this.codigoEstudiante = codigoEstudiante;
-        this.notaFinal = notaFinal;
-    }
-}
-```
-
-Hacemos uso de la palabra clase `extends` para indicar que la clase hija hereda de la clase padre.
-
-En el constructor de la subclase debemos llamar al constructor de la superclase a través de la palabra `super` para obtener los parámetros de la clase padre.
-
-> La keyword `super` se usa para referirse a una variable local en un método y a una variable de la superclase que tiene el mismo nombre
-
-La llamada a super() se realiza en la subclase y debe ser la primera instrucción del constructor de la clase hija.
-
-# Sobreescritura de miembros
-
-No es igual a sobrecarga de miembros o métodos. Es una forma de sobreescribir un mismo método en distintas clases.
-Se utiliza bastante en la herencia.
-
-- Clase padre `Animal`:
-
-```java
-package Herencia;
-
-public class Animal {
-    public void comer() {
-        System.out.println("Animal comiendo");
-    }
-}
-```
-
-- Clase hija `Perro`:
-
-```java
-package Herencia;
-
-public class Perro extends Animal {
-  // Se puede escribir @Override para indicar que se debe sobreescribir el método. Dependiendo la versión del JDK, el compilador puede o no mostrar el error.
-    public void comer() {
-        System.out.println("Perro comiendo");
-    }
-}
-```
-
-- Clase hija `Vaca`:
-
-```java
-package Herencia;
-
-public class Vaca extends Animal {
-  // Se puede escribir @Override para indicar que se debe sobreescribir el método. Dependiendo la versión del JDK, el compilador puede o no mostrar el error.
-    public void comer() {
-        System.out.println("Vaca comiendo");
-    }
-}
-```
-
-# Clases y métodos abstractos
-
-Clase Abstracta:
-
-- Se utiliza solo como superclase o clase padre.
-- No se pueden instanciar objetos
-- Sirve para proporcionar una super clase apropiada a partir de la cuál heredan otras clases
-
-Métodos abstractos:
-
-- Van a ser métodos que se encuentran en superclases o clases padre.
-- Sirven para definir una función que debe ser implementada en las subclases, pero no se sabe como implementarla correctamente.
-- Al tener un método abstracto, la clase también debe ser abstracta.
-- Estos métodos deben ser sobreescritos SI o SI en al menos una subclase.
-
-Gráfico de ejemplo:
-
-<img src="../utils/images/abstract.png">
-
-SerVivo.java
-
-```java
-package Abstract;
-
-public abstract  class SerVivo {
-    public abstract void alimentarse();
-}
-```
-
-Planta.java
-
-```java
-package Abstract;
-
-public class Planta extends SerVivo {
-    // Tenemos que sobreescribir el método alimentarse
-    public void alimentarse() {
-        System.out.println("La planta se alimenta de nutrientes");
-    }
-}
-```
-
-Animal.java
-
-```java
-package Abstract;
-
-public abstract class Animal extends SerVivo {
-    public abstract void alimentarse();
-}
-```
-
-Hervivoro.java
-
-```java
-package Abstract;
-
-public class Hervivoro extends Animal {
-    public void alimentarse() {
-        System.out.println("El hervivoro se alimenta de carne");
-    }
-}
-```
-
-Main.java
-
-```java
-package Abstract;
-
-public class Main {
-    public static void main(String[] args) {
-        Carnivoro c = new Carnivoro(); // Its work
-        System.out.println(c.alimentarse());
-    }
-}
-```
-
-# Polimorfismo
-
-En una relación de tipo herencia, un objeto de la superclase puede almacenar un objeto de cualquiera de sus subclases.
-
-La clase padre es compatible con los tipos que derivan de ella. Pero no al revés.
-
-- Una clase padre, puede instanciar objetos de clases hijas, pero no viceversa.
-
-- `Poli` => Muchos
-- `Morfismo` => Forma
-
-**Polimorfismo** => Las muchas formas que puede tomar un objeto depende el contexto en dónde se utilice
-
-> Los objetos de tipo de la clase padre pueden ser instancias a través de cualquiera de sus subclases
-
-<img src="../utils/images/polimorfismo.png">
-
-Vehiculo.java
-
-```java
-package Polimorfismo;
-
-public class Vehiculo {
-    protected String marca;
-    protected String matricula;
-    protected String modelo;
-
-    public Vehiculo(String marca, String matricula, String modelo){
-        this.marca = marca;
-        this.matricula = matricula;
-        this.modelo = modelo;
-    }
-
-    public String getMarca(){
-        return marca;
-    }
-
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public String mostrarDatos() {
-        return "Marca: " + marca + "\nMatricula: " + matricula + "\nModelo: " + modelo;
-    }
-}
-```
-
-VehiculoDeportivo.java
-
-```java
-package Polimorfismo;
-
-public class VehiculoDeportivo extends Vehiculo {
-    private int cilindrada;
-
-    public VehiculoDeportivo(String marca, String matricula, String modelo, int cilindrada) {
-        super(marca, matricula, modelo);
-        this.cilindrada = cilindrada;
-    }
-
-    public String mostrarDatos() {
-        return super.mostrarDatos() + "\nCilindrada: " + cilindrada;
-    }
-}
-```
-
-VehiculoFurgoneta.java
-
-```java
-package Polimorfismo;
-
-public class VehiculoFurgoneta extends Vehiculo {
-    private int carga;
-
-    public VehiculoFurgoneta(String marca, String matricula, String modelo, int carga) {
-        super(marca, matricula, modelo);
-        this.carga = carga;
-    }
-
-    public String mostrarDatos() {
-        return super.mostrarDatos() + "\nCarga: " + carga;
-    }
-}
-```
-
-VehiculoTurismo.java
-
-```java
-package Polimorfismo;
-
-public class VehiculoTurismo extends Vehiculo {
-    private int nPuertas;
-
-    public VehiculoTurismo(String marca, String matricula, String modelo, int nPuertas) {
-        super(marca, matricula, modelo);
-        this.nPuertas = nPuertas;
-    }
-
-    public String mostrarDatos() {
-        return super.mostrarDatos() + "\nNumero de puertas: " + nPuertas;
-    }
-}
-```
-
-Main.java
-
-```java
-package Polimorfismo;
-
-public class Main {
-    public static void main(String[] args) {
-        Vehiculo[] misVehiculos = new Vehiculo[4];
-
-        misVehiculos[0] = new Vehiculo("Ford", "ABC123", "Focus");
-        misVehiculos[1] = new VehiculoDeportivo("Ferrari", "DEF456", "F40", 488);
-        misVehiculos[2] = new VehiculoFurgoneta("Seat", "GHI789", "Ibiza", 5);
-        misVehiculos[3] = new VehiculoTurismo("Renault", "JKL012", "Megane", 5);
-
-        for (int i = 0; i < misVehiculos.length; i++) {
-            System.out.println(misVehiculos[i].mostrarDatos() + "\n");
         }
     }
 }
