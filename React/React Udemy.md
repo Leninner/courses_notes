@@ -38,6 +38,7 @@
   - [Context API](#context-api)
   - [Pruebas Unitarias y de Integración](#pruebas-unitarias-y-de-integración)
     - [AAA:](#aaa)
+    - [Instalación y configuracion de Jest + React Testing Library](#instalación-y-configuracion-de-jest--react-testing-library)
   - [Generando el Build para producción y despliegues en Github Pages](#generando-el-build-para-producción-y-despliegues-en-github-pages)
   - [Para React](#para-react)
   - [Para Javascript](#para-javascript)
@@ -639,7 +640,8 @@ div.addEventListener('click', () => {
 <button
   onClick={() => {
     alert('Si soy yo');
-  }}>
+  }}
+>
   Do Some{' '}
 </button>
 ```
@@ -650,7 +652,8 @@ div.addEventListener('click', () => {
 <button
   onClick={(name) => {
     alert(name);
-  }}>
+  }}
+>
   Do Some{' '}
 </button>
 ```
@@ -768,8 +771,8 @@ export const FocusScreen = () => {
 
   return (
     <div>
-      <input type="text" className="form-control" placeholder="Nombre" ref={inputRef} />
-      <button className="btn btn-outline-primary mt-5" onClick={handleClick}>
+      <input type='text' className='form-control' placeholder='Nombre' ref={inputRef} />
+      <button className='btn btn-outline-primary mt-5' onClick={handleClick}>
         Focus
       </button>
     </div>
@@ -848,11 +851,11 @@ export const MemoHook = () => {
 
       <p>{memoProcesoPesado}</p>
 
-      <button onClick={increment} className="btn btn-primary ">
+      <button onClick={increment} className='btn btn-primary '>
         +1
       </button>
 
-      <button onClick={() => setShow(!show)} className="btn btn-danger">
+      <button onClick={() => setShow(!show)} className='btn btn-danger'>
         Show
       </button>
     </div>
@@ -1037,6 +1040,61 @@ Mitos:
 
 > ToBe en jest nos sirve para hacer una triple igualdad y ToEqual nos sirve para comparar objetos, arreglos y sus propiedades
 
+### Instalación y configuracion de Jest + React Testing Library
+
+En proyectos Reat + Vite
+
+1. Instalamos lo necesario
+
+```bash
+npm install --dev jest babel-jest @babel/preset-env @babel/preset-react
+npm install --dev @testing-library/react @types/jest jest-environment-jsdom
+```
+
+2. Opcional: Si usamos Fetch API en el proyecto:
+
+```bash
+yarn add --dev whatwg-fetch
+```
+
+3. Actualizar los scripts del package.json
+
+```json
+"scripts: {
+  ...
+  "test": "jest --watchAll"
+  }
+```
+
+4. Crear la configuración de babel babel.config.js
+
+```js
+module.exports = {
+  presets: [
+    ['@babel/preset-env', { targets: { esmodules: true } }],
+    ['@babel/preset-react', { runtime: 'automatic' }],
+  ],
+};
+```
+
+5. Opcional, pero eventualmente necesario, crear Jest config y setup:
+
+   - jest.config.js
+
+```js
+module.exports = {
+  testEnvironment: 'jest-environment-jsdom',
+  setupFiles: ['./jest.setup.js'],
+};
+```
+
+- jest.setup.js
+
+```js
+// En caso de necesitar la implementación del FetchAPI
+import 'whatwg-fetch'; // <-- yarn add whatwg-fetch
+```
+
 ## Generando el Build para producción y despliegues en Github Pages
 
 Vamos a crear el build del proyecto con:
@@ -1057,16 +1115,16 @@ npm run build
 ```js
 const Registro = () => {
   return (
-    <section class="register">
-      <section class="register__container">
+    <section class='register'>
+      <section class='register__container'>
         <h2>Regístrate</h2>
-        <form class="register__container--form">
-          <input class="input" type="text" placeholder="Nombre" />
-          <input class="input" type="text" placeholder="Correo" />
-          <input class="input" type="password" placeholder="Contraseña" />
-          <button class="button">Registrarme</button>
+        <form class='register__container--form'>
+          <input class='input' type='text' placeholder='Nombre' />
+          <input class='input' type='text' placeholder='Correo' />
+          <input class='input' type='password' placeholder='Contraseña' />
+          <button class='button'>Registrarme</button>
         </form>
-        <a href="">Iniciar sesión</a>
+        <a href=''>Iniciar sesión</a>
       </section>
     </section>
   );
@@ -1077,16 +1135,16 @@ const Registro = () => {
 
 ```js
 const Registro = () => (
-  <section class="register">
-    <section class="register__container">
+  <section class='register'>
+    <section class='register__container'>
       <h2>Regístrate</h2>
-      <form class="register__container--form">
-        <input class="input" type="text" placeholder="Nombre" />
-        <input class="input" type="text" placeholder="Correo" />
-        <input class="input" type="password" placeholder="Contraseña" />
-        <button class="button">Registrarme</button>
+      <form class='register__container--form'>
+        <input class='input' type='text' placeholder='Nombre' />
+        <input class='input' type='text' placeholder='Correo' />
+        <input class='input' type='password' placeholder='Contraseña' />
+        <button class='button'>Registrarme</button>
       </form>
-      <a href="">Iniciar sesión</a>
+      <a href=''>Iniciar sesión</a>
     </section>
   </section>
 );
@@ -1145,12 +1203,18 @@ const handleSubmit = (event) => {
   console.log(form);
 };
 
-<form class="register__container--form" onSubmit={handleSubmit}>
-  <input class="input" type="text" placeholder="Nombre" name="name" onChange={handleInput} />
-  <input class="input" type="text" placeholder="Correo" name="email" onChange={handleInput} />
-  <input class="input" type="password" placeholder="Contraseña" name="password" onChange={handleInput} />
+<form class='register__container--form' onSubmit={handleSubmit}>
+  <input class='input' type='text' placeholder='Nombre' name='name' onChange={handleInput} />
+  <input class='input' type='text' placeholder='Correo' name='email' onChange={handleInput} />
+  <input
+    class='input'
+    type='password'
+    placeholder='Contraseña'
+    name='password'
+    onChange={handleInput}
+  />
 
-  <button class="button" type="submit">
+  <button class='button' type='submit'>
     Registrarme
   </button>
 </form>;
