@@ -1,11 +1,18 @@
 **Índice**
 
 - [Conceptos Básicos de POO](#conceptos-básicos-de-poo)
+  - [**¿Cómo se piensa en Objetos?**](#cómo-se-piensa-en-objetos)
+  - [**¿Qué son las clases en POO?**](#qué-son-las-clases-en-poo)
+  - [¿Qué es un **package**?](#qué-es-un-package)
 - [Creación de clases y objetos en Java con Visual Studio Code](#creación-de-clases-y-objetos-en-java-con-visual-studio-code)
-- [Métodos](#métodos)
+  - [Creando clases en Java](#creando-clases-en-java)
+  - [Creando instancias u objetos de clases](#creando-instancias-u-objetos-de-clases)
+- [Métodos en Java](#métodos-en-java)
   - [Parámetros y argumentos](#parámetros-y-argumentos)
   - [Retorno de valores](#retorno-de-valores)
+  - [Usando los métodos](#usando-los-métodos)
   - [Método Constructor](#método-constructor)
+    - [Inicialización de atributos a través del método constructor](#inicialización-de-atributos-a-través-del-método-constructor)
   - [Sobrecarga de Métodos](#sobrecarga-de-métodos)
 - [Modificadores de Acceso](#modificadores-de-acceso)
   - [Tipos de Modificadores de Acceso](#tipos-de-modificadores-de-acceso)
@@ -24,50 +31,30 @@
 
 # Conceptos Básicos de POO
 
-Es una forma especial de programar, es más cercana a como se expresan los objetos en la vida real.
+Es una forma especial de programar, es más cercana a como se expresan los **objetos** en la vida real.
 
-> Un objeto tiene atributos y métodos
+> Un objeto tiene atributos (características) y métodos (acciones que puede realizar ese objeto)
 
-**¿Cómo se piensa en Objetos?**
+## **¿Cómo se piensa en Objetos?**
 
 - Un objeto es aquel que tiene `atributos`, características o propiedades y también `métodos`, acciones, comportamientos o funciones que pueden ser ejecutadas sobre él.
 
-**¿Qué son las clases en POO?**
+## **¿Qué son las clases en POO?**
 
-Es un conjunto de **Objetos** con características similares
+Una clase en POO es una plantilla que se utiliza para crear objetos. Podemos pensar en las clases como Fábricas de objetos.
 
-- Una clase va a empezar con **mayúscula** y siempre se va a llamar en **singular**.
-- Un objeto **se crea** a partir de una clase. Se puede crear cualquier cantidad de objetos que se requieran.
+- Una clase va a empezar con **mayúscula** y siempre se va a estar nombrada en **singular**.
+- `Un objeto **se crea** a partir de una clase.` Se puede crear cualquier cantidad de objetos que se requieran.
 
-# Creación de clases y objetos en Java con Visual Studio Code
+## ¿Qué es un **package**?
 
-Para crear una clase en Java vamos a tener una sintaxis similar a esta:
+Es un **conjunto de clases** que están relacionadas. En un proyecto pueden haber muchos `packages` y en un `package` pueden haber muchas clases.
 
-```java
-public class NombreClase {
-    // Atributos
-    // Métodos
-}
-```
-
-- **public** es un modificador de acceso. Le dice al compilador de Java que cualquier objeto o isntancia puede usar esa clase o ese método.
-
-Para crear una nueva instancia o un nuevo objeto en Java, vamos a utilizar una sintaxis similar a esta:
-
-```java
-NombreClase nombreObjeto = new NombreClase(params);
-NombreClase nombreObjetoTwo = new NombreClase(params);
-```
-
-¿Qué es un **package**?
-
-Es un conjunto de clases que están relacionadas. En un proyecto pueden haber muchos `packages` y en un `package` pueden haber muchas clases.
-
-- Ejemplo de clase en un `package`
+- Ejemplo de clase llamada **coche** en un `package` llamado **ClasesYMetodos**
 
 ```java
 // Esta línea nos dice a qué `package` pertenece esta clase
-package POO.src.ClasesYMetodos;
+package ClasesYMetodos;
 
 public class Coche {
   // Atributos
@@ -76,48 +63,71 @@ public class Coche {
   int km;
 
   // Métodos
-  public void arrancar() {
+  public void arrancarCoche() {
     System.out.println("Arrancando el coche");
   }
 
-  public void acelerar() {
+  public void acelerarCoche() {
     km += 10;
   }
 
-  public void frenar() {
+  public void frenarCoche() {
     km -= 10;
   }
 
   public void mostrarKm() {
     System.out.println("El coche tiene " + km + " km");
   }
-
-  // Podemos crear nuevas instancias de mi clase en el método main. El método main puede ser creado en la misma clase o en otra clase.
-
-  public void main (String[] args) {
-    Coche miCoche = new Coche();
-
-    miCoche.arrancar();
-    miCoche.acelerar();
-    miCoche.acelerar();
-    miCoche.acelerar();
-    miCoche.mostrarKm();
-  }
 }
 ```
 
-# Métodos
+# Creación de clases y objetos en Java con Visual Studio Code
 
-Acción o comportamiento de los objetos
+## Creando clases en Java
+
+Para crear una clase en Java vamos a tener una sintaxis similar a esta:
+
+1. Primero se define el modificador de acceso (public, private, protected)
+2. Se añade la palabra reservada `class`
+3. Se añade el nombre de la clase con `PascalCase`.
+
+> Hay que tener en cuenta que el nombre de la clase debe ser único en el proyecto y además tiene que tener el mismo nombre que el archivo en que está definida
+
+- NombreClase.java
+
+```java
+public class NombreClase {
+    // ...
+}
+```
+
+## Creando instancias u objetos de clases
+
+Para instanciar un objeto a partir de una clase, se utiliza la palabra reservada `new` y se añade el nombre de la clase.
+
+> La instanciación de objetos es similar a la creación de variables.
+
+```java
+NombreClase nombreObjeto = new NombreClase(params);
+NombreClase nombreObjetoTwo = new NombreClase(params);
+```
+
+# Métodos en Java
+
+Son acciones o comportamientos que realizan los objetos.
 
 Para poder crearlos:
 
-- Declaramos el tipo de **modificador de acceso** (public, private, protected)
-- Definimos el tipo de retorno del **método** (void, int, String, etc...)
+1. Declaramos el tipo de **modificador de acceso** (public, private, protected). Se puede leer acerca de modificadores de acceso en [Modificadores de Acceso](#modificadores-de-acceso)
+2. Definimos el tipo de retorno del **método** (void, int, String, etc...). Se puede leer acerca de tipos de retorno en [Retorno de Valores](#retorno-de-valores)
+3. Se define el nombre del método. Se recomiento utilizar verbos en infinitivo y utilizar `camelCase`
+
+- Ejemplo:
 
 ```java
-public void arrancar() {
+public void arrancarCoche() {
   System.out.println("Arrancando el coche");
+  // ...
 }
 ```
 
@@ -183,94 +193,203 @@ Objeto.arrancar("Rojo", "Ferrari");
 
 ## Retorno de valores
 
-Tenemos un método que nos retorna un valor int:
+Pensemos en un método como una pequeña fábrica, que ejecuta acciones y al final me devuelve un producto. Por ejemplo: Una fábrica que hace helados me va a retornar un helado.
+
+Los métodos, al igual que una fábrica, nos van a retornar algo.
+
+Existen distintos tipos de retorno:
+
+- **int**: Retorna un número entero.
+- **double**: Retorna un número decimal.
+- **String**: Retorna una cadena de texto.
+- **String[]**: Retorna un array de cadenas de texto.
+- **int[]**: Retorna un array de números enteros.
+- **char**: Retorna un carácter.
+- **boolean**: Retorna un valor booleano.
+
+- Ejemplo de creación de métodos con distintos tipos de retorno:
 
 ```java
+// Método que va a retornar un número entero.
 public int sumar(int numberOne, int numberTwo) {
   return numberOne + numberTwo;
 }
-```
 
-- Para poder usarlo:
+// Método que va a retornar un número decimal.
+public double sumar(double numberOne, double numberTwo) {
+  return numberOne + numberTwo;
+}
 
-```java
-int suma = Objeto.sumar(1, 2);
-```
+// Método que va a retornar una cadena de texto.
+public String saludar(String nombre, String apellido) {
+  return "Hola " + nombre + " " + apellido;
+}
 
-Tenemos un método que nos retorna un valor String:
+// Método que retornar un arreglo de números enteros.
+public int[] sumar(int numberOne, int numberTwo) {
+  int[] result = {numberOne, numberTwo};
+  return result;
+}
 
-```java
-public String saludar(String nombre) {
-  return "Hola " + nombre;
+// Método que retornar un arreglo de cadenas de texto.
+public String[] saludar(String nombreUno, String nombreDos) {
+  return new String[] {nombreUno, nombreDos};
 }
 ```
 
-- Para poder usarlo:
+## Usando los métodos
+
+Al crear un nuevo objeto a partir de una clase, todos los atributos y métodos de la clase se copian en el objeto, y tenemos acceso a ellos a través del objeto.
+
+Vamos a crear un objeto de la clase `Coche` y usar algunos de sus métodos.
+
+- Coche.java
 
 ```java
-String saludo = Objeto.saludar("Juan");
+public class Coche {
+    public String color;
+    public String marca;
+    public int km;
+
+    public void arrancar() {
+        System.out.println("Arrancando el coche");
+    }
+
+    public void acelerar() {
+        System.out.println("Acelerando el coche");
+    }
+
+    public void frenar() {
+        System.out.println("Frenando el coche");
+    }
+
+    public void estacionar() {
+        System.out.println("Estacionando el coche");
+    }
+
+    public void girar() {
+        System.out.println("Girando el coche");
+    }
+
+    public void acelerarVariasVeces(int veces) {
+        for (int i = 0; i < veces; i++) {
+            acelerar();
+        }
+    }
+}
+```
+
+1. Creamos un objeto de la clase `Coche`
+
+- Main.java
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    Coche carroUno = new Coche();
+  }
+}
+```
+
+2. Usamos los métodos del objeto, que están definidos en la clase `Coche`
+
+> Para poder usar los métodos del objeto, debemos escribir el nombre del objeto, seguido de un punto (.) y escribir el nombre del método.
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    Coche carroUno = new Coche();
+    carroUno.arrancar(); // Uso del método arrancar
+    carroUno.acelerar(); // Uso del método acelerar
+    carroUno.acelerarVariasVeces(3); // Uso del método acelerarVariasVeces
+  }
+}
 ```
 
 ## Método Constructor
 
-Es un método especial de una clase, que se invoca siempre que se **crea un objeto de una clase**. Este método va a ser llamado automáticamente cuando se crea un objeto de la clase, asímismo va a configurar nuestra instancia con las propiedades y métodos que tenemos en la clase y pertenecen a una instancia.
+Es un método especial de una clase, que se invoca siempre y automáticamente al momento en que se **crea un objeto de una clase**.
 
-Ejemplo de como usar el **método constructor:**
-
-- `Coche()` es el método constructor
-
-```java
-Coche c1 = new Coche();
-```
-
-Cuando se crea un objeto ocurren 3 cosas:
-
-1. Se asigna memoria para el objeto.
-2. Se inicializan los atributos de ese objeto
-3. Se invoca al constructor de la clase que puede ser uno entre varios
-
-El **constructor** nos va a ayudar con la inicialización de los atributos de un objeto.
-
-Características del constructor:
+**Características:**
 
 1. Tienen el mismo nombre de la clase
 2. No devuelven nada
 3. Debe declararse como `public`
 4. No se le debe poner un valor de retorno, ni siquiera `void`
 
-Para crear el constructor de una clase existen dos caminos:
+**Cuando se crea un objeto ocurren 3 cosas:**
 
-- **Primer caso:** Los parámetros del constructor tienen nombre distintos a los atributos de la clase.
+1. Se asigna memoria para el objeto.
+2. Se inicializan los atributos de ese objeto
+3. Se invoca al constructor de la clase que puede ser uno entre varios
+
+- Ejemplo:
 
 ```java
-  // Método Constructor
+// Método Constructor en la clase Coche
 
-public Coche(String _nombre, String _color, int _km) {
-  color = _color;
-  marca = _nombre;
-  km = _km;
+public class Coche {
+    public Coche() {
+        System.out.println("Creando un coche");
+    }
+}
+
+// Uso del método Constructor. Es lo que va seguido a la palabra clave `new`.
+Coche cocheUno = new Coche();
+```
+
+### Inicialización de atributos a través del método constructor
+
+Para inicializar un atributo, existen dos formas:
+
+- **Primer caso:** Los **parámetros** del `método constructor` tienen nombre distintos a los atributos de la clase.
+
+```java
+public class Coche {
+    //Atributos de la clase
+    public String color;
+    public String marca;
+    public int km;
+
+    // Método Constructor
+    public Coche(String _nombre, String _color, int _km) {
+        color = _color;
+        marca = _nombre;
+        km = _km;
+    }
 }
 ```
 
 - **Segundo caso:** Los parámetros del constructor tienen el mismo nombre que los atributos de la clase.
 
 ```java
-  // Método Constructor
-public Coche(String nombre, String color, int km) {
-  this.color = color;
-  this.marca = nombre;
-  this.km = km;
+public class Coche {
+    //Atributos de la clase
+    public String color;
+    public String marca;
+    public int km;
+
+    // Método Constructor
+    public Coche(String nombre, String color, int km) {
+        this.color = color;
+        this.marca = nombre;
+        this.km = km;
+    }
 }
 ```
 
-> `this` es una palabra reservada que le indica a Java que ese atributo tiene el mismo nombre que el parámetro.
+> `this` es una palabra reservada que le indica a Java que ese atributo es el mismo que el atributo de la clase.
 
-Para instanciar un nuevo objeto, vamos a tener:
+Para instanciar un nuevo objeto, debemos pasarle los parámetros que se le pasan al constructor en orden y con los mismos tipos de datos.
 
 ```java
-Coche c1 = new Coche("Ferrari", "Rojo", 0);
-Coche c2 = new Coche("Audi", "Azul", 0);
-Coche c3 = new Coche("Ford", "Blanco", 0);
+public class Main {
+    public static void main(String[] args) {
+        Coche cocheUno = new Coche("Ford", "Rojo", 100);
+        Coche cocheDos = new Coche("Fiat", "Azul", 200);
+        Coche cocheTres = new Coche("Renault", "Verde", 300);
+    }
+}
 ```
 
 ## Sobrecarga de Métodos
