@@ -394,7 +394,13 @@ public class Main {
 
 ## Sobrecarga de Métodos
 
+En el ámbito de la POO, la sobrecarga de métodos se refiere a la posibilidad de tener dos o más métodos con el mismo nombre pero distinta funcionalidad.
+
 Cuando escribimos más de un método con el mismo nombre, pero con distintos parámetros, podemos decir que es una sobrecarga de método.
+
+Es decir, dos o más métodos con el mismo nombre realizan acciones diferentes y el compilador usará una u otra dependiendo de los parámetros usados.
+
+Esto también se aplica a los constructores (es la aplicación más habitual de la sobrecarga).
 
 Ejemplo:
 
