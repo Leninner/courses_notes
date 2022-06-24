@@ -396,6 +396,8 @@ public class Main {
 
 Cuando escribimos más de un método con el mismo nombre, pero con distintos parámetros, podemos decir que es una sobrecarga de método.
 
+> La sobrecarga de métodos sirve para distintos casos, por ejemplo, cuando tenemos parámetros opcionales.
+
 Ejemplo:
 
 ```java
