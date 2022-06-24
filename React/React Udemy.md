@@ -1054,7 +1054,7 @@ npm install --dev @testing-library/react @types/jest jest-environment-jsdom
 2. Opcional: Si usamos Fetch API en el proyecto:
 
 ```bash
-yarn add --dev whatwg-fetch
+npm install --dev whatwg-fetch
 ```
 
 3. Actualizar los scripts del package.json
@@ -1094,6 +1094,18 @@ module.exports = {
 // En caso de necesitar la implementación del FetchAPI
 import 'whatwg-fetch'; // <-- yarn add whatwg-fetch
 ```
+
+**Renderizando custom hooks**
+
+Se puede renderizar los hooks con una herramienta de @testing-library/react:
+
+```js
+import { renderHook } from '@testing-library/react';
+
+const { result } = renderHook(() => useCounter()); // Hacemos uso de renderHook
+```
+
+**Ejecutando funciones del custom hook**
 
 ## Generando el Build para producción y despliegues en Github Pages
 
