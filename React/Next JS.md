@@ -18,7 +18,9 @@
   - [Cuánto usar `Static Generation` y cuándo usar `Server Side Rendering`](#cuánto-usar-static-generation-y-cuándo-usar-server-side-rendering)
   - [Static Generation with and without Data](#static-generation-with-and-without-data)
     - [Static Generation with Data using `getStaticProps`](#static-generation-with-data-using-getstaticprops)
-  - [Implementando `getStaticProps`](#implementando-getstaticprops)
+    - [Implementando `getStaticProps`](#implementando-getstaticprops)
+    - [Detalles de `getStaticProps`](#detalles-de-getstaticprops)
+  - [Fetching data at Request Time](#fetching-data-at-request-time)
 
 ## ¿Qué es Next Js?
 
@@ -279,7 +281,7 @@ export async function getStaticProps() {
 
 - **getStaticProps()** le dice a Next Js: `“Hey, this page has some data dependencies — so when you pre-render this page at build time, make sure to resolve them first!”`
 
-### Implementando `getStaticProps`
+#### Implementando `getStaticProps`
 
 Para parsear datos en Markdown, debemos instalar el paquete `gray-matter`, con:
 
@@ -305,3 +307,52 @@ export async function getStaticProps() {
 - En **producción**, getStaticProps **se ejecuta en el momento de la compilación**. Sin embargo, este comportamiento se puede mejorar utilizando la clave alternativa devuelta por getStaticPaths
 
 > Esta función solo puede ser exportada en una página de Next Js, no de un no-page de Next Js.
+
+#### Detalles de `getStaticProps`
+
+- **Fetch External API or Query Database**
+
+En el ejemplo anterior hicimos peticiones desde un archivo en el sistema, sin embargo también es posible hacer peticiones desde una API.
+
+```jsx
+export async function getSortedPostsData() {
+  // Instead of the file system,
+  // fetch post data from an external API endpoint
+  const res = await fetch('..');
+  return res.json();
+}
+```
+
+También se pueden hacer peticiones desde la base de datos directamente:
+
+```jsx
+import someDatabaseSDK from 'someDatabaseSDK'
+
+const databaseClient = someDatabaseSDK.createClient(...)
+
+export async function getSortedPostsData() {
+  // Instead of the file system,
+  // fetch post data from a database
+  return databaseClient.query('SELECT posts...')
+}
+```
+
+Esto es posible porque `getStaticProps` es una función asíncrona que corre en el lado del servidor y nunca correrá en el lado del cliente. Esto significa que podemos escribir código para hacer peticiones a bases de datos, sin tener el miedo de que este código sea enviado al navegador.
+
+- **Permitido solo en una página**
+
+`getStaticProps` solo se puede exportar desde una página. No puede exportarlo desde archivos que no sean de página.
+
+Una de las razones de esta restricción es que React necesita tener todos los datos requeridos antes de que se represente la página.
+
+- **What If I Need to Fetch Data at Request Time?**
+
+`Static Generation` no es una buena idea si no puede renderizar previamente una página antes de la solicitud de un usuario. Tal vez su página muestre datos actualizados con frecuencia y el contenido de la página cambie con cada solicitud.
+
+En casos como este, puede probar `server side rendering` u omitir el `pre renderizaje`.
+
+### Fetching data at Request Time
+
+Si necesita obtener datos en el momento de la solicitud en lugar de en el momento de la compilación, puede probar `server side rendering`:
+
+<img src="../utils/images/side.png">
