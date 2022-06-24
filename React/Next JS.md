@@ -22,6 +22,7 @@
   - [Detalles de `getStaticProps`](#detalles-de-getstaticprops)
   - [Fetching data at Request Time](#fetching-data-at-request-time)
 - [Rutas dinámicas](#rutas-dinámicas)
+  - [La ruta de la página depende de los datos externos](#la-ruta-de-la-página-depende-de-los-datos-externos)
 
 # ¿Qué es Next Js?
 
@@ -404,3 +405,46 @@ function Profile() {
 ```
 
 # Rutas dinámicas
+
+## La ruta de la página depende de los datos externos
+
+Next Js nos permite generar estaticamente páginas con rutas que dependen de datos externos.
+
+<img src="../utils/images/routes.png">
+
+- **¿Cómo generar estáticamente páginas con Rutas Dinámicas?**
+
+Las páginas que empiezan con `[` y `]` son rutas dinámicas en Next Js.
+
+- [id].js
+- [city].js
+
+En la ruta dinámica, debemos hacer uso de `getStaticPaths` y también de `getStaticProps` para obtener los datos externos.
+
+- Ejemplo de uso
+
+```jsx
+import Layout from '../../components/layout';
+
+export default function Post() {
+  return <Layout>...</Layout>;
+}
+
+export async function getStaticPaths() {
+  // Return a list of possible value for id
+}
+
+export async function getStaticProps({ params }) {
+  // Fetch necessary data for the blog post using params.id
+}
+```
+
+<img src="../utils/images/dinamic.png">
+
+- **Renderizando Markdown**
+
+Se debe instalar el paquete `remark`:
+
+```bash
+npm install remark remark-html
+```
