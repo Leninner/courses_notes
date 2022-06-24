@@ -17,12 +17,13 @@
   - [Formas de hacer Pre-renderizado](#formas-de-hacer-pre-renderizado)
   - [Cuánto usar `Static Generation` y cuándo usar `Server Side Rendering`](#cuánto-usar-static-generation-y-cuándo-usar-server-side-rendering)
   - [Static Generation with and without Data](#static-generation-with-and-without-data)
-    - [Static Generation with Data using `getStaticProps`](#static-generation-with-data-using-getstaticprops)
-    - [Implementando `getStaticProps`](#implementando-getstaticprops)
-    - [Detalles de `getStaticProps`](#detalles-de-getstaticprops)
+  - [Static Generation with Data using `getStaticProps`](#static-generation-with-data-using-getstaticprops)
+  - [Implementando `getStaticProps`](#implementando-getstaticprops)
+  - [Detalles de `getStaticProps`](#detalles-de-getstaticprops)
   - [Fetching data at Request Time](#fetching-data-at-request-time)
+- [Rutas dinámicas](#rutas-dinámicas)
 
-## ¿Qué es Next Js?
+# ¿Qué es Next Js?
 
 Es un framework de React que permite crear páginas web dinámicasm rápidamente.
 
@@ -40,7 +41,7 @@ Algunas consideraciones que hay que tener en cuenta cuando desarrollamos con Rea
 - Es posible que desee renderizar previamente estáticamente algunas páginas para mejorar el rendimiento y el SEO. También es posible que desee utilizar la **representación del lado del servidor** o la **representación del lado del cliente**.
 - Es posible que deba escribir algún código del lado del servidor para conectar su aplicación React a su database.
 
-## Algunas características importantes de Next Js
+# Algunas características importantes de Next Js
 
 Next JS provee:
 
@@ -53,7 +54,7 @@ Next JS provee:
 - **Rutas de API** para crear puntos finales de API con funciones sin servidor
   -Totalmente extensible
 
-## Setup de una aplicación de Next Js
+# Setup de una aplicación de Next Js
 
 Necesitas tener instalado Node.js, se necesita la versión 10.16.3 o superior. Visita la [documentación de Node.js](https://nodejs.org/en/download/) para más información.
 
@@ -65,7 +66,7 @@ npx create-next-app nextjs-blog --use-npm --example "https://github.com/vercel/n
 
 El anterior script sirve para crear un proyecto de Next Js con una plantilla de Next Js de ejemplo.
 
-## Navegando entre páginas
+# Navegando entre páginas
 
 > Documentación de rutas: https://nextjs.org/docs/routing/introduction
 
@@ -102,15 +103,15 @@ El componente **Link** necesita de una propiedad `href` que es el enlace a la p�
 </h1>
 ```
 
-## Code spliting y prefetching
+# Code spliting y prefetching
 
 Next Js hace que solamente se cargue contenido en demanda de nuestra aplicación, teniendo así una mejor experiencia de usuario y velocidad de carga.
 
-## Assets, Metadata y CSS
+# Assets, Metadata y CSS
 
 <!-- https://nextjs.org/learn/basics/assets-metadata-css -->
 
-### **Assets**
+## **Assets**
 
 Para añadir imágenes a la aplicación, podemos hacer uso del componente `Image` de `next/image`, el cuál va a ayudarnos a redimensionar y optimizar la imagen por defecto. Las imágenes en Next Js se cargan bajo demanda, es decir, tienen lazy load por defecto.
 
@@ -120,7 +121,7 @@ import Image from 'next/image';
 <Image src='/static/images/image.jpg' height='200px' width='200px' alt='My image' />;
 ```
 
-### **Metadata**
+## **Metadata**
 
 Para añadir metadatos a las páginas de Next Js, podemos hacer uso del componente `Head` de `next/head`. Nos va a permitir
 
@@ -133,7 +134,7 @@ import Head from 'next/head';
 </Head>;
 ```
 
-### **JavaScript de terceros**
+## **JavaScript de terceros**
 
 Este código se refiere a todo script que se carga desde un recurso de terceros, como por ejemplo, analytics, ads, etc...
 
@@ -167,7 +168,7 @@ import Script from 'next/script';
 />
 ```
 
-### **CSS Styling**
+## **CSS Styling**
 
 Next Js tiene soporte para Css y Sass, y soporta tanto CSS-in-JS como CSS-in-JS-in-JS.
 
@@ -186,7 +187,7 @@ También puedes usar Scss para añadir módulos de estilos. Solo asegúrate de i
 npm install -D sass
 ```
 
-### **Global Styles**
+## **Global Styles**
 
 **Css Modules** trabaja muy bien con componentes, pero para añadir estilos globales, debemos crear una página en el directorio **`pages/_app.js`** con el siguiente contenido:
 
@@ -206,7 +207,7 @@ export default function App({ Component, pageProps }) {
 }
 ```
 
-## Pre Renderizaje y Fetching de Datos
+# Pre Renderizaje y Fetching de Datos
 
 Por defecto, **Next Js pre-renderiza cada página de nuestro sitio web**. Esto significa que Next.js **genera HTML para cada** página por adelantado.
 
@@ -217,7 +218,7 @@ En lugar de tenerlo todo hecho por JavaScript del lado del cliente. **La renderi
 <img src="../utils/images/ssr.png">
 <img src="../utils/images/nossr.png">
 
-### Formas de hacer Pre-renderizado
+## Formas de hacer Pre-renderizado
 
 Next Js tiene dos formas de hacer pre-renderizado, la diferencia está en `cuando` se genera el HTML.
 
@@ -235,7 +236,7 @@ Next Js tiene dos formas de hacer pre-renderizado, la diferencia está en `cuand
 
 <img src="../utils/images/hybrid.png">
 
-### Cuánto usar `Static Generation` y cuándo usar `Server Side Rendering`
+## Cuánto usar `Static Generation` y cuándo usar `Server Side Rendering`
 
 > Es muy recomendable usar `Static Generation` (con y sin datos) siempre que sea posible, porque su página puede construirse una vez y servirse mediante CDN, lo que lo hace mucho más rápido que tener un servidor que renderice la página en cada solicitud.
 
@@ -250,7 +251,7 @@ Puede usar la generación estática para muchos tipos de páginas, que incluyen:
 
 No deberíamos usar `Static Generation` cuando tengamos datos que se estén actualizando en tiempo real y el HTML cambie en cada solicitud. En ese caso, debemos usar `Server Side Rendering`, que será más lento, pero mostrará el HTML actualizado, o se puede saltar el paso de renderizado previo y usar el `client-side-rendering` para renderizar la página.
 
-### Static Generation with and without Data
+## Static Generation with and without Data
 
 Las páginas se pueden renderizar sin hacer fetching de datos. Esas páginas serán estáticamente generada en el momento del **build para producción**
 
@@ -260,7 +261,7 @@ También se puede trabajar con datos:
 
 <img src="../utils/images/withNext.png">
 
-#### Static Generation with Data using `getStaticProps`
+## Static Generation with Data using `getStaticProps`
 
 Cuando exportar una página en Next Js, podemos exportar una función asíncrona que corre en **build time en producción** y dentro de la función puedes hacer fetch de datos externos y enviarlos como props a la página, así:
 
@@ -281,7 +282,7 @@ export async function getStaticProps() {
 
 - **getStaticProps()** le dice a Next Js: `“Hey, this page has some data dependencies — so when you pre-render this page at build time, make sure to resolve them first!”`
 
-#### Implementando `getStaticProps`
+## Implementando `getStaticProps`
 
 Para parsear datos en Markdown, debemos instalar el paquete `gray-matter`, con:
 
@@ -308,7 +309,7 @@ export async function getStaticProps() {
 
 > Esta función solo puede ser exportada en una página de Next Js, no de un no-page de Next Js.
 
-#### Detalles de `getStaticProps`
+## Detalles de `getStaticProps`
 
 - **Fetch External API or Query Database**
 
@@ -351,8 +352,55 @@ Una de las razones de esta restricción es que React necesita tener todos los da
 
 En casos como este, puede probar `server side rendering` u omitir el `pre renderizaje`.
 
-### Fetching data at Request Time
+## Fetching data at Request Time
 
 Si necesita obtener datos en el momento de la solicitud en lugar de en el momento de la compilación, puede probar `server side rendering`:
 
 <img src="../utils/images/side.png">
+
+**Using `getServerSideProps`**
+
+Un ejemplo de escritura:
+
+```jsx
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      // props for your component
+    },
+  };
+}
+```
+
+Dado que `getServerSideProps` se llama en el momento de la solicitud, su parámetro **(context** contiene parámetros específicos de la solicitud.
+
+Debe usar **getServerSideProps** solo si necesita renderizar previamente una página cuyos datos deben obtenerse en el momento de la solicitud.
+
+El **tiempo hasta el primer byte (TTFB)** será más lento que `getStaticProps` porque el servidor debe calcular el resultado en **cada solicitud** y una CDN no puede almacenar en caché el resultado sin una configuración adicional.
+
+**Client Side Rendering**
+
+Si no necesitas pre-renderizar una página, puede probar `client side rendering`:
+
+- Genere estáticamente (pre-render) partes de la página que no requieran datos externos.
+- Cuando se cargue la página, obtenga datos externos del cliente usando JavaScript y complete las partes restantes.
+
+<img src="../utils/images/csr.png">
+
+El equipo de Next JS desarrolló un hook de React llamado `SWR` que sirve par hacer fetching de datos en el lado del cliente
+
+- Ejemplo de uso
+
+```jsx
+import useSWR from 'swr';
+
+function Profile() {
+  const { data, error } = useSWR('/api/user', fetch);
+
+  if (error) return <div>failed to load</div>;
+  if (!data) return <div>loading...</div>;
+  return <div>hello {data.name}!</div>;
+}
+```
+
+# Rutas dinámicas
