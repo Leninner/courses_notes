@@ -501,7 +501,7 @@ public class Clase2 {
 ```java
 package PaqueteDos;
 
-import PaqueteUno.Clase1; // Importamos el paquete PaqueteUno junto con la clase Clase1
+import PaqueteUno.Clase1; // Importamos la clase Clase1 de PaqueteUno
 
 public class Clase3 {
   public static void main(String[] args) {
@@ -559,7 +559,7 @@ Ejemplo:
   private int edad;
 
   // Método getter
-  int getEdad() {
+  public int getEdad() {
     return edad;
   }
 
