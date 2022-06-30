@@ -27,6 +27,8 @@
 - [Clases y métodos abstractos](#clases-y-métodos-abstractos)
 - [Polimorfismo](#polimorfismo)
 - [Tratamiento de Excepciones](#tratamiento-de-excepciones)
+  - [Jerarquía de Excepciones](#jerarquía-de-excepciones)
+  - [Declaración de las excepciones de un método](#declaración-de-las-excepciones-de-un-método)
 - [Ejercicios de Lógica](#ejercicios-de-lógica)
 
 # Conceptos Básicos de POO
@@ -1001,7 +1003,99 @@ public class Main {
 
 # Tratamiento de Excepciones
 
-Una **exepción** es una situación que puede ocurrir en un programa. Por ejemplo, si se intenta acceder a una posición de un arreglo que no existe.
+Una **exepción** es un error que puede ocurrir en un programa.
+
+Cuando un programa Java **viola las restricciones semánticas del lenguaje** (se produce un error), la máquina virtual Java comunica este hecho al programa mediante una **excepción**.
+
+Por ejemplo:
+
+- Desbordamiento de memoria
+- División por cero
+- Intentar acceder a una posición de un vector fuera de rango
+
+Al detectar una excepción, la máquina virtual Java crea un objeto de la clase **Exception**.
+
+- Ejemplo de una exepcioón de dividir para cero:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 0;
+
+        try{
+            int c = a / b;
+        } catch (ArithmeticException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
+```
+
+## Jerarquía de Excepciones
+
+1. **Clase Throwable** - Super clase de todos los errores o excepciones
+   1. **Clase Error** - Clase que sirve para controlar errores de **hardware**. No puede ser solucionado por el programador.
+   2. **Clase Exception** - Clase que sirve para controlar errores de **software**
+      1. **IOException** - Excepciones Verificadas: No depende directamente del programador, `pero puede ser solucionado`. Tiene que ver con la **entrada/salida** de datos. Java nos obliga a solucionarlo.
+      2. **RunTimeException** - Excepciones no verificadas: Fallas dentro del programa, pero puede ser solucionado. Java no nos obliga a verificar estas excepciones. Depende totalmente del programador.
+
+- Ejemplo de IOException:
+
+```java
+public class Main {
+    // Leer un archivo de texto
+    public static void main(String[] args) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("archivo.txt"));
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                System.out.println(linea);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
+```
+
+- Ejemplo de RunTimeException:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 0;
+
+        try {
+            int c = a / b;
+        } catch (ArithmeticException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
+```
+
+## Declaración de las excepciones de un método
+
+Cuando en un método haya la posibilidad de lanzar una `excepción verificada`, se debe declararla con la palabra **throws**.
+
+```java
+public class Main {
+    // Lanzando la excepción declarando la excepción
+    public void leerArchivo() throws FileNotFoundException {
+        BufferedReader br = new BufferedReader(new FileReader("archivo.txt"));
+        String linea;
+
+        while ((linea = br.readLine()) != null) {
+            System.out.println(linea);
+        }
+    }
+}
+```
+
+> Cuando no queremos controlar la excepción dentro de un método, solo declaramos la excepción para dejarle el control de la excepción a la clase o método que lo lanza.
 
 # Ejercicios de Lógica
 
