@@ -1081,6 +1081,8 @@ public class Main {
 
 Cuando en un método haya la posibilidad de lanzar una `excepción verificada`, se debe declararla con la palabra **throws**.
 
+---
+
 ```java
 public class Main {
     // Lanzando la excepción declarando la excepción

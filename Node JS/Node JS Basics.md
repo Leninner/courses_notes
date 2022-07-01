@@ -1,5 +1,10 @@
 **ÍNDICE**
 
+- [Introducción al Server Side](#introducción-al-server-side)
+  - [Static Sites](#static-sites)
+  - [Dynamic Sites](#dynamic-sites)
+    - [Beneficios de los sitios dinámicos](#beneficios-de-los-sitios-dinámicos)
+- [Client Server Overview](#client-server-overview)
 - [¿Qué es NODE JS?](#qué-es-node-js)
 - [Event Loop: Asíncrona por Diseño](#event-loop-asíncrona-por-diseño)
   - [Event Queue](#event-queue)
@@ -33,6 +38,51 @@
 - [Scraping](#scraping)
 - [Automatización de procesos](#automatización-de-procesos)
 - [Aplicaciones de escritorio](#aplicaciones-de-escritorio)
+
+# Introducción al Server Side
+
+Cuando una persona llena un formulario o ingresa a una URL en su navegador, se crea una HTTP Request la cuál va a ser procesada por un servidor y este servidor devuelve una HTTP Response.
+
+El servidor toma los datos de la request y los procesa y devuelve una respuesta con lo solicitado, puede ser una página web, un archivo, una imagen, una petición de datos, etc. Si el servidor no encuentra ninguna coincidencia para la request, devuelve un error 404.
+
+## Static Sites
+
+Un sitio estático es aquel que devuelve el mismo contenido codificado desde el servidor cada vez que se solicita un recurso en particular.
+
+Cuando un usuario quiere navegar a una página, el navegador envía una `solicitud HTTP "GET"` especificando su URL.
+
+<img src="../utils/images/static-node.png" />
+
+## Dynamic Sites
+
+Son aquellos sitios donde algo del response content es generado dinámicamente solo cuando se necesita. Un ejemplo son las peticiones a bases de datos.
+
+<img src="../utils/images/dynamic-node.png"/>
+
+En cambio, las solicitudes de recursos dinámicos se reenvían (2) al código del lado del servidor (que se muestra en el diagrama como una aplicación web). Para "solicitudes dinámicas", el servidor interpreta la solicitud, lee la información requerida de la base de datos (3), combina los datos recuperados con plantillas HTML (4) y envía una respuesta que contiene el HTML generado (5,6).
+
+### Beneficios de los sitios dinámicos
+
+- Se puede mostrar contenido dinámico en la página
+- Se puede mostrar información personalizada en la página de acuerdo a los datos del usuario
+- Se puede controlar el acceso a contenido de acuerdo a los datos del usuario
+- Store session/state information on the server side
+- Notificaciones a través de email
+- Análisis de datos
+
+# Client Server Overview
+
+Los web browsers se comunican a los web servers mediante un protocolo de comunicación llamado "HTTP". Esta comunicación se produce cuando se ingresa a una URL, un formulario, etc...
+
+La `request` incluye:
+
+- Una URL que identifica el servidor y el recurso de destino (un HTML, una imagen, etc...)
+- Un método que identifica la acción a realizar:
+  - `GET`: para solicitar un recurso específico
+  - `POST`: para crear un nuevo recurso en el servidor
+  - `HEAD`: Obtenga la información de metadatos sobre un recurso específico sin obtener el cuerpo como lo haría GET.
+  - `PUT`: para actualizar un recurso existente en el servidor
+  - `DELETE`: para eliminar un recurso existente en el servidor
 
 # ¿Qué es NODE JS?
 
