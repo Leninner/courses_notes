@@ -6,11 +6,15 @@
     - [Beneficios de los sitios dinámicos](#beneficios-de-los-sitios-dinámicos)
 - [Client Server Overview](#client-server-overview)
 - [¿Qué es NODE JS?](#qué-es-node-js)
+  - [Blocking I/O vs Non-Blocking I/O](#blocking-io-vs-non-blocking-io)
+  - [Datos de NODE JS](#datos-de-node-js)
 - [Event Loop: Asíncrona por Diseño](#event-loop-asíncrona-por-diseño)
   - [Event Queue](#event-queue)
   - [Thread Pool](#thread-pool)
   - [Imagen Resumida](#imagen-resumida)
 - [Monohilo: implicaciones en diseño y seguridad](#monohilo-implicaciones-en-diseño-y-seguridad)
+- [Node Modules](#node-modules)
+- [V8 acelera JavaScript aprovechando C++](#v8-acelera-javascript-aprovechando-c)
 - [Configurar las variables de entorno en Node.js](#configurar-las-variables-de-entorno-en-nodejs)
 - [Herramientas para ser más felices: Nodemon y PM2](#herramientas-para-ser-más-felices-nodemon-y-pm2)
 - [CallBacks](#callbacks)
@@ -88,9 +92,27 @@ La `request` incluye:
 
 > Documentación: https://nodejs.org/es/
 
-Es un entorno de ejecución de JavaScript fuera del navegador. Fue creado en 2009 y está orientado a los servidores
+Es un entorno de ejecución de JavaScript fuera del navegador. Fue creado en 2009 y está orientado a los servidores.
 
-**Datos de NODE JS**
+- Imagen de comparación entre Java y Node Js
+
+<img src="../utils/images/java_node.png" />
+
+Node Js y JavaScript son herramientas que usan el motor V8 para su ejecución.
+
+Este motor toma su código JavaScript y lo convierte en un código de máquina más rápido. El **código de máquina** es un código de `bajo nivel` que la computadora puede ejecutar sin necesidad de interpretarlo primero.
+
+Node.js utiliza un modelo de **non-blocking** I/O y `controlado por eventos` que lo hace **liviano** y **eficiente**.
+
+(E/S | I/O) se refiere a entrada/salida de datos. Puede ser cualquier cosa, desde leer/escribir archivos locales hasta realizar una solicitud HTTP a una API.
+
+## Blocking I/O vs Non-Blocking I/O
+
+Node Js al ser single-threaded, no puede atender a más de una solicitud de I/O al mismo tiempo.
+
+Node Js incorcopa un modelo de **non-blocking** I/O que permite que se puedan atender a más de una solicitud de I/O al mismo tiempo. Esto elimina la necesidad de multi-threading.
+
+## Datos de NODE JS
 
 1. Concurrencia
 
@@ -176,6 +198,16 @@ Holiii
 .
 .
 ```
+
+# Node Modules
+
+Son bloques de código reusable, donde su existencia no influye en el código de nuestro proyecto.
+
+# V8 acelera JavaScript aprovechando C++
+
+V8 es un motor de tiempo de ejecución de código abierto escrito en C++.
+
+JavaScript -> V8 (C++) -> Código de máquina
 
 # Configurar las variables de entorno en Node.js
 
