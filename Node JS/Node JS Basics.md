@@ -9,7 +9,8 @@
   - [Blocking I/O vs Non-Blocking I/O](#blocking-io-vs-non-blocking-io)
   - [Datos de NODE JS](#datos-de-node-js)
 - [Event Loop: Asíncrona por Diseño](#event-loop-asíncrona-por-diseño)
-  - [Event Queue](#event-queue)
+  - [Call stack](#call-stack)
+  - [Task Queue](#task-queue)
   - [Thread Pool](#thread-pool)
   - [Imagen Resumida](#imagen-resumida)
 - [Monohilo: implicaciones en diseño y seguridad](#monohilo-implicaciones-en-diseño-y-seguridad)
@@ -138,16 +139,23 @@ Node Js incorcopa un modelo de **non-blocking** I/O que permite que se puedan at
 
 # Event Loop: Asíncrona por Diseño
 
+JavaScript es un lenguaje monohilo o single-threaded para sonar más fancy.
 Se encarga de resolver los eventos ultra rápidos que llegan desde el `Event Queue`.
 En caso de no poder resolverse rápido, enviá el evento al `Thread Pool`.
 
 > Asíncrono => Que todos los eventos están ejecutándose aparte y el EventLoop puede estar recibiendo más eventos
 
+Lo que hace el event loop es comprobar si hay algún evento pendiente y si hay algún evento pendiente, comprueba que en el event stack esté vacío, de ser así se envía el evento al event stack y se ejecuta.
+
+## Call stack
+
+Tú puedes hacer una cosa a la vez == one stack == one thread
+
 <img src="./../utils/images/eventLoop.png">
 
-## Event Queue
+## Task Queue
 
-Contiene todos los eventos que se generan por nuestro código `Funciones, peticiones`, estos eventos quedan en una cola que van pasando uno a uno al Event Loop.
+Contiene todos los eventos que se ejecutan asíncronamente y no están directamente en el event stack. Estos eventos van siendo inspeccionados por el event loop y se van ejectuando en forma de queue. FIRST IN FIRST OUT.
 
 <img src="./../utils/images/queue.png">
 
@@ -155,7 +163,7 @@ Contiene todos los eventos que se generan por nuestro código `Funciones, petici
 
 Se encarga de gestionar los eventos como `llamados a APIs, promesas, etc` de forma asíncrona. Una vez terminado lo devuelve al Event Loop.
 
-El Event Loop vera si lo pasa a Event Queue o no.
+El Event Loop vera si lo pasa a Task Queue o no.
 
 <img src="./../utils/images/pool.png">
 
@@ -171,7 +179,7 @@ Para cada evento que tiene que ejecutar Thread Pools, se crea un nuevo hilo en n
 
 Todo lo que puede fallar va a fallar. Ley de Murphy.
 
-Hay que tener cuidado con el dieño de nuestro código, ya que si falla algo, todo el proceso que estamos ejecutando también va a fallar
+Hay que tener cuidado con el diseño de nuestro código, ya que si falla algo, todo el proceso que estamos ejecutando también va a fallar
 
 En el siguiente código:
 
