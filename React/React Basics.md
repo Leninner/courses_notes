@@ -1,23 +1,27 @@
-# React
+<h1>React</h1>
 
 **Índice**
 
-- [React](#react)
+- [Introducción](#introducción)
+  - [Características principales](#características-principales)
+  - [¿Cuándo Usar React.js?](#cuándo-usar-reactjs)
   - [Formas de trabajo para hacer aplicaciones web](#formas-de-trabajo-para-hacer-aplicaciones-web)
+  - [Ventajas de React](#ventajas-de-react)
   - [Desventajas de React](#desventajas-de-react)
   - [DOM, Virtual DOM y ReactDOM](#dom-virtual-dom-y-reactdom)
-  - [Create React App <a name="react-app"></a>](#create-react-app-)
-  - [Sintaxis JSX <a name="jsx"></a>](#sintaxis-jsx-)
-    - [Validaciones con true o false](#validaciones-con-true-o-false)
+  - [Create React App](#create-react-app)
+    - [Scripts](#scripts)
+  - [Sintaxis JSX](#sintaxis-jsx)
+  - [Validaciones con true o false](#validaciones-con-true-o-false)
   - [Creación y Tipos de Componentes](#creación-y-tipos-de-componentes)
     - [Componentes Stateful/Container/Smart](#componentes-statefulcontainersmart)
     - [Componentes Stateless](#componentes-stateless)
     - [Stateless vs Stateful](#stateless-vs-stateful)
     - [Componentes HOC (High Order Component)](#componentes-hoc-high-order-component)
-  - [Propiedades](#propiedades)
+  - [Propiedades que recibe un componente](#propiedades-que-recibe-un-componente)
     - [Proptypes](#proptypes)
   - [Componentes vs Elementos](#componentes-vs-elementos)
-  - [Propiedades vs Atributos](#propiedades-vs-atributos)
+  - [React.Fragment](#reactfragment)
   - [Estado (Variables con datos del sitio web)](#estado-variables-con-datos-del-sitio-web)
   - [Renderizado Condicional](#renderizado-condicional)
   - [Renderizado de Elementos](#renderizado-de-elementos)
@@ -28,14 +32,13 @@
   - [Eventos Nativos, Sintéticos & Personalizados](#eventos-nativos-sintéticos--personalizados)
   - [Comunicación entre Componentes](#comunicación-entre-componentes)
   - [Ciclo de Vida de los Componentes](#ciclo-de-vida-de-los-componentes)
-  - [Petición asíncronas: AJAX Y API´S](#petición-asíncronas-ajax-y-apis)
   - [React Router DOM](#react-router-dom)
   - [Hooks](#hooks)
-    - [React.useState](#reactusestate)
-    - [React.useEffect](#reactuseeffect)
+    - [useState](#usestate)
+    - [useEffect](#useeffect)
       - [Axios](#axios)
     - [Custom Hook](#custom-hook)
-    - [React.useRef y Formularios](#reactuseref-y-formularios)
+    - [useRef y Formularios](#useref-y-formularios)
     - [React.useContext](#reactusecontext)
   - [Local Storage](#local-storage)
   - [Props: Comunicación entre Componentes](#props-comunicación-entre-componentes)
@@ -64,76 +67,35 @@
 - [Validaciones con Clases](#validaciones-con-clases)
 - [Automatización y Despliegue con Github Actions](#automatización-y-despliegue-con-github-actions)
 
-NOTE: Ruta de aprendizaje de React => https://roadmap.sh/roadmaps/react.png
+# Introducción
 
-> Tiene un flujo de datos unidireccional.
+> Ruta de aprendizaje de React => https://roadmap.sh/roadmaps/react.png
 
 **React es una librería (biblioteca) desarrollada por Facebook que nos ayuda a construir interfaces de usuario interactivas para todo tipo de aplicaciones: web, móviles o de escritorio. Se encarga de la View del sitio**
 
-Tiene el modulo MVC => Modelo Vista Controlador: **Resuelve el problemas de las vistas del sitio.**
+## Características principales
 
-Cada pequeña parte de nuestra página web la conoceremos como **Componente**. Cada componente se encargará de una función en específico. Además, podremos reutilizar nuestros componentes siempre que lo necesitemos.
-Al unir todos nuestros componentes tendremos una página web que nos permite cambiar, actualizar o eliminar elementos de forma muy sencilla.
+- Tiene el modelo MVC => Modelo Vista Controlador: **Resuelve el problemas de las vistas del sitio.**
+- Tiene un flujo de datos unidireccional.
+- Cada pequeña parte de nuestra página web la conoceremos como **Componente**. Cada componente se encargará de una función en específico.
+- Podemos reutilizar nuestros componentes siempre que lo necesitemos.
+- Al unir todos nuestros componentes tendremos una página web que nos permite cambiar, actualizar o eliminar elementos de forma muy sencilla.
 
-NOTE: Por si no entendiste bien por qué a veces enviamos arrow functions y por qué otras veces no, aquí te lo explico:
-
-Cualquier evento recibe sí o sí una función, es decir, debemos mandarle sí o sí una función para que React internamente pueda ejecutarla en cuanto dicho evento ocurre.
-
-El asunto, es que tiene que ser sí o sí una función que React pueda ejecutar, por eso no podemos mandar directamente un console.log() ni un alert(), porque aunque ambos son funciones, nosotros estamos ejecutándolas directamente al ponerles los paréntesis, pero nosotros no debemos ejecutarlas, nosotros solo debemos mandarlas y ya React se encargará de ejecutarlas.
-
-Es por eso que mandamos arrow functions, porque estas son funciones que React puede ejecutar cuando quiera, y pues dentro de esas arrow functions está el código que queremos ejecutar cuando el evento suceda.
-
-- onClick={() => alert("React sí puede ejecutar esta arrow function cada que le de la gana")}
-
-Sin embargo, recordando que los eventos reciben funciones, yo puedo crear una variable que dentro guarde una función, por ejemplo:
-
-const adentroTengoUnaFuncion = () => {
-console.log("Hola");
-console.log("Soy una función que está siendo guardada dentro de una variable");
-}
-
-Yo puedo ejecutar esta función sin problemas de esta forma adentroTengoUnaFuncion(), pero también puedo mandarsela a React para que él lo ejecute cuando quiera (en este caso, cuando el evento suceda):
-
-onClick={adentroTengoUnaFuncion}
-
-**Nota como aquí mandamos la función sin paréntesis**, esto es porque en el momento en el que le ponemos paréntesis seríamos nosotros quienes ejecutan la función, pero recuerda que nosotros no debemos ejecutar la función, sino React es quien tiene que ejecutarla. ¿Por qué? Pues **porque si la ejecutamos nosotros, esta se va a ejecutar justo en el momento que esa línea de código sea leída por nuestra computadora, y nosotros no queremos eso**, nosotros queremos que nuestra función se ejecute únicamente cuando el evento suceda, por eso la mandamos sin paréntesis, para que React pueda ejecutarla cuando dicho evento ocurra.
-
-Pero, podemos hacer algo genial (y puede ponerse complicado),
-
-Sí podemos ejecutar nosotros la función, checa esto 👇
-
-Nosotros sí podemos hacer esto:
-
-```js
-onClick={adentroTengoUnaFuncion()}
-
-Solamente sí nuestra función está así:
-
-const adentroTengoUnaFuncion = () => {
-  return () => {
-    console.log("Hola");
-    console.log("Soy una función que está siendo guardada dentro de una variable UwU");
-  }
-}
-```
-
-Es simple mi función adentroTengoUnaFuncion está retornando otra función, eso significa que, en el momento que mi código se ejecute, mi función adentroTengoUnaFuncion también se va a ejecutar inmediatamente, pero como esta función está retornando otra función, al final mi evento onClick acabará recibiendo la función que necesita para funcionar!!!
-
-¿Por qué haríamos esto? Seguramente tenga algún caso de uso, pero también es interesante saber que se pueden hacer este tipo de cosas.
-
-NOTE: ¿Cuándo Usar React.js?
+## ¿Cuándo Usar React.js?
 
 Muchas de las librerías están basadas en componentes.
 
-> ☝ Un componente es un pedacito de tu página web, es decir, puede ser una sección específica de tu página web, o puede ser algún elemento que se repita múltiples veces en la misma. **Lo importante a tener en cuenta es que, un componente es una parte específica de tu página, es algo que cumple una acción simple.**
+**¿El header de mi página puede ser un componente?** ¡Sí!
+**¿El sidebar puede ser un componente?** ¡Por supuesto!
+Y si tengo varios articulos en mi página… **¿Puedo convertirlos a componentes?** ¡Por su pollo!
 
-¿El header de mi página puede ser un componente? ¡Sí!
-¿El sidebar puede ser un componente? ¡Por supuesto!
-Y si tengo varios articulos en mi página… ¿Puedo convertirlos a componentes? ¡Por su pollo!
+`Recuerda que todo puede ser un componente`, y esto nos permite modularizar nuestro código. Es decir, podemos dividir y **“aislar”** cada parte de nuestra página.
 
-Recuerda que todo puede ser un componente, y esto nos permite modularizar nuestro código. Es decir, podemos dividir y “aislar” cada parte de nuestra página. Si por alguna razón necesitaramos actualizar nuestro header (por ejemplo), bastaría con entrar al componente header modificar una pequeña línea y listo! Ya no tendríamos que buscar el header dentro de tooooodo nuestro HTML.
+Otra ventaja de los componentes es que son reutilizables, es decir, puedes usarlos cuantas veces quieras.
 
-Otra ventaja de los componentes es que son reutilizables, es decir, puedes usarlos cuantas veces quieras. Por ejemplo, si tuvieras un sitio web sobre blogs, ya sabes que muchos blogs suelen tener una imagen, un título y una descripción. Entonces podríamos crear un componente con la estructura de nuestro blogpost y únicamente mandarle la información que necesitemos por cada blogpost y cada uno se crearía automáticamente!!
+Si se está trabajando en una aplicación en la que no la vamos a ir actualizando, entonces solamente hacerlo con Javascript.
+
+**Si necesitamos empezar rápido y vamos a necesitar actualizar la app en un futuro, es muy recomendable utilizar react.**
 
 ## Formas de trabajo para hacer aplicaciones web
 
@@ -147,14 +109,17 @@ Otra ventaja de los componentes es que son reutilizables, es decir, puedes usarl
 
 Cada equipo se ocupa de resolver y diseñar una parte pequeñisima de la aplicación web. Se puede obtener feedback rápido del cliente. Cada ciclo debe tener un propósito. **Desarrollar funcionalidades completas.**
 
-MVP => Desarrollar funcionalidades pequeñas pero que sirvan de algo para poder medir el feccback del cliente. Resolver el mayor problema que se encuentre.
+MVP => Desarrollar funcionalidades pequeñas pero que sirvan de algo para poder medir el feedback del cliente. Resolver el mayor problema que se encuentre.
 
 Análisis => Componentes (Forma de estructurar elementos de la página web, todos los componentes tienen relaciones entre si) y comportamientos (todo en React se puede hacer en Javascript, pero React nos da herramientas para trabajar más rápido, más fáciles y más ordenados)
 
 Es extremadamente fácil organizar los componentes de una aplicación web y también es extremadamente fácil conectarlos entre sí para que puedan realizar funciones.
 
-> Si se está trabajando en una aplicación en la que no la vamos a ir actualizando, entonces solamente hacerlo con Javascript.
-> **Si necesitamos empezar rápido y vamos a necesitar actualizar la app en un futuro, es muy recomendable utilizar react.**
+## Ventajas de React
+
+1. Componentes reutilizables
+2. Flujo de datos unidireccional
+3. Modularidad
 
 ## Desventajas de React
 
@@ -171,14 +136,16 @@ El DOM es el código HTML que se transforma en páginas web.
 
 Cada vez que cambiamos alguna parte del DOM, también estamos actualizando el HTML con el que interactúan nuestros usuarios. El problema es que todas las operaciones, comparaciones y actualizaciones en el DOM son muy costosas.
 
-**Virtual DOM** es una herramienta que usan tecnologías como React y Vue para mejorar el **rendimiento (performance) y velocidad de nuestras aplicaciones.**
+**Virtual DOM**
+
+Es una herramienta que usan tecnologías como React y Vue para mejorar el **rendimiento (performance) y velocidad de nuestras aplicaciones.**
 
 - **Es una copia exacta del DOM, pero mucho más ligera**, ya que los cambios no actualizan el verdadero HTML de nuestras páginas web. Gracias al Virtual DOM podemos hacer operaciones y comparaciones de forma sumamente rápida.
 - Recuerda que los cambios en el Virtual DOM no afectan el HTML que ven los usuarios, así que se deben estar sincronizando constantemente las copias con el DOM. PERO, **React DOM lo hace por nosotros.**
 
-## Create React App <a name="react-app"></a>
+## Create React App
 
-> Nos va a permitir crear aplicaciones React con cero configuración, lo que nos permitirá centrarnos en los más importante.
+Nos va a permitir crear aplicaciones React con cero configuración, lo que nos permitirá centrarnos en los más importante.
 
 Para crear una aplicación utilizamos el comando **npx create-react-app** seguido del nombre que le quieras dar a tu aplicación.
 
@@ -199,7 +166,7 @@ Un proyecto creado con create-react-app, además de React, **incluye librerías 
 
 Uno podría configurar un proyecto de React manualmente e incluir cada una de estas librerías, pero es bastante engorroso, create-react-app nos hace la vida más fácil
 
-NOTE: Es necesario tener instalada la última versión de Node
+### Scripts
 
 - NPM RUN BUILD => Para lanzar el proyecto a producción, debemos ejecutar el comando: **npm run build**. Lo que hace ese comando es transpilar el código de react a js vanilla para poder hacer su deploy. También va a generar la carpeta build para posteriormente utilizarla en producción.
 
@@ -209,9 +176,7 @@ NOTE: Es necesario tener instalada la última versión de Node
 
 - NPM RUN EJECT => Va a ejectar la configuración que tiene create-react-app por defecto
 
-Es necesario instalar **sudo npm install -g serve** para lanzar un servidor con la aplicación ya lista para producción.
-
-## Sintaxis JSX <a name="jsx"></a>
+## Sintaxis JSX
 
 JSX: JavaScript + HTML
 
@@ -230,21 +195,22 @@ Se puede usar:
 - Aceptarlo como argumento o retorno en funciones.
 - Expresiones JavaScript.
 
-NOTE: Para añadir lógica dentro de etiquetas HTML se debe utilizar llaves.
+Para añadir lógica dentro de etiquetas HTML se debe utilizar llaves.
 
 ```js
-<div className="App">
-  <header className="App-header">
-    <img src={logo} className="App-logo" alt="logo" />
-    <h1 className="App-title">Welcome to React</h1>
+<div className='App'>
+  <header className='App-header'>
+    <img src={logo} className='App-logo' alt='logo' />
+    <h1 className='App-title'>Welcome to React</h1>
   </header>
-  <p className="App-intro">
+  <p className='App-intro'>
     To get started, edit <code>src/App.js</code> and save to reload.
   </p>
 </div>
 ```
 
 **JSX es similar a HTML pero con algunas diferencias importantes:**
+
 React usa JSX: **una sintaxis que nos permite escribir la estructura HTML y la lógica en JavaScript desde un mismo lugar: nuestros componentes.**
 
 Algunas reglas importantes:
@@ -255,7 +221,7 @@ Algunas reglas importantes:
 4. Los atributos de un elemento JSX pueden aceptar valores de tipo String entrecomillados o expresiones JavaScript entre llaves, por ejemplo:
 
 ```js
-<img alt="Avatar" src={user.avatarURL} />
+<img alt='Avatar' src={user.avatarURL} />
 ```
 
 Las etiquetas "HTML" se convierten en Javascript Vanilla por acción de babel:
@@ -263,7 +229,7 @@ Las etiquetas "HTML" se convierten en Javascript Vanilla por acción de babel:
 - Esto:
 
 ```js
-<div class="active">Hola Mundo</div>
+<div className='active'>Hola Mundo</div>
 ```
 
 - Se transforma en el siguiente código JavaScript:
@@ -272,13 +238,11 @@ Las etiquetas "HTML" se convierten en Javascript Vanilla por acción de babel:
 React.createElement('div', { className: 'active' }, 'Hola mundo'); // => **tipo, atributos, contenido**
 ```
 
-> https://babeljs.io/repl => Sirve para ver en que se convierte nuetro código.
-
 Es la forma en la que React hace que todo esté dentro del mismo componente (No tener una parte aislada para manejar la parte visual y otra la parte lógica. Sino más bien, el mismo componente hace ambas cosas)
 
 Estamos acostumbrados a escribir código HTML en archivos .html y la lógica de JavaScript en archivos .js.
 
-> Ejemplo:
+- Ejemplo:
 
 ```js
 import React from 'react';
@@ -288,6 +252,7 @@ const HolaMundo = () => {
   const claseCSSHolaMundo = 'container-red';
   const mensajeTextoHTML = '¡Hola, Mundo!';
   const isTrue = false;
+
   // Esto es JSX (HTML + JavaScript):
   return (
     <div className={claseCSSHolaMundo}>
@@ -300,30 +265,35 @@ const HolaMundo = () => {
 export default HolaMundo;
 ```
 
-Los **componentes** en React tienen que ser escritos en **PascallCase**
+Los **componentes** en React tienen que ser escritos en **PascalCase**
 
-### Validaciones con true o false
+## Validaciones con true o false
 
 Existen varias formas de hacer validaciones en React:
 
 ```js
 const isTrue = true;
-{isTrue && "Esto es verdadero"} => Para indicar que se cumpla algo solamente si se cumple la condición como verdadera.
-{isTrue ? "Esto es true" : "Esto es false"}
-{isTrue ? <h4>Es verdadero</h4> : <h5>Es falso</h5>}
+
+{
+  isTrue && 'Esto es verdadero';
+} // Para indicar que se cumpla algo solamente si se cumple la condición como verdadera.
+
+{
+  isTrue ? 'Esto es true' : 'Esto es false';
+}
+
+{
+  isTrue ? <h4>Es verdadero</h4> : <h5>Es falso</h5>;
+}
 ```
 
 ## Creación y Tipos de Componentes
-
-Todas las librerías: Angular, Polimer, Vue se caracterizan por ser basados en componentes.
 
 **Divide y vencerás**. Crear componentes que hagan una sola cosa, cada componente tiene:
 
 - Código de contenido (**HTML**)
 - Código de presentación (**CSS**)
 - Funcionalidad (**Javascript**)
-
-Los nombres de nuestros componentes deben empezar con **una letra mayúscula**, al igual que cada nueva palabra del componente. Esto lo conocemos como Pascal Case o Upper Camel Case.
 
 En REACT los componentes **pueden o no** tener estado. El estado son las variables internas. El flujo de datos en React funciona en una sola dirección, de componentes padres y componentes hijos.
 
@@ -332,7 +302,7 @@ Se puede definir componentes como clases o como funciones. Las clases tienen est
 NOTE: Desde la versión 17 de REACT, no es necesario importar react:
 
 ```js
-<import React from "react">
+import React from 'react';
 ```
 
 Sin embargo puede ser una mala práctica no ponerlo.
@@ -360,9 +330,7 @@ class Stateful extends Component {
 export { Stateful };
 ```
 
-Un componente de clase tiene un método <render> que permite renderizar el código JSX.
-
-NOTE: La diferencia entre exportar de manera default es que la tecnología nos permite cambiar el nombre a nuestros importes, en cambio con exportaciones custom, nosotros le damos un nombre que si o si se debe utilizar para utilizar el exporte que hicimos y así evitar errores de sintaxis.
+Un componente de clase tiene un método `render` que permite renderizar el código JSX.
 
 ### Componentes Stateless
 
@@ -374,23 +342,15 @@ Ejemplo:
 
 ```javascript
 import React from 'react';
+
 const Stateless = () => {
   return <h1>¡Hola!</h1>;
 };
 
 // Otra forma de crearlos:
 const Stateless = () => <h1>¡Hola!</h1>;
+
 export default Stateless;
-```
-
-NOTE: Presentacionales
-
-Solamente tienen la parte de HTML y no manejar ciclo de vida o estado, ni tiene propiedades.
-
-```javascript
-import React from 'react';
-const Presentacional = () => <h1>¡Hola Mundo!</h1>;
-export { Presentacional };
 ```
 
 ### Stateless vs Stateful
@@ -398,14 +358,11 @@ export { Presentacional };
 También conocidos como:
 
 – Container vs Presentational components
-
 – Smart vs Dumb components
 
-> La principal diferencia es que uno tiene estado y otro no. That means the stateful components are keeping track of changing data, while stateless components print out what is given to them via props, or they always render the same thing.
-
-NOTE: Stateful/Container/Smart component:
-
 ```javascript
+// Stateful component
+
 class Main extends Component {
   constructor() {
     super();
@@ -413,15 +370,16 @@ class Main extends Component {
       books: [],
     };
   }
+
   render() {
     <BooksList books={this.state.books} />;
   }
 }
 ```
 
-NOTE: Stateless/Presentational/Dumb component:
-
 ```javascript
+// Stateless component
+
 const BooksList = ({ books }) => {
   return (
     <ul>
@@ -433,13 +391,7 @@ const BooksList = ({ books }) => {
 };
 ```
 
-Nota que el componente stateless es escrito como una función. Por genial que sea el estado, siempre debes apuntar a hacer que tus componentes sean lo más simples y sin estado posible, de modo que los diferentes componentes se puedan reutilizar como piezas de Lego, incluso si no tienes planes inmediatos para reutilizar un componente. ¡Los estatales deberían sentirse afortunados de serlo!
-
-Reference: https://programmingwithmosh.com/javascript/stateful-stateless-components-react/
-
-NOTE: ¿Cómo aprender React.js?
-
-Tener las bases fundamentales: HTML, CSS Y Javascript.
+Nota que el componente stateless es escrito como una función. Por genial que sea el estado, siempre debes apuntar a hacer que tus componentes sean lo más simples y sin estado posible, de modo que los diferentes componentes se puedan reutilizar como piezas de Lego, incluso si no tienes planes inmediatos para reutilizar un componente. ¡Los stateless deberían sentirse afortunados de serlo!
 
 ### Componentes HOC (High Order Component)
 
@@ -460,9 +412,11 @@ function ComponentWrapper(WrapperComponent) {
 }
 ```
 
-## Propiedades
+## Propiedades que recibe un componente
 
-Son valores que recibe un componente hijo de uno padre. Se agrupan en un objeto llamado props, el cual puede recibir diferentes tipos de datos:
+Son valores que recibe un componente hijo de uno padre.
+
+Se agrupan en un objeto llamado props, el cual puede recibir diferentes tipos de datos:
 
 - Strings
   Numbers
@@ -477,12 +431,14 @@ Las props son inmutables, es decir que no se pueden modificar ya que son solamen
 
 Por ejemplo, podemos pasar un atributo **name** al componente Welcome:
 
+```js
 <Welcome name="Jon" />
 <Welcome name="Irma" />
+```
 
 Si defines el componente en una clase, **las props se reciben en el constructor de la clase**:
 
-```javascript
+```js
 class Welcome extends Component {
   constructor(props) {
     super(props);
@@ -510,7 +466,7 @@ export const SomeComponent = ({ name }) => {
 };
 ```
 
-NOTE: Default Props
+- Se puede añadir propiedades por defecto a los componentes
 
 ```js
 import React from 'react';
@@ -526,17 +482,17 @@ Propiedades.defaultProps = {
 
 ### Proptypes
 
-Este paquete de NPM nos sirve de mucho para declarar el tipo de dato que si o si esperamos, además de comprobar si es requerido o no:
+Este paquete de NPM nos sirve de mucho para declarar el tipo de dato que si o si esperamos, además de comprobar si es requerido o no, es una alternativa a usar TypeScript en el proyecto.
 
-Npm install:
+- Para instalar
 
-```
+```bash
 npm i -s prop-types
 ```
 
 Para declarar el tipo de prop:
 
-```javascript
+```js
 import PropTypes from 'prop-types';
 
 nombreDeFuncion.propTypes = {
@@ -544,27 +500,32 @@ nombreDeFuncion.propTypes = {
 };
 ```
 
-NOTE: Las propiedades se las pasan por argumento a los componentes y se les puede llamar como a un método de alguna instancia de clase:
+Las propiedades se las pasan por argumento a los componentes y se les puede llamar como a un método de alguna instancia de clase:
 
 - index.js:
 
-```javascript
-ReactDOM.render(<App saludo="Hi Lenin" />, document.getElementById('root'));
+```js
+ReactDOM.render(<App saludo='Hi Lenin' />, document.getElementById('root'));
 ```
 
-- App.js =>
+- App.js
 
-```javascript
+```js
 function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className='App'>
+      <header className='App-header'>
+        <img src={logo} className='App-logo' alt='logo' />
         <p>
           Edita <code>src/App.js</code>, guarda y recarga
         </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          {props.saludo}
+        <a
+          className='App-link'
+          href='https://reactjs.org'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          {props.saludo} {/*This should be hi Lenin*/}
         </a>
       </header>
     </div>
@@ -576,7 +537,6 @@ Otro Ejemplo:
 
 ```js
 Component.propTypes = {
-  // => Aquí hacemos el llamado con la primera letra de propsTypes en minúscula.
   name: PropTypes.string.isRequired, // obligatorio
   lastName: PropTypes.string.isRequired, // obligatorio
   age: PropTypes.number, // opcional,
@@ -590,7 +550,7 @@ Por defecto, enviar todas nuestras props es opcional, pero **con los propTypes**
 
 En React hay varias formas de crear un componente:
 
-1. Con clases: (Actualmente no se usa)
+1. Con clases: (Actualmente ha dejado de usarse)
 
 ```js
 class Componente extends React.Components {
@@ -604,13 +564,11 @@ class Componente extends React.Components {
 
 2. Con React.createElement: Se sigue usando. Es opcional
 
-Sintaxis:
-
 ```js
 React.createElement(elemento, atributos, contenido);
 ```
 
-En el **elemento** se colocaran el nombre de las etiquetas HTML. Ejemplo, h1, h2, p, form,…
+En el **elemento** se colocarán el nombre de las etiquetas HTML. Ejemplo, h1, h2, p, form,…
 En los **atributos** se colocaran los atributos de las etiquetas, es decir, id, class, placeholder,…
 En el **contenido** se coloca contenido que va dentro de la etiqueta. Es decir, <h1>este contenido</h1>
 
@@ -618,18 +576,24 @@ Veamos con un ejemplo:
 
 ```js
 const ejemplo1 = React.createElement('h1', { id: 'title' }, 'Oli React');
-const ejemplo2 = React.createElement('p', { id: 'paragraph-elemental', class: 'paragraph' }, 'Oli React');
-const ejemplo2 = React.createElement('p', { id: 'paragraph-elemental', class: 'paragraph' }, 'Oli React');
+const ejemplo2 = React.createElement(
+  'p',
+  { id: 'paragraph-elemental', class: 'paragraph' },
+  'Oli React'
+);
+const ejemplo2 = React.createElement(
+  'p',
+  { id: 'paragraph-elemental', class: 'paragraph' },
+  'Oli React'
+);
 ```
 
-Ambas versiones del ejemplo 2 son validas, solo es cuestión de que la persona lea mejor el código.
-
-1. Con Funciones: (Se usa actualmente y es más cómodo que usar React.createElement())
+3. Con Funciones: (Se usa actualmente y es más cómodo que usar React.createElement())
 
 ```js
 function Componente = () => {
  return(
-  //Codigo
+  // Component body
  )
 }
 ```
@@ -639,52 +603,47 @@ function Componente = () => {
 Esto es un componente:
 
 ```js
-//Componente
 const Componente = () => {
   return (
     //Codigo
   )
 }
 
-<Componente />
-  //Este es un elemento:
-  <h1>Dorime</h1>
+<Componente /> // Componente
+
+<h1>Dorime</h1> // Elemento
 ```
 
-> Los componentes son una version traducida de los elementos en HTML a Javascript (JSX).
+## React.Fragment
 
-## Propiedades vs Atributos
+**React.Fragment** es una ayuda de React para encapsular elementos en uno solo y así no obtener errores.
+En React, debemos tener un solo Componente para renderizarlo, no podemos renderizar varios elementos independientes, si no que todos deben pertenecer a un único padre.
 
-Cuando estamos trabajando con React, para definir el atributo class, **no usamos class sino className**. React te puede aceptar class como atributo, pero luego te saldrá advertencias y, de paso, es una mala práctica.
-
-- Las propiedades las podemos recibir de los parametros de los **componentes**. Ejemplo:
+Ejemplo:
 
 ```js
-<App nombre="Dorime">
-
-const App = (props) => {
-	return (
-		<p>{props.nombre}</p>
-	)
-}
+const Componente = () => {
+  return (
+    <React.Fragment>
+      <h1>Oli React</h1>
+      <p>Oli React</p>
+    </React.Fragment>
+  );
+};
 ```
 
-- Tambien podemos recibir children que vienen entre el contenido del Componente.
+También se puede usar de la siguiente forma:
 
 ```js
-<App>
-	<p>Dorime, Ameno</p>
-</App>
-
-const App = (props) = {
-	return (
-    {props.children}
-	)
-}
+const Componente = () => {
+  return (
+    <>
+      <h1>Oli React</h1>
+      <p>Oli React</p>
+    </>
+  );
+};
 ```
-
-NOTE: **React.Fragment** es una ayuda de React para encapsular elementos en uno solo y así no obtener errores.
-En React, debemos tener un solo Componente para renderizarlo, no podemos renderizar varios elementos independientes, si no que todos deben pertenecer a un grupo.
 
 ## Estado (Variables con datos del sitio web)
 
@@ -694,13 +653,11 @@ El estado es un objeto. Son los **valores internos que manejan la lógica**, per
 2. No se puede modificar directamente
 3. Es asíncrono
 
-Para hacer cambios en él, tenemos: **setState()**
-
-NOTE: El estado de un componente no es accesible desde otro componente excepto de aquel que lo posee y lo asigna.
+El estado de un componente no es accesible desde otro componente excepto de aquel que lo posee y lo asigna.
 
 Cada vez que cambia el state, React vuelve a renderizar (pintar) el componente en la vista.
 
-- Componentes Statefull con estado **Actualmente no se usa gracias a los Hooks**
+- Componentes Stateful con estado **Actualmente no se usa gracias a los Hooks**
 
 ```js
 import React from 'react';
@@ -737,6 +694,27 @@ Para cambiar ese estado se utiliza:
 this.setState({
   title: this.state.title + 1,
 });
+```
+
+Ejemplo con Hooks:
+
+```js
+import React, { useState } from 'react';
+
+export default function Welcome() {
+  const [title, setTitle] = useState(0);
+
+  setInterval(() => {
+    setTitle(title + 1);
+  }, 1000);
+
+  return (
+    <div>
+      <h1>El Estado</h1>
+      <p>{title}</p>
+    </div>
+  );
+}
 ```
 
 ## Renderizado Condicional
@@ -794,7 +772,7 @@ import Data from '../helpers/data.json';
 function ListItem({ framework, link }) {
   return (
     <li>
-      <a href={link} target="_blank" rel="noreferrer">
+      <a href={link} target='_blank' rel='noreferrer'>
         {framework}
       </a>
     </li>
@@ -839,11 +817,7 @@ export default class RenderizadoElements extends React.Component {
 
 Todo lo que empiece con "on" nos va a ayudar a reaccionar ante las interacciones del usuario.
 
-> Recuerde siempre: debe utilizar `bind` para `this` para todos los métodos en los componentes de la clase al pasarlos a otros componentes:
-
 ```jsx
-// App.js
-
 import React, { Component } from 'react';
 import MyComponent from './MyComponent';
 
@@ -861,7 +835,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <MyComponent title="React" onButtonClicked={this.onClickBtn} />
+        <MyComponent title='React' onButtonClicked={this.onClickBtn} />
       </div>
     );
   }
@@ -874,10 +848,11 @@ Ejemplo:
 
 ```js
 <button
-  className="CreateTodoButton"
+  className='CreateTodoButton'
   onClick={() => {
     alert('Lenin, quieto');
-  }}></button>
+  }}
+></button>
 ```
 
 Es importante dejar a React el trabajo de ejecutar las funciones, así:
@@ -889,14 +864,18 @@ function CreateTodoButton(props) {
   };
 
   return (
-    <button className="CreateTodoButton" onClick={() => onClickButton(props.msg)}>
+    <button className='CreateTodoButton' onClick={() => onClickButton(props.msg)}>
       +
     </button>
   );
 }
 ```
 
-> CADA VEZ QUE SE UTILICE EVENTOS DENTRO DE COMPONENTES DE CLASE, DEBEMOS UTILIZAR LA TÉCNICA DE BIND DENTRO DEL CONSTRUCTOR.
+Recuerde siempre: debe utilizar `bind` en componentes de clase para poder hacer uso de `this` para todos los métodos en los componentes de la clase al pasarlos a otros componentes:
+
+CADA VEZ QUE SE UTILICE EVENTOS DENTRO DE COMPONENTES DE CLASE, DEBEMOS UTILIZAR LA TÉCNICA DE BIND DENTRO DEL CONSTRUCTOR para los métodos que sean llamados desde el componente al ejecutar el evento.
+
+> Al hacer Bind en el constructor, estamos haciendo una referencia correcta al componente desde donde se llama el evento. Esto es por cómo está escrito el código en JavaScript al manejar POO.
 
 Ejemplo:
 
@@ -906,6 +885,7 @@ import React from 'react';
 export default class EventosAndBinding extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       contador: 0,
     };
@@ -944,8 +924,7 @@ export default class EventosAndBinding extends React.Component {
 
 ### Bind
 
-Vincula los valores o alcance correcto antes de que se invoque la función.
-Ver el ejemplo de arriba.
+Vincula los valores o alcance correcto antes de que se invoque la función. Esto es debido a la técnica de POO en JavaScript.
 
 ### Apply AND Call
 
@@ -997,17 +976,15 @@ export default class EventosES7 extends React.Component {
 
 Para acceder a los eventos nativos de javascript, utilizamos **e.nativeEvent.target**
 
-En React los Eventos sin sintéticos, sin embargo podemos crear eventos personalizados a través de props así:
+En React los Eventos son sintéticos, sin embargo podemos crear eventos personalizados a través de props así:
 
 ```js
-// Componente creado
 const Boton = ({ myOnClick }) => (
-  <button onClick={myOnClick} className="p-2 font-bold text-white bg-black rounded-full">
+  <button onClick={myOnClick} className='p-2 font-bold text-white bg-black rounded-full'>
     Leninner
   </button>
 );
 
-// Componente desplegado
 <Boton
   myOnClick={(e) => {
     console.log(e);
@@ -1033,9 +1010,9 @@ export default class Padre extends React.Component {
   render() {
     return (
       <>
-        <h3 className="titles">Comunicación Entre Components</h3>
-        <Hijo msg="Mensaje para el hijo 1" />
-        <Hijo msg="Mensaje para el hijo 2" />
+        <h3 className='titles'>Comunicación Entre Components</h3>
+        <Hijo msg='Mensaje para el hijo 1' />
+        <Hijo msg='Mensaje para el hijo 2' />
       </>
     );
   }
@@ -1067,9 +1044,9 @@ export default class Padre extends React.Component {
   render() {
     return (
       <>
-        <h3 className="titles">Comunicación Entre Components</h3>
-        <Hijo msg="Mensaje para el hijo 1" />
-        <Hijo incrementarContador={this.incrementarContador} msg="Mensaje para el hijo 2" />
+        <h3 className='titles'>Comunicación Entre Components</h3>
+        <Hijo msg='Mensaje para el hijo 1' />
+        <Hijo incrementarContador={this.incrementarContador} msg='Mensaje para el hijo 2' />
       </>
     );
   }
@@ -1087,22 +1064,22 @@ function Hijo({ msg, incrementarContador }) {
 
 3. Comunicación entre componentes no relación en "padres" a "hijos"
 
-- Se puede utilizar Redux o React.useContext.
+- Se puede utilizar Redux o Context API para comunicar componentes no relacionados.
 
 Tenemos que crear un mecanismo de observación y/o suscripción para la comunicación entre dichos componentes.
 
 Al menos existen 3 patrones para hacer esto.
 
-1. Patrón Emisor de eventos / Destino / Despachador : los oyentes deben hacer referencia a la fuente para suscribirse.
-2. Patrón Publicación / Suscripción: no necesita una referencia específica a la fuente que desencadena el evento, hay un objeto global accesible en todas partes que maneja todos los eventos.
-3. Patrón Señales: similar al Emisor de Eventos, pero aquí no usa cadenas aleatorias. Cada objeto que podría emitir eventos debe tener una propiedad específica con ese nombre. De esta manera, se sabe exactamente qué eventos puede emitir un objeto.
-4. Portales: proporcionan una opción de primera clase para renderizar hijos en un nodo DOM que existe por fuera de la jerarquía del DOM del componente padre.
+1. **Patrón Emisor de eventos / Destino / Despachador:** los oyentes deben hacer referencia a la fuente para suscribirse.
+2. **Patrón Publicación / Suscripción:** no necesita una referencia específica a la fuente que desencadena el evento, hay un objeto global accesible en todas partes que maneja todos los eventos.
+3. **Patrón Señales:** similar al Emisor de Eventos, pero aquí no usa cadenas aleatorias. Cada objeto que podría emitir eventos debe tener una propiedad específica con ese nombre. De esta manera, se sabe exactamente qué eventos puede emitir un objeto.
+4. **Portales:** proporcionan una opción de primera clase para renderizar hijos en un nodo DOM que existe por fuera de la jerarquía del DOM del componente padre.
 
 ## Ciclo de Vida de los Componentes
 
 Son métodos que se ejecutan automáticamente en un Componente de Clase, ocurren en 3 fases:
 
-1. **Montaje.**
+1. **Montaje**
 
 - Se ejecutan cuando se crea un componente y se inserta en el arbol del DOM
 
@@ -1110,7 +1087,7 @@ Métodos:
 
 - **constructor():** Se ejecuta al crear la instancia del componente, en el constructor puedes inicializar el estado y enlazar manejadores de eventos.
 - **render():** Es el único método requerido, cuando se ejecuta, examina el estado y las propiedades y dibuja el componente en el árbol del DOM.
-- **componentDidMount():** Se invoca _inmediatamente después de que un componente se ha insertado al árbol del DOM_. Es útil para ejecutar suscripciones o peticiones asíncronas a API's, bases de datos, servicios, etc.
+- **componentDidMount():** Se invoca `inmediatamente después de que un componente se ha insertado al árbol del DOM`. Es útil para ejecutar suscripciones o peticiones asíncronas a API's, bases de datos, servicios, etc.
 
 2. **Actualización.**
 
@@ -1119,7 +1096,7 @@ Métodos:
 Métodos:
 
 - **render():** redibuja el componente cuando detecta cambios en el estado o las propiedades del componente.
-- **componentDidUpdate():** Se ejecuta _inmediatamente después de que la actualización del estado o las propiedades sucede_, al igual que componenDidUpdate es un método ideal para hacer peticiones externas.
+- **componentDidUpdate():** Se ejecuta **inmediatamente después de que la actualización del estado o las propiedades sucede**, ideal para ejecutar peticiones asíncronas a API's, bases de datos, servicios, etc.
 
 3. **Desmontaje**
 
@@ -1178,12 +1155,12 @@ export default class CicloVida extends React.Component {
     console.log(4, 'El componente se renderiza');
     return (
       <>
-        <h2 className="titles">Ciclo de Vida de los componentes de clase</h2>
+        <h2 className='titles'>Ciclo de Vida de los componentes de clase</h2>
         <h3>{this.state.hora}</h3>
-        <button className="btn btn-blue" onClick={this.iniciar}>
+        <button className='btn btn-blue' onClick={this.iniciar}>
           Iniciar
         </button>
-        <button className="btn btn-blue" onClick={this.detener}>
+        <button className='btn btn-blue' onClick={this.detener}>
           Parar
         </button>
       </>
@@ -1191,8 +1168,6 @@ export default class CicloVida extends React.Component {
   }
 }
 ```
-
-## Petición asíncronas: AJAX Y API´S
 
 ## React Router DOM
 
@@ -1228,10 +1203,10 @@ const App = () => {
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="recovery-password" element={<Recoverypassword />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='recovery-password' element={<Recoverypassword />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </Layout>
     </BrowserRouter>
@@ -1254,44 +1229,39 @@ devServer: {
 
 **BrowserRoute** sirve para implementar router en el navegador.
 
-**Routes** _regresa la primera ruta que coincida_. En pocas palabras, si estamos en www.platzi.com/contacto , regresará el componente que coincida a este (es decir, el componente que contenga la lógica de contacto).
-En esta caso, estamos poniendo varios routes dentro de Routes, ¿para qué? para que solamente traiga esa misma ruta, y no tenga que buscar más. Como si fuese un condicional Routes de javascript efectivamente. Y por ello tenemos un route sin path, que será el valor por defecto.
+**Routes** **regresa la primera ruta que coincida**. En pocas palabras, si estamos en www.platzi.com/contacto , regresará el componente que coincida a este (es decir, el componente que contenga la lógica de contacto).
 
 **Layout solamente renderizará el route que coincida efectivamente con la URL especificada.**
 
 ## Hooks
 
-### React.useState
+### useState
 
 Es una función que hay que declararse como un array con 2 posiciones: La posición 0 es la variable que puede ir cambiando y la posición 1 que es la función que va a hacer ese cambio:
 
-1. El valor (quien seria videos)
-2. La funcion que cambia el valor (quien seria setVideos)
+1. El valor
+2. La funcion que cambia el valor
 
-**const [videos, setVideos] = React.useState(0);**
+```js
+const [videos, setVideos] = React.useState(0);
+```
 
-UseState recibe un solo argumento, el cuál será el primer elemento de nuestro arreglo. Este dato pues ser de cualquier tipo.
+UseState recibe un solo argumento, el cuál será el primer elemento de nuestro arreglo. Este dato pues ser de cualquier tipo. Incluso puede ser una función.
 En useState es siempre necesario definir un valor como parametro. Puede ser un string, array, booleano o número.
 
 ```js
-const [searchValue, setSearchValue] = useState('')
-const [searchValue, setSearchValue] = useState(false)
-const [searchValue, setSearchValue] = useState(['Dorime', 'Ameno'])
-const [searchValue, setSearchValue] = useState(0)
-//En la etiqueta donde vamos a manejar el evento, no debemos olvidar colocar el value que recibirá el valor de useState. Ejemplo:
-
-<input
-  className="TodoSearch"
-  placeholder="Ingresa un POYO Todo"
-  value={searchValue}
-	onChange={onSearchValueChange}
-/>
+const [searchValue, setSearchValue] = useState('');
+const [searchValue, setSearchValue] = useState(false);
+const [searchValue, setSearchValue] = useState(['Dorime', 'Ameno']);
+const [searchValue, setSearchValue] = useState(0);
+const [searchValue, setSearchValue] = useState(() => {
+  return 'Hola mundo';
+});
+const [searchValue, setSearchValue] = useState({
+  name: 'Dorime',
+  age: 'Ameno',
+});
 ```
-
-React Hooks (2018): Es una característica de React disponible a partir de la versión 16.8 que nos permite agregar estado y ciclo de vida a nuestros componentes creados como funciones o componentes stateless o presentacionales.
-
-> El Hook useState nos devuelve un array con dos elementos: la primera posición es el valor de nuestro estado, la segunda es una función que nos permite actualizar ese valor.
-> El argumento que enviamos a esta función es el valor por defecto de nuestro estado (initial state).
 
 Ejemplo:
 
@@ -1311,7 +1281,6 @@ Si quieres importar todo React para usar useState:
 
 ```js
 import React from 'react';
-//Lo vas a usar de esta forma:
 const [searchValue, setSearchValue] = React.useState('');
 ```
 
@@ -1319,34 +1288,24 @@ Si quieres importar unicamente useState:
 
 ```js
 import { useState } from 'react';
-//Lo vas a usar de esta forma:
 const [searchValue, setSearchValue] = useState('');
 ```
 
-NOTE: Para renderizar varios elementos independientes, podemos hacer uso de arreglos.
+### useEffect
 
-El estado tiene mucha relación con "cambio".
-
-! => Es falso
-!! => Es falso que eso es falso
-
-### React.useEffect
-
-React.useEffect() => Sirve para ejecutar el código que le pasemos por dentro **junto antes de que el componente esté listo para ser mostrado.**
+Sirve para ejecutar el código que le pasemos por dentro **junto antes de que el componente esté listo para ser mostrado.**
 
 Va a permitir ir a APIs para consultar datos y luego pasarsela a algún estado que queramos hacer.
 
 1. Recibe un primer parámetro como una función anónima.
-2. Y un segundo parámetro como una condición para que sea llamada.
+2. Y un segundo parámetro como un arreglo de condiciones para que sea llamada.
 
-Si no se le pasa el segundo argumento, entonces useEffect entra en un bucle infinito.
-
-NOTE: Fetch => Es un método que recibe una API y luego un método then que le ayuda a decidir: Si llamada a la API se hizo correctamente, entonces hago algo. También tiene un método Catch que sirve para encapsular algún error y reportarlo. Promesas.
+> Si no se le pasa el segundo argumento, entonces useEffect entra en un bucle infinito.
 
 Debemos enviarle una función para ser ejecutada.
 Es capaz de ser ejecutado cuando React ya realizó todos sus trabajos internos.
 
-> Al enviarle un arreglo también como parámetro, el Hook useEffect se va a ejecutar una sola vez. Sin importar si se renderiza miles de veces la página:
+Al enviarle un arreglo sin condiciones como parámetro, el Hook useEffect se va a ejecutar una sola vez. Sin importar si se renderiza miles de veces la página:
 
 ```js
 React.useEffect(() => {
@@ -1354,7 +1313,7 @@ React.useEffect(() => {
 }, []);
 ```
 
-> Al enviarle un parámetro dentro del arreglo, entonces el Hook se va a ejecutar siempre que haya cambios en ese parámetro:
+Al enviarle un parámetro dentro del arreglo, entonces el Hook se va a ejecutar siempre que **haya cambios en ese parámetro**:
 
 ```js
 React.useEffect(() => {
@@ -1363,11 +1322,6 @@ React.useEffect(() => {
 ```
 
 El Hook useEffect nos permite ejecutar código cuando se monta, desmonta o actualiza nuestro componente.
-
-- El primer argumento que le enviamos a useEffect es una función que se ejecutará cuando React monte o actualice el componente. Esta función puede devolver otra función que se ejecutará cuando el componente se desmonte.
-- **El segundo argumento es un array donde podemos especificar qué propiedades deben cambiar para que React vuelva a llamar nuestro código. Si el componente actualiza pero estas props no cambian, la función no se ejecutará.**
-
-> Por defecto, cuando no enviamos un segundo argumento, React ejecutará la función de useEffect cada vez que el componente o sus componentes padres actualicen. En cambio, si enviamos un array vacío, esta función solo se ejecutará al montar o desmontar el componente.
 
 Ejemplo:
 
@@ -1379,6 +1333,7 @@ const Component = () => {
 
   useEffect(() => {
     document.title = name;
+
     return () => {
       document.title = 'el componente se desmontó';
     };
@@ -1387,6 +1342,8 @@ const Component = () => {
   return <div>{name}</div>;
 };
 ```
+
+Dentro de la función anónima podemos retornar otra función. Esta función se va a ejecutar una vez el hook se desmonta y desaparece del DOM.
 
 #### Axios
 
@@ -1425,6 +1382,7 @@ useEffect(() => {
     const response = await axios.get(URL);
     console.log(response);
   }
+
   fetchData();
 }, []);
 ```
@@ -1437,11 +1395,12 @@ useEffect(() => {
     const response = await axios(URL);
     console.log(response);
   }
+
   fetchData();
 }, []);
 ```
 
-> Diferencia entre Fetch y Axios: Fetch es nativo y axios es un paquete. Fetch nos entrega la respuesta para nosotros parsearla a través de `.json()`, axios nos entrega la respuesta lista para trabajar con ella. Manejar errores en axios es mucho más intuitivo que en fetch.
+> Fetch es nativo y axios es un paquete. Fetch nos entrega la respuesta para nosotros parsearla a través de `.json()`, axios nos entrega la respuesta lista para trabajar con ella. Manejar errores en axios es mucho más intuitivo que en fetch.
 
 ### Custom Hook
 
@@ -1449,9 +1408,9 @@ Crear un Custom Hook significa que vamos a pasar la información que teníamos a
 
 Podemos crear Hooks personalizados aparte de la lógica que tenemos, por convención debe empezar por la palabra **use**
 
-```js
-//Custom Hook para obtener productos desde una API
+- Custom hook para hacer peticiiones a una API:
 
+```js
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -1469,7 +1428,7 @@ const useGetProducts = (API) => {
 export { useGetProducts };
 ```
 
-### React.useRef y Formularios
+### useRef y Formularios
 
 **useRef** es un hook utilizado para obtener una referencia a los datos de un objeto con información mutable.
 Es decir, es como una manera de siempre poder obtener los datos mas recientes mediante referencia de algún objeto de html.
@@ -1501,24 +1460,34 @@ const Login = () => {
   };
 
   return (
-    <div className="Login">
-      <div className="Login-container">
-        <img src={logo} alt="logo" className="logo" />
-        <form action="/" className="form" ref={form}>
-          <label htmlFor="email" className="label">
+    <div className='Login'>
+      <div className='Login-container'>
+        <img src={logo} alt='logo' className='logo' />
+        <form action='/' className='form' ref={form}>
+          <label htmlFor='email' className='label'>
             Email address
           </label>
-          <input type="text" name="email" placeholder="platzi@example.cm" className="input input-email" />
-          <label htmlFor="password" className="label">
+          <input
+            type='text'
+            name='email'
+            placeholder='platzi@example.cm'
+            className='input input-email'
+          />
+          <label htmlFor='password' className='label'>
             Password
           </label>
-          <input type="password" name="password" placeholder="*********" className="input input-password" />
-          <button onClick={(e) => handleSubmit(e)} className="primary-button login-button">
+          <input
+            type='password'
+            name='password'
+            placeholder='*********'
+            className='input input-password'
+          />
+          <button onClick={(e) => handleSubmit(e)} className='primary-button login-button'>
             Log in
           </button>
-          <a href="/">Forgot my password</a>
+          <a href='/'>Forgot my password</a>
         </form>
-        <button className="secondary-button signup-button">Sign up</button>
+        <button className='secondary-button signup-button'>Sign up</button>
       </div>
     </div>
   );
@@ -1613,9 +1582,9 @@ const App = () => {
       <BrowserRouter>
         <Layout>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/recovery-password" element={<RecoveryPassword />} />
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/recovery-password' element={<RecoveryPassword />} />
           </Routes>
         </Layout>
       </BrowserRouter>
@@ -1641,15 +1610,15 @@ const ProductItem = ({ product }) => {
   };
 
   return (
-    <div className="ProductItem">
+    <div className='ProductItem'>
       <img src={product.images[2]} alt={product.title} />
-      <div className="product-info">
+      <div className='product-info'>
         <div>
           <p>${product.price},00</p>
           <p>{product.title}</p>
         </div>
         <figure onClick={() => handleClick(product)}>
-          <img src={addCart} alt="" />
+          <img src={addCart} alt='' />
         </figure>
       </div>
     </div>
@@ -1728,7 +1697,7 @@ const Button = (props) => {
   const { text } = props.text;
   return (
     <div>
-      <button type="button">{text}</button>
+      <button type='button'>{text}</button>
     </div>
   );
 };
@@ -1742,7 +1711,7 @@ import React from 'react';
 const Button = ({ value }) => {
   return (
     <div>
-      <button type="button">{value}</button>
+      <button type='button'>{value}</button>
     </div>
   );
 };
@@ -2583,18 +2552,18 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
+    <div className='App'>
       <Header />
       <Search />
       {videos.mylist?.length > 0 && (
-        <Categorias title="My list">
+        <Categorias title='My list'>
           <Carousel>
             <CarouselItem />
           </Carousel>
         </Categorias>
       )}
 
-      <Categorias title="Tendencias">
+      <Categorias title='Tendencias'>
         <Carousel>
           {videos.trends?.map((item) => (
             <CarouselItem key={item.id} {...item} />
@@ -2602,7 +2571,7 @@ const App = () => {
         </Carousel>
       </Categorias>
 
-      <Categorias title="Últimos Éxitos">
+      <Categorias title='Últimos Éxitos'>
         <Carousel>
           {videos.originals?.map((item) => (
             <CarouselItem key={item.id} {...item} />
