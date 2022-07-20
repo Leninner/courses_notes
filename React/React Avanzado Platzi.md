@@ -322,7 +322,7 @@ Para usar los iconos, se lo debe hacer como si fueran componentes, los cuáles a
 import { MdFavoriteBorder } from 'react-icons/md';
 
 <Button>
-  <MdFavoriteBorder size="32px" />
+  <MdFavoriteBorder size='32px' />
   {likes} likes!
 </Button>;
 ```
@@ -574,7 +574,7 @@ export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
       </a>
 
       <Button>
-        <MdFavoriteBorder size="32px" />
+        <MdFavoriteBorder size='32px' />
         {likes} likes!
       </Button>
     </article>
@@ -704,8 +704,8 @@ export const UserForm = ({ onSubmit }) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <input type="mail" placeholder="E-mail" {...email} />
-      <input type="password" placeholder="Password" {...password} />
+      <input type='mail' placeholder='E-mail' {...email} />
+      <input type='password' placeholder='Password' {...password} />
       <button>Iniciar Sesión</button>
     </form>
   );
@@ -775,7 +775,9 @@ useEffect(() => {
 useEffect(() => {
   // Aquí comprobamos si el está disponible o no en el navegador
   Promise.resolve(
-    typeof window.IntersectionObserver !== 'undefined' ? window.IntersectionObserver : import('intersection-observer')
+    typeof window.IntersectionObserver !== 'undefined'
+      ? window.IntersectionObserver
+      : import('intersection-observer')
   ).then(() => {
     const observer = new window.IntersectionObserver((entries) => {
       const { isIntersecting } = entries[0];
@@ -930,7 +932,7 @@ export const Layout = ({ children, title, subtitle }) => {
       {/* Aquí estamos definiendo las props para el SEO*/}
       <Helmet>
         {title && <title>{title} | Petgram 🦊</title>}
-        {subtitle && <meta name="description" content={subtitle} />}
+        {subtitle && <meta name='description' content={subtitle} />}
       </Helmet>
       <Logo />
       <div>
@@ -969,7 +971,7 @@ const HomePage = () => {
   const { id } = useParams();
 
   return (
-    <Layout title="Home">
+    <Layout title='Home'>
       <ListOfCategories />
       <ListOfPhotoCards categoryId={id} />
     </Layout>
@@ -1004,7 +1006,7 @@ export default () => {
   const { favs, loading, error } = useGetFavorites();
 
   return (
-    <Layout title="Favoritos">
+    <Layout title='Favoritos'>
       <ListOfFavs favs={favs} loading={loading} error={error} />
     </Layout>
   );
@@ -1019,9 +1021,9 @@ const Favs = React.lazy(() => import('../pages/Favs'));
 
 <Suspense fallback={<div />}>
   <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/favs" element={<Favs />} />
-    <Route path="*" element={<NotFound />} />
+    <Route path='/' element={<Home />} />
+    <Route path='/favs' element={<Favs />} />
+    <Route path='*' element={<NotFound />} />
   </Routes>
 </Suspense>;
 ```
