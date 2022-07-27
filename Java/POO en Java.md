@@ -29,6 +29,7 @@
 - [Tratamiento de Excepciones](#tratamiento-de-excepciones)
   - [Jerarquía de Excepciones](#jerarquía-de-excepciones)
   - [Declaración de las excepciones de un método](#declaración-de-las-excepciones-de-un-método)
+  - [Try Catch para excepciones verificadas](#try-catch-para-excepciones-verificadas)
 - [Ejercicios de Lógica](#ejercicios-de-lógica)
 
 # Conceptos Básicos de POO
@@ -1086,7 +1087,7 @@ Cuando en un método haya la posibilidad de lanzar una `excepción verificada`, 
 ```java
 public class Main {
     // Lanzando la excepción declarando la excepción
-    public void leerArchivo() throws FileNotFoundException {
+    public void leerArchivo() throws FileNotFoundException, IOException {
         BufferedReader br = new BufferedReader(new FileReader("archivo.txt"));
         String linea;
 
@@ -1098,6 +1099,23 @@ public class Main {
 ```
 
 > Cuando no queremos controlar la excepción dentro de un método, solo declaramos la excepción para dejarle el control de la excepción a la clase o método que lo lanza.
+
+## Try Catch para excepciones verificadas
+
+```java
+public class Main {
+    // Capturando la posible expecion de lectura de archivo
+    public static void main(String[] args) {
+        try {
+            leerArchivo();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
+```
 
 # Ejercicios de Lógica
 
