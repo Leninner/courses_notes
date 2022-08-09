@@ -1,6 +1,19 @@
 **ÍNDICE**
 
-- [Testing Basics](#testing-basics)
+- [¿Qué es Test Driven Development? TDD](#qué-es-test-driven-development-tdd)
+  - [¿Cómo realizar una prueba TDD?](#cómo-realizar-una-prueba-tdd)
+  - [Preguntas que TDD responde](#preguntas-que-tdd-responde)
+  - [Spike](#spike)
+  - [Ping Pong Pair Programming](#ping-pong-pair-programming)
+  - [TDD vs Testing Tradicional](#tdd-vs-testing-tradicional)
+  - [¿Qué es TDD de aceptación y TDD de desarrollador?](#qué-es-tdd-de-aceptación-y-tdd-de-desarrollador)
+  - [Escalar TDD a través del Agile Model Driven Development (AMDD)](#escalar-tdd-a-través-del-agile-model-driven-development-amdd)
+    - [Iteración 0 - Envisioning](#iteración-0---envisioning)
+    - [Iteration Modeling](#iteration-modeling)
+    - [Model Storming (Just in time modeling)](#model-storming-just-in-time-modeling)
+    - [Test Driven Development (TDD) vs Agile Model Driven Development (AMDD)](#test-driven-development-tdd-vs-agile-model-driven-development-amdd)
+  - [Ventajas de TDD](#ventajas-de-tdd)
+  - [Pilares fundamentales de TDD](#pilares-fundamentales-de-tdd)
   - [¿Por qué los desarrolladores deberían preocuparse por las pruebas unitarias automatizadas?](#por-qué-los-desarrolladores-deberían-preocuparse-por-las-pruebas-unitarias-automatizadas)
   - [¿Cómo lleva TDD el desarrollo al siguiente nivel?](#cómo-lleva-tdd-el-desarrollo-al-siguiente-nivel)
 - [Instalación de Jest](#instalación-de-jest)
@@ -18,17 +31,155 @@
   - [Mocking](#mocking)
 - [Pruebas asíncronas](#pruebas-asíncronas)
 
-# Testing Basics
+# ¿Qué es Test Driven Development? TDD
 
-> ¿Cuál es la importancia de Test Driven Development? TDD
+Es un **enfoque de desarrollo de software** en el que se desarrollan casos de prueba para especificar y validar `lo que hará el código.`
 
-Aquí escribe una prueba antes de escribir el código de producción suficiente para cumplir con esa prueba y luego refactoriza el código.
+Se escribe primero el test, esperando que fallen las pruebas y luego se realiza el código para hacer que las pruebas finalmente pasen. Nos ayuda a hacer código simple y fácil de depurar.
 
-El objetivo principal de TDD es la especificación y no la validación.
+<img src="./../utils/images/tdd.png">
 
-En otras palabras, TDD es una forma de pensar en sus requisitos o diseño antes de escribir su código funcional (lo que implica que TDD es tanto un requisito ágil importante como una técnica de diseño ágil). Otro punto de vista es que TDD es una técnica de programación. El objetivo de TDD es escribir código limpio que funcione.
+> Se escriben tests que fallen, antes de escribir código nuevo.
 
-1. El primer paso es agregar rápidamente una prueba, básicamente la prueba suficiente para que su código falle
+A veces también se lo denomina **test first development TFD**
+
+## ¿Cómo realizar una prueba TDD?
+
+1. Añadimos un nuevo test
+2. Correr todos los tests y verificar que los tests añadidos fallen
+3. Escribir algo de código
+4. Correr los tests y refactorizar el código
+5. Repetir
+
+<img src="./../utils/images/tddHOW.png">
+
+Algunas clarificaciones sobre TDD:
+
+- El enfoque TDD no se trata de `Pruebas` ni de `Diseño`.
+- TDD no significa `escribir algunas de las pruebas, luego construir un sistema que pase las pruebas.`
+- TDD no significa `hacer muchas pruebas`.
+
+## Preguntas que TDD responde
+
+- ¿Cómo hago el código?
+- ¿Por dónde empiezo?
+- ¿Cómo se lo que hay que implementar y lo que no?
+- ¿Cómo escribir un código que se pueda modificar sin romper el código existente?
+
+## Spike
+
+¿Cómo hago TDD de algo totalmente nuevo y no sé como funciona?
+
+Se debe hacer un **Spike**
+
+Es tomarse un tiempo para investigar herramientas, librerías, conceptos, etc, con la finalidad de ganar conocimiento.
+
+Por ejemplo: Al trabajar con una nueva API y no sabemos como hacerlo, podemos hacer un Spike para investigarla y analizar las respuestas que me entrega la API.
+
+Otro ejemplo:
+
+<img src="./../utils/images/tddejemplo.png">
+
+¿Qué debemos hacer primero?
+
+<img src ="./../utils/images/preguntastdd.png">
+
+> Debemos tener el flujo de la tarea bien definido.
+
+<img src="./../utils/images/comotdd.png">
+
+## Ping Pong Pair Programming
+
+Es una fusión entre TDD y Pair Programming.
+
+- Se usa TDD
+- Es fácil encontrar un ritmo para que el pair fluya
+- Evita que los pares no coincidan, si un dev sabe más que otro
+- El trabajo está gamificado
+
+<img src="./../utils/images/howpp.png">
+
+## TDD vs Testing Tradicional
+
+- Con testing tradicional, al pasar un test se encuentra uno o más defectos. En TDD, al fallar un test, sabemos exactamente **qué necesitamos para resolver el problema**
+- TDD **asegura** que tu sistema cumpla con los **requerimientos definidos para él**. Ayuda a construir confianza sobre el sistema.
+- En TDD, se enfoca más en el código de producción que en el código de las pruebas. En Testing tradicional, se enfoca más en el diseño de las pruebas.
+- En TDD se evalua el 100% de cobertura, a comparación del testing tradicional.
+- La combinación de pruebas tradicionales y TDD lleva a la importancia de probar el sistema en lugar de perfeccionarlo.
+
+## ¿Qué es TDD de aceptación y TDD de desarrollador?
+
+1. `Acceptance TDD (ATDD):` Con esto, escribes una sola prueba de aceptación. Este test cumple con los requerimientos de las especificaciones o conportamientos del sistema. Esta prueba se basa en el comportamiento del sistema. Se conoce también como **Behavior Driven Development (BDD).**
+
+2. `Developer TDD`: En este caso, se escriben varias pruebas unitarias para cada una de las pequeñas funcionalidades del sistema.
+
+> Ambos casos usan JIT (Just In Time), que significa que vamos a cumplir con las pruebas que pruebas solo los requerimientos necesarios del sistema.
+
+<img src="./../utils/images/tddATDD.png">
+
+## Escalar TDD a través del Agile Model Driven Development (AMDD)
+
+TDD es muy bueno en la especificación y validación detalladas pero no puede pensar en cuestiones más importantes, como el diseño general, el uso del sistema o la UI.
+
+AMDD aborda los problemas de escalamiento ágil que TDD no aborda, `se usa para problemas más grandes.`
+
+El ciclo de vida de AMDD:
+
+<img src="./../utils/images/amdd.png">
+
+`Envisioning`
+
+- Es una parte del desarrollo TDD en donde se predicen/imaginan tests que serán desarrollados durante la primera semana del proyecto.
+- El objetivo principal es analizar el alcance del sistema y su arquitectura
+- En este proceso no se busca detallar las especificaciones del sistema. Se exploran los requerimientos del sistema, lo cuál nos da una estrategia general del proyecto.
+
+### Iteración 0 - Envisioning
+
+1. `Initial requirements envisioning`: Puede tomar varios días para identificar los **requisitos de alto nivel y el alcance** del sistema.
+2. `Initial Architectural envisioning`: Puede tomar varios días para identificar la arquitectura del sistema.
+
+### Iteration Modeling
+
+Aquí el equipo planea el trabajo que será hecho durante cada iteración
+
+- Un proceso ágil es usado para el diseño de las iteraciones.
+- Se tomará en consideración el primer trabajo de mayor prioridad. Los elementos de trabajo agregados pueden volver a priorizarse o eliminarse de la pila de elementos en cualquier momento.
+- El equipo discute cómo van a implementar cada requisito. El modelado se utiliza para este propósito.
+- El análisis y diseño del modelado se realiza para cada requisito que se va a implementar para esa iteración.
+
+### Model Storming (Just in time modeling)
+
+Se realizan sesiones para identificar problemas en el modelado. Posteriomente, si se encontró un problema y se quiere solucionar, se realizan **stand-up modeling or customer QA sessions.**
+
+### Test Driven Development (TDD) vs Agile Model Driven Development (AMDD)
+
+- TDD acorta el ciclo de retroalimentación de programación
+- AMDD acorta el ciclo de retroalimentación de modelado
+- TDD es para espeficicaciones detalladas
+- AMDD trabaja para grandes problemas
+- TDD promueve el desarrollo de código de alta calidad.
+- AMDD promueve alta calidad de comunicación con los stakeholders y developers.
+- TDD habla a los developers
+- AMDD bala a un analista de negocio, stakeholders y profesionales de datos.
+- TDD orientado a la no visualización.
+- AMDD oriendtado a la visualización.
+- TDD tiene alance limitado a como el software funciona.
+- AMDD tiene un amplio alcance que incluye a las partes interesadas. Se trata de trabajar hacia un entendimiento común
+- Ambos soportan desarrollo evolucionado
+
+## Ventajas de TDD
+
+- Notificación temprana de bugs
+- Código bien diseñado, limpio y más extensible
+- Confianza al refactorizar
+- Bueno para el trabajo en equipo
+- Bueno para los desarrolladores
+
+## Pilares fundamentales de TDD
+
+- Se implementan las funciones justas que requiere el cliente y no más
+- Minimización de defectos que llegan a producción
+- Producción de software modular, flexible y escalable
 
 ## ¿Por qué los desarrolladores deberían preocuparse por las pruebas unitarias automatizadas?
 
