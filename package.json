@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/Leninner/notes_leninner/issues"
   },
-  "homepage": "https://github.com/Leninner/notes_leninner#readme"
+  "homepage": "https://github.com/Leninner/notes_leninner#readme",
+  "devDependencies": {
+    "eslint": "^8.22.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.4",
+    "eslint-plugin-promise": "^6.0.0"
+  }
 }
