@@ -100,6 +100,49 @@ Imagen con los tiempo en BigO de las operaciones de una Singly Linked List:
 
 <img src="../utils/images/bigOLinkedList.png">
 
+Implementación de una Singly Linked List en JavaScript:
+
+```javascript
+class Node {
+  constructor(key, next = null) {
+    this.key = key;
+    this.next = next;
+  }
+}
+
+const node = new Node(10, new Node(20, new Node(30, new Node(40, new Node(50)))));
+```
+
+Implementación del método `insertAfter`:
+
+```js
+function insertAfter(node, newKey) {
+  const newNode = new Node(newKey, node.next);
+  node.next = newNode;
+}
+```
+
+implementación del método `findN`:
+
+```js
+function findN(node, n) {
+  if (n === 0) {
+    return node;
+  }
+  
+  return findN(node.next, n - 1);
+}
+```
+
+Ventajas sobre los arreglos:
+
+- Cuando queremos añadir un elemento en la mitad de la lista, nos tomará un tiempo constante si tenemos referencia al nodo anterior.
+- No nos preocupamos por el tamaño de la lista, puede seguir creciendo hasta que la memoria se llene.
+
+Desventajas sobre los arreglos:
+
+- Cuando queremos buscar un elemento n es la lista, el tiempo que tarda en encontrarlo es proporcional al tamaño de la lista. En los arreglos, el tiempo es constante.
+
 ## Stacks
 
 ## Queues
