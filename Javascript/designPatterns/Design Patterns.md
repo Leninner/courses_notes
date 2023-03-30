@@ -162,9 +162,9 @@ class Car {
       this.year = year;
       // En instancia, guardamos la información del objeto con la palabra this
       instance = this;
-    } else {
-      return instance;
-    }
+    } 
+    
+    return instance;
   }
 }
 
@@ -390,27 +390,43 @@ Es muy similar a los `mixins`. Este patrón se utiliza mucho para `añadir` func
 - Un ejemplo en TypeScript:
 
 ```Ts
-function first() {
-  console.log("first(): factory evaluated");
-  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-    console.log("first(): called");
-  };
-}
-
-function second() {
-  console.log("second(): factory evaluated");
-  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-    console.log("second(): called");
-  };
-}
-
-// En esta estamos añadiendo dos funciones que van a "decorar" nuestra clase
-class ExampleClass {
-  @first()
-  @second()
-  method() {
-    // do something
+// Airplane Class
+function buildAirplanes(color) {
+  this.brand = 'Airbus';
+  this.model = 'A380';
+  this.utilLife = 25;
+  this.extras = 0
+  this.color = color || 'white';
+  this.characteristics = function() {
+    console.log(`Brand: ${this.brand}, Model: ${this.model}, Util Life: ${this.utilLife}, Color: ${this.color}`);
   }
+}
+
+const defaultAirplane = new buildAirplanes();
+defaultAirplane.characteristics();
+
+const airplaneBlue = new buildAirplanes('blue');
+// applying first decorator
+navegationSystem(airplaneBlue);
+airplaneBlue.characteristics();
+console.log(airplaneBlue);
+
+const airplaneRed = new buildAirplanes('red');
+// applying second decorator
+sectionDeluxe(airplaneRed);
+airplaneRed.characteristics();
+console.log(airplaneRed);
+
+// first Decorator
+function navegationSystem(airplane) {
+  airplane.navegationSystem = true;
+  airplane.extras++;
+}
+
+// second Decorator
+function sectionDeluxe(airplane) {
+  airplane.sectionDeluxe = true;
+  airplane.extras++;
 }
 ```
 
