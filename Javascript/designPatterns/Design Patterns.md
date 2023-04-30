@@ -5,8 +5,8 @@
   - [Historia](#historia)
 - [Categorías de Patrones de Diseño](#categorías-de-patrones-de-diseño)
   - [Patrones Creacionales o Creationals Patterns](#patrones-creacionales-o-creationals-patterns)
-    - [Class Design Pattern](#class-design-pattern)
-    - [Builder (Constructor)](#builder-constructor)
+    - [Class Design Pattern or Prototype Pattern](#class-design-pattern-or-prototype-pattern)
+    - [Builder Pattern](#builder-pattern)
     - [Singleton Pattern](#singleton-pattern)
     - [Factory Pattern](#factory-pattern)
     - [Abstract Factory](#abstract-factory)
@@ -28,7 +28,6 @@
     - [Memento Pattern](#memento-pattern)
     - [Mediator Pattern](#mediator-pattern)
     - [Command Pattern](#command-pattern)
-- [Singleton (Creacional)](#singleton-creacional)
 - [Observer](#observer)
   - [Casos de Uso del patrón Observer: Redux](#casos-de-uso-del-patrón-observer-redux)
 - [Patrón Decorator](#patrón-decorator)
@@ -90,63 +89,261 @@ No obstante, no fue hasta principios de la década de 1990 cuando los patrones d
 
 Controlan el proceso de creación de un objeto
 
-- Class Design Pattern or Prototype
+- Class Design Pattern or Prototype Pattern
 - Builder (Constructor)
 - Singleton Pattern
 - Factory Pattern
 - Abstract Factory
 
-### Class Design Pattern
+### Class Design Pattern or Prototype Pattern
 
-Podemos crear objetos a partir de una clase en JS
+Prototype es un patrón de diseño creacional que nos permite copiar objetos a partir de un objeto fuente, de forma que no dependamos de sus clases concretas. 
+
+Es como si tuvieramos un juguete y quisieramos crear muchos juguetes iguales al primero pero sin hacerlo desde cero, sino copiando el primero y modificando lo que queramos.
+
+Casos de uso:
+
+1. **Clonación de objetos complejos**: Si tienes un objeto que es muy complejo de crear y necesitas varias copias de ese objeto, el patrón de diseño Prototype puede ayudarte a crear esas copias fácilmente sin tener que volver a crear el objeto complejo cada vez.
+
+2. **Personalización de objetos**: Imagina que tienes un objeto que es bastante estándar, pero necesitas hacer pequeñas personalizaciones en cada objeto para adaptarlo a diferentes necesidades. Con el patrón de diseño Prototype, puedes usar una copia del objeto original y personalizar cada copia según sea necesario.
+
+3. **Generación de objetos dinámicos**: Si necesitas crear muchos objetos dinámicamente, el patrón de diseño Prototype puede ser muy útil. Por ejemplo, si estás creando un videojuego y necesitas generar muchos personajes, puedes usar el patrón de diseño Prototype para crear una plantilla de personaje y generar copias personalizadas de ese personaje para cada instancia del juego.
+
+4. **Optimización del rendimiento**: El patrón de diseño Prototype también puede ayudarte a optimizar el rendimiento de tu aplicación al reducir la carga en la creación de objetos complejos. En lugar de crear un objeto desde cero cada vez que se necesita, puedes usar una copia existente del objeto para ahorrar tiempo y recursos.
+
+Ejemplos de uso:
+
+- Editor de documentos: Diferentes versiones de un documento
+- Motores de juegos: Creación de múltiples instancias de un personaje
+- Herramientas de diseño: Creación de plantillas personalizadas
+- Sistemas de gestión de bases de datos: Creación de copias de una base de datos existente
+
+> Se utiliza comúnmente en situaciones donde se necesita crear objetos similares o idénticos de manera eficiente, y donde la creación de objetos desde cero puede ser costosa en términos de tiempo y recursos.
 
 - Podemos hacerlo de esta manera
 
-```js
-class Car {
-  constructor(make, model, year) {
-    this.make = make;
-    this.model = model;
-    this.year = year;
+```ts
+// Define la interfaz del prototipo
+interface Prototype {
+  clone(): Prototype;
+}
+
+// Implementa la clase base del prototipo
+class BasePrototype implements Prototype {
+  public prop1: string;
+  public prop2: number;
+
+  constructor(prop1: string, prop2: number) {
+    this.prop1 = prop1;
+    this.prop2 = prop2;
+  }
+
+  public clone(): Prototype {
+    // Crea una copia del objeto actual y devuelve el prototipo
+    return Object.create(this);
   }
 }
 
-const Audi = new Car('Audi', 'A4', '2018');
+// Implementa una clase personalizada que hereda del prototipo base
+class CustomPrototype extends BasePrototype {
+  public prop3: boolean;
 
-console.log(Audi);
+  constructor(prop1: string, prop2: number, prop3: boolean) {
+    super(prop1, prop2);
+    this.prop3 = prop3;
+  }
+
+  public clone(): Prototype {
+    // Crea una copia del objeto actual y devuelve el prototipo personalizado
+    return Object.create(this);
+  }
+}
+
+// Utiliza el prototipo para crear copias personalizadas
+const basePrototype = new BasePrototype("prop1", 2);
+const customPrototype = new CustomPrototype("prop1", 2, true);
+
+const baseClone = basePrototype.clone();
+const customClone = customPrototype.clone();
+
+console.log(baseClone.prop1); // "prop1"
+console.log(customClone.prop3); // true
 ```
 
-### Builder (Constructor)
+### Builder Pattern
 
-Sirve mucho cuando queremos crear múltiples subcategorías de una clase. Hacemos uso de herencias.
+Sirve para poder crear objetos complejos paso a paso. El patrón nos permite producir distintos tipos y representaciones de un objeto empleando el mismo código de construcción.
 
-- Podemos crear una subcategoría de una clase, de esta forma:
+Casos de uso:
 
-```js
-class Car {
-  constructor(make, model, year) {
-    this.make = make;
-    this.model = model;
-    this.year = year;
+1. **Construcción de objetos configurables**: Cuando un objeto necesita ser configurado de múltiples maneras, el patrón Builder puede ser utilizado para definir diferentes configuraciones. Por ejemplo, la construcción de un coche donde el comprador puede elegir entre diferentes opciones de colores, ruedas, motor, etc.
+
+2. **Creación de objetos complejos**: Cuando un objeto requiere la creación de varias partes con diferentes configuraciones, el patrón Builder puede ayudar a simplificar el proceso de construcción. Por ejemplo, la construcción de un árbol sintáctico complejo en un compilador o la creación de una consulta SQL compleja en una base de datos.
+
+3. **Creación de objetos inmutables**: En algunos casos, es deseable crear objetos inmutables que no pueden ser modificados después de su creación. El patrón Builder se puede utilizar para crear objetos inmutables mediante la construcción de todas las partes del objeto en la creación y luego sellando el objeto para evitar cambios posteriores.
+
+4. **Creación de objetos con múltiples variaciones**: Cuando se necesita crear múltiples variaciones de un objeto, el patrón Builder puede ser utilizado para definir diferentes variaciones del objeto. Por ejemplo, la construcción de diferentes tipos de hamburguesas en un restaurante, donde cada hamburguesa puede tener diferentes opciones de ingredientes.
+
+> El patrón Builder es útil en cualquier situación en la que se necesite crear objetos complejos o configurables de manera flexible.
+
+También se puede implementar una clase **director** que se encargue de crear diversas versiones de un objeto, y una clase **builder** que se encargue de construir el objeto.
+
+Implementación con `clase director`:
+
+```ts
+class Product {
+  private prop1: string;
+  private prop2: number;
+  private prop3: boolean;
+
+  constructor(prop1: string, prop2: number, prop3: boolean) {
+    this.prop1 = prop1;
+    this.prop2 = prop2;
+    this.prop3 = prop3;
+  }
+
+  public getProp1(): string {
+    return this.prop1;
+  }
+
+  public getProp2(): number {
+    return this.prop2;
+  }
+
+  public getProp3(): boolean {
+    return this.prop3;
   }
 }
 
-// Aquí estamos usando el patrón constructor para crear una subcategoría de una clase padre
-class SUV extends Car {
-  constructor(make, model, year) {
-    super(make, model, year);
-    this.wheels = 4;
+interface Builder {
+  setProp1(prop1: string): void;
+  setProp2(prop2: number): void;
+  setProp3(prop3: boolean): void;
+  getProduct(): Product;
+}
+
+class ConcreteBuilder implements Builder {
+  private product: Product;
+
+  constructor() {
+    this.product = new Product("", 0, false);
+  }
+
+  public setProp1(prop1: string): void {
+    this.product.prop1 = prop1;
+  }
+
+  public setProp2(prop2: number): void {
+    this.product.prop2 = prop2;
+  }
+
+  public setProp3(prop3: boolean): void {
+    this.product.prop3 = prop3;
+  }
+
+  public getProduct(): Product {
+    return this.product;
   }
 }
 
-const Audi = new SUV('Audi', 'A4', '2018');
+class Director {
+  private builder: Builder;
 
-console.log(Audi);
+  constructor(builder: Builder) {
+    this.builder = builder;
+  }
+
+  public constructMinProduct(): void {
+    this.builder.setProp1("prop1");
+  }
+
+  public constructMaxProduct(): void {
+    this.builder.setProp1("prop1");
+    this.builder.setProp2(2);
+    this.builder.setProp3(true);
+  }
+}
+
+// Ejemplo de uso
+const builder = new ConcreteBuilder();
+const director = new Director(builder);
+
+director.constructMinProduct();
+const minProduct = builder.getProduct();
+console.log(minProduct.getProp1()); // "prop1"
+
+director.constructMaxProduct();
+const maxProduct = builder.getProduct();
+console.log(maxProduct.getProp1()); // "prop1"
+console.log(maxProduct.getProp2()); // 2
+console.log(maxProduct.getProp3()); // true
+```
+
+Implementación sin `clase director`:
+
+```ts
+class Query {
+  private query: string;
+
+  constructor(query: string) {
+    this.query = query;
+  }
+
+  public getQuery(): string {
+    return this.query;
+  }
+}
+
+interface QueryBuilder {
+  select(fields: string[]): void;
+  from(table: string): void;
+  where(condition: string): void;
+  orderBy(field: string): void;
+  build(): Query;
+}
+
+class SqlQueryBuilder implements QueryBuilder {
+  private query: string;
+
+  constructor() {
+    this.query = "";
+  }
+
+  public select(fields: string[]): void {
+    this.query += `SELECT ${fields.join(", ")} `;
+  }
+
+  public from(table: string): void {
+    this.query += `FROM ${table} `;
+  }
+
+  public where(condition: string): void {
+    this.query += `WHERE ${condition} `;
+  }
+
+  public orderBy(field: string): void {
+    this.query += `ORDER BY ${field} `;
+  }
+
+  public build(): Query {
+    return new Query(this.query);
+  }
+}
+
+// Ejemplo de uso
+const builder = new SqlQueryBuilder();
+builder.select(["name", "age"]);
+builder.from("users");
+builder.where("age > 18");
+builder.orderBy("name ASC");
+
+const query = builder.build();
+console.log(query.getQuery()); // "SELECT name, age FROM users WHERE age > 18 ORDER BY name ASC"
 ```
 
 ### Singleton Pattern
 
-Nos asegura una sola instancia de una clase, es decir, no van a poderse crear más de una instancia.
+Nos asegura una sola instancia de una clase, es decir, no van a poderse crear más de una instancia. Esta instancia se va a poder compartir en todo el código.
 Comprueba si ya existe una instancia, y si es así, retorna esa instancia, caso contrario, crea una nueva instancia.
 
 - Podemos crearla así:
@@ -174,6 +371,80 @@ const BMW = new Car('BMW', 'X5', '2019');
 console.log(Audi);
 console.log(BMW);
 ```
+
+“Single” en inglés es “sencillo” (o soltero ¬w¬) así que se puede recordar si se asocia con su significado “Singleton” vendría a ser un objeto o instancia “solterona”.
+
+En el siguiente ejemplo, creo la clase ActionsBus que se supone que se instancia solo una vez, ya que debería haber un único punto para enviar una acción.
+
+Además, debe ser notificado sobre cada acción en el sistema simplemente suscribiéndose en un lugar.
+
+```ts
+import { BehaviorSubject } from 'rxjs';
+
+interface Action {
+  type: string;
+}
+
+class ActionsBus {
+  private static instance: ActionsBus;
+  private actionsSubject = new BehaviorSubject<Action>(null);
+
+  get actions$() {
+    return this.actionsSubject.asObservable();
+  }
+
+  private constructor() {}
+
+  static getInstance(): ActionsBus {
+    if (!ActionsBus.instance) {
+      ActionsBus.instance = new ActionsBus();
+    }
+
+    return ActionsBus.instance;
+  }
+
+  dispatch(action: Action) {
+    this.actionsSubject.next(action);
+  }
+}
+```
+
+Los puntos clave son:
+
+- constructor con un modificador de acceso privado, para que no sea accesible fuera del cuerpo de la clase,
+- instancia estática archivada que se supone que hace referencia a la instancia única de la clase,
+- Método getInstance estático que se encarga de devolver la instancia de la clase. Además, sigue una estrategia de evaluación perezosa, por lo tanto, debe crear la instancia cuando se llama por primera vez.
+
+Singleton en acción
+
+Veamos si la clase ActionsBus es un singleton, es decir, si solo hay una instancia de la clase.
+
+```ts
+//illegal since the constructor is private
+const illegalActionsBus = new ActionsBus();
+
+const firstActionsBus = ActionsBus.getInstance();
+const secondActionsBus = ActionsBus.getInstance();
+
+//both constants reference the same object
+console.log(firstActionsBus === secondActionsBus);
+
+firstActionsBus.actions$.subscribe(console.log);
+secondActionsBus.dispatch({ type: 'Fetch news' });
+
+//console output
+//{type: "Fetch news"}
+```
+
+Es ilegal crear la instancia de clase de forma tradicional fuera del cuerpo de la clase.
+
+Para obtener una referencia a la instancia única de ActionsBus, debe llamar al método estático getInstance.
+
+Ambas constantes ( primer / segundo ActionsBus ) hacen referencia al mismo objeto, por lo tanto, la comparación lógica produce verdadero.
+
+Por último, pero no menos importante, si se suscribe a la acción$ stream con la ayuda de la referencia firstActionsBus, recibirá una acción enviada utilizando la referencia secondActionsBus.
+
+Definitivamente confirma que solo hay una instancia de la clase ActionsBus en el sistema.
 
 ### Factory Pattern
 
@@ -549,94 +820,6 @@ Provee un set de objetos que interactúan entre sí. Principalmente al tener una
 ### Command Pattern
 
 Encapsula acciones u operaciones como objetos. **Redux** utiliza este patrón para crear acciones.
-
-# Singleton (Creacional)
-
-Te asegura que una clase solo tiene una instancia. Esta única instancia puede ser consumida por cualquier otro objeto.
-
-“Single” en inglés es “sencillo” (o soltero ¬w¬) así que se puede recordar si se asocia con su significado “Singleton” vendría a ser un objeto o instancia “solterona”.
-
-- Singlenton con TS
-
-Uno de los patrones de diseño de creación más populares es el patrón Singleton que restringe la creación de instancias de una clase a un objeto.
-
-TypeScript permite implementar el patrón Singleton gracias a las siguientes características:
-
-- soporte para modificadores de acceso (privado, protegido, público),
-- soporte para métodos estáticos,
-- siendo un lenguaje estáticamente escrito.
-
-En el siguiente ejemplo, creo la clase ActionsBus que se supone que se instancia solo una vez, ya que debería haber un único punto para enviar una acción.
-
-Además, debe ser notificado sobre cada acción en el sistema simplemente suscribiéndose en un lugar.
-
-```ts
-import { BehaviorSubject } from 'rxjs';
-
-interface Action {
-  type: string;
-}
-
-class ActionsBus {
-  private static instance: ActionsBus;
-  private actionsSubject = new BehaviorSubject<Action>(null);
-
-  get actions$() {
-    return this.actionsSubject.asObservable();
-  }
-
-  private constructor() {}
-
-  static getInstance(): ActionsBus {
-    if (!ActionsBus.instance) {
-      ActionsBus.instance = new ActionsBus();
-    }
-
-    return ActionsBus.instance;
-  }
-
-  dispatch(action: Action) {
-    this.actionsSubject.next(action);
-  }
-}
-```
-
-Los puntos clave son:
-
-- constructor con un modificador de acceso privado, para que no sea accesible fuera del cuerpo de la clase,
-- instancia estática archivada que se supone que hace referencia a la instancia única de la clase,
-- Método getInstance estático que se encarga de devolver la instancia de la clase. Además, sigue una estrategia de evaluación perezosa, por lo tanto, debe crear la instancia cuando se llama por primera vez.
-
-Singleton en acción
-
-Veamos si la clase ActionsBus es un singleton, es decir, si solo hay una instancia de la clase.
-
-```ts
-//illegal since the constructor is private
-const illegalActionsBus = new ActionsBus();
-
-const firstActionsBus = ActionsBus.getInstance();
-const secondActionsBus = ActionsBus.getInstance();
-
-//both constants reference the same object
-console.log(firstActionsBus === secondActionsBus);
-
-firstActionsBus.actions$.subscribe(console.log);
-secondActionsBus.dispatch({ type: 'Fetch news' });
-
-//console output
-//{type: "Fetch news"}
-```
-
-Es ilegal crear la instancia de clase de forma tradicional fuera del cuerpo de la clase.
-
-Para obtener una referencia a la instancia única de ActionsBus, debe llamar al método estático getInstance.
-
-Ambas constantes ( primer / segundo ActionsBus ) hacen referencia al mismo objeto, por lo tanto, la comparación lógica produce verdadero.
-
-Por último, pero no menos importante, si se suscribe a la acción$ stream con la ayuda de la referencia firstActionsBus, recibirá una acción enviada utilizando la referencia secondActionsBus.
-
-Definitivamente confirma que solo hay una instancia de la clase ActionsBus en el sistema.
 
 # Observer
 

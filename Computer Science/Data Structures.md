@@ -88,9 +88,9 @@ Imagen de una lista singly linked list:
 - `key TopFront()`: Devuelve el elemento que está en el inicio de la lista.
 - `PopFront()`: Elimina el elemento que está en el inicio de la lista.
 - `PushBack(key)`: Añade el elemento `key` al final de la lista. (Llamado también `append`).
-- `ket TopBack()`: Devuelve el elemento que está en el final de la lista.
+- `TopBack()`: Devuelve el elemento que está en el final de la lista.
 - `PopBack()`: Elimina el elemento que está en el final de la lista.
-- `Boolean Find(key)`: is true if the list contains the element `key`.
+- `BooleanFind(key)`: is true if the list contains the element `key`.
 - `Erase(key)`: Elimina el elemento `key` de la lista.
 - `Boolean Empty()`: is true if the list is empty.
 - `AddBefore(node, newKey)`: Añade el elemento `newKey` antes del `nodo`.
