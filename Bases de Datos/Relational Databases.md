@@ -77,3 +77,193 @@ Is a collection of rows and columns. Each intersection of a row and a column mus
 - The refence integrity: A set of rules don't allow the integrity violation of the database.
   - You can't that in a subtable appears a value that is not in the main table (foreign key).
 
+## Exercises
+
+Show the name, lastName, ocupation, salary and comission of the employees that have a comission greater than the employee with the "Contador" ocupation.
+
+```sql
+SELECT name, lastName, ocupation, salary, comission
+FROM employees
+WHERE comission > ALL(
+  SELECT comission 
+  FROM employees 
+  WHERE ocupation = 'Contador'
+);
+```
+
+Show the name, lastName, ocupation, salary and comission of the employees that have a comission less than the employee with the "Contador" ocupation.
+
+```sql
+SELECT name, lastName, ocupation, salary, comission
+FROM employees
+WHERE comission > ANY(
+  SELECT comission 
+  FROM employees 
+  WHERE ocupation = 'Contador'
+);
+```
+
+ALL and ANY are used for numeric values and for > and <
+ALL and ANY aren't used for =, >=, <=, <>
+
+Show the people that not live in the same direction as the employee with the "Vendedor" ocupation.
+
+```sql
+SELECT name, lastName, ocupation, salary, comission
+FROM employees
+WHERE direction NOT IN(
+  SELECT direction 
+  FROM employees 
+  WHERE ocupation = 'Vendedor'
+);
+```
+
+Show the documentId of the employees that not realize any visit in the april 2023.
+
+```sql
+SELECT documentId
+FROM employees
+WHERE documentId NOT IN(
+  SELECT documentId 
+  FROM visits 
+  WHERE date BETWEEN '01/01/2023' AND '30/04/2023'
+);
+```
+
+Show all the fields of the client that not receive any visit in the march 2023.
+
+```sql
+SELECT *
+FROM clients
+WHERE documentId NOT IN(
+  SELECT documentId 
+  FROM visits 
+  WHERE date BETWEEN '01/03/2023' AND '31/03/2023'
+);
+```
+
+Using subqueries to retreive data from multiple tables.
+All database access must be done comparing the primary key of the main table with the corresponding foreign key of the subtable.
+
+Show the name, lastName, ocupation and salary of the employees that belong to the department with the name "Ventas".
+
+```sql
+SELECT name, lastName, ocupation, salary
+FROM employees
+INNER JOIN departments ON employees.departmentId = departments.departmentId
+WHERE departments.name = 'Ventas';
+
+-- OR
+
+SELECT name, lastName, ocupation, salary
+FROM employees
+WHERE departmentId = (
+  SELECT departmentId
+  FROM departments
+  WHERE name = 'Ventas'
+);
+```
+
+Show the name, lastName and direction of the client that have a visit in the visit with the id 10.
+
+```sql
+SELECT name, lastName, direction
+FROM clients
+WHERE documentId = (
+  SELECT documentId
+  FROM visits
+  WHERE visitId = 10
+);
+```
+
+Show all data of the employee that visit in march the client that have a letter 'a' in the name. The visit was with a motive different to 'COBRANZA'.
+
+```sql
+SELECT *
+FROM employees
+WHERE documentId IN (
+  SELECT documentId
+  FROM visits
+  WHERE date BETWEEN '01/03/2023' AND '31/03/2023'
+    AND motive <> 'COBRANZA'
+    AND documentId IN (
+      SELECT documentId
+      FROM clients
+      WHERE name LIKE '%a%'
+    )
+);
+```
+
+Show the name, lastName, salary, ocupation and age of the employee that belong to the department with the name "Compras" and have the salary greater than all the employees that are "CONTADOR" and make a visit to the client with the name "Carlos Alvarado" in march 2023 with the "COBRANZA" motive.
+
+```sql
+SELECT name, lastName, salary, ocupation, TRUNC((SYSTEDATE - birthDate) / 365, 0) age
+FROM employees
+WHERE departmentId = (
+    SELECT departmentId
+    FROM departments
+    WHERE name = "Compras"
+  )
+AND salary > ALL(
+  SELECT salary
+  FROM employees
+  WHERE ocupation = "CONTADOR"
+)
+AND documentId IN (
+  SELECT documentId
+  FROM visits
+  WHERE date BETWEEN "01/03/2023" AND "31/03/2023"
+    AND motive = "COBRANZA"
+    AND clientId IN (
+      SELECT clientId
+      FROM clients
+      WHERE name = "Carlos" AND lastName = "Alvarado"
+    )
+);
+```
+
+Show all data of the department to belong the employee that visit during 2023 the client with the documentId 1850994623
+
+```sql
+SELECT *
+FROM department
+WHERE departmentId IN (
+  SELECT departmentId
+  FROM employees
+  WHERE documentId IN (
+    SELECT documentId
+    FROM visits
+    WHERE date LIKE '%2023'
+      AND clientId = 1850994623
+  )
+);
+```
+
+## Use of Joins
+
+Is a equlity condition  between the primary key of a table and the corresponding foreign key of another table.
+The JOIN replaces the subquery.
+
+The JOIN is useful when you need to show data from multiple tables.
+
+Show the client and employee data that participates in the visti with the id 15
+
+```sql
+SELECT clients.name, clients.lastName, clients.direction, employees.name, employees.lastName, employees.ocupation
+FROM clients, employees, visitas
+WHERE visitas.numVis = 15
+  AND visitas.clientId = clients.clientId
+  AND visitas.documentId = employees.documentId;
+```
+
+Show the code, department name and the code, name and last name of the employee that belong to that department and had a visit in 2023 to the client "María García" and also show the motive of the visit.
+
+```sql
+SELECT departments.departmentId, departments.name, employees.documentId, employees.name, employees.lastName, visits.motive
+FROM departments, employees, visits
+WHERE departments.departmentId = empleados.departmentId
+  AND employees.documentId = visits.employeeId
+  AND visits.date LIKE '%23'
+  AND clients.documentId = visits.documentId
+  AND clients.name = 'MARIA' and clients.lastName = 'GARCIA';
+```
