@@ -267,3 +267,108 @@ WHERE departments.departmentId = empleados.departmentId
   AND clients.documentId = visits.documentId
   AND clients.name = 'MARIA' and clients.lastName = 'GARCIA';
 ```
+
+Muestra el codigo, nombre, apellido y sueldo del empleado que gana mas que el empleado con codigo E10 y que visitó durante la 1ra semana de marzo al cliente JULIA SANCHEZ
+
+-- Subconsultas
+```sql
+SELECT cod_emp, nom_emp, ape_emp, sue_emp
+FROM EMPLEADOS
+WHERE sue_emp > (
+    SELECT sue_emp
+    FROM EMPLEADOS
+    WHERE cod_emp = 'E10'
+  )
+  AND cod_emp IN (
+    SELECT cod_emp
+    FROM VISITAS
+    WHERE fec_vis BETWEEN '01/03/2023' AND '07/03/2023'
+    AND ced_cli IN (
+      SELECT ced_cli
+      FROM CLIENTES
+      WHERE nom_cli = "JULIA" AND ape_cli = "SANCHEZ"
+    )
+  );
+```
+
+-- JOINS
+Se debe aumentar la fecha y el motivo de la visita en la consulta principal
+
+```sql
+SELECT EMPLEADOS.cod_emp, EMPLEADOS.nom_emp, EMPLEADOS.ape_emp, EMPLEADOS.sue_emp, VISITAS.fec_vis, VISITAS.mot_vis
+FROM EMPLEADOS, VISITAS, CLIENTES
+WHERE EMPLEADOS.sue_emp > (
+    SELECT sue_emp
+    FROM EMPLEADOS
+    WHERE cod_emp = 'E10'
+  )
+  AND VISITAS.cod_emp = EMPLEADOS.cod_emp
+  AND VISITAS.date BETWEEN '01/03/2023' AND '07/03/2023'
+  AND CLIENTES.ced_cli = VISITAS.ced_cli
+  AND CLIENTES.nom_cli = "JULIA" AND CLIENTES.ape_cli = "SANCHEZ";
+```
+
+Show all the department data that have a employee with the name "Juan" and the employee have a visit in 2023 to the client "María García" and also show the motive of the visit.
+
+```sql
+SELECT *
+FROM departments
+WHERE departmentId IN (
+  SELECT departmentId
+  FROM employees
+  WHERE name = 'Juan'
+)
+```
+
+Show all the data of the client that was visited in february 2023 by the employee with the name "Carlos Mera"
+
+```sql
+SELECT *
+FROM clients
+WHERE clientId IN (
+  SELECT clientId
+  FROM visits
+  WHERE date BETWEEN '01/02/2023' AND '28/02/2023'
+    AND employeeId IN (
+      SELECT employeeId
+      FROM employees
+      WHERE name = 'Carlos' AND lastName = 'Mera'
+    )
+);
+```
+
+```sql
+SELECT D.*, E.nom_emp, E.ape_emp, E.sue_emp, V.fec_vis, V.mot_vis
+FROM DEPARTAMENTOS D, EMPLEADOS E, VISITAS V, CLIENTES C
+WHERE D.cod_dep = E.cod_dep
+  AND E.cod_emp = V.cod_emp
+  AND V.fec_vis BETWEEN '01/02/2023' AND '28/02/2023'
+  AND C.ced_cli = V.ced_clis
+  AND C.nom_cli = 'MARIA' AND C.ape_cli = 'GARCIA';
+```
+
+## Use of subqueries in DML statements
+
+Put the same salary of the employee with the name "Juan" to the employee with the name "Carlos"
+
+```sql
+UPDATE employees
+SET salary = (
+  SELECT salary
+  FROM employees
+  WHERE name = 'Juan'
+)
+WHERE name = 'Carlos';
+```
+
+Update to the employee with code 'E02' the salary of the employee with the code 'E23'
+
+```sql
+UPDATE employees
+SET salary = (
+  SELECT salary
+  FROM employees
+  WHERE cod_emp = 'E23'
+)
+WHERE cod_emp = 'E02';
+```
