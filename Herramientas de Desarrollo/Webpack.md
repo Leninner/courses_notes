@@ -129,6 +129,7 @@ Es un plugin para inyectar javascript, css, favicons, y nos facilita la tarea de
 
 > npm i html-webpack-plugin -D
 
+```js
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -142,32 +143,35 @@ resolve: {
 extensions: [".js"],
 },
 module: {
-rules: [
-{
-test: /\.m?js$/, // Utiliza cualquier elemento con mjs o js mjs es de modulos
-exclude: /node_modules/,
-use: {
-loader: "babel-loader",
-},
-},
-],
-},
-plugins: [
-new HtmlWebpackPlugin({
-inject: true,
-template: "./public/index.html",
-filename: "./index.html",
-}),
-],
+  rules: [
+    {
+      test: /\.m?js$/, // Utiliza cualquier elemento con mjs o js mjs es de modulos
+      exclude: /node_modules/,
+      use: {
+        loader: "babel-loader",
+      },
+    },
+  ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: "./public/index.html",
+      filename: "./index.html",
+    }),
+  ],
 };
+```
 
 NOTE: SCRIPTS
 
+```json
 "scripts": {
-"test": "echo \"Error: no test specified\" && exit 1",
-"build": "webpack --mode production",
-"dev": "webpack --mode development"
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "build": "webpack --mode production",
+  "dev": "webpack --mode development"
 }
+```
 
 ## Loaders para CSS y preprocesadores de CSS
 

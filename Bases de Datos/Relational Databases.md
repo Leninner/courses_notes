@@ -349,6 +349,8 @@ WHERE D.cod_dep = E.cod_dep
 
 ## Use of subqueries in DML statements
 
+### Update 
+
 Put the same salary of the employee with the name "Juan" to the employee with the name "Carlos"
 
 ```sql
@@ -371,4 +373,272 @@ SET salary = (
   WHERE cod_emp = 'E23'
 )
 WHERE cod_emp = 'E02';
+```
+
+Update with the same comission of the employee 'E05' to the employee that earn more than the employee with code 'EO4'
+
+```sql
+UPDATE employees
+SET comission = (
+  SELECT comission
+  FROM employees
+  WHERE cod_emp = 'E05'
+)
+WHERE sue_emp > (
+  SELECT sue_emp
+  FROM employees
+  WHERE cod_emp = 'EO4'
+);
+```
+
+### Insert
+
+Create a table with the documentId, name, lastName, salary and comission of the employees and fill with the data.
+
+```sql
+CREATE TABLE sellers
+AS SELECT documentId, name, lastName, salary, comission 
+FROM employees
+WHERE car_emp = 'Vendedor';
+```
+
+The col names can't change in the subquery
+
+
+Insert the data of the employee with the ocuppation "Vendedor" in the table sellers
+
+```sql
+INSERT INTO sellers
+SELECT documentId, name, lastName, salary, comission
+FROM employees
+WHERE ocuppation = 'Vendedor';
+```
+
+We need the same order of the columns as the table sellers.
+
+Update all the employees to earn the same salary of the seller better paid
+
+```sql
+UPDATE employees
+SET salary = (
+  SELECT MAX(salary)
+  FROM sellers
+);
+```
+
+## Commit
+
+Makes permanent the changes in the database
+
+```sql
+COMMIT;
+```
+
+## Rollback
+
+Undo the changes in the database for DML statements (INSERT, UPDATE, DELETE) till the last commit
+
+```sql
+ROLLBACK;
+```
+
+## Delete
+
+Delete the visits that were made to client with an letter a in the name
+
+```sql
+DELETE FROM visits
+WHERE clientId IN (
+  SELECT clientId
+  FROM clients
+  WHERE name LIKE '%a%'
+);
+```
+
+Delete all the visits
+
+```sql
+DELETE FROM visits;
+```
+
+Delete the employees that earn less than the employee with the code 'E03'
+
+```sql
+DELETE FROM employees
+WHERE salary < (
+  SELECT salary
+  FROM employees
+  WHERE cod_emp = 'E03'
+);
+```
+
+Delete all the supervisors
+
+```sql
+DELETE FROM employees
+WHERE supervisorId IS NULL;
+```
+
+## Group functions or Aggregation functions
+
+The group funcions are functions that works over data group and return always a single value for each group.
+
+They are:
+
+- MAX: Returns the maximum value of a column
+    ```sql
+    SELECT MAX(salary)
+    FROM employees;
+    ```
+- MIN: Returns the minimum value of a column
+  ```sql
+  SELECT MIN(salary)
+  FROM employees;
+  ```
+- COUNT: Returns the number of rows of a column, we should count the primary key
+  ```sql
+  SELECT COUNT(salary)
+  FROM employees;
+  ```
+- SUM: Returns the sum of the values of a column
+  ```sql
+  SELECT SUM(salary)
+  FROM employees;
+  ```
+- AVG: Returns the average of the values of a column
+  ```sql
+  SELECT AVG(salary)
+  FROM employees;
+  ```
+
+Show the maximum anual salary of the employees
+
+```sql
+SELECT MAX(salary * 12)
+FROM employees;
+```
+
+Show the maximun salary of the employees that are 'Contadores'
+  
+```sql  
+SELECT MAX(salary)
+FROM employees
+WHERE ocuppation = 'Contador';
+```
+
+> The 'where' clause filters the data before the group function is applied
+
+Show the name, lastName, salary and comission of the employee that earn the maximun salary
+
+```sql
+SELECT name, lastName, salary, comission
+FROM employees
+WHERE salary = (
+  SELECT MAX(salary)
+  FROM employees
+);
+```
+
+## Group by
+
+The **group by** clause is used to group the data by one or more columns.
+
+Show the maximun salary of the employees by department
+
+```sql
+SELECT departmentId, MAX(salary)
+FROM employees
+GROUP BY departmentId;
+```
+
+Show the maximun salary of the employees by department and ocuppation
+
+```sql
+SELECT departmentId, ocuppation, MAX(salary)
+FROM employees
+GROUP BY departmentId, ocuppation;
+```
+
+Show the count of the employees by department
+
+```sql
+SELECT departmentId, COUNT(CED_EMP)
+FROM employees
+GROUP BY departmentId;
+```
+
+## Having
+
+The **having** clause is used to filter the data after the group function is applied.
+
+Show the maximun salary of the employees by department and ocuppation that earn more than 1000
+
+```sql
+SELECT departmentId, ocuppation, MAX(salary)
+FROM employees
+GROUP BY departmentId, ocuppation
+HAVING MAX(salary) > 1000;
+```
+
+## Exercises
+
+Show the sum of the salary of the employees by ocuppation
+
+```sql
+SELECT ocuppation, SUM(salary)
+FROM employees
+GROUP BY ocuppation;
+```
+
+Show the sum of the salary of the employees by ocuppation but in the final result show only the sums that are greater than 5200
+
+```sql
+SELECT ocuppation, SUM(salary)
+FROM employees
+GROUP BY ocuppation
+HAVING SUM(salary) > 5200;
+```
+
+Show the documentId of the employee that made more than 5 visits during the month of february of 2023
+
+```sql
+SELECT cod_emp, COUNT(cod_emp)
+FROM visits
+WHERE fec_vis BETWEEN '01/02/2023' AND '28/02/2023'
+GROUP BY cod_emp
+HAVING COUNT(cod_emp) > 5;
+```
+
+Show the name and lastName of the client that received more than 4 visits for the motive 'Cobranza' during the first 5 months of 2023
+
+```sql
+SELECT name, lastName
+FROM clients
+WHERE documentId IN (
+  SELECT documentId
+  FROM visits
+  WHERE motive = 'Cobranza'
+  AND fec_vis BETWEEN '01/01/2023' AND '01/05/2023'
+  GROUP BY documentId
+  HAVING COUNT(num_vis) > 4
+);
+```
+
+Show the code, name and lastName that realize the greater quantity of visits in march of 2023
+
+```sql
+SELECT *
+FROM employees
+WHERE documentId IN (
+  SELECT documentId
+  FROM visits
+  WHERE fec_vis BETWEEN '01/03/2023' AND '31/03/2023'
+  GROUP BY documentId
+  HAVING COUNT(num_vis) = (
+    SELECT MAX(COUNT(num_vis))
+    FROM visits
+    WHERE fec_vis BETWEEN '01/03/2023' AND '31/03/2023'
+    GROUP BY documentId
+  )
+);
 ```
