@@ -642,3 +642,41 @@ WHERE documentId IN (
   )
 );
 ```
+
+Show the code of the department that have more than 2 sellers that earn between 500 and 2100
+
+```sql
+SELECT cod_dep, COUNT(cod_emp)
+FROM employees
+WHERE car_emp = 'SELLER'
+  AND sue_emp BETWEEN 500 and 2100
+GROUP BY cod_emp
+HAVING COUNT(cod_emp) > 2
+```
+
+Show the documentId of the client that receive the less quantity of visits
+
+```sql
+SELECT documentId, COUNT(num_vis)
+FROM visits
+GROUP BY documentId
+HAVING COUNT(num_vis) = (
+  SELECT MIN(COUNT(num_vis))
+  FROM visits
+  GROUP BY documentId
+);
+```
+
+Show the code of the employee that made the less quantity of visits in february of 2023
+
+```sql
+SELECT code
+FROM visits
+WHERE fec_vis BETWEEN '01/02/2023' AND '28/02/2023'
+GROUP BY code
+HAVING COUNT(num_vis) = (
+  SELECT MIN(COUNT(num_vis))
+  FROM visits
+  GROUP BY code
+);
+```
